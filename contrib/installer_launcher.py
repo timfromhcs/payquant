@@ -42,7 +42,7 @@ def install_payquant():
 
 def main():
     root = tk.Tk()
-    root.title("PayQuant v2.0.0 Win64 Setup")
+    root.title("PayQuant v2.1.1 Win64 Setup")
     root.geometry("500x300")
     root.configure(bg="#060913")
 
