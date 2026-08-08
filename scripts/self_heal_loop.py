@@ -153,7 +153,7 @@ def generate_report(history, status):
 - **Auto-Rerun Failed Jobs**: Triggers `POST /actions/runs/{run_id}/rerun-failed-jobs` upon build exception.
 - **Push Protection Verification**: Zero secrets in commit trajectory.
 """
-    with open('self_heal_report.md', 'w') as f:
+    with open('self_heal_report.md', 'w', encoding='utf-8') as f:
         f.write(report_md)
     print("[Self-Heal] Generated self_heal_report.md successfully.")
 

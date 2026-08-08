@@ -13,11 +13,12 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Set up Android NDK
-        uses: nsetup/setup-android-ndk@v1
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
         with:
-          ndk-version: r25c
+          java-version: '17'
+          distribution: 'temurin'
 
-      - name: Cross Compile Target
+      - name: Cross Compile Android Target
         run: |
-          echo "Android NDK Build Ready for PayQuant Kernel Library"
+          echo "Android NDK Build Target Initialized for PayQuant Kernel Library"

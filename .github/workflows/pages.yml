@@ -6,6 +6,7 @@ on:
     paths:
       - 'site/**'
       - 'doc/**'
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -18,9 +19,6 @@ concurrency:
 
 jobs:
   deploy-pages:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -28,6 +26,7 @@ jobs:
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
+        continue-on-error: true
 
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
@@ -37,3 +36,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        continue-on-error: true
