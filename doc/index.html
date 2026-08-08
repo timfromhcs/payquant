@@ -69,18 +69,39 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 0.6rem;
-            margin: 1rem 0;
+            gap: 0.8rem;
+            margin: 1.5rem 0;
         }
-        .badge {
+        a.badge {
             background: rgba(26, 26, 62, 0.8);
-            padding: 0.5rem 1.2rem;
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.08);
-            font-size: 0.9rem;
+            padding: 0.6rem 1.4rem;
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.12);
+            font-size: 0.95rem;
             color: #ccd;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
         }
-        .badge.highlight { border-color: #00d4ff; color: #00d4ff; }
+        a.badge:hover {
+            transform: translateY(-3px) scale(1.04);
+            border-color: #00d4ff;
+            color: #00d4ff;
+            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.25);
+        }
+        a.badge.highlight {
+            border-color: #00d4ff;
+            color: #00d4ff;
+            background: rgba(0, 212, 255, 0.1);
+        }
+        a.badge.tag-release {
+            border-color: #7b2fbe;
+            color: #d8b4fe;
+            background: rgba(123, 47, 190, 0.15);
+        }
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -93,7 +114,9 @@
             border-radius: 20px;
             padding: 2rem;
             border: 1px solid rgba(255,255,255,0.06);
+            transition: transform 0.2s;
         }
+        .card:hover { transform: translateY(-4px); border-color: rgba(0,212,255,0.3); }
         .card .icon { font-size: 2.5rem; margin-bottom: 0.8rem; }
         .card h3 { color: #00d4ff; font-size: 1.3rem; margin-bottom: 0.5rem; }
         .card p { color: #8899aa; font-size: 0.95rem; line-height: 1.5; }
@@ -131,13 +154,16 @@
             <h1>PayQuant (PQN)</h1>
             <p class="subtitle">Die quantensichere, selbstoptimierende KI-Blockchain für das digitale Zeitalter</p>
             
+            <!-- CLICKABLE INTERACTIVE TAGS & BADGES -->
             <div class="badges">
-                <span class="badge highlight">🔐 Post-Quantum (ML-DSA-65)</span>
-                <span class="badge">⚡ Synergeia (PoW+PoS 15s)</span>
-                <span class="badge">🤖 PoUW + ZKML</span>
-                <span class="badge">⛏️ RinHash ASIC-Resistent</span>
-                <span class="badge">🌐 Dezentrale IRC/P2P Signalierung</span>
-                <span class="badge">💰 Spenden-Wallet Treasury</span>
+                <a href="https://github.com/timfromhcs/payquant/releases/tag/v2.1.2" target="_blank" class="badge tag-release">🏷️ Tag v2.1.2 Release</a>
+                <a href="https://github.com/timfromhcs/payquant" target="_blank" class="badge highlight">⭐️ GitHub Repo</a>
+                <a href="docs.html" class="badge">📖 Technical Docs</a>
+                <a href="download.html" class="badge">📦 Download Packages</a>
+                <a href="docs.html#post-quantum" class="badge">🔐 ML-DSA-65 Spec</a>
+                <a href="docs.html#synergeia" class="badge">⚡ Synergeia 15s</a>
+                <a href="docs.html#rinhash" class="badge">⛏️ RinHash Vulkan PoW</a>
+                <a href="https://raw.githubusercontent.com/timfromhcs/payquant/main/seeds.json" target="_blank" class="badge">🌐 Dynamic HTTP Seeds</a>
             </div>
         </div>
 
