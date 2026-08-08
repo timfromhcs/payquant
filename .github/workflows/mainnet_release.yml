@@ -1,0 +1,64 @@
+name: PayQuant Mainnet Release 2.1.3 Build & Deploy
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release Tag (e.g. v2.1.3)'
+        required: true
+        default: 'v2.1.3'
+
+permissions:
+  contents: write
+  packages: write
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-release:
+    name: Build Multi-Platform Release Binaries & Publish Release
+    runs-on: windows-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install PyInstaller Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyinstaller blake3 argon2-cffi
+
+      - name: Build Local Standalone Executables
+        run: |
+          python contrib/build_local_executables.py
+
+      - name: Package Windows Zip Artifact
+        run: |
+          powershell Compress-Archive -Path dist/* -DestinationPath payquant-v2.1.3-win64.zip -Force
+
+      - name: Create GitHub Release v2.1.3
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.event.inputs.tag || github.ref_name }}
+          name: "PayQuant Mainnet Release v2.1.3 (Quantum AI Blockchain)"
+          body: |
+            # 🚀 PayQuant (PQN) Real Mainnet Release v2.1.3
+
+            - **NIST FIPS 204 ML-DSA-65** Post-Quantum Cryptography Active.
+            - **Synergeia Hybrid Consensus** (PoW + PoS 15s Target Spacing).
+            - **Zero-Server P2P Internet Signaling** (`#payquant-mainnet` on Libera/OFTC).
+            - **RinHash ASIC-Resistant Vulkan GPU/CPU Miner** (`--threads` and `--address` parameters supported).
+            - **WebUI Mainnet Controller** with Live System Log Visualizer (`http://127.0.0.1:8080`).
+
+          files: |
+            payquant-v2.1.3-win64.zip
+            seeds.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

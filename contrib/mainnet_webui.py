@@ -60,8 +60,23 @@ def add_log(level, msg):
     if len(LOG_HISTORY) > 100:
         LOG_HISTORY.pop(0)
 
+def check_node_active():
+    if NODE_PROCESS and NODE_PROCESS.poll() is None:
+        return True
+    for port in [28333, 28332]:
+        try:
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.settimeout(0.5)
+            res = s.connect_ex(('127.0.0.1', port))
+            s.close()
+            if res == 0:
+                return True
+        except Exception:
+            pass
+    return False
+
 def get_live_metrics():
-    node_running = NODE_PROCESS is not None and NODE_PROCESS.poll() is None
+    node_running = check_node_active()
     miner_running = MINER_PROCESS is not None and MINER_PROCESS.poll() is None
     
     blocks = 1
