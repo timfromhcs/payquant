@@ -5,12 +5,19 @@ Features real-time 2s auto-refreshing feed, interactive process management,
 and live visual system log console.
 """
 
+import os
+import sys
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+CONTRIB_DIR = os.path.dirname(os.path.abspath(__file__))
+for d in [BASE_DIR, CONTRIB_DIR]:
+    if d not in sys.path:
+        sys.path.insert(0, d)
+
 import http.server
 import socketserver
 import json
 import urllib.request
-import os
-import sys
 import subprocess
 import time
 
@@ -100,14 +107,20 @@ def start_mainnet_node():
         f.write(f"rpcuser={RPC_USER}\nrpcpassword={RPC_PASS}\nrpcport=28332\nport=28333\nserver=1\nlisten=1\ntxindex=1\nmineraddress={CREATOR_ADDRESS}\n")
     
     try:
-        import contrib.http_seed_fetcher as seed_fetcher
+        try:
+            import http_seed_fetcher as seed_fetcher
+        except ImportError:
+            import contrib.http_seed_fetcher as seed_fetcher
         seed_fetcher.inject_seeds_into_conf()
         add_log("P2P", "Fetched online seed node pool from seeds.json.")
     except Exception as e:
         add_log("WARN", f"Seed fetcher notice: {str(e)}")
 
     try:
-        import contrib.irc_p2p_signaling as irc_signaling
+        try:
+            import irc_p2p_signaling as irc_signaling
+        except ImportError:
+            import contrib.irc_p2p_signaling as irc_signaling
         irc_signaling.start_background_signaling()
         add_log("P2P", "Zero-Server IRC P2P Signaling active (#payquant-mainnet on Libera/OFTC)!")
     except Exception as e:
