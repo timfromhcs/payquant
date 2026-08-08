@@ -7,4 +7,4 @@ Quantum Sentinel (`contrib/quantum_sentinel.py`) actively audits address entropy
 
 ## Reporting Security Vulnerabilities
 
-Please report security issues to `security@payquant.org`.
+Please report security issues via GitHub Security Advisories or to `timfromhcs@users.noreply.github.com`.

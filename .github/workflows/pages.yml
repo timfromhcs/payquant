@@ -22,18 +22,22 @@ jobs:
   deploy-site:
     name: Build & Deploy Static Site
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
 
       - name: Build Static Site Output
         run: |
           mkdir -p _site
           cp -r site/* _site/ 2>/dev/null || true
           cp -r doc/* _site/ 2>/dev/null || true
-          if [ -f "CNAME" ]; then
-            cp CNAME _site/
-          fi
+          rm -f _site/CNAME 2>/dev/null || true
           if [ ! -f _site/index.html ]; then
             echo "<h1>PayQuant Network</h1>" > _site/index.html
           fi
