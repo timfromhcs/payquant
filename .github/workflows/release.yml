@@ -5,6 +5,12 @@ on:
     tags:
       - 'v*'
   workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag name (e.g. v1.0.0) – must exist as a Git tag'
+        required: true
+        type: string
+        default: 'v1.0.0'
 
 permissions:
   contents: write
@@ -13,12 +19,16 @@ jobs:
   create-release:
     name: Create GitHub Release
     runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'push' ||
+      (github.event_name == 'workflow_dispatch' && inputs.tag != '')
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref }}
 
       - name: Build Release Distribution Artifacts
         run: |
@@ -28,21 +38,23 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
           files: |
             release_dist/*
             dist/*
           generate_release_notes: true
           draft: false
           prerelease: false
+          overwrite: true
           body: |
-            ## 🚀 PayQuant ${{ github.ref_name }}
+            ## 🚀 PayQuant ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
 
             ### 📦 Download
             - Windows: payquant-qt.exe, payquantd.exe, payquant-cli.exe, vulkan_miner.exe
             - Linux: payquantd, payquant-cli
             - macOS: payquantd, payquant-cli
             - Android: libpayquant.so (ARM64, ARMv7, x86_64, x86)
-            - Docker: ghcr.io/timfromhcs/payquant:${{ github.ref_name }}
+            - Docker: ghcr.io/timfromhcs/payquant:${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
 
             ### 🔐 Security
             - Post-Quantum: ML-DSA-65 + SLH-DSA
