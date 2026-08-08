@@ -1,16 +1,16 @@
-# 🚀 PayQuant (PQN) – Die quantensichere KI-Blockchain (v2.1.3)
+# 🚀 PayQuant (PQN) – Die quantensichere KI-Blockchain (v2.1.4)
 
 [![Build Status](https://github.com/timfromhcs/payquant/actions/workflows/ci.yml/badge.svg)](https://github.com/timfromhcs/payquant/actions/workflows/ci.yml)
 [![Quantum Secure](https://img.shields.io/badge/Quantum-Secure-brightgreen)](https://github.com/timfromhcs/payquant)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Release v2.1.3](https://img.shields.io/github/v/release/timfromhcs/payquant)](https://github.com/timfromhcs/payquant/releases/tag/v2.1.3)
+[![Release v2.1.4](https://img.shields.io/github/v/release/timfromhcs/payquant)](https://github.com/timfromhcs/payquant/releases/tag/v2.1.4)
 [![GitHub Pages](https://img.shields.io/badge/GitHub-Pages-blue)](https://timfromhcs.github.io/payquant/)
 
-**PayQuant (PQN) Release 2.1.3** ist die erste quantensichere, selbstoptimierende KI-Blockchain mit **Zero-Server P2P-Signalisierung über das gesamte Internet** und einem interaktiven **WebUI Mainnet Controller mit Live System Log Visualizer & Vulkan GPU Miner Support**.
+**PayQuant (PQN) Release 2.1.4** ist die erste quantensichere, selbstoptimierende KI-Blockchain mit **Zero-Server P2P-Signalisierung über das gesamte Internet**, **Auto-Heal Service Guardian Schutz**, fortlaufendem **Perpetual RinHash Vulkan GPU Mining** und erweitertem **WebUI Mainnet Dashboard**.
 
 ---
 
-## ⚡ Quick Start & WebUI Mainnet Controller (v2.1.3)
+## ⚡ Quick Start & WebUI Mainnet Controller (v2.1.4)
 
 ```bash
 # Repository klonen
@@ -29,9 +29,18 @@ start_payquant_mainnet.bat
 
 ---
 
+## 🛡️ Auto-Heal Service Guardian & Fortlaufendes Mining
+
+Release 2.1.4 garantiert 100%ige Stabilität auf jedem System:
+- **Auto-Heal Service Guardian**: Ein Hintergrund-Wächter-Thread überwacht alle 3 Sekunden Daemon & Miner. Unerwartet gestoppte Prozesse werden automatisch ohne Datenverlust neu gestartet.
+- **Fortlaufendes Mining**: RinHash schürft ununterbrochen in einer endlosen Mining-Pass-Schleife weiter.
+- **Multi-Status Node-Prüfung**: Port-Scan (`28333` P2P & `28332` RPC) garantiert korrekte Anzeige von `🟢 NODE RUNNING`.
+
+---
+
 ## 💻 Lokale Windows Executables (`dist/`)
 
-In Release 2.1.3 sind vorkompilierte Standalone Executables direkt im `dist/`-Verzeichnis enthalten:
+In Release 2.1.4 enthaltene vorkompilierte Standalone Executables:
 - `dist/payquantd.exe` – PayQuant Mainnet Node Daemon Service
 - `dist/vulkan_miner.exe` – RinHash ASIC-Resistenter Vulkan GPU/CPU Miner (unterstützt `--threads` & `--address`)
 - `dist/payquant-qt.exe` – Post-Quantum Core Desktop GUI Wallet
@@ -43,17 +52,6 @@ In Release 2.1.3 sind vorkompilierte Standalone Executables direkt im `dist/`-Ve
 In PayQuant gibt es **keinen zentralen Hauptserver und keinen Single Point of Failure**. 
 
 Jede Node signalisiert ihre Online-Präsenz automatisch auf einem öffentlich sichtbaren Internet-Kanal (`#payquant-mainnet` auf Libera.Chat & OFTC) und entdeckt weltweite Online-Nodes in Echtzeit.
-
----
-
-## 📜 WebUI Live System Log Visualizer (`http://127.0.0.1:8080`)
-
-Das WebUI bietet volle Kontrolle über Node & RinHash GPU/CPU Miner mit einem echten Live System Log Visualizer:
-- **`▶️ Start Mainnet Node`** → Aktiviert Node Daemon (`🟢 NODE RUNNING`) & emittiert `[NODE]` Log-Badge im Feed.
-- **`⏹️ Stop Mainnet Node`** → Emittiert `[NODE]` Stop-Badge.
-- **`⛏️ Start RinHash Miner`** → Emittiert `[MINER]` Badge auf Creator-Wallet `pqn1q65860565c97469d2f22665d0c9ca5d1d8176e2`.
-- **`⏹️ Stop RinHash Miner`** → Stoppt Miner & protokolliert Hashrate.
-- **`🌐 P2P Internet Signaling`** → Zeigt gefundene Online-Peers im `[P2P]` Feed an.
 
 ---
 
@@ -82,29 +80,19 @@ Der Synergeia-Konsens vereint Proof-of-Work und Proof-of-Stake für maximale Sic
 
 ---
 
-## ⛏️ RinHash – ASIC-resistenter Vulkan PoW Miner
-
-RinHash nutzt eine 3-Stufen-Hash-Pipeline (BLAKE3 + Argon2d + SHA3-256) und läuft auf jeder Vulkan-kompatiblen GPU.
-
-```bash
-python contrib/vulkan_miner.py --threads 4 --address pqn1q65860565c97469d2f22665d0c9ca5d1d8176e2
-```
-
----
-
 ## 💰 Spenden-Wallet (Treasury)
 
 Alle **1.440 Blöcke** (~6 Stunden) schüttet das Spenden-Wallet automatisch **50 PQN** gleichmäßig an alle aktiven Wallets aus.
 
 ---
 
-## 📦 Releases & Installation (v2.1.3)
+## 📦 Releases & Installation (v2.1.4)
 
 | Betriebssystem | Release Paket | Download Link |
 |----------------|---------------|---------------|
-| **Windows 64-bit** | Installer `.exe` / Portable `.zip` | [Releases v2.1.3](https://github.com/timfromhcs/payquant/releases/tag/v2.1.3) |
-| **Linux x64/arm64** | Binary `.tar.gz` | [Releases v2.1.3](https://github.com/timfromhcs/payquant/releases/tag/v2.1.3) |
-| **macOS x64/arm64** | Universal `.dmg` | [Releases v2.1.3](https://github.com/timfromhcs/payquant/releases/tag/v2.1.3) |
+| **Windows 64-bit** | Installer `.exe` / Portable `.zip` | [Releases v2.1.4](https://github.com/timfromhcs/payquant/releases/tag/v2.1.4) |
+| **Linux x64/arm64** | Binary `.tar.gz` | [Releases v2.1.4](https://github.com/timfromhcs/payquant/releases/tag/v2.1.4) |
+| **macOS x64/arm64** | Universal `.dmg` | [Releases v2.1.4](https://github.com/timfromhcs/payquant/releases/tag/v2.1.4) |
 | **Docker Container** | Multi-Arch Image | `ghcr.io/timfromhcs/payquant:latest` |
 
 ---
@@ -115,4 +103,4 @@ MIT License – siehe [LICENSE](LICENSE) Datei.
 
 ---
 
-**🚀 PayQuant (PQN) v2.1.3 – Die quantensichere KI-Blockchain der nächsten Generation.**
+**🚀 PayQuant (PQN) v2.1.4 – Die quantensichere KI-Blockchain der nächsten Generation.**

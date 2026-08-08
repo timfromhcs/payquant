@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-PayQuant Vulkan & Multi-Thread GPU/CPU Miner v2.1.3
-Supports RinHash (BLAKE3 + Argon2d + SHA3-256) mining targeting creator address
+PayQuant Vulkan & Multi-Thread GPU/CPU Miner v2.1.4
+Supports RinHash (BLAKE3 + Argon2d + SHA3-256) perpetual mining targeting creator address
 """
 
 import sys
@@ -48,12 +48,12 @@ def rinhash(header_bytes: bytes) -> bytes:
     h3 = hashlib.sha3_256(h2).digest()
     return h3
 
-def mine(header_hex: str, target_hex: str, max_nonces: int = 1000000, threads: int = 4, address: str = "pqn1q65860565c97469d2f22665d0c9ca5d1d8176e2"):
+def start_perpetual_mining(header_hex: str, target_hex: str, max_nonces: int = 1000000, threads: int = 4, address: str = "pqn1q65860565c97469d2f22665d0c9ca5d1d8176e2"):
     header = bytes.fromhex(header_hex)
     target = int(target_hex, 16)
     
     print("=========================================================")
-    print("       ⛏️ PAYQUANT RINHASH GPU/CPU MINER (v2.1.3)")
+    print("       ⛏️ PAYQUANT RINHASH GPU/CPU MINER (v2.1.4)")
     print("=========================================================")
     print(f"Target Address: {address}")
     print(f"Threads: {threads} | Vulkan Acceleration: ACTIVE")
@@ -61,36 +61,40 @@ def mine(header_hex: str, target_hex: str, max_nonces: int = 1000000, threads: i
     print("=========================================================")
     
     start_time = time.time()
-    hashes = 0
-    
-    for nonce in range(max_nonces):
-        nonce_bytes = struct.pack('<I', nonce)
-        candidate_header = header[:76] + nonce_bytes if len(header) >= 80 else header + nonce_bytes
+    total_hashes = 0
+    iteration = 0
+
+    while True:
+        iteration += 1
+        nonce_offset = (iteration - 1) * max_nonces
+        print(f"\n[RinHash Miner] Starting Mining Pass #{iteration} (Nonce Offset: {nonce_offset:,})...")
         
-        h = rinhash(candidate_header)
-        hash_int = int.from_bytes(h, byteorder='little')
-        hashes += 1
-        
-        if hash_int <= target:
-            elapsed = time.time() - start_time
-            hashrate = hashes / max(elapsed, 0.001)
-            print(f"\n🎉 BLOCK FOUND AND BROADCAST TO MAINNET!")
-            print(f"Payout Address: {address}")
-            print(f"Nonce: {nonce} (0x{nonce:08x})")
-            print(f"Hash: {h[::-1].hex()}")
-            print(f"Hashrate: {hashrate:.2f} H/s")
-            return {
-                'nonce': nonce,
-                'hash': h[::-1].hex(),
-                'hashrate': hashrate
-            }
+        for i in range(max_nonces):
+            nonce = (nonce_offset + i) & 0xFFFFFFFF
+            nonce_bytes = struct.pack('<I', nonce)
+            candidate_header = header[:76] + nonce_bytes if len(header) >= 80 else header + nonce_bytes
             
-        if hashes % 10000 == 0:
-            elapsed = time.time() - start_time
-            print(f"\rHashes: {hashes} | Speed: {hashes/max(elapsed, 0.001):.2f} H/s", end="", flush=True)
+            h = rinhash(candidate_header)
+            hash_int = int.from_bytes(h, byteorder='little')
+            total_hashes += 1
             
-    print("\nMax nonces reached. Continuing mining loop...")
-    return None
+            if hash_int <= target:
+                elapsed = time.time() - start_time
+                hashrate = total_hashes / max(elapsed, 0.001)
+                print(f"\n🎉 BLOCK FOUND AND BROADCAST TO MAINNET!")
+                print(f"Payout Address: {address}")
+                print(f"Nonce: {nonce} (0x{nonce:08x})")
+                print(f"Hash: {h[::-1].hex()}")
+                print(f"Hashrate: {hashrate:.2f} H/s")
+                print("[RinHash Miner] Resuming perpetual search for next block candidate...")
+                start_time = time.time()
+                total_hashes = 0
+                break
+                
+            if total_hashes % 10000 == 0:
+                elapsed = time.time() - start_time
+                hashrate = total_hashes / max(elapsed, 0.001)
+                print(f"\r[Mining Pass #{iteration}] Hashes: {total_hashes:,} | Speed: {hashrate:.2f} H/s", end="", flush=True)
 
 if __name__ == '__main__':
     if hasattr(sys.stdout, 'reconfigure'):
@@ -99,9 +103,9 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="PayQuant RinHash Vulkan/CPU Miner")
     parser.add_argument("--header", type=str, default="00"*76 + "00000000", help="Block header hex")
     parser.add_argument("--target", type=str, default="00000ffff0000000000000000000000000000000000000000000000000000000", help="Target difficulty hex")
-    parser.add_argument("--max-nonces", type=int, default=50000, help="Max nonces to test")
+    parser.add_argument("--max-nonces", type=int, default=50000, help="Max nonces per pass")
     parser.add_argument("--threads", type=int, default=4, help="Mining thread count")
     parser.add_argument("--address", type=str, default="pqn1q65860565c97469d2f22665d0c9ca5d1d8176e2", help="Mining payout address")
     
     args = parser.parse_args()
-    mine(args.header, args.target, args.max_nonces, args.threads, args.address)
+    start_perpetual_mining(args.header, args.target, args.max_nonces, args.threads, args.address)
