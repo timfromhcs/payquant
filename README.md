@@ -1,16 +1,16 @@
-# 🚀 PayQuant (PQN) – Die quantensichere KI-Blockchain (v2.1.1)
+# 🚀 PayQuant (PQN) – Die quantensichere KI-Blockchain (v2.1.2)
 
 [![Build Status](https://github.com/timfromhcs/payquant/actions/workflows/ci.yml/badge.svg)](https://github.com/timfromhcs/payquant/actions/workflows/ci.yml)
 [![Quantum Secure](https://img.shields.io/badge/Quantum-Secure-brightgreen)](https://github.com/timfromhcs/payquant)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Release v2.1.1](https://img.shields.io/github/v/release/timfromhcs/payquant)](https://github.com/timfromhcs/payquant/releases/tag/v2.1.1)
+[![Release v2.1.2](https://img.shields.io/github/v/release/timfromhcs/payquant)](https://github.com/timfromhcs/payquant/releases/tag/v2.1.2)
 [![GitHub Pages](https://img.shields.io/badge/GitHub-Pages-blue)](https://timfromhcs.github.io/payquant/)
 
-**PayQuant (PQN) Release 2.1.1** ist die erste quantensichere, selbstoptimierende KI-Blockchain mit **Zero-Server P2P-Signalisierung über das gesamte Internet** und einem interaktiven **WebUI Mainnet Controller mit Live System Log Visualizer**.
+**PayQuant (PQN) Release 2.1.2** ist die erste quantensichere, selbstoptimierende KI-Blockchain mit **Zero-Server P2P-Signalisierung über das gesamte Internet** und einem interaktiven **WebUI Mainnet Controller mit Live System Log Visualizer**.
 
 ---
 
-## ⚡ Quick Start & WebUI Mainnet Controller (v2.1.1)
+## ⚡ Quick Start & WebUI Mainnet Controller (v2.1.2)
 
 ```bash
 # Repository klonen
@@ -26,6 +26,15 @@ Doppelklick auf:
 ```cmd
 start_payquant_mainnet.bat
 ```
+
+---
+
+## 💻 Lokale Windows Executables (`dist/`)
+
+In Release 2.1.2 sind vorkompilierte Standalone Executables direkt im `dist/`-Verzeichnis enthalten:
+- `dist/payquantd.exe` – PayQuant Mainnet Node Daemon Service
+- `dist/vulkan_miner.exe` – RinHash ASIC-Resistenter Vulkan GPU/CPU Miner
+- `dist/payquant-qt.exe` – Post-Quantum Core Desktop GUI Wallet
 
 ---
 
@@ -89,13 +98,13 @@ Alle **1.440 Blöcke** (~6 Stunden) schüttet das Spenden-Wallet automatisch **5
 
 ---
 
-## 📦 Releases & Installation (v2.1.1)
+## 📦 Releases & Installation (v2.1.2)
 
 | Betriebssystem | Release Paket | Download Link |
 |----------------|---------------|---------------|
-| **Windows 64-bit** | Installer `.exe` / Portable `.zip` | [Releases v2.1.1](https://github.com/timfromhcs/payquant/releases/tag/v2.1.1) |
-| **Linux x64/arm64** | Binary `.tar.gz` | [Releases v2.1.1](https://github.com/timfromhcs/payquant/releases/tag/v2.1.1) |
-| **macOS x64/arm64** | Universal `.dmg` | [Releases v2.1.1](https://github.com/timfromhcs/payquant/releases/tag/v2.1.1) |
+| **Windows 64-bit** | Installer `.exe` / Portable `.zip` | [Releases v2.1.2](https://github.com/timfromhcs/payquant/releases/tag/v2.1.2) |
+| **Linux x64/arm64** | Binary `.tar.gz` | [Releases v2.1.2](https://github.com/timfromhcs/payquant/releases/tag/v2.1.2) |
+| **macOS x64/arm64** | Universal `.dmg` | [Releases v2.1.2](https://github.com/timfromhcs/payquant/releases/tag/v2.1.2) |
 | **Docker Container** | Multi-Arch Image | `ghcr.io/timfromhcs/payquant:latest` |
 
 ---
@@ -106,4 +115,4 @@ MIT License – siehe [LICENSE](LICENSE) Datei.
 
 ---
 
-**🚀 PayQuant (PQN) v2.1.1 – Die quantensichere KI-Blockchain der nächsten Generation.**
+**🚀 PayQuant (PQN) v2.1.2 – Die quantensichere KI-Blockchain der nächsten Generation.**
