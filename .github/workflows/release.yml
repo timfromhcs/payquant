@@ -1,4 +1,4 @@
-name: PayQuant Release Pipeline
+name: Create GitHub Release
 
 on:
   push:
@@ -30,7 +30,7 @@ jobs:
           mkdir -p release_dist
           tar -czf release_dist/payquant-v1.0.0-linux-x64.tar.gz src/ contrib/ doc/
 
-      - name: Upload Release Binaries to GitHub Release
+      - name: Create Release via softprops
         uses: softprops/action-gh-release@v2
         with:
           files: |

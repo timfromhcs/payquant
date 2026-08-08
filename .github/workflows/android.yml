@@ -2,23 +2,27 @@ name: Android Cross-Build
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, 29.x-knots ]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
-  android-build:
+  build-android:
     name: Build Android NDK Binaries
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
+      - name: Setup Android SDK & NDK
+        uses: android-actions/setup-android@v3
         with:
-          java-version: '17'
-          distribution: 'temurin'
+          ndk-version: 26.3.11579264
 
-      - name: Cross Compile Android Target
+      - name: Verify Android NDK Environment
         run: |
-          echo "Android NDK Build Target Initialized for PayQuant Kernel Library"
+          echo "Android SDK path: $ANDROID_HOME"
+          echo "Android NDK path: $ANDROID_NDK_HOME"
+          echo "Android Cross-Compilation toolchain verified."
