@@ -1,4 +1,4 @@
-// Copyright (c) 2026 The PayQuant Developers
+// Copyright (c) 2025-2026 PayQuant Contributors
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
