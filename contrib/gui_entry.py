@@ -26,7 +26,7 @@ class PayQuantGUI(tk.Tk):
         header = tk.Frame(self, bg="#0b1329", height=60, borderwidth=1, relief="solid")
         header.pack(fill="x", side="top")
         
-        lbl_title = tk.Label(header, text="⚛️ PayQuant Core v2.1.4", font=("Outfit", 16, "bold"), fg="#00f2fe", bg="#0b1329")
+        lbl_title = tk.Label(header, text="⚛️ PayQuant Core v2.1.5", font=("Outfit", 16, "bold"), fg="#00f2fe", bg="#0b1329")
         lbl_title.pack(side="left", padx=20, pady=10)
 
         lbl_status = tk.Label(header, text="● Network: Mainnet (28333) | ML-DSA-65 Quantum Secure", font=("Segoe UI", 9), fg="#00ffaa", bg="#0b1329")

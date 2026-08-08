@@ -1,5 +1,5 @@
 @echo off
-TITLE PayQuant PQN Local Node AND Miner Dashboard Launcher
+TITLE PayQuant PQN Local Node AND Miner Dashboard Launcher (v2.1.5)
 COLOR 0A
 CLS
 
@@ -49,18 +49,18 @@ if exist "dist\vulkan_miner.exe" (
 
 timeout /t 1 /nobreak >nul
 
-echo [3/3] Starting Local Dashboard...
-start "PayQuantDashboard" python "contrib\local_dashboard.py"
-
-timeout /t 2 /nobreak >nul
-
 echo Opening Local Dashboard on http://127.0.0.1:8080...
 start http://127.0.0.1:8080
 
+:LOCAL_RUN_LOOP
+echo.
+echo [%TIME%] Starting PayQuant Local Dashboard Server...
+python "contrib\local_dashboard.py"
+
 echo.
 echo ===============================================================================
-echo PAYQUANT LOCAL CHAIN IS RUNNING!
-echo Dashboard URL: http://127.0.0.1:8080
+echo [NOTICE] Dashboard server exited. Auto-restarting in 3 seconds...
 echo ===============================================================================
 echo.
-pause
+timeout /t 3 /nobreak >nul
+goto LOCAL_RUN_LOOP
