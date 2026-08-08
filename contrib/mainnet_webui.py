@@ -101,6 +101,14 @@ def start_mainnet_node():
     with open(conf_path, "w", encoding="utf-8") as f:
         f.write(f"rpcuser={RPC_USER}\nrpcpassword={RPC_PASS}\nrpcport=28332\nport=28333\nserver=1\nlisten=1\ntxindex=1\nmineraddress={CREATOR_ADDRESS}\n")
     
+    # Auto-fetch online seeds from GitHub JSON pool
+    try:
+        import contrib.http_seed_fetcher as seed_fetcher
+        seed_fetcher.inject_seeds_into_conf()
+        add_log("P2P", "Fetched online seed node pool from GitHub seeds.json!")
+    except Exception as e:
+        add_log("WARN", f"Seed fetcher notice: {str(e)}")
+    
     exe = "dist\\payquantd.exe" if os.path.exists("dist\\payquantd.exe") else "src\\payquantd.exe"
     if os.path.exists(exe):
         NODE_PROCESS = subprocess.Popen([exe, "--datadir", DATA_DIR])

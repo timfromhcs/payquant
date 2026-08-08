@@ -20,17 +20,10 @@ if not exist "%DATA_DIR%" (
     mkdir "%DATA_DIR%"
 )
 
-rem Create mainnet payquant.conf if missing
-if not exist "%DATA_DIR%\payquant.conf" (
-    echo rpcuser=payquantuser > "%DATA_DIR%\payquant.conf"
-    echo rpcpassword=payquantpass >> "%DATA_DIR%\payquant.conf"
-    echo rpcport=28332 >> "%DATA_DIR%\payquant.conf"
-    echo port=28333 >> "%DATA_DIR%\payquant.conf"
-    echo server=1 >> "%DATA_DIR%\payquant.conf"
-    echo listen=1 >> "%DATA_DIR%\payquant.conf"
-    echo txindex=1 >> "%DATA_DIR%\payquant.conf"
-)
+echo [P2P Discovery] Fetching live seed node addresses from GitHub seeds.json...
+python "contrib\http_seed_fetcher.py"
 
+echo.
 echo [1/2] Launching Mainnet WebUI Management Server...
 start "PayQuantWebUI" python "contrib\mainnet_webui.py"
 
@@ -43,7 +36,7 @@ echo.
 echo ===============================================================================
 echo PAYQUANT REAL MAINNET CONTROLLER IS ACTIVE!
 echo WebUI URL: http://127.0.0.1:8080
-echo Features: Real-Time Auto Refresh, Start/Stop Node, Start/Stop Miner
+echo Features: Dynamic HTTP Seed Pool Sync, Auto-Refresh, Node/Miner Controls
 echo ===============================================================================
 echo.
 pause

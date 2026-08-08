@@ -1,0 +1,23 @@
+{
+  "network": "PayQuant Mainnet (PQN)",
+  "updated_at": "2026-08-08T22:32:00Z",
+  "p2p_port": 28333,
+  "rpc_port": 28332,
+  "seeds": [
+    {
+      "host": "127.0.0.1",
+      "port": 28333,
+      "type": "creator_node"
+    },
+    {
+      "host": "payquant-seed-node.fly.dev",
+      "port": 28333,
+      "type": "cloud_seed"
+    },
+    {
+      "host": "payquant-mainnet-node.onrender.com",
+      "port": 28333,
+      "type": "cloud_seed"
+    }
+  ]
+}
