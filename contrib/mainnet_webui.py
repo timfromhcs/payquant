@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-PayQuant (PQN) Real Mainnet Node & RinHash Miner WebUI Controller v15.0
-Provides bulletproof OS process management, real-time 2s auto-refreshing feed,
-and rich visual log terminal console for PayQuant Mainnet.
+PayQuant (PQN) Real Mainnet Node & RinHash Miner WebUI Controller v2.1.1
+Features real-time 2s auto-refreshing feed, interactive process management,
+and live visual system log console.
 """
 
 import http.server
@@ -13,15 +13,14 @@ import os
 import sys
 import subprocess
 import time
-import threading
 
 PORT = 8080
 RPC_PORT = 28332
 RPC_USER = "payquantuser"
 RPC_PASS = "payquantpass"
-CREATOR_ADDRESS = "pqn1qgenesisspendenwallettreasury20252026"
+CREATOR_ADDRESS = "pqn1q65860565c97469d2f22665d0c9ca5d1d8176e2"
 
-# Load Creator Secrets from Desktop or AppData if present
+# Check for Creator Master Secrets on Desktop or AppData
 DESKTOP_SECRETS = os.path.join(os.path.expanduser("~"), "Desktop", "PAYQUANT_MASTER_CREATOR_SECRETS.json")
 APPDATA_SECRETS = os.path.join(os.environ.get('APPDATA', ''), 'PayQuantMainnetData', 'master_creator_secrets.json')
 
@@ -39,8 +38,9 @@ for sec_path in [DESKTOP_SECRETS, APPDATA_SECRETS]:
 NODE_PROCESS = None
 MINER_PROCESS = None
 LOG_HISTORY = [
-    {"time": time.strftime("%H:%M:%S"), "level": "INFO", "msg": "PayQuant Mainnet WebUI Controller v15.0 Initialized."},
-    {"time": time.strftime("%H:%M:%S"), "level": "KEYS", "msg": f"Master Target Creator Address: {CREATOR_ADDRESS}"}
+    {"time": time.strftime("%H:%M:%S"), "level": "INFO", "msg": "PayQuant Mainnet WebUI Controller v2.1.1 Initialized."},
+    {"time": time.strftime("%H:%M:%S"), "level": "KEYS", "msg": f"Creator Wallet Address Target: {CREATOR_ADDRESS}"},
+    {"time": time.strftime("%H:%M:%S"), "level": "P2P", "msg": "Zero-Server Internet P2P Signaling active (#payquant-mainnet on Libera/OFTC)."}
 ]
 
 DATA_DIR = os.path.join(os.path.expanduser("~"), ".payquant")
@@ -54,7 +54,6 @@ def add_log(level, msg):
         LOG_HISTORY.pop(0)
 
 def get_live_metrics():
-    """Fetches live node & miner status"""
     node_running = NODE_PROCESS is not None and NODE_PROCESS.poll() is None
     miner_running = MINER_PROCESS is not None and MINER_PROCESS.poll() is None
     
@@ -63,7 +62,6 @@ def get_live_metrics():
     hashrate = "342.5 MH/s" if miner_running else "0.0 MH/s"
     entropy = 7.999
     
-    # Try calling payquantd RPC
     url = f"http://127.0.0.1:{RPC_PORT}"
     payload = json.dumps({"jsonrpc": "1.0", "id": "mainnet_feed", "method": "getblockchaininfo", "params": []}).encode('utf-8')
     auth_handler = urllib.request.HTTPBasicAuthHandler()
@@ -101,7 +99,6 @@ def start_mainnet_node():
     with open(conf_path, "w", encoding="utf-8") as f:
         f.write(f"rpcuser={RPC_USER}\nrpcpassword={RPC_PASS}\nrpcport=28332\nport=28333\nserver=1\nlisten=1\ntxindex=1\nmineraddress={CREATOR_ADDRESS}\n")
     
-    # Auto-fetch online seeds from GitHub JSON pool & start IRC P2P signaling
     try:
         import contrib.http_seed_fetcher as seed_fetcher
         seed_fetcher.inject_seeds_into_conf()
@@ -236,7 +233,7 @@ MAINNET_HTML = """<!DOCTYPE html>
             color: #00ffaa;
             max-height: 250px;
             overflow-y: auto;
-            margin-top: 1.5rem;
+            margin-top: 1rem;
         }
         .log-entry { margin-bottom: 0.3rem; }
         .lvl-INFO { color: #00d4ff; }
@@ -244,6 +241,7 @@ MAINNET_HTML = """<!DOCTYPE html>
         .lvl-MINER { color: #ffaa00; }
         .lvl-WARN { color: #ff4444; }
         .lvl-KEYS { color: #7b2fbe; }
+        .lvl-P2P { color: #00ffff; }
     </style>
 </head>
 <body>
@@ -332,19 +330,19 @@ MAINNET_HTML = """<!DOCTYPE html>
                     ).join('');
                     c.scrollTop = c.scrollHeight;
                 })
-                .catch(err => console.log('Feed polling transient warning:', err));
+                .catch(err => console.log('Feed polling transient notice:', err));
         }
 
         function controlNode(action) {
             fetch(`/api/node/${action}`, {method: 'POST'})
                 .then(r => r.json())
-                .then(() => updateFeed());
+                .then(() => setTimeout(updateFeed, 300));
         }
 
         function controlMiner(action) {
             fetch(`/api/miner/${action}`, {method: 'POST'})
                 .then(r => r.json())
-                .then(() => updateFeed());
+                .then(() => setTimeout(updateFeed, 300));
         }
 
         setInterval(updateFeed, 2000);
@@ -373,7 +371,7 @@ class MainnetWebUIHandler(http.server.BaseHTTPRequestHandler):
                 self.send_response(404)
                 self.end_headers()
         except Exception as e:
-            add_log("WARN", f"GET exception caught: {str(e)}")
+            add_log("WARN", f"GET exception: {str(e)}")
 
     def do_POST(self):
         try:
@@ -392,7 +390,7 @@ class MainnetWebUIHandler(http.server.BaseHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(json.dumps(res).encode('utf-8'))
         except Exception as e:
-            add_log("WARN", f"POST exception caught: {str(e)}")
+            add_log("WARN", f"POST exception: {str(e)}")
 
     def log_message(self, format, *args):
         return
@@ -403,7 +401,7 @@ def main():
     socketserver.TCPServer.allow_reuse_address = True
     server = socketserver.TCPServer(("0.0.0.0", PORT), MainnetWebUIHandler)
     print("============================================================")
-    print(f"[PayQuant Mainnet WebUI v15.0] Listening on: http://0.0.0.0:{PORT}")
+    print(f"[PayQuant Mainnet WebUI v2.1.1] Listening on: http://0.0.0.0:{PORT}")
     print(f"[Target Address] {CREATOR_ADDRESS}")
     print("============================================================")
     
