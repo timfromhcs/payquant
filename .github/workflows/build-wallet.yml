@@ -5,6 +5,7 @@ on:
     branches: [ main ]
     paths:
       - 'wallet/**'
+      - '.github/workflows/build-wallet.yml'
   workflow_dispatch:
 
 jobs:
