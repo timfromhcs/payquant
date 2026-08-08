@@ -137,11 +137,11 @@
     <div id="tab-security" class="tab-content" style="display:none;">
       <main class="grid">
         <section class="card full">
-          <h3>🔐 12-Word BIP-39 Quantum Backup Seedphrase</h3>
-          <p class="sub" style="margin-bottom:1rem;">Write down these 12 secret words in a safe offline location. Never reveal them to anyone!</p>
+          <h3>🔐 24-Word BIP-39 Quantum Backup Seedphrase</h3>
+          <p class="sub" style="margin-bottom:1rem;">Write down these 24 secret words in a safe offline location. Never reveal them to anyone!</p>
 
-          <div id="seed-display-grid" style="display:grid; grid-template-columns: repeat(4, 1fr); gap:0.6rem; margin-bottom:1.5rem;">
-            <!-- Seed words populated via JS -->
+          <div id="seed-display-grid" style="display:grid; grid-template-columns: repeat(6, 1fr); gap:0.6rem; margin-bottom:1.5rem;">
+            <!-- 24 Seed words populated via JS -->
           </div>
 
           <div style="display:flex; gap:1rem;">
@@ -200,9 +200,9 @@
   <!-- SEEDPHRASE RESTORE MODAL -->
   <div id="restore-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(6,8,20,0.95); z-index:9999; justify-content:center; align-items:center;">
     <div style="background:#0c1024; border:1px solid #7b2fbe; border-radius:16px; width:90%; max-width:540px; padding:1.5rem;">
-      <h3 style="color:#7b2fbe; margin-bottom:0.8rem;">🔑 Restore PayQuant Wallet from Seedphrase</h3>
-      <p class="sub" style="margin-bottom:1rem;">Enter your 12 secret backup words separated by spaces:</p>
-      <textarea id="restore-words-input" rows="3" style="width:100%; background:#060814; color:#00d4ff; border:1px solid rgba(123,47,190,0.5); border-radius:8px; padding:0.8rem; font-family:monospace; margin-bottom:1rem;" placeholder="e.g. abandon ability able about above absent absorb abstract absurd abuse access accident"></textarea>
+      <h3 style="color:#7b2fbe; margin-bottom:0.8rem;">🔑 Restore PayQuant Wallet from 24-Word Seedphrase</h3>
+      <p class="sub" style="margin-bottom:1rem;">Enter your 24 secret backup words separated by spaces:</p>
+      <textarea id="restore-words-input" rows="4" style="width:100%; background:#060814; color:#00d4ff; border:1px solid rgba(123,47,190,0.5); border-radius:8px; padding:0.8rem; font-family:monospace; margin-bottom:1rem;" placeholder="Enter 24 seed words separated by spaces..."></textarea>
       <div style="display:flex; gap:0.8rem; justify-content:flex-end;">
         <button id="btn-cancel-restore" class="btn">Cancel</button>
         <button id="btn-confirm-restore" class="btn btn-start" style="background:#7b2fbe;">Restore Wallet</button>

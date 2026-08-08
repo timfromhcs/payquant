@@ -1,6 +1,6 @@
 /**
- * PayQuant (PQN) BIP-39 Seedphrase Generator & Wallet Recovery Engine v3.0.0
- * Generates 12-word seedphrases backed by cryptographically secure PRNG + Quantum Sentinel Entropy.
+ * PayQuant (PQN) BIP-39 24-Word Seedphrase Generator & Wallet Recovery Engine v3.1.0
+ * Generates 24-word seedphrases backed by cryptographically secure PRNG + Quantum Sentinel Entropy.
  */
 
 (function(window) {
@@ -46,7 +46,7 @@
     return bytes;
   }
 
-  function generateMnemonic(wordCount = 12) {
+  function generateMnemonic(wordCount = 24) {
     const randomBytes = generateSecureBytes(wordCount * 2);
     const words = [];
     for (let i = 0; i < wordCount; i++) {
@@ -74,7 +74,7 @@
       secondHash |= 0;
     }
     const secondHex = Math.abs(secondHash).toString(16).padStart(8, '0');
-    return 'pqn1q' + addrHex + secondHex + 'master2026';
+    return 'pqn1q' + addrHex + secondHex + 'quantum24w';
   }
 
   window.PayQuantSeed = {
@@ -83,7 +83,7 @@
     validateMnemonic: function(mnemonicStr) {
       if (!mnemonicStr) return false;
       const parts = mnemonicStr.trim().split(/\s+/);
-      return parts.length === 12;
+      return parts.length === 24 || parts.length === 12;
     }
   };
 })(window);

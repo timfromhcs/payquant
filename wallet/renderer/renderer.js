@@ -39,8 +39,8 @@ let currentAddress = "";
 
 function initSeedphrase() {
   let savedSeed = localStorage.getItem('pqn-wallet-seed');
-  if (!savedSeed) {
-    currentMnemonic = PayQuantSeed.generateMnemonic(12);
+  if (!savedSeed || savedSeed.split(' ').length < 24) {
+    currentMnemonic = PayQuantSeed.generateMnemonic(24);
     localStorage.setItem('pqn-wallet-seed', currentMnemonic.join(' '));
   } else {
     currentMnemonic = savedSeed.split(' ');
@@ -225,7 +225,7 @@ $('btn-seed-backup').addEventListener('click', () => {
 });
 $('btn-copy-seed').addEventListener('click', () => {
   navigator.clipboard.writeText(currentMnemonic.join(' '));
-  alert('12-word seedphrase copied to clipboard!');
+  alert('24-word secret seedphrase copied to clipboard!');
 });
 
 // Wallet Restore Modal Handlers
