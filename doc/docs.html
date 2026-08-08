@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PayQuant (PQN) – Technical Documentation (v2.0.2)</title>
-    <meta name="description" content="PayQuant Core v2.0.2 Technical Documentation, HTTP seed pool, RPC API reference, ML-DSA-65 post-quantum specs, Synergeia consensus, and RinHash Vulkan GPU mining.">
+    <title>PayQuant (PQN) – Technical Documentation (v2.1.0)</title>
+    <meta name="description" content="PayQuant Core v2.1.0 Technical Documentation, Zero-Server P2P IRC Signaling, RPC API reference, ML-DSA-65 post-quantum specs, Synergeia consensus, and RinHash Vulkan GPU mining.">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="icon" href="payquant-icon.svg" type="image/svg+xml">
     <style>
@@ -43,11 +43,11 @@
         <nav>
             <a href="index.html">← Zurück zur Hauptseite</a>
             <a href="https://github.com/timfromhcs/payquant">GitHub Repository</a>
-            <a href="https://github.com/timfromhcs/payquant/releases/tag/v2.0.2">Releases v2.0.2</a>
+            <a href="https://github.com/timfromhcs/payquant/releases/tag/v2.1.0">Releases v2.1.0</a>
         </nav>
 
-        <h1>PayQuant Technical Documentation v2.0.2</h1>
-        <p><span class="badge">Release 2.0.2</span> <span class="badge">HTTP Seed Pool</span> <span class="badge">NIST FIPS 204 ML-DSA-65</span></p>
+        <h1>PayQuant Technical Documentation v2.1.0</h1>
+        <p><span class="badge">Release 2.1.0</span> <span class="badge">Zero-Server P2P Signaling</span> <span class="badge">NIST FIPS 204 ML-DSA-65</span></p>
 
         <h2>1. Genesis Block &amp; Network Specifications</h2>
         <table>
@@ -59,16 +59,16 @@
             <tr><td>P2P Port / RPC Port</td><td><code>28333</code> / <code>28332</code></td></tr>
             <tr><td>Bech32 Address HRP</td><td><code>pqn</code></td></tr>
             <tr><td>Spenden-Wallet Treasury</td><td><code>pqn1qgenesisspendenwallettreasury20252026</code> (50 PQN / 1,440 blocks)</td></tr>
-            <tr><td>HTTP Seed Discovery Pool</td><td><code>https://raw.githubusercontent.com/timfromhcs/payquant/main/seeds.json</code></td></tr>
+            <tr><td>Zero-Server P2P Signaling Channel</td><td><code>#payquant-mainnet</code> (irc.libera.chat:6667 / irc.oftc.net:6667)</td></tr>
         </table>
 
-        <h2>2. Node Setup &amp; P2P Dynamic HTTP Auto-Sync</h2>
-        <p>Nodes and miners fetch active P2P peers automatically from the dynamic HTTP seed pool on launch:</p>
+        <h2>2. Node Setup &amp; Zero-Server P2P Signaling</h2>
+        <p>Nodes signal their online presence on Libera/OFTC IRC channel <code>#payquant-mainnet</code> to discover all online nodes worldwide:</p>
         <pre><code># Clone official repository
 git clone https://github.com/timfromhcs/payquant.git ~/payquant
 cd ~/payquant
 
-# Start node with auto HTTP seed discovery
+# Start node with Zero-Server P2P signaling
 python contrib/mainnet_webui.py</code></pre>
 
         <h2>3. JSON-RPC API Reference</h2>

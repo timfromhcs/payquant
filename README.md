@@ -1,34 +1,33 @@
-# 🚀 PayQuant (PQN) – Die quantensichere KI-Blockchain (v2.0.2)
+# 🚀 PayQuant (PQN) – Die quantensichere KI-Blockchain (v2.1.0)
 
 [![Build Status](https://github.com/timfromhcs/payquant/actions/workflows/ci.yml/badge.svg)](https://github.com/timfromhcs/payquant/actions/workflows/ci.yml)
 [![Quantum Secure](https://img.shields.io/badge/Quantum-Secure-brightgreen)](https://github.com/timfromhcs/payquant)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Release v2.0.2](https://img.shields.io/github/v/release/timfromhcs/payquant)](https://github.com/timfromhcs/payquant/releases/tag/v2.0.2)
+[![Release v2.1.0](https://img.shields.io/github/v/release/timfromhcs/payquant)](https://github.com/timfromhcs/payquant/releases/tag/v2.1.0)
 [![GitHub Pages](https://img.shields.io/badge/GitHub-Pages-blue)](https://timfromhcs.github.io/payquant/)
 
-**PayQuant (PQN) Release 2.0.2** ist die erste quantensichere, selbstoptimierende KI-Blockchain. Sie kombiniert Post-Quantum-Kryptographie (ML-DSA-65), den Synergeia-Konsens (PoW+PoS 15s Finalität), Proof of Useful Work (PoUW) mit ZKML, ASIC-resistentes RinHash-Mining auf Vulkan GPUs, ein dezentrales Spenden-Wallet und einen **dynamischen HTTP-Seed-Pool (`seeds.json`)** für weltweites P2P Auto-Syncing!
+**PayQuant (PQN) Release 2.1.0** ist die erste quantensichere, selbstoptimierende KI-Blockchain mit **Zero-Server P2P-Signalisierung über das gesamte Internet**. Sie kombiniert Post-Quantum-Kryptographie (ML-DSA-65), den Synergeia-Konsens (PoW+PoS 15s Finalität), Proof of Useful Work (PoUW) mit ZKML, ASIC-resistentes RinHash-Mining auf Vulkan GPUs und ein dezentrales Spenden-Wallet.
 
 ---
 
-## 🌐 Dynamic HTTP Seed Pool & P2P Auto-Sync (v2.0.2)
+## 🌐 Zero-Server Internet P2P Signaling & Peer Discovery (v2.1.0)
 
-Da statisches DNS/HTTP-Hosting (wie GitHub Pages) kein direktes TCP-Routing auf Port 28333 ausführen kann, nutzt PayQuant v2.0.2 ein **dezentrales HTTP-Seed-Pool-Protokoll (`seeds.json`)**. 
+In PayQuant v2.1.0 gibt es **keinen zentralen Hauptserver und keinen Single Point of Failure**. 
 
-Nodes und Miner rufen beim Start automatisch die aktuelle Liste aktiver Peer-Nodes ab und tragen sie dynamisch als `addnode=` ein.
+Jede Node signalisiert ihre Online-Präsenz automatisch auf einem öffentlich sichtbaren Internet-Kanal (`#payquant-mainnet` auf Libera.Chat & OFTC) und entdeckt weltweite Online-Nodes in Echtzeit.
 
 ```bash
 # Repository klonen
 git clone https://github.com/timfromhcs/payquant.git ~/payquant
 cd ~/payquant
 
-# Mainnet Node & Controller starten (mit HTTP Seed Sync auf http://127.0.0.1:8080)
+# Mainnet Node & Controller starten (mit Zero-Server P2P Signaling)
 python contrib/mainnet_webui.py
 ```
 
-### 1-Klick Peer Announcer (Kostenlose Node bekanntgeben)
+### Standalone IRC/P2P Signalierer starten
 ```bash
-# Eigene externe IP / Node im Netzwerk bekanntgeben
-python contrib/peer_announcer.py
+python contrib/irc_p2p_signaling.py
 ```
 
 ---
@@ -81,13 +80,13 @@ Alle **1.440 Blöcke** (~6 Stunden) schüttet das Spenden-Wallet automatisch **5
 
 ---
 
-## 📦 Releases & Installation (v2.0.2)
+## 📦 Releases & Installation (v2.1.0)
 
 | Betriebssystem | Release Paket | Download Link |
 |----------------|---------------|---------------|
-| **Windows 64-bit** | Installer `.exe` / Portable `.zip` | [Releases v2.0.2](https://github.com/timfromhcs/payquant/releases/tag/v2.0.2) |
-| **Linux x64/arm64** | Binary `.tar.gz` | [Releases v2.0.2](https://github.com/timfromhcs/payquant/releases/tag/v2.0.2) |
-| **macOS x64/arm64** | Universal `.dmg` | [Releases v2.0.2](https://github.com/timfromhcs/payquant/releases/tag/v2.0.2) |
+| **Windows 64-bit** | Installer `.exe` / Portable `.zip` | [Releases v2.1.0](https://github.com/timfromhcs/payquant/releases/tag/v2.1.0) |
+| **Linux x64/arm64** | Binary `.tar.gz` | [Releases v2.1.0](https://github.com/timfromhcs/payquant/releases/tag/v2.1.0) |
+| **macOS x64/arm64** | Universal `.dmg` | [Releases v2.1.0](https://github.com/timfromhcs/payquant/releases/tag/v2.1.0) |
 | **Docker Container** | Multi-Arch Image | `ghcr.io/timfromhcs/payquant:latest` |
 
 ---
@@ -98,4 +97,4 @@ MIT License – siehe [LICENSE](LICENSE) Datei.
 
 ---
 
-**🚀 PayQuant (PQN) v2.0.2 – Die quantensichere KI-Blockchain der nächsten Generation.**
+**🚀 PayQuant (PQN) v2.1.0 – Die quantensichere KI-Blockchain der nächsten Generation.**

@@ -18,7 +18,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-            background: #0a0a1a;
+            background: #060814;
             color: #e0e0e0;
             min-height: 100vh;
             display: flex;
@@ -26,435 +26,168 @@
             align-items: center;
         }
         .container {
-            max-width: 1200px;
-            width: 95%;
-            padding: 1rem;
+            max-width: 1100px;
+            width: 92%;
+            padding: 2rem 1rem;
         }
         .glass {
-            background: rgba(255,255,255,0.04);
+            background: rgba(255,255,255,0.03);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255,255,255,0.08);
             border-radius: 24px;
-            padding: 2rem;
-            margin: 1rem 0;
-            transition: all 0.3s ease;
+            padding: 2.5rem;
+            margin: 1.5rem 0;
+            text-align: center;
         }
-        .glass:hover {
-            border-color: rgba(0, 212, 255, 0.2);
+        .logo-container img {
+            max-width: 140px;
+            height: auto;
+            margin-bottom: 1rem;
         }
         h1 {
-            font-size: 4rem;
+            font-size: 3.8rem;
             background: linear-gradient(135deg, #00d4ff 0%, #7b2fbe 50%, #00d4ff 100%);
             background-size: 200% 200%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: shimmer 4s ease-in-out infinite;
+            margin-bottom: 0.5rem;
         }
         @keyframes shimmer {
             0%, 100% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
         }
-        h2 { color: #00d4ff; margin: 1.5rem 0 0.5rem; font-size: 1.8rem; }
-        h3 { color: #7b2fbe; margin-bottom: 0.5rem; }
-        .subtitle { font-size: 1.4rem; color: #8899aa; max-width: 700px; margin: 0 auto 1.5rem; }
+        p.subtitle {
+            font-size: 1.3rem;
+            color: #8899aa;
+            max-width: 750px;
+            margin: 0.5rem auto 1.5rem;
+            line-height: 1.6;
+        }
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.6rem;
+            margin: 1rem 0;
+        }
         .badge {
-            display: inline-block;
             background: rgba(26, 26, 62, 0.8);
-            padding: 0.4rem 1.2rem;
+            padding: 0.5rem 1.2rem;
             border-radius: 20px;
             border: 1px solid rgba(255,255,255,0.08);
-            margin: 0.3rem;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: #ccd;
-            transition: all 0.2s;
         }
-        .badge:hover {
-            border-color: #00d4ff;
-            transform: translateY(-2px);
-        }
-        .badge.highlight { border-color: #7b2fbe; background: rgba(123, 47, 190, 0.15); }
+        .badge.highlight { border-color: #00d4ff; color: #00d4ff; }
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 1.5rem;
             margin: 1.5rem 0;
+            text-align: left;
         }
         .card {
-            background: rgba(255,255,255,0.03);
-            border-radius: 16px;
-            padding: 1.8rem;
+            background: rgba(255,255,255,0.02);
+            border-radius: 20px;
+            padding: 2rem;
             border: 1px solid rgba(255,255,255,0.06);
-            transition: all 0.3s ease;
         }
-        .card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(0, 212, 255, 0.2);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
-        }
-        .card .icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
-        .btn {
-            display: inline-block;
-            padding: 0.8rem 1.8rem;
-            border-radius: 30px;
-            background: linear-gradient(135deg, #00d4ff, #7b2fbe);
-            color: #fff;
-            text-decoration: none;
-            font-weight: 600;
-            margin: 0.4rem;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-        .btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 30px rgba(0, 212, 255, 0.3);
-        }
-        .btn-audit {
-            background: linear-gradient(135deg, #00ffaa, #00d4ff);
-            color: #060913;
-        }
-        .btn-secondary {
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        .btn-secondary:hover {
-            background: rgba(255,255,255,0.15);
-        }
-        .stats {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            background: rgba(0,0,0,0.3);
+        .card .icon { font-size: 2.5rem; margin-bottom: 0.8rem; }
+        .card h3 { color: #00d4ff; font-size: 1.3rem; margin-bottom: 0.5rem; }
+        .card p { color: #8899aa; font-size: 0.95rem; line-height: 1.5; }
+        .diagram-img {
+            width: 100%;
+            max-width: 950px;
+            height: auto;
             border-radius: 16px;
-            padding: 1.5rem;
             margin: 1rem 0;
+            border: 1px solid rgba(255,255,255,0.08);
         }
-        .stat-item { text-align: center; padding: 0.5rem; }
-        .stat-number {
-            font-size: 2.2rem;
-            background: linear-gradient(135deg, #00d4ff, #7b2fbe);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: bold;
-        }
-        .stat-label { color: #8899aa; font-size: 0.9rem; }
-        .sentinel-box {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            justify-content: center;
-            margin: 1rem 0;
-        }
-        .sentinel-card {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 1.5rem 2.5rem;
-            border-radius: 12px;
-            border-left: 4px solid #00d4ff;
-            min-width: 200px;
-            text-align: center;
-        }
-        .sentinel-card .value { font-size: 2rem; font-weight: bold; color: #00d4ff; }
-        .sentinel-card .label { color: #556677; font-size: 0.8rem; }
-        .sentinel-card.secure { border-left-color: #00d4ff; }
-        .download-section {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.8rem;
-            margin: 1rem 0;
-        }
-        .download-btn {
-            display: inline-block;
-            padding: 0.7rem 1.5rem;
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
-            color: #e0e0e0;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-        }
-        .download-btn:hover {
-            background: rgba(0, 212, 255, 0.1);
-            border-color: #00d4ff;
-            transform: translateY(-2px);
-        }
-        .download-btn .platform { font-weight: bold; color: #00d4ff; }
         footer {
-            margin: 2rem 0;
+            margin: 3rem 0 1rem;
             color: #556677;
             font-size: 0.9rem;
             text-align: center;
         }
-        footer a { color: #00d4ff; text-decoration: none; }
-        footer a:hover { text-decoration: underline; }
-        .logo-container {
-            display: flex;
-            justify-content: center;
-            margin: 0.5rem 0;
-        }
-        .logo-container img {
-            max-width: 150px;
-            height: auto;
-        }
-        .diagram-img {
-            width: 100%;
-            max-width: 900px;
-            height: auto;
-            border-radius: 16px;
-            margin: 1rem 0;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        .console-box {
-            background: #050711;
-            border: 1px solid #00d4ff;
-            border-radius: 12px;
-            padding: 1rem;
-            font-family: monospace;
-            font-size: 0.85rem;
-            color: #00ffaa;
-            text-align: left;
-            max-height: 220px;
-            overflow-y: auto;
-            margin-top: 1rem;
-        }
+        footer code { background: #0c0f24; padding: 0.2rem 0.6rem; border-radius: 6px; color: #00ffaa; font-family: monospace; }
         @media (max-width: 768px) {
             h1 { font-size: 2.5rem; }
-            .subtitle { font-size: 1.1rem; }
-            .glass { padding: 1.2rem; }
+            p.subtitle { font-size: 1.1rem; }
+            .glass { padding: 1.5rem; }
             .grid { grid-template-columns: 1fr; }
-            .stats { flex-direction: column; align-items: center; }
-            .stat-item { margin: 0.3rem 0; }
         }
     </style>
 </head>
 <body>
     <div class="container">
 
-        <!-- HERO -->
-        <div class="glass" style="text-align: center; margin-top: 1rem;">
+        <!-- HERO LANDING HEADER -->
+        <div class="glass">
             <div class="logo-container">
                 <img src="payquant-logo.svg" alt="PayQuant Logo">
             </div>
             <h1>PayQuant (PQN)</h1>
-            <p class="subtitle">Die quantensichere, selbstoptimierende KI-Blockchain für das Quantenzeitalter</p>
-            <div style="margin: 1rem 0;">
-                <span class="badge">🔐 Post-Quantum (ML-DSA-65)</span>
-                <span class="badge highlight">⚡ Synergeia (PoW+PoS)</span>
-                <span class="badge">🤖 PoUW + ZKML</span>
-                <span class="badge">⛏️ RinHash ASIC-resistent</span>
-                <span class="badge">💰 Spenden-Wallet</span>
-                <span class="badge">🧠 FMARL AI</span>
-            </div>
-            <div style="margin: 1.5rem 0;">
-                <a href="https://github.com/timfromhcs/payquant" class="btn">📂 Explore Repository</a>
-                <button onclick="runLiveQuantumAudit(event)" class="btn btn-audit">🧪 Quantum Sentinel Audit</button>
-                <a href="#features" class="btn btn-secondary">📖 Mehr erfahren</a>
-                <a href="#download" class="btn btn-secondary">📦 Download</a>
-            </div>
-            <div style="font-size:0.8rem; color:#556677;">
-                <span>🔗 <a href="https://github.com/timfromhcs/payquant" style="color:#00d4ff;">GitHub Repository (timfromhcs/payquant)</a></span>
-                <span style="margin:0 0.5rem;">·</span>
-                <span>📄 <a href="docs.html" style="color:#00d4ff;">Dokumentation &amp; API</a></span>
-                <span style="margin:0 0.5rem;">·</span>
-                <span>🐳 <a href="https://github.com/timfromhcs/payquant/pkgs/container/payquant" style="color:#00d4ff;">Docker Container</a></span>
-            </div>
-        </div>
-
-        <!-- NETWORK STATS -->
-        <div class="glass">
-            <h2 style="text-align: center;">📊 Netzwerk-Status</h2>
-            <div class="stats">
-                <div class="stat-item"><div class="stat-number">27</div><div class="stat-label">Validatoren</div></div>
-                <div class="stat-item"><div class="stat-number">15s</div><div class="stat-label">Block-Finalität</div></div>
-                <div class="stat-item"><div class="stat-number">50 PQN</div><div class="stat-label">Spenden-Wallet / Block</div></div>
-                <div class="stat-item"><div class="stat-number">1.440</div><div class="stat-label">Blöcke pro Ausschüttung</div></div>
-                <div class="stat-item"><div class="stat-number">98.7%</div><div class="stat-label">FMARL Genauigkeit</div></div>
-            </div>
-            <div style="text-align: center; font-size: 0.8rem; color: #556677; word-break: break-all;">
-                Genesis Block: <code style="background:#1a1a2e; padding:0.2rem 0.5rem; border-radius:4px;">000005ced0a90e5e4f39d7188fa1818fee45fef6e32018d0f5f4bb5c6626d818</code>
-            </div>
-        </div>
-
-        <!-- LIVE INTERACTIVE QUANTUM SENTINEL AUDIT SANDBOX WIDGET -->
-        <div class="glass" id="quantum-sentinel-audit" style="text-align: center;">
-            <h2>🧪 Quantum Sentinel Real-Time Audit Engine</h2>
-            <p style="max-width: 750px; margin: 0.5rem auto 1rem; color: #8899aa;">
-                Simulieren Sie in Echtzeit einen Qiskit 5-Qubit Superpositions-Quanten-Audit für eine PayQuant ML-DSA-65 Adresse.
-            </p>
-            <img src="quantum-circuit.svg" alt="Qiskit Quantum Circuit Diagram" class="diagram-img">
+            <p class="subtitle">Die quantensichere, selbstoptimierende KI-Blockchain für das digitale Zeitalter</p>
             
-            <div class="sentinel-box">
-                <div class="sentinel-card secure">
-                    <div style="font-size:2.5rem; margin-bottom:0.5rem;">✅</div>
-                    <div class="value" id="audit-score">7.999</div>
-                    <div class="label">Entropy Score (bits/byte)</div>
-                    <div id="audit-status" style="color:#00d4ff; font-size:0.9rem; font-weight:bold;">QUANTUM SECURE</div>
-                </div>
-                <div class="sentinel-card secure">
-                    <div style="font-size:2.5rem; margin-bottom:0.5rem;">🛡️</div>
-                    <div class="value" id="shor-risk">0.00%</div>
-                    <div class="label">Shor's Algorithm Risk</div>
-                    <div style="color:#00d4ff; font-size:0.9rem;">NIST FIPS 204 Validated</div>
-                </div>
-                <div class="sentinel-card secure">
-                    <div style="font-size:2.5rem; margin-bottom:0.5rem;">🔑</div>
-                    <div class="value">ML-DSA-65</div>
-                    <div class="label">Primary Signature Scheme</div>
-                    <div style="color:#00d4ff; font-size:0.9rem;">Fallback: SLH-DSA</div>
-                </div>
-            </div>
-
-            <button onclick="runLiveQuantumAudit(event)" class="btn btn-audit" style="margin-top:1rem;">⚡ Run Live Quantum Scan Now</button>
-
-            <div class="console-box" id="audit-console">
-                [Quantum Sentinel] Initializing 5-Qubit Hadamard superposition circuit...<br>
-                [Quantum Sentinel] Target address: pqn1qquantumsafeaddress2026<br>
-                [Quantum Sentinel] Status: QUANTUM SECURE (Entropy: 7.999 bits/byte)<br>
+            <div class="badges">
+                <span class="badge highlight">🔐 Post-Quantum (ML-DSA-65)</span>
+                <span class="badge">⚡ Synergeia (PoW+PoS 15s)</span>
+                <span class="badge">🤖 PoUW + ZKML</span>
+                <span class="badge">⛏️ RinHash ASIC-Resistent</span>
+                <span class="badge">🌐 Dezentrale IRC/P2P Signalierung</span>
+                <span class="badge">💰 Spenden-Wallet Treasury</span>
             </div>
         </div>
 
-        <!-- FEATURES -->
-        <div class="glass" id="features">
-            <h2 style="text-align: center;">🚀 Core Features</h2>
-            <div class="grid">
-                <div class="card">
-                    <div class="icon">⚛️</div>
-                    <h3>Post-Quantum Cryptography</h3>
-                    <p>NIST FIPS 204 ML-DSA-65 (Dilithium) schützt Transaktionen gegen Quantencomputer-Angriffe. Fallback: SLH-DSA (SPHINCS+).</p>
-                    <p style="font-size:0.8rem; color:#556677; margin-top:0.5rem;">Public Key: ~1.312 Bytes | Signature: ~2.420 Bytes</p>
-                </div>
-                <div class="card">
-                    <div class="icon">⚡</div>
-                    <h3>Synergeia Consensus</h3>
-                    <p>Hybrid PoW + PoS mit <strong>15-Sekunden-Block-Finalität</strong> und 27 dynamischen Validator-Slots. Super-exponentielle Sicherheit gegen 40%-Angreifer.</p>
-                    <p style="font-size:0.8rem; color:#556677; margin-top:0.5rem;">ε(k) ≤ exp(-C₁k²) + exp(-C₂k) | k = 26 für ε ≤ 10⁻⁹</p>
-                </div>
-                <div class="card">
-                    <div class="icon">🤖</div>
-                    <h3>PoUW + ZKML</h3>
-                    <p>Proof of Useful Work: GPU-Zyklen trainieren echte KI-Modelle. Zero-Knowledge-Proofs verifizieren die Korrektheit des Trainings.</p>
-                    <p style="font-size:0.8rem; color:#556677; margin-top:0.5rem;">Dezentralisierte KI-Entwicklung ohne zentrale Anbieter</p>
-                </div>
-                <div class="card">
-                    <div class="icon">⛏️</div>
-                    <h3>RinHash Mining</h3>
-                    <p>ASIC-resistenter PoW mit BLAKE3 + Argon2d + SHA3-256. Läuft auf jeder Vulkan-GPU – kein CUDA, kein ROCm, keine Treiber-Fiddling.</p>
-                    <p style="font-size:0.8rem; color:#556677; margin-top:0.5rem;">High-End GPU: ~3-5 GH/s</p>
-                </div>
-                <div class="card">
-                    <div class="icon">💰</div>
-                    <h3>Spenden-Wallet</h3>
-                    <p>Automatische 50 PQN-Ausschüttung alle 1.440 Blöcke (~6h) an alle aktiven Nutzer. Anti-Sybil-Schutz durch Aktivitäts-Hürde.</p>
-                    <p style="font-size:0.8rem; color:#556677; margin-top:0.5rem;">Nur Wallets mit Transaktion in letzten 1.440 Blöcken gelten als aktiv</p>
-                </div>
-                <div class="card">
-                    <div class="icon">🧠</div>
-                    <h3>FMARL AI Agent</h3>
-                    <p>Federated Multi-Agent Reinforcement Learning optimiert kontinuierlich Gebühren, Block-Größen und Peer-Routing.</p>
-                    <p style="font-size:0.8rem; color:#556677; margin-top:0.5rem;">98.67% Genauigkeit | 97.55% Präzision | 98.77% F1-Score</p>
-                </div>
+        <!-- CORE ARCHITECTURE & FEATURES -->
+        <div class="grid">
+            <div class="card">
+                <div class="icon">⚛️</div>
+                <h3>Post-Quantum Cryptography</h3>
+                <p>Implementiert NIST FIPS 204 ML-DSA-65 (Dilithium) Signaturverfahren. Bietet vollständigen Schutz gegen Angriffe durch Shors Algorithmus auf Quantencomputern.</p>
+            </div>
+            <div class="card">
+                <div class="icon">⚡</div>
+                <h3>Synergeia Hybrid Consensus</h3>
+                <p>Verbindet Proof-of-Work und Proof-of-Stake mit 15-Sekunden-Block-Finalität und 27 rotierenden Validator-Slots für super-exponentielle Sicherheit.</p>
+            </div>
+            <div class="card">
+                <div class="icon">🌐</div>
+                <h3>Zero-Server P2P Signaling</h3>
+                <p>100% dezentralisierte Node-Signalisierung im gesamten Internet. Jede Node findet weltweit alle aktiven Online-Nodes ohne zentralen Hauptserver.</p>
+            </div>
+            <div class="card">
+                <div class="icon">🤖</div>
+                <h3>Proof of Useful Work &amp; ZKML</h3>
+                <p>GPU-Rechenleistung trainiert echte KI-Modelle. Die Korrektheit der Berechnungen wird über Zero-Knowledge Machine Learning Proofs auf der Blockchain verifiziert.</p>
+            </div>
+            <div class="card">
+                <div class="icon">⛏️</div>
+                <h3>RinHash Vulkan GPU Mining</h3>
+                <p>ASIC-resistenter 3-Stufen PoW (BLAKE3 + Argon2d + SHA3-256). Läuft nativ auf jeder Vulkan-kompatiblen GPU ohne proprietäre Treiber.</p>
+            </div>
+            <div class="card">
+                <div class="icon">💰</div>
+                <h3>Spenden-Wallet Treasury</h3>
+                <p>Automatische Ausschüttung von 50 PQN alle 1.440 Blöcke (~6 Stunden) an alle aktiven Wallets mit Anti-Sybil-Schutz.</p>
             </div>
         </div>
 
-        <!-- ARCHITECTURE & CONSENSUS FLOW DIAGRAMS & POUW PIPELINE -->
-        <div class="glass" style="text-align: center;">
-            <h2>🏗️ Architektur, Konsens-Flow &amp; PoUW Pipeline</h2>
+        <!-- ARCHITECTURE DIAGRAMS -->
+        <div class="glass">
+            <h2 style="color:#00d4ff; margin-bottom:1rem;">🏗️ PayQuant Blockchain Architektur &amp; Konsens-Flow</h2>
             <img src="architecture.svg" alt="PayQuant Architecture Diagram" class="diagram-img">
             <img src="consensus-flow.svg" alt="Synergeia Consensus Flowchart" class="diagram-img">
-            <img src="pouw-pipeline.svg" alt="Proof of Useful Work Pipeline" class="diagram-img">
-        </div>
-
-        <!-- DOWNLOAD -->
-        <div class="glass" id="download">
-            <h2 style="text-align: center;">📦 Downloads</h2>
-            <div class="download-section">
-                <a href="https://github.com/timfromhcs/payquant/releases" class="download-btn">
-                    <span class="platform">🪟 Windows</span> Installer .exe
-                </a>
-                <a href="https://github.com/timfromhcs/payquant/releases" class="download-btn">
-                    <span class="platform">🪟 Windows</span> Portable .zip
-                </a>
-                <a href="https://github.com/timfromhcs/payquant/releases" class="download-btn">
-                    <span class="platform">🍎 macOS</span> .dmg
-                </a>
-                <a href="https://github.com/timfromhcs/payquant/releases" class="download-btn">
-                    <span class="platform">🐧 Linux</span> .tar.gz
-                </a>
-                <a href="https://github.com/timfromhcs/payquant/pkgs/container/payquant" class="download-btn">
-                    <span class="platform">🐳 Docker</span> ghcr.io/timfromhcs/payquant
-                </a>
-            </div>
-            <div style="text-align:center; font-size:0.8rem; color:#556677; margin-top:0.5rem;">
-                📱 Android &amp; iOS: APK / IPA im <a href="https://github.com/timfromhcs/payquant/releases" style="color:#00d4ff;">Release</a> verfügbar
-            </div>
-        </div>
-
-        <!-- QUICK START -->
-        <div class="glass">
-            <h2 style="text-align: center;">⚡ Quick Start</h2>
-            <div style="background:#0a0a1a; border-radius:12px; padding:1.5rem; margin:1rem 0; overflow-x:auto;">
-                <code style="color:#00d4ff; font-size:0.9rem;">
-                # Repository klonen (https://github.com/timfromhcs/payquant)<br>
-                git clone https://github.com/timfromhcs/payquant.git ~/payquant<br>
-                cd ~/payquant<br><br>
-                # Kompilieren<br>
-                mkdir build && cd build<br>
-                cmake .. -DBUILD_GUI=ON<br>
-                make -j$(nproc)<br><br>
-                # Node starten<br>
-                ./src/payquantd -daemon<br>
-                ./src/payquant-cli getblockchaininfo
-                </code>
-            </div>
         </div>
 
         <!-- FOOTER -->
         <footer>
-            <p>© 2025-2026 PayQuant Contributors. Released under the <a href="https://github.com/timfromhcs/payquant/blob/main/LICENSE">MIT License</a>.</p>
-            <p style="font-size: 0.85rem; margin-top: 0.4rem;">
-                <a href="https://github.com/timfromhcs/payquant">GitHub (timfromhcs/payquant)</a> ·
-                <a href="https://github.com/timfromhcs/payquant/issues">Issues</a> ·
-                <a href="https://github.com/timfromhcs/payquant/discussions">Discussions</a> ·
-                <a href="https://github.com/timfromhcs/payquant/releases">Releases</a>
-            </p>
+            <p>Genesis Block: <code>000005ced0a90e5e4f39d7188fa1818fee45fef6e32018d0f5f4bb5c6626d818</code></p>
+            <p style="margin-top:0.5rem;">© 2025-2026 PayQuant Contributors. Released under the MIT License.</p>
         </footer>
 
     </div>
-
-    <!-- INTERACTIVE QUANTUM SENTINEL SCRIPT -->
-    <script>
-        function runLiveQuantumAudit(e) {
-            if (e) e.preventDefault();
-            const consoleBox = document.getElementById('audit-console');
-            const scoreEl = document.getElementById('audit-score');
-            const shorEl = document.getElementById('shor-risk');
-            const statusEl = document.getElementById('audit-status');
-
-            // Scroll smoothly to audit section if triggered from top button
-            document.getElementById('quantum-sentinel-audit').scrollIntoView({ behavior: 'smooth' });
-
-            let now = new Date().toLocaleTimeString();
-            consoleBox.innerHTML += `<br>[${now}] Executing Quantum Sentinel Shor/Grover risk scan...`;
-            consoleBox.innerHTML += `<br>[${now}] Building 5-Qubit superposition circuit (Hadamard + CNOT gates)...`;
-
-            scoreEl.innerText = 'Scanning...';
-            shorEl.innerText = 'Scanning...';
-            statusEl.innerText = 'AUDITING...';
-            statusEl.style.color = '#ffaa00';
-
-            setTimeout(() => {
-                let ent = (7.995 + Math.random() * 0.004).toFixed(3);
-                scoreEl.innerText = ent;
-                shorEl.innerText = '0.00%';
-                statusEl.innerText = 'QUANTUM SECURE';
-                statusEl.style.color = '#00d4ff';
-
-                consoleBox.innerHTML += `<br>[${now}] Quantum Sentinel Scan Finished: 0 vulnerabilities found. Score: ${ent} bits/byte (QUANTUM SECURE)`;
-                consoleBox.scrollTop = consoleBox.scrollHeight;
-            }, 1200);
-        }
-    </script>
 </body>
 </html>
