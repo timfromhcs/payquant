@@ -1,101 +1,77 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Downloads | PayQuant (PQN) Post-Quantum AI Blockchain</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <title>PayQuant (PQN) – Downloads &amp; Packages (v2.0.0)</title>
+    <meta name="description" content="Download PayQuant Core v2.0.0 Standalone Binaries, GUI Wallet, Vulkan GPU Miner, and Docker Container Image.">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="payquant-icon.svg" type="image/svg+xml">
     <style>
-        :root {
-            --bg-dark: #060913;
-            --bg-card: rgba(15, 23, 42, 0.75);
-            --border-glass: rgba(255, 255, 255, 0.1);
-            --primary-cyan: #00f2fe;
-            --primary-purple: #9d4edd;
-            --accent-green: #00ffaa;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --font-main: 'Inter', sans-serif;
-            --font-heading: 'Outfit', sans-serif;
-        }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: var(--bg-dark); color: var(--text-main); font-family: var(--font-main); line-height: 1.6; }
-
-        header {
-            display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 5%;
-            background: rgba(6, 9, 19, 0.95); border-bottom: 1px solid var(--border-glass); position: sticky; top: 0; z-index: 100;
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: #060814;
+            color: #e0e0e0;
+            padding: 2rem;
+            line-height: 1.6;
         }
-        .logo { font-family: var(--font-heading); font-size: 1.6rem; font-weight: 800; color: var(--primary-cyan); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
-        nav a { color: var(--text-muted); text-decoration: none; margin-left: 2rem; font-weight: 500; }
-        nav a:hover { color: var(--primary-cyan); }
-
-        .hero-downloads { text-align: center; padding: 4rem 2rem 2rem 2rem; }
-        .hero-downloads h1 { font-family: var(--font-heading); font-size: 3rem; margin-bottom: 1rem; }
-
-        .download-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem; max-width: 1200px; margin: 3rem auto; padding: 0 5%;
+        .container { max-width: 1000px; margin: 0 auto; }
+        h1 {
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, #00d4ff, #7b2fbe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
         }
-
-        .download-card {
-            background: var(--bg-card); border: 1px solid var(--border-glass);
-            border-radius: 20px; padding: 2rem; backdrop-filter: blur(12px); text-align: center;
-        }
-        .download-card h3 { font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 0.5rem; color: #fff; }
-        .download-card p { color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.95rem; }
-        
-        .btn-download {
-            display: inline-block; padding: 0.8rem 1.8rem; border-radius: 12px;
-            background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple));
-            color: #000; font-weight: 700; text-decoration: none; transition: transform 0.2s;
-        }
-        .btn-download:hover { transform: translateY(-2px); }
-
-        code-box {
-            background: #02040a; border: 1px solid var(--border-glass); border-radius: 10px;
-            padding: 0.8rem; font-family: monospace; color: var(--accent-green); font-size: 0.85rem; display: block; margin-top: 1rem;
-        }
+        nav { margin-bottom: 2rem; }
+        nav a { color: #8899aa; text-decoration: none; margin-right: 1.5rem; font-weight: 600; }
+        nav a:hover { color: #00d4ff; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+        .card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 1.8rem; }
+        .card h3 { color: #00d4ff; font-size: 1.3rem; margin-bottom: 0.5rem; }
+        .btn-download { display: inline-block; padding: 0.8rem 1.6rem; border-radius: 12px; background: linear-gradient(135deg, #00d4ff, #7b2fbe); color: #fff; text-decoration: none; font-weight: bold; margin-top: 1rem; }
+        .btn-download:hover { transform: scale(1.03); }
+        code { background: #0c0f24; padding: 0.2rem 0.5rem; border-radius: 4px; color: #00ffaa; font-family: monospace; }
     </style>
 </head>
 <body>
-
-    <header>
-        <a href="index.html" class="logo">⚛️ PayQuant Downloads</a>
+    <div class="container">
         <nav>
-            <a href="index.html">Home</a>
-            <a href="docs.html">Documentation</a>
-            <a href="download.html" style="color:var(--primary-cyan);">Downloads</a>
+            <a href="index.html">← Zurück zur Hauptseite</a>
+            <a href="docs.html">Dokumentation &amp; API</a>
+            <a href="https://github.com/timfromhcs/payquant">GitHub Repository</a>
         </nav>
-    </header>
 
-    <div class="hero-downloads">
-        <h1>Download PayQuant v1.0.0-alpha</h1>
-        <p>Choose your operating system below to download PayQuant Node, GUI Wallet, and Vulkan GPU Miner.</p>
+        <h1>PayQuant (PQN) Official Downloads (v2.0.0)</h1>
+        <p>Precompiled standalone binaries for Windows, Linux, macOS, and Docker.</p>
+
+        <div class="grid">
+            <div class="card">
+                <h3>🪟 Windows (64-bit)</h3>
+                <p>Installer <code>.exe</code> and Portable <code>.zip</code> containing Node, GUI Wallet, and RinHash Miner.</p>
+                <a href="https://github.com/timfromhcs/payquant/releases/tag/v2.0.0" class="btn-download">Download Windows Setup (v2.0.0)</a>
+            </div>
+            <div class="card">
+                <h3>🐧 Linux (x64 / ARM64)</h3>
+                <p>Headless Linux daemon tarball for server &amp; cloud node deployments.</p>
+                <a href="https://github.com/timfromhcs/payquant/releases/tag/v2.0.0" class="btn-download">Download Linux Tarball (v2.0.0)</a>
+            </div>
+            <div class="card">
+                <h3>🍎 macOS (Universal)</h3>
+                <p>Universal macOS DMG for Intel &amp; Apple Silicon Macs.</p>
+                <a href="https://github.com/timfromhcs/payquant/releases/tag/v2.0.0" class="btn-download">Download macOS DMG (v2.0.0)</a>
+            </div>
+            <div class="card">
+                <h3>🐳 Docker Container</h3>
+                <p>Multi-architecture container image for automated cloud deployments.</p>
+                <div style="margin-top:1rem;"><code>docker pull ghcr.io/timfromhcs/payquant:latest</code></div>
+            </div>
+        </div>
+
+        <footer>
+            <p style="margin-top:3rem; color:#556677; font-size:0.85rem;">© 2025-2026 PayQuant Contributors. Released under the MIT License.</p>
+        </footer>
     </div>
-
-    <div class="download-grid">
-        <div class="download-card">
-            <h3>🪟 Windows Setup (.exe)</h3>
-            <p>Includes payquant-qt.exe, payquantd.exe, payquant-cli.exe & vulkan_miner.exe with Setup Wizard.</p>
-            <a href="../release_dist/payquant-1.0.0-win64-setup.exe" class="btn-download">Download Windows Setup</a>
-        </div>
-
-        <div class="download-card">
-            <h3>📦 Windows Portable (.zip)</h3>
-            <p>Standalone zip bundle containing precompiled binaries & default payquant.conf.</p>
-            <a href="../release_dist/payquant-1.0.0-win64.zip" class="btn-download">Download Windows ZIP</a>
-        </div>
-
-        <div class="download-card">
-            <h3>🐧 Linux & Docker</h3>
-            <p>Headless Linux node package & container image for automated deployments.</p>
-            <a href="https://github.com/timfromhcs/payquant/releases" class="btn-download">Linux Tarball</a>
-            <div style="margin-top:1rem; font-family:monospace; color:#00ffaa; font-size:0.85rem;">docker pull ghcr.io/timfromhcs/payquant:latest</div>
-        </div>
-    </div>
-
 </body>
 </html>
