@@ -1,8 +1,9 @@
 # PayQuant (PQN) - Quantum-Safe, Self-Optimizing AI Blockchain
 
-[![PayQuant CI](https://github.com/payquant/payquant/actions/workflows/ci.yml/badge.svg)](https://github.com/payquant/payquant/actions)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](COPYING)
-[![Version](https://img.shields.io/badge/version-1.0.0--alpha-purple.svg)](https://github.com/payquant/payquant)
+[![PayQuant CI](https://github.com/timfromhcs/payquant/actions/workflows/ci.yml/badge.svg)](https://github.com/timfromhcs/payquant/actions)
+[![Self-Heal Loop](https://github.com/timfromhcs/payquant/actions/workflows/self-heal.yml/badge.svg)](https://github.com/timfromhcs/payquant/actions/workflows/self-heal.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Version](https://img.shields.io/badge/version-1.0.0--alpha-purple.svg)](https://github.com/timfromhcs/payquant)
 
 **PayQuant (PQN)** is a next-generation, post-quantum, AI-driven blockchain built upon the foundations of Bitcoin Knots. It combines NIST FIPS 204 ML-DSA-65 post-quantum cryptography, Synergeia Hybrid Consensus (PoW + PoS), Proof of Useful Work (PoUW) with ZKML verification, ASIC-resistant RinHash GPU mining, dynamic Spenden-Wallet treasury allocation, and FMARL self-optimization.
 

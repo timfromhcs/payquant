@@ -1,0 +1,46 @@
+name: Self-Heal Loop
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      max_retries:
+        description: 'Maximum repair retry cycles'
+        required: false
+        default: '10'
+      wait_time:
+        description: 'Wait interval between checks (seconds)'
+        required: false
+        default: '15'
+
+jobs:
+  self-heal:
+    name: Run Self-Healing Build Loop
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: write
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run Self-Healing Build Loop Controller
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python scripts/self_heal_loop.py
+
+      - name: Upload Self-Heal Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: self-heal-report
+          path: self_heal_report.md
