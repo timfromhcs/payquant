@@ -1,10 +1,10 @@
 @echo off
-TITLE PayQuant (PQN) Real Mainnet Node & Miner WebUI Controller
+TITLE PayQuant PQN Real Mainnet Node AND Miner WebUI Controller
 COLOR 0A
 CLS
 
 echo ===============================================================================
-echo            🌐 PAYQUANT (PQN) REAL MAINNET NODE & MINER CONTROLLER
+echo            PAYQUANT (PQN) REAL MAINNET NODE AND MINER CONTROLLER
 echo ===============================================================================
 echo Chain Target: REAL MAINNET (P2P Port 28333, RPC 28332)
 echo Post-Quantum Crypto: ML-DSA-65 (Dilithium NIST FIPS 204)
@@ -20,17 +20,19 @@ if not exist "%DATA_DIR%" (
     mkdir "%DATA_DIR%"
 )
 
-rem Create mainnet payquant.conf
-echo rpcuser=payquantuser > "%DATA_DIR%\payquant.conf"
-echo rpcpassword=payquantpass >> "%DATA_DIR%\payquant.conf"
-echo rpcport=28332 >> "%DATA_DIR%\payquant.conf"
-echo port=28333 >> "%DATA_DIR%\payquant.conf"
-echo server=1 >> "%DATA_DIR%\payquant.conf"
-echo listen=1 >> "%DATA_DIR%\payquant.conf"
-echo txindex=1 >> "%DATA_DIR%\payquant.conf"
+rem Create mainnet payquant.conf if missing
+if not exist "%DATA_DIR%\payquant.conf" (
+    echo rpcuser=payquantuser > "%DATA_DIR%\payquant.conf"
+    echo rpcpassword=payquantpass >> "%DATA_DIR%\payquant.conf"
+    echo rpcport=28332 >> "%DATA_DIR%\payquant.conf"
+    echo port=28333 >> "%DATA_DIR%\payquant.conf"
+    echo server=1 >> "%DATA_DIR%\payquant.conf"
+    echo listen=1 >> "%DATA_DIR%\payquant.conf"
+    echo txindex=1 >> "%DATA_DIR%\payquant.conf"
+)
 
-echo [1/2] Starting Mainnet WebUI Controller & Node Management Server...
-start "PayQuant Mainnet WebUI" python "contrib\mainnet_webui.py"
+echo [1/2] Launching Mainnet WebUI Management Server...
+start "PayQuantWebUI" python "contrib\mainnet_webui.py"
 
 timeout /t 2 /nobreak >nul
 
@@ -39,9 +41,9 @@ start http://127.0.0.1:8080
 
 echo.
 echo ===============================================================================
-echo ✅ PAYQUANT REAL MAINNET CONTROLLER IS ACTIVE!
+echo PAYQUANT REAL MAINNET CONTROLLER IS ACTIVE!
 echo WebUI URL: http://127.0.0.1:8080
-echo Features: Start / Stop Mainnet Node, Start / Stop RinHash Miner
+echo Features: Real-Time Auto Refresh, Start/Stop Node, Start/Stop Miner
 echo ===============================================================================
 echo.
 pause
