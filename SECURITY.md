@@ -1,18 +1,10 @@
-# Security Policy
+# PayQuant Security Policy
 
-## Supported Versions
+## Post-Quantum Cryptography & Quantum Sentinel
 
-See our website for versions of Bitcoin Knots that are currently supported with
-security updates: https://bitcoinknots.org/
+PayQuant mandates ML-DSA-65 (FIPS 204) signatures for transaction verification.
+Quantum Sentinel (`contrib/quantum_sentinel.py`) actively audits address entropy to prevent ECDSA Shor's algorithm vulnerabilities.
 
-## Reporting a Vulnerability
+## Reporting Security Vulnerabilities
 
-To report security issues send an email to luke+security+knots@dashjr.org (not for support).
-
-The following OpenPGP key should be used to communicate sensitive information:
-
-| Name | Fingerprint |
-|------|-------------|
-| Luke Dashjr | FAC0 98FE 8DF9 975F 9024  1881 3666 E2B1 782A 18E1 |
-
-You can import a key by running the following command with that individual’s fingerprint: `gpg --keyserver hkps://keys.openpgp.org --recv-keys "<fingerprint>"` Ensure that you put quotes around fingerprints containing spaces.
+Please report security issues to `security@payquant.org`.

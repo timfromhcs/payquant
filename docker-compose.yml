@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  payquantd:
+    build: .
+    image: ghcr.io/timfromhcs/payquant:latest
+    container_name: payquant_node
+    restart: unless-stopped
+    ports:
+      - "28333:28333"
+      - "28332:28332"
+    volumes:
+      - payquant_data:/root/.payquant
+
+volumes:
+  payquant_data:

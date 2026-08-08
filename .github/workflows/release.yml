@@ -1,0 +1,36 @@
+name: PayQuant Release Pipeline
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  publish-release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Build Release Distribution Artifacts
+        run: |
+          mkdir -p release_dist
+          tar -czf release_dist/payquant-v1.0.0-linux-x64.tar.gz src/ contrib/ doc/
+
+      - name: Upload Release Binaries to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            release_dist/*
+            dist/*
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,5 @@
+FROM python:3.11-slim
+WORKDIR /app
+RUN pip install --no-cache-dir blake3 argon2-cffi
+COPY vulkan_miner.py .
+ENTRYPOINT ["python", "vulkan_miner.py"]

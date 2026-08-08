@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation | PayQuant (PQN) Post-Quantum AI Blockchain</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #060913;
+            --bg-card: rgba(15, 23, 42, 0.75);
+            --border-glass: rgba(255, 255, 255, 0.1);
+            --primary-cyan: #00f2fe;
+            --primary-purple: #9d4edd;
+            --accent-green: #00ffaa;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --font-main: 'Inter', sans-serif;
+            --font-heading: 'Outfit', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg-dark); color: var(--text-main); font-family: var(--font-main); line-height: 1.7; }
+
+        header {
+            display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 5%;
+            background: rgba(6, 9, 19, 0.95); border-bottom: 1px solid var(--border-glass); position: sticky; top: 0; z-index: 100;
+        }
+        .logo { font-family: var(--font-heading); font-size: 1.6rem; font-weight: 800; color: var(--primary-cyan); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
+        nav a { color: var(--text-muted); text-decoration: none; margin-left: 2rem; font-weight: 500; }
+        nav a:hover { color: var(--primary-cyan); }
+
+        .container { display: flex; max-width: 1400px; margin: 0 auto; min-height: 90vh; }
+        .sidebar { width: 280px; padding: 2rem; border-right: 1px solid var(--border-glass); }
+        .sidebar h4 { color: var(--primary-cyan); font-family: var(--font-heading); margin-bottom: 1rem; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; }
+        .sidebar ul { list-style: none; margin-bottom: 2rem; }
+        .sidebar li a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; display: block; padding: 0.4rem 0; }
+        .sidebar li a:hover { color: var(--text-main); }
+
+        .content { flex: 1; padding: 3rem 4rem; }
+        h1 { font-family: var(--font-heading); font-size: 2.8rem; margin-bottom: 1rem; color: #fff; }
+        h2 { font-family: var(--font-heading); font-size: 1.8rem; margin-top: 2.5rem; margin-bottom: 1rem; color: var(--primary-cyan); border-bottom: 1px solid var(--border-glass); padding-bottom: 0.5rem; }
+        p { color: var(--text-muted); margin-bottom: 1.2rem; font-size: 1.05rem; }
+        
+        pre { background: #02040a; border: 1px solid var(--border-glass); border-radius: 12px; padding: 1.2rem; font-family: monospace; color: var(--accent-green); overflow-x: auto; margin: 1rem 0 1.5rem 0; }
+        code { font-family: monospace; color: var(--primary-cyan); }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo">⚛️ PayQuant Docs</a>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="docs.html" style="color:var(--primary-cyan);">Documentation</a>
+            <a href="download.html">Downloads</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            <h4>Getting Started</h4>
+            <ul>
+                <li><a href="#install">Installation Guide</a></li>
+                <li><a href="#quickstart">Quick Start</a></li>
+            </ul>
+            <h4>Core Architecture</h4>
+            <ul>
+                <li><a href="#postquantum">ML-DSA-65 Cryptography</a></li>
+                <li><a href="#synergeia">Synergeia Consensus</a></li>
+                <li><a href="#pouw">PoUW & ZKML</a></li>
+                <li><a href="#rinhash">RinHash GPU Mining</a></li>
+            </ul>
+            <h4>Node & RPC</h4>
+            <ul>
+                <li><a href="#rpc">RPC API Commands</a></li>
+                <li><a href="#config">payquant.conf Setup</a></li>
+            </ul>
+        </aside>
+
+        <main class="content">
+            <h1>PayQuant Technical Documentation</h1>
+            <p>Welcome to the official developer and operator documentation for PayQuant (PQN)—the post-quantum, self-optimizing AI blockchain built upon Bitcoin Knots.</p>
+
+            <h2 id="install">Installation Guide</h2>
+            <p>PayQuant provides precompiled Windows packages, macOS binaries, Linux tarballs, and Docker images.</p>
+            <pre><code># Windows Setup Installer (Recommended)
+run release_dist/payquant-1.0.0-win64-setup.exe
+
+# Docker Deployment
+docker pull payquant/payquant:latest
+docker run -d -p 28333:28333 payquant/payquant</code></pre>
+
+            <h2 id="postquantum">ML-DSA-65 Post-Quantum Signatures</h2>
+            <p>PayQuant implements NIST FIPS 204 ML-DSA-65 (Dilithium) signatures. Every transaction output created on PayQuant is protected against quantum decryption (Shor's algorithm).</p>
+            <pre><code>Public Key Size: 1,952 Bytes
+Secret Key Size: 4,032 Bytes
+Signature Size: 3,309 Bytes</code></pre>
+
+            <h2 id="rinhash">RinHash GPU & CPU Mining</h2>
+            <p>RinHash is a multi-stage ASIC-resistant hashing algorithm combining BLAKE3 pre-expansion, Argon2d memory-hard transformation, and SHA3-256 compression.</p>
+            <pre><code># Mine with precompiled Vulkan GPU Miner
+vulkan_miner.exe --max-nonces 1000000</code></pre>
+
+            <h2 id="rpc">RPC API Commands</h2>
+            <p>Use <code>payquant-cli.exe</code> to interact with running <code>payquantd</code> daemons:</p>
+            <pre><code>payquant-cli getnetworkinfo
+payquant-cli getblockchaininfo
+payquant-cli getwalletinfo
+payquant-cli getnewaddress</code></pre>
+        </main>
+    </div>
+
+</body>
+</html>

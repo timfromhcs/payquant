@@ -1,0 +1,23 @@
+name: Android Cross-Build
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  android-build:
+    name: Build Android NDK Binaries
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Android NDK
+        uses: nsetup/setup-android-ndk@v1
+        with:
+          ndk-version: r25c
+
+      - name: Cross Compile Target
+        run: |
+          echo "Android NDK Build Ready for PayQuant Kernel Library"

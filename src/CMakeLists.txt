@@ -139,6 +139,7 @@ endif()
 # Home for common functionality shared by different executables and libraries.
 # Similar to `bitcoin_util` library, but higher-level.
 add_library(bitcoin_common STATIC EXCLUDE_FROM_ALL
+  ai/fmarl.cpp
   addresstype.cpp
   base58.cpp
   bech32.cpp
@@ -147,6 +148,10 @@ add_library(bitcoin_common STATIC EXCLUDE_FROM_ALL
   chainparamsbase.cpp
   codex32.cpp
   coins.cpp
+  consensus/synergeia.cpp
+  consensus/treasury.cpp
+  pow/pouw.cpp
+  security/sentinel.cpp
   common/args.cpp
   common/bloom.cpp
   common/config.cpp

@@ -1,23 +1,38 @@
-# Build subdirectories.
-/*build*
-!/build-aux
-!/build_msvc
-
-*.pyc
-
-# Only ignore unexpected patches
-*.patch
-!contrib/guix/patches/*.patch
-!depends/patches/**/*.patch
-
-/CMakeUserPresets.json
-
-# Previous releases
-/releases
-
-#build tests
-test/lint/test_runner/target/
-
+# Build subdirectories
+build/
+cmake-build-debug/
+cmake-build-release/
 /guix-build-*
-
 /ci/scratch/
+
+# Python caches
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Temporary logs & databases
+*.log
+*.tmp
+*.db
+*.bak
+
+# Sensitive keys & backups
+.env
+*.key
+*.pem
+*.priv
+private.key
+public.key
+payquant_backup/
+
+# IDE and spec files
+.idea/
+.vscode/
+*.swp
+*.swo
+*.spec
+
+# Ignore test target build outputs except release packages
+test/lint/test_runner/target/
+/CMakeUserPresets.json

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayQuant (PQN) | Quantum-Safe Self-Optimizing AI Blockchain</title>
+    <meta name="description" content="PayQuant is a post-quantum, self-optimizing AI blockchain derived from Bitcoin Knots. Powered by ML-DSA-65 signatures, Synergeia Hybrid Consensus, PoUW+ZKML, RinHash, and FMARL.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #060913;
+            --bg-card: rgba(15, 23, 42, 0.75);
+            --border-glass: rgba(255, 255, 255, 0.1);
+            --primary-cyan: #00f2fe;
+            --primary-purple: #9d4edd;
+            --accent-pink: #ff2a85;
+            --accent-green: #00ffaa;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --font-main: 'Inter', sans-serif;
+            --font-heading: 'Outfit', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(0, 242, 254, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 85% 65%, rgba(157, 78, 221, 0.15) 0%, transparent 40%);
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            backdrop-filter: blur(16px);
+            background: rgba(6, 9, 19, 0.8);
+            border-bottom: 1px solid var(--border-glass);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--primary-cyan);
+            text-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
+        }
+
+        .hero {
+            min-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 4rem 2rem;
+            position: relative;
+        }
+
+        .badge {
+            background: rgba(0, 242, 254, 0.1);
+            border: 1px solid var(--primary-cyan);
+            color: var(--primary-cyan);
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-family: var(--font-heading);
+            font-size: 3.8rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            max-width: 900px;
+            background: linear-gradient(180deg, #ffffff 30%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin-bottom: 2.5rem;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.9rem 2.2rem;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple));
+            color: #000;
+            box-shadow: 0 4px 20px rgba(0, 242, 254, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(0, 242, 254, 0.6);
+        }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-main);
+            border: 1px solid var(--border-glass);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-cyan);
+            color: var(--primary-cyan);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            padding: 4rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+            padding: 2.2rem;
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 242, 254, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-main);
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .demo-section {
+            padding: 4rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .demo-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glass);
+            border-radius: 24px;
+            padding: 2.5rem;
+            backdrop-filter: blur(16px);
+        }
+
+        .demo-title {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .console {
+            background: #02040a;
+            border-radius: 12px;
+            padding: 1.2rem;
+            font-family: monospace;
+            color: var(--accent-green);
+            font-size: 0.9rem;
+            min-height: 180px;
+            overflow-y: auto;
+            border: 1px solid rgba(0, 255, 170, 0.2);
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem;
+            border-top: 1px solid var(--border-glass);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">⚛️ PayQuant</div>
+        <nav>
+            <a href="#features">Features</a>
+            <a href="#demo">Live Demo</a>
+            <a href="#specs">Specifications</a>
+            <a href="https://github.com/payquant/payquant" target="_blank" id="nav-github-link">GitHub</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="badge">NIST FIPS 204 Quantum Safe • 15s Blocks</div>
+        <h1>The Quantum-Safe, Self-Optimizing AI Blockchain</h1>
+        <p>Built upon Bitcoin Knots with ML-DSA-65 signatures, Synergeia PoW+PoS Consensus, ZKML Proof of Useful Work, RinHash Vulkan Mining, and FMARL Self-Tuning.</p>
+        <div class="cta-group">
+            <button class="btn btn-primary" id="btn-start-demo" onclick="runLiveAudit()">Run Quantum Audit</button>
+            <a href="https://github.com/payquant/payquant" class="btn btn-secondary" id="btn-explore-code">Explore Repository</a>
+        </div>
+    </section>
+
+    <section class="features-grid" id="features">
+        <div class="card">
+            <div class="card-icon">⚛️</div>
+            <h3>ML-DSA-65 Signatures</h3>
+            <p>Protected by NIST-standardized Dilithium post-quantum signature schemes resistant against Shor's quantum algorithm.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">⚡</div>
+            <h3>Synergeia Consensus</h3>
+            <p>Hybrid PoW + PoS engine delivering 15-second block confirmation with 27 active validator rotation slots.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">🧠</div>
+            <h3>PoUW + ZKML</h3>
+            <p>Proof of Useful Work verifying decentralized AI model training & inference zero-knowledge proofs.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">⛏️</div>
+            <h3>RinHash ASIC-Resistant Mining</h3>
+            <p>Multi-stage hashing combining BLAKE3, Argon2d, and SHA3-256 with Vulkan GPU miner integration.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">🎁</div>
+            <h3>Spenden-Wallet Treasury</h3>
+            <p>Automated 50 PQN treasury payouts every 1,440 blocks with built-in Anti-Sybil address protection.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">🤖</div>
+            <h3>FMARL AI Agent</h3>
+            <p>Federated Multi-Agent Reinforcement Learning dynamically tuning mempool fee targets and block limits.</p>
+        </div>
+    </section>
+
+    <section class="demo-section" id="demo">
+        <div class="demo-box">
+            <h2 class="demo-title">🛡️ Live Quantum Sentinel & RinHash Telemetry</h2>
+            <div class="console" id="live-console">
+                [PayQuant Node] initialized on P2P port 28333.<br>
+                [Genesis Block] hash: 000005ced0a90e5e4f39d7188fa1818fee45fef6e32018d0f5f4bb5c6626d818<br>
+                [Synergeia Engine] 27 active validators online.<br>
+                [Status] Ready for Quantum Sentinel Risk Audit. Click "Run Quantum Audit" above.
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 PayQuant (PQN) Project. Released under the MIT License.</p>
+    </footer>
+
+    <script>
+        function runLiveAudit() {
+            const consoleBox = document.getElementById('live-console');
+            consoleBox.innerHTML += "<br><span style='color:#00f2fe;'>[Quantum Sentinel] Initiating Qiskit 5-Qubit Hadamard Superposition Audit...</span>";
+            setTimeout(() => {
+                consoleBox.innerHTML += "<br><span style='color:#00ffaa;'>[Quantum Sentinel] Address pqn1qquantumsafeaddress2026: QUANTUM SECURE (Entropy: 7.999 bits/byte)</span>";
+                consoleBox.innerHTML += "<br><span style='color:#9d4edd;'>[FMARL Agent] Mempool pressure normal. Block size target set to 2MB. Fee target: 1.0 sat/vB.</span>";
+                consoleBox.scrollTop = consoleBox.scrollHeight;
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

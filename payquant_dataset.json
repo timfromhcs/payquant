@@ -1,0 +1,7510 @@
+{
+  "metadata": {
+    "project": "PayQuant FMARL Dataset",
+    "version": "1.0.0",
+    "samples": 500,
+    "created_by": "PayQuant Autonomous AI Engine"
+  },
+  "data": [
+    {
+      "step": 0,
+      "state": {
+        "tps": 854,
+        "mempool_bytes": 16231794,
+        "avg_fee_rate_sat_vb": 24.22,
+        "active_peers": 144
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 21.8,
+        "recommended_peers": 160
+      },
+      "reward_score": 0.864
+    },
+    {
+      "step": 1,
+      "state": {
+        "tps": 4322,
+        "mempool_bytes": 8209760,
+        "avg_fee_rate_sat_vb": 80.34,
+        "active_peers": 53
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 72.31,
+        "recommended_peers": 69
+      },
+      "reward_score": 0.8789
+    },
+    {
+      "step": 2,
+      "state": {
+        "tps": 2431,
+        "mempool_bytes": 32932405,
+        "avg_fee_rate_sat_vb": 82.27,
+        "active_peers": 72
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 74.04,
+        "recommended_peers": 88
+      },
+      "reward_score": 0.9304
+    },
+    {
+      "step": 3,
+      "state": {
+        "tps": 1177,
+        "mempool_bytes": 17624177,
+        "avg_fee_rate_sat_vb": 109.54,
+        "active_peers": 55
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 98.59,
+        "recommended_peers": 71
+      },
+      "reward_score": 0.8692
+    },
+    {
+      "step": 4,
+      "state": {
+        "tps": 4217,
+        "mempool_bytes": 13537526,
+        "avg_fee_rate_sat_vb": 97.86,
+        "active_peers": 195
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 88.07,
+        "recommended_peers": 211
+      },
+      "reward_score": 0.864
+    },
+    {
+      "step": 5,
+      "state": {
+        "tps": 2008,
+        "mempool_bytes": 32311637,
+        "avg_fee_rate_sat_vb": 143.66,
+        "active_peers": 38
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 129.29,
+        "recommended_peers": 54
+      },
+      "reward_score": 0.9675
+    },
+    {
+      "step": 6,
+      "state": {
+        "tps": 1658,
+        "mempool_bytes": 2470983,
+        "avg_fee_rate_sat_vb": 104.32,
+        "active_peers": 240
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 93.89,
+        "recommended_peers": 256
+      },
+      "reward_score": 0.9461
+    },
+    {
+      "step": 7,
+      "state": {
+        "tps": 3303,
+        "mempool_bytes": 19681564,
+        "avg_fee_rate_sat_vb": 26.85,
+        "active_peers": 233
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 24.17,
+        "recommended_peers": 249
+      },
+      "reward_score": 0.8943
+    },
+    {
+      "step": 8,
+      "state": {
+        "tps": 2648,
+        "mempool_bytes": 38288381,
+        "avg_fee_rate_sat_vb": 82.93,
+        "active_peers": 206
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 74.64,
+        "recommended_peers": 222
+      },
+      "reward_score": 0.8637
+    },
+    {
+      "step": 9,
+      "state": {
+        "tps": 3661,
+        "mempool_bytes": 25291127,
+        "avg_fee_rate_sat_vb": 29.33,
+        "active_peers": 249
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 26.4,
+        "recommended_peers": 256
+      },
+      "reward_score": 0.8912
+    },
+    {
+      "step": 10,
+      "state": {
+        "tps": 2817,
+        "mempool_bytes": 1513136,
+        "avg_fee_rate_sat_vb": 117.29,
+        "active_peers": 207
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 105.56,
+        "recommended_peers": 223
+      },
+      "reward_score": 0.8564
+    },
+    {
+      "step": 11,
+      "state": {
+        "tps": 4054,
+        "mempool_bytes": 31761172,
+        "avg_fee_rate_sat_vb": 101.45,
+        "active_peers": 154
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 91.31,
+        "recommended_peers": 170
+      },
+      "reward_score": 0.9491
+    },
+    {
+      "step": 12,
+      "state": {
+        "tps": 349,
+        "mempool_bytes": 48029158,
+        "avg_fee_rate_sat_vb": 130.87,
+        "active_peers": 205
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 117.78,
+        "recommended_peers": 221
+      },
+      "reward_score": 0.8661
+    },
+    {
+      "step": 13,
+      "state": {
+        "tps": 738,
+        "mempool_bytes": 46578307,
+        "avg_fee_rate_sat_vb": 79.52,
+        "active_peers": 251
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 71.57,
+        "recommended_peers": 256
+      },
+      "reward_score": 0.8884
+    },
+    {
+      "step": 14,
+      "state": {
+        "tps": 1382,
+        "mempool_bytes": 24473223,
+        "avg_fee_rate_sat_vb": 106.89,
+        "active_peers": 101
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 96.2,
+        "recommended_peers": 117
+      },
+      "reward_score": 0.9024
+    },
+    {
+      "step": 15,
+      "state": {
+        "tps": 1783,
+        "mempool_bytes": 47766820,
+        "avg_fee_rate_sat_vb": 115.75,
+        "active_peers": 140
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 104.17,
+        "recommended_peers": 156
+      },
+      "reward_score": 0.9142
+    },
+    {
+      "step": 16,
+      "state": {
+        "tps": 781,
+        "mempool_bytes": 15434391,
+        "avg_fee_rate_sat_vb": 130.15,
+        "active_peers": 59
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 117.14,
+        "recommended_peers": 75
+      },
+      "reward_score": 0.8825
+    },
+    {
+      "step": 17,
+      "state": {
+        "tps": 3545,
+        "mempool_bytes": 34704867,
+        "avg_fee_rate_sat_vb": 127.04,
+        "active_peers": 107
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 114.34,
+        "recommended_peers": 123
+      },
+      "reward_score": 0.9829
+    },
+    {
+      "step": 18,
+      "state": {
+        "tps": 1124,
+        "mempool_bytes": 28329420,
+        "avg_fee_rate_sat_vb": 13.89,
+        "active_peers": 117
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 12.5,
+        "recommended_peers": 133
+      },
+      "reward_score": 0.9243
+    },
+    {
+      "step": 19,
+      "state": {
+        "tps": 4018,
+        "mempool_bytes": 21829002,
+        "avg_fee_rate_sat_vb": 13.99,
+        "active_peers": 92
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 12.59,
+        "recommended_peers": 108
+      },
+      "reward_score": 0.9809
+    },
+    {
+      "step": 20,
+      "state": {
+        "tps": 992,
+        "mempool_bytes": 2803426,
+        "avg_fee_rate_sat_vb": 13.01,
+        "active_peers": 253
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 11.71,
+        "recommended_peers": 256
+      },
+      "reward_score": 0.9547
+    },
+    {
+      "step": 21,
+      "state": {
+        "tps": 673,
+        "mempool_bytes": 25336594,
+        "avg_fee_rate_sat_vb": 5.44,
+        "active_peers": 215
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 4.9,
+        "recommended_peers": 231
+      },
+      "reward_score": 0.888
+    },
+    {
+      "step": 22,
+      "state": {
+        "tps": 1768,
+        "mempool_bytes": 10155365,
+        "avg_fee_rate_sat_vb": 49.37,
+        "active_peers": 114
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 44.43,
+        "recommended_peers": 130
+      },
+      "reward_score": 0.9244
+    },
+    {
+      "step": 23,
+      "state": {
+        "tps": 3418,
+        "mempool_bytes": 30867893,
+        "avg_fee_rate_sat_vb": 80.59,
+        "active_peers": 243
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 72.53,
+        "recommended_peers": 256
+      },
+      "reward_score": 0.9134
+    },
+    {
+      "step": 24,
+      "state": {
+        "tps": 3711,
+        "mempool_bytes": 19868796,
+        "avg_fee_rate_sat_vb": 29.88,
+        "active_peers": 76
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 26.89,
+        "recommended_peers": 92
+      },
+      "reward_score": 0.9678
+    },
+    {
+      "step": 25,
+      "state": {
+        "tps": 3582,
+        "mempool_bytes": 19527641,
+        "avg_fee_rate_sat_vb": 103.23,
+        "active_peers": 227
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 92.91,
+        "recommended_peers": 243
+      },
+      "reward_score": 0.8844
+    },
+    {
+      "step": 26,
+      "state": {
+        "tps": 307,
+        "mempool_bytes": 12838860,
+        "avg_fee_rate_sat_vb": 62.69,
+        "active_peers": 63
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 56.42,
+        "recommended_peers": 79
+      },
+      "reward_score": 0.8932
+    },
+    {
+      "step": 27,
+      "state": {
+        "tps": 4417,
+        "mempool_bytes": 35797804,
+        "avg_fee_rate_sat_vb": 145.37,
+        "active_peers": 201
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 130.83,
+        "recommended_peers": 217
+      },
+      "reward_score": 0.8786
+    },
+    {
+      "step": 28,
+      "state": {
+        "tps": 1925,
+        "mempool_bytes": 40547583,
+        "avg_fee_rate_sat_vb": 120.56,
+        "active_peers": 193
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 108.5,
+        "recommended_peers": 209
+      },
+      "reward_score": 0.9146
+    },
+    {
+      "step": 29,
+      "state": {
+        "tps": 4125,
+        "mempool_bytes": 11895783,
+        "avg_fee_rate_sat_vb": 6.69,
+        "active_peers": 109
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 6.02,
+        "recommended_peers": 125
+      },
+      "reward_score": 0.9868
+    },
+    {
+      "step": 30,
+      "state": {
+        "tps": 789,
+        "mempool_bytes": 45755756,
+        "avg_fee_rate_sat_vb": 138.16,
+        "active_peers": 198
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 124.34,
+        "recommended_peers": 214
+      },
+      "reward_score": 0.9887
+    },
+    {
+      "step": 31,
+      "state": {
+        "tps": 1535,
+        "mempool_bytes": 4035534,
+        "avg_fee_rate_sat_vb": 93.48,
+        "active_peers": 72
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 84.13,
+        "recommended_peers": 88
+      },
+      "reward_score": 0.9669
+    },
+    {
+      "step": 32,
+      "state": {
+        "tps": 1938,
+        "mempool_bytes": 5323736,
+        "avg_fee_rate_sat_vb": 19.09,
+        "active_peers": 92
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 17.18,
+        "recommended_peers": 108
+      },
+      "reward_score": 0.9659
+    },
+    {
+      "step": 33,
+      "state": {
+        "tps": 826,
+        "mempool_bytes": 869864,
+        "avg_fee_rate_sat_vb": 66.9,
+        "active_peers": 67
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 60.21,
+        "recommended_peers": 83
+      },
+      "reward_score": 0.9518
+    },
+    {
+      "step": 34,
+      "state": {
+        "tps": 642,
+        "mempool_bytes": 4695644,
+        "avg_fee_rate_sat_vb": 108.28,
+        "active_peers": 197
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 97.45,
+        "recommended_peers": 213
+      },
+      "reward_score": 0.9476
+    },
+    {
+      "step": 35,
+      "state": {
+        "tps": 1513,
+        "mempool_bytes": 20594963,
+        "avg_fee_rate_sat_vb": 87.55,
+        "active_peers": 42
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 78.8,
+        "recommended_peers": 58
+      },
+      "reward_score": 0.8692
+    },
+    {
+      "step": 36,
+      "state": {
+        "tps": 3605,
+        "mempool_bytes": 24944598,
+        "avg_fee_rate_sat_vb": 5.7,
+        "active_peers": 230
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 5.13,
+        "recommended_peers": 246
+      },
+      "reward_score": 0.8564
+    },
+    {
+      "step": 37,
+      "state": {
+        "tps": 4709,
+        "mempool_bytes": 22323296,
+        "avg_fee_rate_sat_vb": 107.09,
+        "active_peers": 142
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 96.38,
+        "recommended_peers": 158
+      },
+      "reward_score": 0.9834
+    },
+    {
+      "step": 38,
+      "state": {
+        "tps": 175,
+        "mempool_bytes": 21298333,
+        "avg_fee_rate_sat_vb": 90.36,
+        "active_peers": 56
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 81.32,
+        "recommended_peers": 72
+      },
+      "reward_score": 0.8667
+    },
+    {
+      "step": 39,
+      "state": {
+        "tps": 841,
+        "mempool_bytes": 27632377,
+        "avg_fee_rate_sat_vb": 91.98,
+        "active_peers": 139
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 82.78,
+        "recommended_peers": 155
+      },
+      "reward_score": 0.9262
+    },
+    {
+      "step": 40,
+      "state": {
+        "tps": 4562,
+        "mempool_bytes": 29555861,
+        "avg_fee_rate_sat_vb": 45.59,
+        "active_peers": 32
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 41.03,
+        "recommended_peers": 48
+      },
+      "reward_score": 0.8873
+    },
+    {
+      "step": 41,
+      "state": {
+        "tps": 2465,
+        "mempool_bytes": 30243085,
+        "avg_fee_rate_sat_vb": 145.85,
+        "active_peers": 245
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 131.26,
+        "recommended_peers": 256
+      },
+      "reward_score": 0.8996
+    },
+    {
+      "step": 42,
+      "state": {
+        "tps": 4212,
+        "mempool_bytes": 1123075,
+        "avg_fee_rate_sat_vb": 54.86,
+        "active_peers": 61
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 49.37,
+        "recommended_peers": 77
+      },
+      "reward_score": 0.9553
+    },
+    {
+      "step": 43,
+      "state": {
+        "tps": 381,
+        "mempool_bytes": 42541366,
+        "avg_fee_rate_sat_vb": 76.26,
+        "active_peers": 97
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 68.63,
+        "recommended_peers": 113
+      },
+      "reward_score": 0.8861
+    },
+    {
+      "step": 44,
+      "state": {
+        "tps": 996,
+        "mempool_bytes": 27164486,
+        "avg_fee_rate_sat_vb": 138.19,
+        "active_peers": 39
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 124.37,
+        "recommended_peers": 55
+      },
+      "reward_score": 0.9376
+    },
+    {
+      "step": 45,
+      "state": {
+        "tps": 3023,
+        "mempool_bytes": 18530035,
+        "avg_fee_rate_sat_vb": 93.51,
+        "active_peers": 157
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 84.16,
+        "recommended_peers": 173
+      },
+      "reward_score": 0.9771
+    },
+    {
+      "step": 46,
+      "state": {
+        "tps": 4389,
+        "mempool_bytes": 15253416,
+        "avg_fee_rate_sat_vb": 27.82,
+        "active_peers": 220
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 25.04,
+        "recommended_peers": 236
+      },
+      "reward_score": 0.97
+    },
+    {
+      "step": 47,
+      "state": {
+        "tps": 2302,
+        "mempool_bytes": 43772686,
+        "avg_fee_rate_sat_vb": 114.24,
+        "active_peers": 125
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 102.82,
+        "recommended_peers": 141
+      },
+      "reward_score": 0.9773
+    },
+    {
+      "step": 48,
+      "state": {
+        "tps": 2013,
+        "mempool_bytes": 5176559,
+        "avg_fee_rate_sat_vb": 127.04,
+        "active_peers": 185
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 114.34,
+        "recommended_peers": 201
+      },
+      "reward_score": 0.8701
+    },
+    {
+      "step": 49,
+      "state": {
+        "tps": 3681,
+        "mempool_bytes": 39732424,
+        "avg_fee_rate_sat_vb": 149.73,
+        "active_peers": 100
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 134.76,
+        "recommended_peers": 116
+      },
+      "reward_score": 0.9472
+    },
+    {
+      "step": 50,
+      "state": {
+        "tps": 223,
+        "mempool_bytes": 49516690,
+        "avg_fee_rate_sat_vb": 142.59,
+        "active_peers": 79
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 128.33,
+        "recommended_peers": 95
+      },
+      "reward_score": 0.8978
+    },
+    {
+      "step": 51,
+      "state": {
+        "tps": 4648,
+        "mempool_bytes": 22195074,
+        "avg_fee_rate_sat_vb": 113.7,
+        "active_peers": 83
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 102.33,
+        "recommended_peers": 99
+      },
+      "reward_score": 0.9878
+    },
+    {
+      "step": 52,
+      "state": {
+        "tps": 4029,
+        "mempool_bytes": 6911978,
+        "avg_fee_rate_sat_vb": 91.09,
+        "active_peers": 222
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 81.98,
+        "recommended_peers": 238
+      },
+      "reward_score": 0.9784
+    },
+    {
+      "step": 53,
+      "state": {
+        "tps": 3032,
+        "mempool_bytes": 39584679,
+        "avg_fee_rate_sat_vb": 128.76,
+        "active_peers": 192
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 115.88,
+        "recommended_peers": 208
+      },
+      "reward_score": 0.9611
+    },
+    {
+      "step": 54,
+      "state": {
+        "tps": 1435,
+        "mempool_bytes": 34118131,
+        "avg_fee_rate_sat_vb": 93.67,
+        "active_peers": 58
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 84.3,
+        "recommended_peers": 74
+      },
+      "reward_score": 0.9156
+    },
+    {
+      "step": 55,
+      "state": {
+        "tps": 2537,
+        "mempool_bytes": 39343182,
+        "avg_fee_rate_sat_vb": 87.53,
+        "active_peers": 145
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 78.78,
+        "recommended_peers": 161
+      },
+      "reward_score": 0.9113
+    },
+    {
+      "step": 56,
+      "state": {
+        "tps": 2921,
+        "mempool_bytes": 29311042,
+        "avg_fee_rate_sat_vb": 135.62,
+        "active_peers": 82
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 122.06,
+        "recommended_peers": 98
+      },
+      "reward_score": 0.9304
+    },
+    {
+      "step": 57,
+      "state": {
+        "tps": 1589,
+        "mempool_bytes": 17082293,
+        "avg_fee_rate_sat_vb": 114.9,
+        "active_peers": 210
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 103.41,
+        "recommended_peers": 226
+      },
+      "reward_score": 0.9751
+    },
+    {
+      "step": 58,
+      "state": {
+        "tps": 3396,
+        "mempool_bytes": 28274609,
+        "avg_fee_rate_sat_vb": 54.54,
+        "active_peers": 121
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 49.09,
+        "recommended_peers": 137
+      },
+      "reward_score": 0.8776
+    },
+    {
+      "step": 59,
+      "state": {
+        "tps": 3973,
+        "mempool_bytes": 24038118,
+        "avg_fee_rate_sat_vb": 63.23,
+        "active_peers": 194
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 56.91,
+        "recommended_peers": 210
+      },
+      "reward_score": 0.9714
+    },
+    {
+      "step": 60,
+      "state": {
+        "tps": 2169,
+        "mempool_bytes": 13510058,
+        "avg_fee_rate_sat_vb": 62.52,
+        "active_peers": 137
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 56.27,
+        "recommended_peers": 153
+      },
+      "reward_score": 0.9079
+    },
+    {
+      "step": 61,
+      "state": {
+        "tps": 3182,
+        "mempool_bytes": 39959152,
+        "avg_fee_rate_sat_vb": 112.94,
+        "active_peers": 79
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 101.65,
+        "recommended_peers": 95
+      },
+      "reward_score": 0.984
+    },
+    {
+      "step": 62,
+      "state": {
+        "tps": 104,
+        "mempool_bytes": 25863425,
+        "avg_fee_rate_sat_vb": 9.64,
+        "active_peers": 103
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 8.68,
+        "recommended_peers": 119
+      },
+      "reward_score": 0.8934
+    },
+    {
+      "step": 63,
+      "state": {
+        "tps": 1765,
+        "mempool_bytes": 32629550,
+        "avg_fee_rate_sat_vb": 6.06,
+        "active_peers": 182
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 5.45,
+        "recommended_peers": 198
+      },
+      "reward_score": 0.8896
+    },
+    {
+      "step": 64,
+      "state": {
+        "tps": 4765,
+        "mempool_bytes": 42451787,
+        "avg_fee_rate_sat_vb": 86.25,
+        "active_peers": 156
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 77.62,
+        "recommended_peers": 172
+      },
+      "reward_score": 0.9142
+    },
+    {
+      "step": 65,
+      "state": {
+        "tps": 2402,
+        "mempool_bytes": 43550982,
+        "avg_fee_rate_sat_vb": 57.82,
+        "active_peers": 225
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 52.04,
+        "recommended_peers": 241
+      },
+      "reward_score": 0.8956
+    },
+    {
+      "step": 66,
+      "state": {
+        "tps": 654,
+        "mempool_bytes": 6178188,
+        "avg_fee_rate_sat_vb": 124.6,
+        "active_peers": 162
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 112.14,
+        "recommended_peers": 178
+      },
+      "reward_score": 0.8967
+    },
+    {
+      "step": 67,
+      "state": {
+        "tps": 2698,
+        "mempool_bytes": 25284741,
+        "avg_fee_rate_sat_vb": 71.33,
+        "active_peers": 166
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 64.2,
+        "recommended_peers": 182
+      },
+      "reward_score": 0.8753
+    },
+    {
+      "step": 68,
+      "state": {
+        "tps": 1051,
+        "mempool_bytes": 25243093,
+        "avg_fee_rate_sat_vb": 61.62,
+        "active_peers": 83
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 55.46,
+        "recommended_peers": 99
+      },
+      "reward_score": 0.9445
+    },
+    {
+      "step": 69,
+      "state": {
+        "tps": 2691,
+        "mempool_bytes": 34842648,
+        "avg_fee_rate_sat_vb": 58.63,
+        "active_peers": 87
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 52.77,
+        "recommended_peers": 103
+      },
+      "reward_score": 0.8921
+    },
+    {
+      "step": 70,
+      "state": {
+        "tps": 3023,
+        "mempool_bytes": 19918635,
+        "avg_fee_rate_sat_vb": 5.14,
+        "active_peers": 171
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 4.63,
+        "recommended_peers": 187
+      },
+      "reward_score": 0.9294
+    },
+    {
+      "step": 71,
+      "state": {
+        "tps": 4882,
+        "mempool_bytes": 18789848,
+        "avg_fee_rate_sat_vb": 8.79,
+        "active_peers": 140
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 7.91,
+        "recommended_peers": 156
+      },
+      "reward_score": 0.8666
+    },
+    {
+      "step": 72,
+      "state": {
+        "tps": 2912,
+        "mempool_bytes": 34368965,
+        "avg_fee_rate_sat_vb": 2.69,
+        "active_peers": 105
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 2.42,
+        "recommended_peers": 121
+      },
+      "reward_score": 0.9267
+    },
+    {
+      "step": 73,
+      "state": {
+        "tps": 4157,
+        "mempool_bytes": 36592658,
+        "avg_fee_rate_sat_vb": 99.0,
+        "active_peers": 163
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 89.1,
+        "recommended_peers": 179
+      },
+      "reward_score": 0.8917
+    },
+    {
+      "step": 74,
+      "state": {
+        "tps": 280,
+        "mempool_bytes": 20207120,
+        "avg_fee_rate_sat_vb": 38.12,
+        "active_peers": 227
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 34.31,
+        "recommended_peers": 243
+      },
+      "reward_score": 0.8925
+    },
+    {
+      "step": 75,
+      "state": {
+        "tps": 4221,
+        "mempool_bytes": 49701813,
+        "avg_fee_rate_sat_vb": 13.02,
+        "active_peers": 199
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 11.72,
+        "recommended_peers": 215
+      },
+      "reward_score": 0.9021
+    },
+    {
+      "step": 76,
+      "state": {
+        "tps": 495,
+        "mempool_bytes": 36742126,
+        "avg_fee_rate_sat_vb": 16.24,
+        "active_peers": 71
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 14.62,
+        "recommended_peers": 87
+      },
+      "reward_score": 0.9894
+    },
+    {
+      "step": 77,
+      "state": {
+        "tps": 2739,
+        "mempool_bytes": 9788636,
+        "avg_fee_rate_sat_vb": 146.81,
+        "active_peers": 171
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 132.13,
+        "recommended_peers": 187
+      },
+      "reward_score": 0.9611
+    },
+    {
+      "step": 78,
+      "state": {
+        "tps": 826,
+        "mempool_bytes": 32210233,
+        "avg_fee_rate_sat_vb": 106.62,
+        "active_peers": 170
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 95.96,
+        "recommended_peers": 186
+      },
+      "reward_score": 0.8974
+    },
+    {
+      "step": 79,
+      "state": {
+        "tps": 250,
+        "mempool_bytes": 41600287,
+        "avg_fee_rate_sat_vb": 149.2,
+        "active_peers": 200
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 134.28,
+        "recommended_peers": 216
+      },
+      "reward_score": 0.9133
+    },
+    {
+      "step": 80,
+      "state": {
+        "tps": 2325,
+        "mempool_bytes": 15091304,
+        "avg_fee_rate_sat_vb": 148.37,
+        "active_peers": 224
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 133.53,
+        "recommended_peers": 240
+      },
+      "reward_score": 0.9883
+    },
+    {
+      "step": 81,
+      "state": {
+        "tps": 777,
+        "mempool_bytes": 11139284,
+        "avg_fee_rate_sat_vb": 30.6,
+        "active_peers": 250
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 27.54,
+        "recommended_peers": 256
+      },
+      "reward_score": 0.9129
+    },
+    {
+      "step": 82,
+      "state": {
+        "tps": 3390,
+        "mempool_bytes": 48839841,
+        "avg_fee_rate_sat_vb": 142.62,
+        "active_peers": 253
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 128.36,
+        "recommended_peers": 256
+      },
+      "reward_score": 0.8934
+    },
+    {
+      "step": 83,
+      "state": {
+        "tps": 2814,
+        "mempool_bytes": 7383094,
+        "avg_fee_rate_sat_vb": 61.7,
+        "active_peers": 210
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 55.53,
+        "recommended_peers": 226
+      },
+      "reward_score": 0.9489
+    },
+    {
+      "step": 84,
+      "state": {
+        "tps": 3468,
+        "mempool_bytes": 9348650,
+        "avg_fee_rate_sat_vb": 68.66,
+        "active_peers": 73
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 61.79,
+        "recommended_peers": 89
+      },
+      "reward_score": 0.9647
+    },
+    {
+      "step": 85,
+      "state": {
+        "tps": 4944,
+        "mempool_bytes": 18056291,
+        "avg_fee_rate_sat_vb": 125.48,
+        "active_peers": 171
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 112.93,
+        "recommended_peers": 187
+      },
+      "reward_score": 0.9749
+    },
+    {
+      "step": 86,
+      "state": {
+        "tps": 1198,
+        "mempool_bytes": 45176823,
+        "avg_fee_rate_sat_vb": 65.72,
+        "active_peers": 157
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 59.15,
+        "recommended_peers": 173
+      },
+      "reward_score": 0.9001
+    },
+    {
+      "step": 87,
+      "state": {
+        "tps": 1955,
+        "mempool_bytes": 29606197,
+        "avg_fee_rate_sat_vb": 85.99,
+        "active_peers": 103
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 77.39,
+        "recommended_peers": 119
+      },
+      "reward_score": 0.898
+    },
+    {
+      "step": 88,
+      "state": {
+        "tps": 4317,
+        "mempool_bytes": 22624304,
+        "avg_fee_rate_sat_vb": 107.47,
+        "active_peers": 181
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 96.72,
+        "recommended_peers": 197
+      },
+      "reward_score": 0.8945
+    },
+    {
+      "step": 89,
+      "state": {
+        "tps": 2239,
+        "mempool_bytes": 2861679,
+        "avg_fee_rate_sat_vb": 66.33,
+        "active_peers": 187
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 59.7,
+        "recommended_peers": 203
+      },
+      "reward_score": 0.9781
+    },
+    {
+      "step": 90,
+      "state": {
+        "tps": 4806,
+        "mempool_bytes": 8885635,
+        "avg_fee_rate_sat_vb": 129.76,
+        "active_peers": 146
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 116.78,
+        "recommended_peers": 162
+      },
+      "reward_score": 0.9358
+    },
+    {
+      "step": 91,
+      "state": {
+        "tps": 753,
+        "mempool_bytes": 39723187,
+        "avg_fee_rate_sat_vb": 12.42,
+        "active_peers": 67
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 11.18,
+        "recommended_peers": 83
+      },
+      "reward_score": 0.9869
+    },
+    {
+      "step": 92,
+      "state": {
+        "tps": 197,
+        "mempool_bytes": 22432360,
+        "avg_fee_rate_sat_vb": 149.46,
+        "active_peers": 242
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 134.51,
+        "recommended_peers": 256
+      },
+      "reward_score": 0.8508
+    },
+    {
+      "step": 93,
+      "state": {
+        "tps": 719,
+        "mempool_bytes": 9725184,
+        "avg_fee_rate_sat_vb": 124.28,
+        "active_peers": 122
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 111.85,
+        "recommended_peers": 138
+      },
+      "reward_score": 0.9156
+    },
+    {
+      "step": 94,
+      "state": {
+        "tps": 3144,
+        "mempool_bytes": 31196096,
+        "avg_fee_rate_sat_vb": 116.19,
+        "active_peers": 100
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 104.57,
+        "recommended_peers": 116
+      },
+      "reward_score": 0.9402
+    },
+    {
+      "step": 95,
+      "state": {
+        "tps": 2969,
+        "mempool_bytes": 25103468,
+        "avg_fee_rate_sat_vb": 76.84,
+        "active_peers": 247
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 69.16,
+        "recommended_peers": 256
+      },
+      "reward_score": 0.9406
+    },
+    {
+      "step": 96,
+      "state": {
+        "tps": 543,
+        "mempool_bytes": 39290063,
+        "avg_fee_rate_sat_vb": 103.27,
+        "active_peers": 97
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 92.94,
+        "recommended_peers": 113
+      },
+      "reward_score": 0.9153
+    },
+    {
+      "step": 97,
+      "state": {
+        "tps": 3204,
+        "mempool_bytes": 45219236,
+        "avg_fee_rate_sat_vb": 146.9,
+        "active_peers": 64
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 132.21,
+        "recommended_peers": 80
+      },
+      "reward_score": 0.8724
+    },
+    {
+      "step": 98,
+      "state": {
+        "tps": 3827,
+        "mempool_bytes": 42006212,
+        "avg_fee_rate_sat_vb": 83.4,
+        "active_peers": 202
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 75.06,
+        "recommended_peers": 218
+      },
+      "reward_score": 0.9779
+    },
+    {
+      "step": 99,
+      "state": {
+        "tps": 270,
+        "mempool_bytes": 47633161,
+        "avg_fee_rate_sat_vb": 67.5,
+        "active_peers": 204
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 60.75,
+        "recommended_peers": 220
+      },
+      "reward_score": 0.8999
+    },
+    {
+      "step": 100,
+      "state": {
+        "tps": 1525,
+        "mempool_bytes": 20645134,
+        "avg_fee_rate_sat_vb": 69.96,
+        "active_peers": 85
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 62.96,
+        "recommended_peers": 101
+      },
+      "reward_score": 0.9144
+    },
+    {
+      "step": 101,
+      "state": {
+        "tps": 2649,
+        "mempool_bytes": 10388097,
+        "avg_fee_rate_sat_vb": 88.58,
+        "active_peers": 172
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 79.72,
+        "recommended_peers": 188
+      },
+      "reward_score": 0.9248
+    },
+    {
+      "step": 102,
+      "state": {
+        "tps": 4725,
+        "mempool_bytes": 20153947,
+        "avg_fee_rate_sat_vb": 28.29,
+        "active_peers": 190
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 25.46,
+        "recommended_peers": 206
+      },
+      "reward_score": 0.9083
+    },
+    {
+      "step": 103,
+      "state": {
+        "tps": 1741,
+        "mempool_bytes": 25902654,
+        "avg_fee_rate_sat_vb": 28.52,
+        "active_peers": 50
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 25.67,
+        "recommended_peers": 66
+      },
+      "reward_score": 0.983
+    },
+    {
+      "step": 104,
+      "state": {
+        "tps": 2389,
+        "mempool_bytes": 14851258,
+        "avg_fee_rate_sat_vb": 108.18,
+        "active_peers": 34
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 97.36,
+        "recommended_peers": 50
+      },
+      "reward_score": 0.8923
+    },
+    {
+      "step": 105,
+      "state": {
+        "tps": 2904,
+        "mempool_bytes": 28970719,
+        "avg_fee_rate_sat_vb": 105.61,
+        "active_peers": 92
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 95.05,
+        "recommended_peers": 108
+      },
+      "reward_score": 0.9286
+    },
+    {
+      "step": 106,
+      "state": {
+        "tps": 1640,
+        "mempool_bytes": 43032621,
+        "avg_fee_rate_sat_vb": 69.69,
+        "active_peers": 228
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 62.72,
+        "recommended_peers": 244
+      },
+      "reward_score": 0.9712
+    },
+    {
+      "step": 107,
+      "state": {
+        "tps": 2050,
+        "mempool_bytes": 46386433,
+        "avg_fee_rate_sat_vb": 29.16,
+        "active_peers": 70
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 26.24,
+        "recommended_peers": 86
+      },
+      "reward_score": 0.9241
+    },
+    {
+      "step": 108,
+      "state": {
+        "tps": 2384,
+        "mempool_bytes": 16016345,
+        "avg_fee_rate_sat_vb": 27.81,
+        "active_peers": 107
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 25.03,
+        "recommended_peers": 123
+      },
+      "reward_score": 0.8659
+    },
+    {
+      "step": 109,
+      "state": {
+        "tps": 2534,
+        "mempool_bytes": 16583988,
+        "avg_fee_rate_sat_vb": 141.69,
+        "active_peers": 91
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 127.52,
+        "recommended_peers": 107
+      },
+      "reward_score": 0.9469
+    },
+    {
+      "step": 110,
+      "state": {
+        "tps": 14,
+        "mempool_bytes": 33913886,
+        "avg_fee_rate_sat_vb": 44.42,
+        "active_peers": 155
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 39.98,
+        "recommended_peers": 171
+      },
+      "reward_score": 0.9854
+    },
+    {
+      "step": 111,
+      "state": {
+        "tps": 2130,
+        "mempool_bytes": 5255331,
+        "avg_fee_rate_sat_vb": 71.53,
+        "active_peers": 115
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 64.38,
+        "recommended_peers": 131
+      },
+      "reward_score": 0.8714
+    },
+    {
+      "step": 112,
+      "state": {
+        "tps": 1871,
+        "mempool_bytes": 23614318,
+        "avg_fee_rate_sat_vb": 2.04,
+        "active_peers": 241
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 1.84,
+        "recommended_peers": 256
+      },
+      "reward_score": 0.9805
+    },
+    {
+      "step": 113,
+      "state": {
+        "tps": 288,
+        "mempool_bytes": 38030704,
+        "avg_fee_rate_sat_vb": 117.38,
+        "active_peers": 254
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 105.64,
+        "recommended_peers": 256
+      },
+      "reward_score": 0.9697
+    },
+    {
+      "step": 114,
+      "state": {
+        "tps": 4468,
+        "mempool_bytes": 26523594,
+        "avg_fee_rate_sat_vb": 58.09,
+        "active_peers": 41
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 52.28,
+        "recommended_peers": 57
+      },
+      "reward_score": 0.8912
+    },
+    {
+      "step": 115,
+      "state": {
+        "tps": 2086,
+        "mempool_bytes": 2597653,
+        "avg_fee_rate_sat_vb": 130.57,
+        "active_peers": 200
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 117.51,
+        "recommended_peers": 216
+      },
+      "reward_score": 0.9264
+    },
+    {
+      "step": 116,
+      "state": {
+        "tps": 1206,
+        "mempool_bytes": 32836376,
+        "avg_fee_rate_sat_vb": 46.25,
+        "active_peers": 129
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 41.62,
+        "recommended_peers": 145
+      },
+      "reward_score": 0.9653
+    },
+    {
+      "step": 117,
+      "state": {
+        "tps": 3445,
+        "mempool_bytes": 37164297,
+        "avg_fee_rate_sat_vb": 131.47,
+        "active_peers": 182
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 118.32,
+        "recommended_peers": 198
+      },
+      "reward_score": 0.9184
+    },
+    {
+      "step": 118,
+      "state": {
+        "tps": 2797,
+        "mempool_bytes": 36585137,
+        "avg_fee_rate_sat_vb": 53.53,
+        "active_peers": 199
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 48.18,
+        "recommended_peers": 215
+      },
+      "reward_score": 0.8638
+    },
+    {
+      "step": 119,
+      "state": {
+        "tps": 3884,
+        "mempool_bytes": 17474416,
+        "avg_fee_rate_sat_vb": 81.27,
+        "active_peers": 106
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 73.14,
+        "recommended_peers": 122
+      },
+      "reward_score": 0.9325
+    },
+    {
+      "step": 120,
+      "state": {
+        "tps": 62,
+        "mempool_bytes": 39786765,
+        "avg_fee_rate_sat_vb": 57.68,
+        "active_peers": 61
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 51.91,
+        "recommended_peers": 77
+      },
+      "reward_score": 0.9256
+    },
+    {
+      "step": 121,
+      "state": {
+        "tps": 3683,
+        "mempool_bytes": 13730627,
+        "avg_fee_rate_sat_vb": 139.78,
+        "active_peers": 71
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 125.8,
+        "recommended_peers": 87
+      },
+      "reward_score": 0.9874
+    },
+    {
+      "step": 122,
+      "state": {
+        "tps": 1096,
+        "mempool_bytes": 39907972,
+        "avg_fee_rate_sat_vb": 117.25,
+        "active_peers": 131
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 105.53,
+        "recommended_peers": 147
+      },
+      "reward_score": 0.939
+    },
+    {
+      "step": 123,
+      "state": {
+        "tps": 906,
+        "mempool_bytes": 28366481,
+        "avg_fee_rate_sat_vb": 73.1,
+        "active_peers": 166
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 65.79,
+        "recommended_peers": 182
+      },
+      "reward_score": 0.9837
+    },
+    {
+      "step": 124,
+      "state": {
+        "tps": 1388,
+        "mempool_bytes": 22643930,
+        "avg_fee_rate_sat_vb": 9.6,
+        "active_peers": 97
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 8.64,
+        "recommended_peers": 113
+      },
+      "reward_score": 0.934
+    },
+    {
+      "step": 125,
+      "state": {
+        "tps": 46,
+        "mempool_bytes": 45697530,
+        "avg_fee_rate_sat_vb": 40.47,
+        "active_peers": 193
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 36.42,
+        "recommended_peers": 209
+      },
+      "reward_score": 0.8646
+    },
+    {
+      "step": 126,
+      "state": {
+        "tps": 3163,
+        "mempool_bytes": 36447373,
+        "avg_fee_rate_sat_vb": 125.22,
+        "active_peers": 130
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 112.7,
+        "recommended_peers": 146
+      },
+      "reward_score": 0.9146
+    },
+    {
+      "step": 127,
+      "state": {
+        "tps": 3984,
+        "mempool_bytes": 13346719,
+        "avg_fee_rate_sat_vb": 120.34,
+        "active_peers": 84
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 108.31,
+        "recommended_peers": 100
+      },
+      "reward_score": 0.8954
+    },
+    {
+      "step": 128,
+      "state": {
+        "tps": 2811,
+        "mempool_bytes": 38445516,
+        "avg_fee_rate_sat_vb": 37.15,
+        "active_peers": 145
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 33.44,
+        "recommended_peers": 161
+      },
+      "reward_score": 0.8611
+    },
+    {
+      "step": 129,
+      "state": {
+        "tps": 3856,
+        "mempool_bytes": 22303848,
+        "avg_fee_rate_sat_vb": 19.25,
+        "active_peers": 167
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 17.32,
+        "recommended_peers": 183
+      },
+      "reward_score": 0.8564
+    },
+    {
+      "step": 130,
+      "state": {
+        "tps": 3296,
+        "mempool_bytes": 22829483,
+        "avg_fee_rate_sat_vb": 6.72,
+        "active_peers": 133
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 6.05,
+        "recommended_peers": 149
+      },
+      "reward_score": 0.8656
+    },
+    {
+      "step": 131,
+      "state": {
+        "tps": 625,
+        "mempool_bytes": 40476276,
+        "avg_fee_rate_sat_vb": 56.85,
+        "active_peers": 155
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 51.16,
+        "recommended_peers": 171
+      },
+      "reward_score": 0.9023
+    },
+    {
+      "step": 132,
+      "state": {
+        "tps": 779,
+        "mempool_bytes": 25833990,
+        "avg_fee_rate_sat_vb": 119.75,
+        "active_peers": 112
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 107.78,
+        "recommended_peers": 128
+      },
+      "reward_score": 0.9666
+    },
+    {
+      "step": 133,
+      "state": {
+        "tps": 2567,
+        "mempool_bytes": 16999327,
+        "avg_fee_rate_sat_vb": 119.65,
+        "active_peers": 161
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 107.69,
+        "recommended_peers": 177
+      },
+      "reward_score": 0.9075
+    },
+    {
+      "step": 134,
+      "state": {
+        "tps": 1305,
+        "mempool_bytes": 10552670,
+        "avg_fee_rate_sat_vb": 56.98,
+        "active_peers": 169
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 51.28,
+        "recommended_peers": 185
+      },
+      "reward_score": 0.8783
+    },
+    {
+      "step": 135,
+      "state": {
+        "tps": 3138,
+        "mempool_bytes": 15255921,
+        "avg_fee_rate_sat_vb": 104.56,
+        "active_peers": 196
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 94.1,
+        "recommended_peers": 212
+      },
+      "reward_score": 0.9195
+    },
+    {
+      "step": 136,
+      "state": {
+        "tps": 3409,
+        "mempool_bytes": 22841591,
+        "avg_fee_rate_sat_vb": 147.09,
+        "active_peers": 168
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 132.38,
+        "recommended_peers": 184
+      },
+      "reward_score": 0.9047
+    },
+    {
+      "step": 137,
+      "state": {
+        "tps": 2116,
+        "mempool_bytes": 24694588,
+        "avg_fee_rate_sat_vb": 36.75,
+        "active_peers": 33
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 33.08,
+        "recommended_peers": 49
+      },
+      "reward_score": 0.9218
+    },
+    {
+      "step": 138,
+      "state": {
+        "tps": 4639,
+        "mempool_bytes": 48590543,
+        "avg_fee_rate_sat_vb": 82.96,
+        "active_peers": 49
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 74.66,
+        "recommended_peers": 65
+      },
+      "reward_score": 0.9759
+    },
+    {
+      "step": 139,
+      "state": {
+        "tps": 892,
+        "mempool_bytes": 9629114,
+        "avg_fee_rate_sat_vb": 112.21,
+        "active_peers": 164
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 100.99,
+        "recommended_peers": 180
+      },
+      "reward_score": 0.9623
+    },
+    {
+      "step": 140,
+      "state": {
+        "tps": 1444,
+        "mempool_bytes": 25657328,
+        "avg_fee_rate_sat_vb": 114.29,
+        "active_peers": 119
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 102.86,
+        "recommended_peers": 135
+      },
+      "reward_score": 0.8502
+    },
+    {
+      "step": 141,
+      "state": {
+        "tps": 2606,
+        "mempool_bytes": 25449110,
+        "avg_fee_rate_sat_vb": 120.49,
+        "active_peers": 57
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 108.44,
+        "recommended_peers": 73
+      },
+      "reward_score": 0.883
+    },
+    {
+      "step": 142,
+      "state": {
+        "tps": 2204,
+        "mempool_bytes": 13115899,
+        "avg_fee_rate_sat_vb": 84.32,
+        "active_peers": 102
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 75.89,
+        "recommended_peers": 118
+      },
+      "reward_score": 0.9281
+    },
+    {
+      "step": 143,
+      "state": {
+        "tps": 4078,
+        "mempool_bytes": 1544929,
+        "avg_fee_rate_sat_vb": 140.31,
+        "active_peers": 120
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 126.28,
+        "recommended_peers": 136
+      },
+      "reward_score": 0.8812
+    },
+    {
+      "step": 144,
+      "state": {
+        "tps": 3200,
+        "mempool_bytes": 18458051,
+        "avg_fee_rate_sat_vb": 21.15,
+        "active_peers": 66
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 19.04,
+        "recommended_peers": 82
+      },
+      "reward_score": 0.9821
+    },
+    {
+      "step": 145,
+      "state": {
+        "tps": 2366,
+        "mempool_bytes": 822497,
+        "avg_fee_rate_sat_vb": 1.24,
+        "active_peers": 135
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 1.12,
+        "recommended_peers": 151
+      },
+      "reward_score": 0.8851
+    },
+    {
+      "step": 146,
+      "state": {
+        "tps": 4804,
+        "mempool_bytes": 8438799,
+        "avg_fee_rate_sat_vb": 38.63,
+        "active_peers": 118
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 34.77,
+        "recommended_peers": 134
+      },
+      "reward_score": 0.8653
+    },
+    {
+      "step": 147,
+      "state": {
+        "tps": 2633,
+        "mempool_bytes": 18262719,
+        "avg_fee_rate_sat_vb": 76.62,
+        "active_peers": 110
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 68.96,
+        "recommended_peers": 126
+      },
+      "reward_score": 0.9743
+    },
+    {
+      "step": 148,
+      "state": {
+        "tps": 4273,
+        "mempool_bytes": 44488743,
+        "avg_fee_rate_sat_vb": 41.15,
+        "active_peers": 88
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 37.03,
+        "recommended_peers": 104
+      },
+      "reward_score": 0.988
+    },
+    {
+      "step": 149,
+      "state": {
+        "tps": 464,
+        "mempool_bytes": 37800759,
+        "avg_fee_rate_sat_vb": 59.71,
+        "active_peers": 177
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 53.74,
+        "recommended_peers": 193
+      },
+      "reward_score": 0.9595
+    },
+    {
+      "step": 150,
+      "state": {
+        "tps": 2531,
+        "mempool_bytes": 12889673,
+        "avg_fee_rate_sat_vb": 12.08,
+        "active_peers": 165
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 10.87,
+        "recommended_peers": 181
+      },
+      "reward_score": 0.9504
+    },
+    {
+      "step": 151,
+      "state": {
+        "tps": 3028,
+        "mempool_bytes": 37166129,
+        "avg_fee_rate_sat_vb": 60.96,
+        "active_peers": 66
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 54.86,
+        "recommended_peers": 82
+      },
+      "reward_score": 0.9726
+    },
+    {
+      "step": 152,
+      "state": {
+        "tps": 839,
+        "mempool_bytes": 31510575,
+        "avg_fee_rate_sat_vb": 46.3,
+        "active_peers": 189
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 41.67,
+        "recommended_peers": 205
+      },
+      "reward_score": 0.9619
+    },
+    {
+      "step": 153,
+      "state": {
+        "tps": 858,
+        "mempool_bytes": 46078570,
+        "avg_fee_rate_sat_vb": 85.65,
+        "active_peers": 56
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 77.09,
+        "recommended_peers": 72
+      },
+      "reward_score": 0.9209
+    },
+    {
+      "step": 154,
+      "state": {
+        "tps": 2359,
+        "mempool_bytes": 19044643,
+        "avg_fee_rate_sat_vb": 46.17,
+        "active_peers": 67
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 41.55,
+        "recommended_peers": 83
+      },
+      "reward_score": 0.8646
+    },
+    {
+      "step": 155,
+      "state": {
+        "tps": 3440,
+        "mempool_bytes": 32128154,
+        "avg_fee_rate_sat_vb": 148.74,
+        "active_peers": 167
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 133.87,
+        "recommended_peers": 183
+      },
+      "reward_score": 0.8531
+    },
+    {
+      "step": 156,
+      "state": {
+        "tps": 150,
+        "mempool_bytes": 40713294,
+        "avg_fee_rate_sat_vb": 118.51,
+        "active_peers": 135
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 106.66,
+        "recommended_peers": 151
+      },
+      "reward_score": 0.8668
+    },
+    {
+      "step": 157,
+      "state": {
+        "tps": 3962,
+        "mempool_bytes": 24106030,
+        "avg_fee_rate_sat_vb": 33.55,
+        "active_peers": 217
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 30.19,
+        "recommended_peers": 233
+      },
+      "reward_score": 0.8762
+    },
+    {
+      "step": 158,
+      "state": {
+        "tps": 3751,
+        "mempool_bytes": 40206953,
+        "avg_fee_rate_sat_vb": 145.17,
+        "active_peers": 213
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 130.65,
+        "recommended_peers": 229
+      },
+      "reward_score": 0.9831
+    },
+    {
+      "step": 159,
+      "state": {
+        "tps": 4864,
+        "mempool_bytes": 14042763,
+        "avg_fee_rate_sat_vb": 29.87,
+        "active_peers": 152
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 26.88,
+        "recommended_peers": 168
+      },
+      "reward_score": 0.9838
+    },
+    {
+      "step": 160,
+      "state": {
+        "tps": 3083,
+        "mempool_bytes": 22912990,
+        "avg_fee_rate_sat_vb": 60.43,
+        "active_peers": 148
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 54.39,
+        "recommended_peers": 164
+      },
+      "reward_score": 0.8765
+    },
+    {
+      "step": 161,
+      "state": {
+        "tps": 465,
+        "mempool_bytes": 2338093,
+        "avg_fee_rate_sat_vb": 14.72,
+        "active_peers": 213
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 13.25,
+        "recommended_peers": 229
+      },
+      "reward_score": 0.8507
+    },
+    {
+      "step": 162,
+      "state": {
+        "tps": 1415,
+        "mempool_bytes": 33414855,
+        "avg_fee_rate_sat_vb": 102.58,
+        "active_peers": 249
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 92.32,
+        "recommended_peers": 256
+      },
+      "reward_score": 0.891
+    },
+    {
+      "step": 163,
+      "state": {
+        "tps": 2004,
+        "mempool_bytes": 6897831,
+        "avg_fee_rate_sat_vb": 41.37,
+        "active_peers": 133
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 37.23,
+        "recommended_peers": 149
+      },
+      "reward_score": 0.8933
+    },
+    {
+      "step": 164,
+      "state": {
+        "tps": 3853,
+        "mempool_bytes": 41036332,
+        "avg_fee_rate_sat_vb": 80.25,
+        "active_peers": 223
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 72.23,
+        "recommended_peers": 239
+      },
+      "reward_score": 0.9745
+    },
+    {
+      "step": 165,
+      "state": {
+        "tps": 26,
+        "mempool_bytes": 30192219,
+        "avg_fee_rate_sat_vb": 17.88,
+        "active_peers": 187
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 16.09,
+        "recommended_peers": 203
+      },
+      "reward_score": 0.8619
+    },
+    {
+      "step": 166,
+      "state": {
+        "tps": 1859,
+        "mempool_bytes": 10176393,
+        "avg_fee_rate_sat_vb": 15.92,
+        "active_peers": 141
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 14.33,
+        "recommended_peers": 157
+      },
+      "reward_score": 0.9646
+    },
+    {
+      "step": 167,
+      "state": {
+        "tps": 2271,
+        "mempool_bytes": 9428279,
+        "avg_fee_rate_sat_vb": 19.83,
+        "active_peers": 253
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 17.85,
+        "recommended_peers": 256
+      },
+      "reward_score": 0.9558
+    },
+    {
+      "step": 168,
+      "state": {
+        "tps": 2531,
+        "mempool_bytes": 23124845,
+        "avg_fee_rate_sat_vb": 62.83,
+        "active_peers": 79
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 56.55,
+        "recommended_peers": 95
+      },
+      "reward_score": 0.9728
+    },
+    {
+      "step": 169,
+      "state": {
+        "tps": 287,
+        "mempool_bytes": 19757920,
+        "avg_fee_rate_sat_vb": 52.22,
+        "active_peers": 46
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 47.0,
+        "recommended_peers": 62
+      },
+      "reward_score": 0.9547
+    },
+    {
+      "step": 170,
+      "state": {
+        "tps": 340,
+        "mempool_bytes": 21227689,
+        "avg_fee_rate_sat_vb": 122.32,
+        "active_peers": 136
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 110.09,
+        "recommended_peers": 152
+      },
+      "reward_score": 0.868
+    },
+    {
+      "step": 171,
+      "state": {
+        "tps": 2990,
+        "mempool_bytes": 24133864,
+        "avg_fee_rate_sat_vb": 78.41,
+        "active_peers": 94
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 70.57,
+        "recommended_peers": 110
+      },
+      "reward_score": 0.9389
+    },
+    {
+      "step": 172,
+      "state": {
+        "tps": 2875,
+        "mempool_bytes": 49726612,
+        "avg_fee_rate_sat_vb": 68.53,
+        "active_peers": 192
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 61.68,
+        "recommended_peers": 208
+      },
+      "reward_score": 0.9419
+    },
+    {
+      "step": 173,
+      "state": {
+        "tps": 883,
+        "mempool_bytes": 32159298,
+        "avg_fee_rate_sat_vb": 136.56,
+        "active_peers": 200
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 122.9,
+        "recommended_peers": 216
+      },
+      "reward_score": 0.9685
+    },
+    {
+      "step": 174,
+      "state": {
+        "tps": 4567,
+        "mempool_bytes": 27843439,
+        "avg_fee_rate_sat_vb": 115.39,
+        "active_peers": 104
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 103.85,
+        "recommended_peers": 120
+      },
+      "reward_score": 0.8583
+    },
+    {
+      "step": 175,
+      "state": {
+        "tps": 3062,
+        "mempool_bytes": 9405836,
+        "avg_fee_rate_sat_vb": 82.23,
+        "active_peers": 68
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 74.01,
+        "recommended_peers": 84
+      },
+      "reward_score": 0.9181
+    },
+    {
+      "step": 176,
+      "state": {
+        "tps": 3538,
+        "mempool_bytes": 11664618,
+        "avg_fee_rate_sat_vb": 88.35,
+        "active_peers": 34
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 79.52,
+        "recommended_peers": 50
+      },
+      "reward_score": 0.8777
+    },
+    {
+      "step": 177,
+      "state": {
+        "tps": 1243,
+        "mempool_bytes": 15616837,
+        "avg_fee_rate_sat_vb": 91.05,
+        "active_peers": 234
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 81.94,
+        "recommended_peers": 250
+      },
+      "reward_score": 0.9487
+    },
+    {
+      "step": 178,
+      "state": {
+        "tps": 4605,
+        "mempool_bytes": 48566706,
+        "avg_fee_rate_sat_vb": 124.33,
+        "active_peers": 139
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 111.9,
+        "recommended_peers": 155
+      },
+      "reward_score": 0.928
+    },
+    {
+      "step": 179,
+      "state": {
+        "tps": 531,
+        "mempool_bytes": 27556164,
+        "avg_fee_rate_sat_vb": 29.25,
+        "active_peers": 78
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 26.32,
+        "recommended_peers": 94
+      },
+      "reward_score": 0.9687
+    },
+    {
+      "step": 180,
+      "state": {
+        "tps": 4582,
+        "mempool_bytes": 35439634,
+        "avg_fee_rate_sat_vb": 19.35,
+        "active_peers": 52
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 17.42,
+        "recommended_peers": 68
+      },
+      "reward_score": 0.9339
+    },
+    {
+      "step": 181,
+      "state": {
+        "tps": 1861,
+        "mempool_bytes": 15530736,
+        "avg_fee_rate_sat_vb": 24.32,
+        "active_peers": 103
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 21.89,
+        "recommended_peers": 119
+      },
+      "reward_score": 0.9865
+    },
+    {
+      "step": 182,
+      "state": {
+        "tps": 2174,
+        "mempool_bytes": 7003554,
+        "avg_fee_rate_sat_vb": 93.76,
+        "active_peers": 191
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 84.38,
+        "recommended_peers": 207
+      },
+      "reward_score": 0.9822
+    },
+    {
+      "step": 183,
+      "state": {
+        "tps": 4421,
+        "mempool_bytes": 31249979,
+        "avg_fee_rate_sat_vb": 56.19,
+        "active_peers": 124
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 50.57,
+        "recommended_peers": 140
+      },
+      "reward_score": 0.9189
+    },
+    {
+      "step": 184,
+      "state": {
+        "tps": 2029,
+        "mempool_bytes": 20953603,
+        "avg_fee_rate_sat_vb": 68.23,
+        "active_peers": 227
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 61.41,
+        "recommended_peers": 243
+      },
+      "reward_score": 0.9133
+    },
+    {
+      "step": 185,
+      "state": {
+        "tps": 186,
+        "mempool_bytes": 39321162,
+        "avg_fee_rate_sat_vb": 29.84,
+        "active_peers": 33
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 26.86,
+        "recommended_peers": 49
+      },
+      "reward_score": 0.9247
+    },
+    {
+      "step": 186,
+      "state": {
+        "tps": 2221,
+        "mempool_bytes": 16864586,
+        "avg_fee_rate_sat_vb": 39.55,
+        "active_peers": 194
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 35.59,
+        "recommended_peers": 210
+      },
+      "reward_score": 0.899
+    },
+    {
+      "step": 187,
+      "state": {
+        "tps": 3285,
+        "mempool_bytes": 3731286,
+        "avg_fee_rate_sat_vb": 94.23,
+        "active_peers": 142
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 84.81,
+        "recommended_peers": 158
+      },
+      "reward_score": 0.8714
+    },
+    {
+      "step": 188,
+      "state": {
+        "tps": 404,
+        "mempool_bytes": 39113740,
+        "avg_fee_rate_sat_vb": 7.57,
+        "active_peers": 139
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 6.81,
+        "recommended_peers": 155
+      },
+      "reward_score": 0.9156
+    },
+    {
+      "step": 189,
+      "state": {
+        "tps": 695,
+        "mempool_bytes": 24618590,
+        "avg_fee_rate_sat_vb": 92.19,
+        "active_peers": 94
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 82.97,
+        "recommended_peers": 110
+      },
+      "reward_score": 0.9711
+    },
+    {
+      "step": 190,
+      "state": {
+        "tps": 2044,
+        "mempool_bytes": 36298441,
+        "avg_fee_rate_sat_vb": 55.31,
+        "active_peers": 226
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 49.78,
+        "recommended_peers": 242
+      },
+      "reward_score": 0.9122
+    },
+    {
+      "step": 191,
+      "state": {
+        "tps": 2943,
+        "mempool_bytes": 15337037,
+        "avg_fee_rate_sat_vb": 76.65,
+        "active_peers": 135
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 68.99,
+        "recommended_peers": 151
+      },
+      "reward_score": 0.8684
+    },
+    {
+      "step": 192,
+      "state": {
+        "tps": 1026,
+        "mempool_bytes": 23529699,
+        "avg_fee_rate_sat_vb": 87.06,
+        "active_peers": 167
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 78.35,
+        "recommended_peers": 183
+      },
+      "reward_score": 0.8748
+    },
+    {
+      "step": 193,
+      "state": {
+        "tps": 4666,
+        "mempool_bytes": 34122049,
+        "avg_fee_rate_sat_vb": 130.38,
+        "active_peers": 213
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 117.34,
+        "recommended_peers": 229
+      },
+      "reward_score": 0.9465
+    },
+    {
+      "step": 194,
+      "state": {
+        "tps": 3052,
+        "mempool_bytes": 32817031,
+        "avg_fee_rate_sat_vb": 140.8,
+        "active_peers": 167
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 126.72,
+        "recommended_peers": 183
+      },
+      "reward_score": 0.8737
+    },
+    {
+      "step": 195,
+      "state": {
+        "tps": 149,
+        "mempool_bytes": 16423722,
+        "avg_fee_rate_sat_vb": 85.0,
+        "active_peers": 166
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 76.5,
+        "recommended_peers": 182
+      },
+      "reward_score": 0.9805
+    },
+    {
+      "step": 196,
+      "state": {
+        "tps": 3496,
+        "mempool_bytes": 28671478,
+        "avg_fee_rate_sat_vb": 7.3,
+        "active_peers": 113
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 6.57,
+        "recommended_peers": 129
+      },
+      "reward_score": 0.9408
+    },
+    {
+      "step": 197,
+      "state": {
+        "tps": 4208,
+        "mempool_bytes": 13657049,
+        "avg_fee_rate_sat_vb": 129.38,
+        "active_peers": 239
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 116.44,
+        "recommended_peers": 255
+      },
+      "reward_score": 0.8727
+    },
+    {
+      "step": 198,
+      "state": {
+        "tps": 730,
+        "mempool_bytes": 4668449,
+        "avg_fee_rate_sat_vb": 30.61,
+        "active_peers": 224
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 27.55,
+        "recommended_peers": 240
+      },
+      "reward_score": 0.8756
+    },
+    {
+      "step": 199,
+      "state": {
+        "tps": 4275,
+        "mempool_bytes": 20573369,
+        "avg_fee_rate_sat_vb": 19.26,
+        "active_peers": 58
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 17.33,
+        "recommended_peers": 74
+      },
+      "reward_score": 0.9167
+    },
+    {
+      "step": 200,
+      "state": {
+        "tps": 4811,
+        "mempool_bytes": 8023105,
+        "avg_fee_rate_sat_vb": 137.09,
+        "active_peers": 95
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 123.38,
+        "recommended_peers": 111
+      },
+      "reward_score": 0.9028
+    },
+    {
+      "step": 201,
+      "state": {
+        "tps": 4863,
+        "mempool_bytes": 35610238,
+        "avg_fee_rate_sat_vb": 31.65,
+        "active_peers": 84
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 28.48,
+        "recommended_peers": 100
+      },
+      "reward_score": 0.9599
+    },
+    {
+      "step": 202,
+      "state": {
+        "tps": 1786,
+        "mempool_bytes": 28981356,
+        "avg_fee_rate_sat_vb": 55.54,
+        "active_peers": 107
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 49.99,
+        "recommended_peers": 123
+      },
+      "reward_score": 0.8914
+    },
+    {
+      "step": 203,
+      "state": {
+        "tps": 1032,
+        "mempool_bytes": 9727297,
+        "avg_fee_rate_sat_vb": 60.9,
+        "active_peers": 84
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 54.81,
+        "recommended_peers": 100
+      },
+      "reward_score": 0.9149
+    },
+    {
+      "step": 204,
+      "state": {
+        "tps": 4339,
+        "mempool_bytes": 13409920,
+        "avg_fee_rate_sat_vb": 128.56,
+        "active_peers": 150
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 115.7,
+        "recommended_peers": 166
+      },
+      "reward_score": 0.9572
+    },
+    {
+      "step": 205,
+      "state": {
+        "tps": 4020,
+        "mempool_bytes": 44451576,
+        "avg_fee_rate_sat_vb": 106.05,
+        "active_peers": 241
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 95.44,
+        "recommended_peers": 256
+      },
+      "reward_score": 0.8616
+    },
+    {
+      "step": 206,
+      "state": {
+        "tps": 1092,
+        "mempool_bytes": 22782834,
+        "avg_fee_rate_sat_vb": 113.43,
+        "active_peers": 82
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 102.09,
+        "recommended_peers": 98
+      },
+      "reward_score": 0.9224
+    },
+    {
+      "step": 207,
+      "state": {
+        "tps": 4452,
+        "mempool_bytes": 6264647,
+        "avg_fee_rate_sat_vb": 33.0,
+        "active_peers": 163
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 29.7,
+        "recommended_peers": 179
+      },
+      "reward_score": 0.9
+    },
+    {
+      "step": 208,
+      "state": {
+        "tps": 1371,
+        "mempool_bytes": 23722887,
+        "avg_fee_rate_sat_vb": 120.71,
+        "active_peers": 200
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 108.64,
+        "recommended_peers": 216
+      },
+      "reward_score": 0.9894
+    },
+    {
+      "step": 209,
+      "state": {
+        "tps": 3785,
+        "mempool_bytes": 47125823,
+        "avg_fee_rate_sat_vb": 13.65,
+        "active_peers": 209
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 12.29,
+        "recommended_peers": 225
+      },
+      "reward_score": 0.9719
+    },
+    {
+      "step": 210,
+      "state": {
+        "tps": 1082,
+        "mempool_bytes": 32103976,
+        "avg_fee_rate_sat_vb": 114.78,
+        "active_peers": 184
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 103.3,
+        "recommended_peers": 200
+      },
+      "reward_score": 0.9257
+    },
+    {
+      "step": 211,
+      "state": {
+        "tps": 2319,
+        "mempool_bytes": 13803583,
+        "avg_fee_rate_sat_vb": 90.3,
+        "active_peers": 44
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 81.27,
+        "recommended_peers": 60
+      },
+      "reward_score": 0.9852
+    },
+    {
+      "step": 212,
+      "state": {
+        "tps": 4249,
+        "mempool_bytes": 38103558,
+        "avg_fee_rate_sat_vb": 134.65,
+        "active_peers": 79
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 121.19,
+        "recommended_peers": 95
+      },
+      "reward_score": 0.9531
+    },
+    {
+      "step": 213,
+      "state": {
+        "tps": 581,
+        "mempool_bytes": 32498453,
+        "avg_fee_rate_sat_vb": 40.14,
+        "active_peers": 148
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 36.13,
+        "recommended_peers": 164
+      },
+      "reward_score": 0.9072
+    },
+    {
+      "step": 214,
+      "state": {
+        "tps": 130,
+        "mempool_bytes": 31337033,
+        "avg_fee_rate_sat_vb": 8.87,
+        "active_peers": 255
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 7.98,
+        "recommended_peers": 256
+      },
+      "reward_score": 0.8509
+    },
+    {
+      "step": 215,
+      "state": {
+        "tps": 54,
+        "mempool_bytes": 42724974,
+        "avg_fee_rate_sat_vb": 30.76,
+        "active_peers": 195
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 27.68,
+        "recommended_peers": 211
+      },
+      "reward_score": 0.9179
+    },
+    {
+      "step": 216,
+      "state": {
+        "tps": 3403,
+        "mempool_bytes": 24373100,
+        "avg_fee_rate_sat_vb": 4.39,
+        "active_peers": 202
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 3.95,
+        "recommended_peers": 218
+      },
+      "reward_score": 0.8955
+    },
+    {
+      "step": 217,
+      "state": {
+        "tps": 2515,
+        "mempool_bytes": 45188241,
+        "avg_fee_rate_sat_vb": 58.14,
+        "active_peers": 86
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 52.33,
+        "recommended_peers": 102
+      },
+      "reward_score": 0.9486
+    },
+    {
+      "step": 218,
+      "state": {
+        "tps": 1034,
+        "mempool_bytes": 45814412,
+        "avg_fee_rate_sat_vb": 86.12,
+        "active_peers": 193
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 77.51,
+        "recommended_peers": 209
+      },
+      "reward_score": 0.9705
+    },
+    {
+      "step": 219,
+      "state": {
+        "tps": 3737,
+        "mempool_bytes": 5243924,
+        "avg_fee_rate_sat_vb": 51.3,
+        "active_peers": 66
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 46.17,
+        "recommended_peers": 82
+      },
+      "reward_score": 0.867
+    },
+    {
+      "step": 220,
+      "state": {
+        "tps": 2071,
+        "mempool_bytes": 21781013,
+        "avg_fee_rate_sat_vb": 69.41,
+        "active_peers": 253
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 62.47,
+        "recommended_peers": 256
+      },
+      "reward_score": 0.8735
+    },
+    {
+      "step": 221,
+      "state": {
+        "tps": 976,
+        "mempool_bytes": 3373366,
+        "avg_fee_rate_sat_vb": 26.73,
+        "active_peers": 236
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 24.06,
+        "recommended_peers": 252
+      },
+      "reward_score": 0.8504
+    },
+    {
+      "step": 222,
+      "state": {
+        "tps": 3344,
+        "mempool_bytes": 39372286,
+        "avg_fee_rate_sat_vb": 32.12,
+        "active_peers": 227
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 28.91,
+        "recommended_peers": 243
+      },
+      "reward_score": 0.9009
+    },
+    {
+      "step": 223,
+      "state": {
+        "tps": 3204,
+        "mempool_bytes": 49767982,
+        "avg_fee_rate_sat_vb": 9.6,
+        "active_peers": 128
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 8.64,
+        "recommended_peers": 144
+      },
+      "reward_score": 0.9419
+    },
+    {
+      "step": 224,
+      "state": {
+        "tps": 2923,
+        "mempool_bytes": 17213461,
+        "avg_fee_rate_sat_vb": 75.47,
+        "active_peers": 79
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 67.92,
+        "recommended_peers": 95
+      },
+      "reward_score": 0.9638
+    },
+    {
+      "step": 225,
+      "state": {
+        "tps": 28,
+        "mempool_bytes": 44501574,
+        "avg_fee_rate_sat_vb": 147.23,
+        "active_peers": 131
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 132.51,
+        "recommended_peers": 147
+      },
+      "reward_score": 0.9146
+    },
+    {
+      "step": 226,
+      "state": {
+        "tps": 4381,
+        "mempool_bytes": 20359606,
+        "avg_fee_rate_sat_vb": 34.91,
+        "active_peers": 172
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 31.42,
+        "recommended_peers": 188
+      },
+      "reward_score": 0.9147
+    },
+    {
+      "step": 227,
+      "state": {
+        "tps": 2370,
+        "mempool_bytes": 21277063,
+        "avg_fee_rate_sat_vb": 146.46,
+        "active_peers": 68
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 131.81,
+        "recommended_peers": 84
+      },
+      "reward_score": 0.9054
+    },
+    {
+      "step": 228,
+      "state": {
+        "tps": 4868,
+        "mempool_bytes": 7736811,
+        "avg_fee_rate_sat_vb": 40.07,
+        "active_peers": 55
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 36.06,
+        "recommended_peers": 71
+      },
+      "reward_score": 0.916
+    },
+    {
+      "step": 229,
+      "state": {
+        "tps": 3512,
+        "mempool_bytes": 30403782,
+        "avg_fee_rate_sat_vb": 77.98,
+        "active_peers": 162
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 70.18,
+        "recommended_peers": 178
+      },
+      "reward_score": 0.9696
+    },
+    {
+      "step": 230,
+      "state": {
+        "tps": 1279,
+        "mempool_bytes": 8947091,
+        "avg_fee_rate_sat_vb": 13.34,
+        "active_peers": 37
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 12.01,
+        "recommended_peers": 53
+      },
+      "reward_score": 0.8967
+    },
+    {
+      "step": 231,
+      "state": {
+        "tps": 3467,
+        "mempool_bytes": 5150166,
+        "avg_fee_rate_sat_vb": 128.95,
+        "active_peers": 252
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 116.05,
+        "recommended_peers": 256
+      },
+      "reward_score": 0.871
+    },
+    {
+      "step": 232,
+      "state": {
+        "tps": 135,
+        "mempool_bytes": 34159044,
+        "avg_fee_rate_sat_vb": 95.58,
+        "active_peers": 235
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 86.02,
+        "recommended_peers": 251
+      },
+      "reward_score": 0.8592
+    },
+    {
+      "step": 233,
+      "state": {
+        "tps": 2974,
+        "mempool_bytes": 39076341,
+        "avg_fee_rate_sat_vb": 61.01,
+        "active_peers": 141
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 54.91,
+        "recommended_peers": 157
+      },
+      "reward_score": 0.9646
+    },
+    {
+      "step": 234,
+      "state": {
+        "tps": 1264,
+        "mempool_bytes": 18731237,
+        "avg_fee_rate_sat_vb": 57.79,
+        "active_peers": 50
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 52.01,
+        "recommended_peers": 66
+      },
+      "reward_score": 0.8972
+    },
+    {
+      "step": 235,
+      "state": {
+        "tps": 4308,
+        "mempool_bytes": 4567807,
+        "avg_fee_rate_sat_vb": 142.41,
+        "active_peers": 158
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 128.17,
+        "recommended_peers": 174
+      },
+      "reward_score": 0.8751
+    },
+    {
+      "step": 236,
+      "state": {
+        "tps": 2765,
+        "mempool_bytes": 19930975,
+        "avg_fee_rate_sat_vb": 104.58,
+        "active_peers": 182
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 94.12,
+        "recommended_peers": 198
+      },
+      "reward_score": 0.9672
+    },
+    {
+      "step": 237,
+      "state": {
+        "tps": 4259,
+        "mempool_bytes": 42861165,
+        "avg_fee_rate_sat_vb": 92.22,
+        "active_peers": 155
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 83.0,
+        "recommended_peers": 171
+      },
+      "reward_score": 0.8686
+    },
+    {
+      "step": 238,
+      "state": {
+        "tps": 3610,
+        "mempool_bytes": 38095731,
+        "avg_fee_rate_sat_vb": 124.79,
+        "active_peers": 118
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 112.31,
+        "recommended_peers": 134
+      },
+      "reward_score": 0.8786
+    },
+    {
+      "step": 239,
+      "state": {
+        "tps": 3470,
+        "mempool_bytes": 7223306,
+        "avg_fee_rate_sat_vb": 106.48,
+        "active_peers": 93
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 95.83,
+        "recommended_peers": 109
+      },
+      "reward_score": 0.9081
+    },
+    {
+      "step": 240,
+      "state": {
+        "tps": 877,
+        "mempool_bytes": 23548786,
+        "avg_fee_rate_sat_vb": 84.25,
+        "active_peers": 215
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 75.83,
+        "recommended_peers": 231
+      },
+      "reward_score": 0.9045
+    },
+    {
+      "step": 241,
+      "state": {
+        "tps": 3760,
+        "mempool_bytes": 8915746,
+        "avg_fee_rate_sat_vb": 4.01,
+        "active_peers": 65
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 3.61,
+        "recommended_peers": 81
+      },
+      "reward_score": 0.8997
+    },
+    {
+      "step": 242,
+      "state": {
+        "tps": 1451,
+        "mempool_bytes": 22190512,
+        "avg_fee_rate_sat_vb": 111.41,
+        "active_peers": 162
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 100.27,
+        "recommended_peers": 178
+      },
+      "reward_score": 0.9105
+    },
+    {
+      "step": 243,
+      "state": {
+        "tps": 2138,
+        "mempool_bytes": 3759589,
+        "avg_fee_rate_sat_vb": 31.0,
+        "active_peers": 233
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 27.9,
+        "recommended_peers": 249
+      },
+      "reward_score": 0.9586
+    },
+    {
+      "step": 244,
+      "state": {
+        "tps": 4817,
+        "mempool_bytes": 15359108,
+        "avg_fee_rate_sat_vb": 143.12,
+        "active_peers": 106
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 128.81,
+        "recommended_peers": 122
+      },
+      "reward_score": 0.8916
+    },
+    {
+      "step": 245,
+      "state": {
+        "tps": 3758,
+        "mempool_bytes": 26041848,
+        "avg_fee_rate_sat_vb": 92.2,
+        "active_peers": 152
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 82.98,
+        "recommended_peers": 168
+      },
+      "reward_score": 0.9754
+    },
+    {
+      "step": 246,
+      "state": {
+        "tps": 888,
+        "mempool_bytes": 5012816,
+        "avg_fee_rate_sat_vb": 22.77,
+        "active_peers": 77
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 20.49,
+        "recommended_peers": 93
+      },
+      "reward_score": 0.8513
+    },
+    {
+      "step": 247,
+      "state": {
+        "tps": 2667,
+        "mempool_bytes": 22833947,
+        "avg_fee_rate_sat_vb": 26.29,
+        "active_peers": 153
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 23.66,
+        "recommended_peers": 169
+      },
+      "reward_score": 0.9027
+    },
+    {
+      "step": 248,
+      "state": {
+        "tps": 1196,
+        "mempool_bytes": 41342817,
+        "avg_fee_rate_sat_vb": 11.11,
+        "active_peers": 179
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 10.0,
+        "recommended_peers": 195
+      },
+      "reward_score": 0.8718
+    },
+    {
+      "step": 249,
+      "state": {
+        "tps": 3899,
+        "mempool_bytes": 44697882,
+        "avg_fee_rate_sat_vb": 52.8,
+        "active_peers": 56
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 47.52,
+        "recommended_peers": 72
+      },
+      "reward_score": 0.9836
+    },
+    {
+      "step": 250,
+      "state": {
+        "tps": 2690,
+        "mempool_bytes": 9680092,
+        "avg_fee_rate_sat_vb": 16.03,
+        "active_peers": 68
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 14.43,
+        "recommended_peers": 84
+      },
+      "reward_score": 0.8987
+    },
+    {
+      "step": 251,
+      "state": {
+        "tps": 2844,
+        "mempool_bytes": 18780577,
+        "avg_fee_rate_sat_vb": 139.38,
+        "active_peers": 61
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 125.44,
+        "recommended_peers": 77
+      },
+      "reward_score": 0.9896
+    },
+    {
+      "step": 252,
+      "state": {
+        "tps": 99,
+        "mempool_bytes": 24502273,
+        "avg_fee_rate_sat_vb": 141.0,
+        "active_peers": 241
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 126.9,
+        "recommended_peers": 256
+      },
+      "reward_score": 0.9111
+    },
+    {
+      "step": 253,
+      "state": {
+        "tps": 3489,
+        "mempool_bytes": 15366189,
+        "avg_fee_rate_sat_vb": 105.85,
+        "active_peers": 144
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 95.27,
+        "recommended_peers": 160
+      },
+      "reward_score": 0.8514
+    },
+    {
+      "step": 254,
+      "state": {
+        "tps": 368,
+        "mempool_bytes": 42294460,
+        "avg_fee_rate_sat_vb": 39.71,
+        "active_peers": 124
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 35.74,
+        "recommended_peers": 140
+      },
+      "reward_score": 0.9398
+    },
+    {
+      "step": 255,
+      "state": {
+        "tps": 4136,
+        "mempool_bytes": 6460534,
+        "avg_fee_rate_sat_vb": 70.31,
+        "active_peers": 109
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 63.28,
+        "recommended_peers": 125
+      },
+      "reward_score": 0.956
+    },
+    {
+      "step": 256,
+      "state": {
+        "tps": 3559,
+        "mempool_bytes": 21097459,
+        "avg_fee_rate_sat_vb": 6.76,
+        "active_peers": 255
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 6.08,
+        "recommended_peers": 256
+      },
+      "reward_score": 0.9607
+    },
+    {
+      "step": 257,
+      "state": {
+        "tps": 3637,
+        "mempool_bytes": 17457741,
+        "avg_fee_rate_sat_vb": 66.1,
+        "active_peers": 119
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 59.49,
+        "recommended_peers": 135
+      },
+      "reward_score": 0.9572
+    },
+    {
+      "step": 258,
+      "state": {
+        "tps": 3776,
+        "mempool_bytes": 23446470,
+        "avg_fee_rate_sat_vb": 39.19,
+        "active_peers": 56
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 35.27,
+        "recommended_peers": 72
+      },
+      "reward_score": 0.9062
+    },
+    {
+      "step": 259,
+      "state": {
+        "tps": 4894,
+        "mempool_bytes": 20907181,
+        "avg_fee_rate_sat_vb": 40.6,
+        "active_peers": 127
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 36.54,
+        "recommended_peers": 143
+      },
+      "reward_score": 0.899
+    },
+    {
+      "step": 260,
+      "state": {
+        "tps": 2096,
+        "mempool_bytes": 25334447,
+        "avg_fee_rate_sat_vb": 63.21,
+        "active_peers": 160
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 56.89,
+        "recommended_peers": 176
+      },
+      "reward_score": 0.8722
+    },
+    {
+      "step": 261,
+      "state": {
+        "tps": 4906,
+        "mempool_bytes": 18109472,
+        "avg_fee_rate_sat_vb": 56.2,
+        "active_peers": 162
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 50.58,
+        "recommended_peers": 178
+      },
+      "reward_score": 0.8686
+    },
+    {
+      "step": 262,
+      "state": {
+        "tps": 4802,
+        "mempool_bytes": 4513070,
+        "avg_fee_rate_sat_vb": 118.25,
+        "active_peers": 129
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 106.42,
+        "recommended_peers": 145
+      },
+      "reward_score": 0.9601
+    },
+    {
+      "step": 263,
+      "state": {
+        "tps": 4056,
+        "mempool_bytes": 11519957,
+        "avg_fee_rate_sat_vb": 50.8,
+        "active_peers": 68
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 45.72,
+        "recommended_peers": 84
+      },
+      "reward_score": 0.9163
+    },
+    {
+      "step": 264,
+      "state": {
+        "tps": 50,
+        "mempool_bytes": 38012739,
+        "avg_fee_rate_sat_vb": 146.52,
+        "active_peers": 220
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 131.87,
+        "recommended_peers": 236
+      },
+      "reward_score": 0.9473
+    },
+    {
+      "step": 265,
+      "state": {
+        "tps": 2872,
+        "mempool_bytes": 3258624,
+        "avg_fee_rate_sat_vb": 134.99,
+        "active_peers": 159
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 121.49,
+        "recommended_peers": 175
+      },
+      "reward_score": 0.9196
+    },
+    {
+      "step": 266,
+      "state": {
+        "tps": 3716,
+        "mempool_bytes": 11783998,
+        "avg_fee_rate_sat_vb": 92.0,
+        "active_peers": 193
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 82.8,
+        "recommended_peers": 209
+      },
+      "reward_score": 0.8815
+    },
+    {
+      "step": 267,
+      "state": {
+        "tps": 145,
+        "mempool_bytes": 7484215,
+        "avg_fee_rate_sat_vb": 21.84,
+        "active_peers": 99
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 19.66,
+        "recommended_peers": 115
+      },
+      "reward_score": 0.8878
+    },
+    {
+      "step": 268,
+      "state": {
+        "tps": 1352,
+        "mempool_bytes": 46878943,
+        "avg_fee_rate_sat_vb": 140.13,
+        "active_peers": 138
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 126.12,
+        "recommended_peers": 154
+      },
+      "reward_score": 0.8703
+    },
+    {
+      "step": 269,
+      "state": {
+        "tps": 1937,
+        "mempool_bytes": 2635349,
+        "avg_fee_rate_sat_vb": 53.82,
+        "active_peers": 83
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 48.44,
+        "recommended_peers": 99
+      },
+      "reward_score": 0.9682
+    },
+    {
+      "step": 270,
+      "state": {
+        "tps": 1466,
+        "mempool_bytes": 21210881,
+        "avg_fee_rate_sat_vb": 10.1,
+        "active_peers": 193
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 9.09,
+        "recommended_peers": 209
+      },
+      "reward_score": 0.9217
+    },
+    {
+      "step": 271,
+      "state": {
+        "tps": 4712,
+        "mempool_bytes": 37222555,
+        "avg_fee_rate_sat_vb": 92.6,
+        "active_peers": 239
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 83.34,
+        "recommended_peers": 255
+      },
+      "reward_score": 0.8925
+    },
+    {
+      "step": 272,
+      "state": {
+        "tps": 2598,
+        "mempool_bytes": 49721406,
+        "avg_fee_rate_sat_vb": 95.58,
+        "active_peers": 68
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 86.02,
+        "recommended_peers": 84
+      },
+      "reward_score": 0.9788
+    },
+    {
+      "step": 273,
+      "state": {
+        "tps": 1596,
+        "mempool_bytes": 36266988,
+        "avg_fee_rate_sat_vb": 5.11,
+        "active_peers": 172
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 4.6,
+        "recommended_peers": 188
+      },
+      "reward_score": 0.9642
+    },
+    {
+      "step": 274,
+      "state": {
+        "tps": 4092,
+        "mempool_bytes": 23469871,
+        "avg_fee_rate_sat_vb": 92.31,
+        "active_peers": 89
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 83.08,
+        "recommended_peers": 105
+      },
+      "reward_score": 0.9666
+    },
+    {
+      "step": 275,
+      "state": {
+        "tps": 2770,
+        "mempool_bytes": 36682145,
+        "avg_fee_rate_sat_vb": 41.75,
+        "active_peers": 40
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 37.58,
+        "recommended_peers": 56
+      },
+      "reward_score": 0.8843
+    },
+    {
+      "step": 276,
+      "state": {
+        "tps": 1909,
+        "mempool_bytes": 10889634,
+        "avg_fee_rate_sat_vb": 58.51,
+        "active_peers": 148
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 52.66,
+        "recommended_peers": 164
+      },
+      "reward_score": 0.8631
+    },
+    {
+      "step": 277,
+      "state": {
+        "tps": 4035,
+        "mempool_bytes": 4214732,
+        "avg_fee_rate_sat_vb": 77.03,
+        "active_peers": 191
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 69.33,
+        "recommended_peers": 207
+      },
+      "reward_score": 0.9192
+    },
+    {
+      "step": 278,
+      "state": {
+        "tps": 1129,
+        "mempool_bytes": 35613612,
+        "avg_fee_rate_sat_vb": 96.12,
+        "active_peers": 77
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 86.51,
+        "recommended_peers": 93
+      },
+      "reward_score": 0.8726
+    },
+    {
+      "step": 279,
+      "state": {
+        "tps": 3792,
+        "mempool_bytes": 6655577,
+        "avg_fee_rate_sat_vb": 89.42,
+        "active_peers": 132
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 80.48,
+        "recommended_peers": 148
+      },
+      "reward_score": 0.8713
+    },
+    {
+      "step": 280,
+      "state": {
+        "tps": 93,
+        "mempool_bytes": 32391108,
+        "avg_fee_rate_sat_vb": 14.47,
+        "active_peers": 138
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 13.02,
+        "recommended_peers": 154
+      },
+      "reward_score": 0.9528
+    },
+    {
+      "step": 281,
+      "state": {
+        "tps": 3596,
+        "mempool_bytes": 834691,
+        "avg_fee_rate_sat_vb": 96.34,
+        "active_peers": 113
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 86.71,
+        "recommended_peers": 129
+      },
+      "reward_score": 0.9092
+    },
+    {
+      "step": 282,
+      "state": {
+        "tps": 4656,
+        "mempool_bytes": 25286828,
+        "avg_fee_rate_sat_vb": 111.85,
+        "active_peers": 132
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 100.66,
+        "recommended_peers": 148
+      },
+      "reward_score": 0.8647
+    },
+    {
+      "step": 283,
+      "state": {
+        "tps": 3999,
+        "mempool_bytes": 29933774,
+        "avg_fee_rate_sat_vb": 122.62,
+        "active_peers": 207
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 110.36,
+        "recommended_peers": 223
+      },
+      "reward_score": 0.9476
+    },
+    {
+      "step": 284,
+      "state": {
+        "tps": 4537,
+        "mempool_bytes": 19853053,
+        "avg_fee_rate_sat_vb": 63.08,
+        "active_peers": 210
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 56.77,
+        "recommended_peers": 226
+      },
+      "reward_score": 0.9728
+    },
+    {
+      "step": 285,
+      "state": {
+        "tps": 1834,
+        "mempool_bytes": 34293194,
+        "avg_fee_rate_sat_vb": 61.67,
+        "active_peers": 207
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 55.5,
+        "recommended_peers": 223
+      },
+      "reward_score": 0.8828
+    },
+    {
+      "step": 286,
+      "state": {
+        "tps": 1469,
+        "mempool_bytes": 36800221,
+        "avg_fee_rate_sat_vb": 134.67,
+        "active_peers": 176
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 121.2,
+        "recommended_peers": 192
+      },
+      "reward_score": 0.9195
+    },
+    {
+      "step": 287,
+      "state": {
+        "tps": 2963,
+        "mempool_bytes": 49654855,
+        "avg_fee_rate_sat_vb": 115.58,
+        "active_peers": 169
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 104.02,
+        "recommended_peers": 185
+      },
+      "reward_score": 0.9873
+    },
+    {
+      "step": 288,
+      "state": {
+        "tps": 2576,
+        "mempool_bytes": 21597396,
+        "avg_fee_rate_sat_vb": 7.08,
+        "active_peers": 253
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 6.37,
+        "recommended_peers": 256
+      },
+      "reward_score": 0.9014
+    },
+    {
+      "step": 289,
+      "state": {
+        "tps": 908,
+        "mempool_bytes": 37799701,
+        "avg_fee_rate_sat_vb": 13.83,
+        "active_peers": 246
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 12.45,
+        "recommended_peers": 256
+      },
+      "reward_score": 0.9363
+    },
+    {
+      "step": 290,
+      "state": {
+        "tps": 4457,
+        "mempool_bytes": 4598478,
+        "avg_fee_rate_sat_vb": 129.22,
+        "active_peers": 125
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 116.3,
+        "recommended_peers": 141
+      },
+      "reward_score": 0.9377
+    },
+    {
+      "step": 291,
+      "state": {
+        "tps": 29,
+        "mempool_bytes": 35285406,
+        "avg_fee_rate_sat_vb": 72.98,
+        "active_peers": 84
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 65.68,
+        "recommended_peers": 100
+      },
+      "reward_score": 0.9634
+    },
+    {
+      "step": 292,
+      "state": {
+        "tps": 1138,
+        "mempool_bytes": 17133133,
+        "avg_fee_rate_sat_vb": 34.22,
+        "active_peers": 126
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 30.8,
+        "recommended_peers": 142
+      },
+      "reward_score": 0.8565
+    },
+    {
+      "step": 293,
+      "state": {
+        "tps": 3010,
+        "mempool_bytes": 29074235,
+        "avg_fee_rate_sat_vb": 148.29,
+        "active_peers": 42
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 133.46,
+        "recommended_peers": 58
+      },
+      "reward_score": 0.9705
+    },
+    {
+      "step": 294,
+      "state": {
+        "tps": 160,
+        "mempool_bytes": 35852180,
+        "avg_fee_rate_sat_vb": 38.59,
+        "active_peers": 247
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 34.73,
+        "recommended_peers": 256
+      },
+      "reward_score": 0.9655
+    },
+    {
+      "step": 295,
+      "state": {
+        "tps": 1726,
+        "mempool_bytes": 35667187,
+        "avg_fee_rate_sat_vb": 79.63,
+        "active_peers": 228
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 71.67,
+        "recommended_peers": 244
+      },
+      "reward_score": 0.9457
+    },
+    {
+      "step": 296,
+      "state": {
+        "tps": 318,
+        "mempool_bytes": 8824474,
+        "avg_fee_rate_sat_vb": 77.63,
+        "active_peers": 57
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 69.87,
+        "recommended_peers": 73
+      },
+      "reward_score": 0.8735
+    },
+    {
+      "step": 297,
+      "state": {
+        "tps": 4464,
+        "mempool_bytes": 48602072,
+        "avg_fee_rate_sat_vb": 37.63,
+        "active_peers": 238
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 33.87,
+        "recommended_peers": 254
+      },
+      "reward_score": 0.8603
+    },
+    {
+      "step": 298,
+      "state": {
+        "tps": 3303,
+        "mempool_bytes": 42021667,
+        "avg_fee_rate_sat_vb": 138.76,
+        "active_peers": 151
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 124.88,
+        "recommended_peers": 167
+      },
+      "reward_score": 0.9621
+    },
+    {
+      "step": 299,
+      "state": {
+        "tps": 3526,
+        "mempool_bytes": 23718874,
+        "avg_fee_rate_sat_vb": 10.45,
+        "active_peers": 105
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 9.4,
+        "recommended_peers": 121
+      },
+      "reward_score": 0.9179
+    },
+    {
+      "step": 300,
+      "state": {
+        "tps": 3100,
+        "mempool_bytes": 16811683,
+        "avg_fee_rate_sat_vb": 122.04,
+        "active_peers": 123
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 109.84,
+        "recommended_peers": 139
+      },
+      "reward_score": 0.9844
+    },
+    {
+      "step": 301,
+      "state": {
+        "tps": 255,
+        "mempool_bytes": 19066310,
+        "avg_fee_rate_sat_vb": 144.05,
+        "active_peers": 251
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 129.65,
+        "recommended_peers": 256
+      },
+      "reward_score": 0.9633
+    },
+    {
+      "step": 302,
+      "state": {
+        "tps": 1506,
+        "mempool_bytes": 20833771,
+        "avg_fee_rate_sat_vb": 94.29,
+        "active_peers": 69
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 84.86,
+        "recommended_peers": 85
+      },
+      "reward_score": 0.9715
+    },
+    {
+      "step": 303,
+      "state": {
+        "tps": 2016,
+        "mempool_bytes": 43424191,
+        "avg_fee_rate_sat_vb": 83.74,
+        "active_peers": 230
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 75.37,
+        "recommended_peers": 246
+      },
+      "reward_score": 0.9075
+    },
+    {
+      "step": 304,
+      "state": {
+        "tps": 1763,
+        "mempool_bytes": 49944031,
+        "avg_fee_rate_sat_vb": 36.8,
+        "active_peers": 233
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 33.12,
+        "recommended_peers": 249
+      },
+      "reward_score": 0.9622
+    },
+    {
+      "step": 305,
+      "state": {
+        "tps": 1971,
+        "mempool_bytes": 29763333,
+        "avg_fee_rate_sat_vb": 138.81,
+        "active_peers": 228
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 124.93,
+        "recommended_peers": 244
+      },
+      "reward_score": 0.9608
+    },
+    {
+      "step": 306,
+      "state": {
+        "tps": 1544,
+        "mempool_bytes": 41924643,
+        "avg_fee_rate_sat_vb": 22.87,
+        "active_peers": 200
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 20.58,
+        "recommended_peers": 216
+      },
+      "reward_score": 0.8925
+    },
+    {
+      "step": 307,
+      "state": {
+        "tps": 2038,
+        "mempool_bytes": 31186062,
+        "avg_fee_rate_sat_vb": 44.74,
+        "active_peers": 246
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 40.27,
+        "recommended_peers": 256
+      },
+      "reward_score": 0.9711
+    },
+    {
+      "step": 308,
+      "state": {
+        "tps": 1149,
+        "mempool_bytes": 37006028,
+        "avg_fee_rate_sat_vb": 103.81,
+        "active_peers": 220
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 93.43,
+        "recommended_peers": 236
+      },
+      "reward_score": 0.9144
+    },
+    {
+      "step": 309,
+      "state": {
+        "tps": 2027,
+        "mempool_bytes": 7235140,
+        "avg_fee_rate_sat_vb": 53.96,
+        "active_peers": 39
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 48.56,
+        "recommended_peers": 55
+      },
+      "reward_score": 0.9002
+    },
+    {
+      "step": 310,
+      "state": {
+        "tps": 342,
+        "mempool_bytes": 48052919,
+        "avg_fee_rate_sat_vb": 147.52,
+        "active_peers": 176
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 132.77,
+        "recommended_peers": 192
+      },
+      "reward_score": 0.8539
+    },
+    {
+      "step": 311,
+      "state": {
+        "tps": 4883,
+        "mempool_bytes": 15383365,
+        "avg_fee_rate_sat_vb": 126.62,
+        "active_peers": 173
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 113.96,
+        "recommended_peers": 189
+      },
+      "reward_score": 0.9557
+    },
+    {
+      "step": 312,
+      "state": {
+        "tps": 3275,
+        "mempool_bytes": 45528128,
+        "avg_fee_rate_sat_vb": 39.52,
+        "active_peers": 255
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 35.57,
+        "recommended_peers": 256
+      },
+      "reward_score": 0.9058
+    },
+    {
+      "step": 313,
+      "state": {
+        "tps": 4787,
+        "mempool_bytes": 19190167,
+        "avg_fee_rate_sat_vb": 112.84,
+        "active_peers": 119
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 101.56,
+        "recommended_peers": 135
+      },
+      "reward_score": 0.8711
+    },
+    {
+      "step": 314,
+      "state": {
+        "tps": 2987,
+        "mempool_bytes": 31152985,
+        "avg_fee_rate_sat_vb": 3.29,
+        "active_peers": 164
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 2.96,
+        "recommended_peers": 180
+      },
+      "reward_score": 0.9044
+    },
+    {
+      "step": 315,
+      "state": {
+        "tps": 4484,
+        "mempool_bytes": 19187554,
+        "avg_fee_rate_sat_vb": 37.73,
+        "active_peers": 59
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 33.96,
+        "recommended_peers": 75
+      },
+      "reward_score": 0.8744
+    },
+    {
+      "step": 316,
+      "state": {
+        "tps": 2696,
+        "mempool_bytes": 25400286,
+        "avg_fee_rate_sat_vb": 93.63,
+        "active_peers": 103
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 84.27,
+        "recommended_peers": 119
+      },
+      "reward_score": 0.9876
+    },
+    {
+      "step": 317,
+      "state": {
+        "tps": 4617,
+        "mempool_bytes": 26871812,
+        "avg_fee_rate_sat_vb": 18.75,
+        "active_peers": 44
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 16.88,
+        "recommended_peers": 60
+      },
+      "reward_score": 0.9852
+    },
+    {
+      "step": 318,
+      "state": {
+        "tps": 2249,
+        "mempool_bytes": 1000098,
+        "avg_fee_rate_sat_vb": 25.08,
+        "active_peers": 141
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 22.57,
+        "recommended_peers": 157
+      },
+      "reward_score": 0.9554
+    },
+    {
+      "step": 319,
+      "state": {
+        "tps": 3455,
+        "mempool_bytes": 26094504,
+        "avg_fee_rate_sat_vb": 140.27,
+        "active_peers": 40
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 126.24,
+        "recommended_peers": 56
+      },
+      "reward_score": 0.9619
+    },
+    {
+      "step": 320,
+      "state": {
+        "tps": 4717,
+        "mempool_bytes": 30087957,
+        "avg_fee_rate_sat_vb": 18.0,
+        "active_peers": 174
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 16.2,
+        "recommended_peers": 190
+      },
+      "reward_score": 0.9893
+    },
+    {
+      "step": 321,
+      "state": {
+        "tps": 2162,
+        "mempool_bytes": 22162761,
+        "avg_fee_rate_sat_vb": 51.53,
+        "active_peers": 97
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 46.38,
+        "recommended_peers": 113
+      },
+      "reward_score": 0.9182
+    },
+    {
+      "step": 322,
+      "state": {
+        "tps": 2688,
+        "mempool_bytes": 33379307,
+        "avg_fee_rate_sat_vb": 86.66,
+        "active_peers": 56
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 77.99,
+        "recommended_peers": 72
+      },
+      "reward_score": 0.904
+    },
+    {
+      "step": 323,
+      "state": {
+        "tps": 27,
+        "mempool_bytes": 21022367,
+        "avg_fee_rate_sat_vb": 82.68,
+        "active_peers": 228
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 74.41,
+        "recommended_peers": 244
+      },
+      "reward_score": 0.907
+    },
+    {
+      "step": 324,
+      "state": {
+        "tps": 969,
+        "mempool_bytes": 2316961,
+        "avg_fee_rate_sat_vb": 64.29,
+        "active_peers": 233
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 57.86,
+        "recommended_peers": 249
+      },
+      "reward_score": 0.9438
+    },
+    {
+      "step": 325,
+      "state": {
+        "tps": 4759,
+        "mempool_bytes": 46884895,
+        "avg_fee_rate_sat_vb": 79.04,
+        "active_peers": 155
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 71.14,
+        "recommended_peers": 171
+      },
+      "reward_score": 0.865
+    },
+    {
+      "step": 326,
+      "state": {
+        "tps": 157,
+        "mempool_bytes": 27169524,
+        "avg_fee_rate_sat_vb": 58.83,
+        "active_peers": 127
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 52.95,
+        "recommended_peers": 143
+      },
+      "reward_score": 0.942
+    },
+    {
+      "step": 327,
+      "state": {
+        "tps": 2085,
+        "mempool_bytes": 24891606,
+        "avg_fee_rate_sat_vb": 37.19,
+        "active_peers": 110
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 33.47,
+        "recommended_peers": 126
+      },
+      "reward_score": 0.8734
+    },
+    {
+      "step": 328,
+      "state": {
+        "tps": 2456,
+        "mempool_bytes": 6239430,
+        "avg_fee_rate_sat_vb": 71.86,
+        "active_peers": 198
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 64.67,
+        "recommended_peers": 214
+      },
+      "reward_score": 0.884
+    },
+    {
+      "step": 329,
+      "state": {
+        "tps": 3723,
+        "mempool_bytes": 6573998,
+        "avg_fee_rate_sat_vb": 126.27,
+        "active_peers": 238
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 113.64,
+        "recommended_peers": 254
+      },
+      "reward_score": 0.9021
+    },
+    {
+      "step": 330,
+      "state": {
+        "tps": 1120,
+        "mempool_bytes": 42662847,
+        "avg_fee_rate_sat_vb": 33.47,
+        "active_peers": 125
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 30.12,
+        "recommended_peers": 141
+      },
+      "reward_score": 0.9733
+    },
+    {
+      "step": 331,
+      "state": {
+        "tps": 2449,
+        "mempool_bytes": 41058954,
+        "avg_fee_rate_sat_vb": 141.68,
+        "active_peers": 181
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 127.51,
+        "recommended_peers": 197
+      },
+      "reward_score": 0.9147
+    },
+    {
+      "step": 332,
+      "state": {
+        "tps": 3972,
+        "mempool_bytes": 19272807,
+        "avg_fee_rate_sat_vb": 129.24,
+        "active_peers": 220
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 116.32,
+        "recommended_peers": 236
+      },
+      "reward_score": 0.9125
+    },
+    {
+      "step": 333,
+      "state": {
+        "tps": 526,
+        "mempool_bytes": 22937078,
+        "avg_fee_rate_sat_vb": 125.25,
+        "active_peers": 158
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 112.73,
+        "recommended_peers": 174
+      },
+      "reward_score": 0.9739
+    },
+    {
+      "step": 334,
+      "state": {
+        "tps": 1711,
+        "mempool_bytes": 46818345,
+        "avg_fee_rate_sat_vb": 124.57,
+        "active_peers": 224
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 112.11,
+        "recommended_peers": 240
+      },
+      "reward_score": 0.8784
+    },
+    {
+      "step": 335,
+      "state": {
+        "tps": 2838,
+        "mempool_bytes": 20195715,
+        "avg_fee_rate_sat_vb": 106.69,
+        "active_peers": 78
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 96.02,
+        "recommended_peers": 94
+      },
+      "reward_score": 0.9483
+    },
+    {
+      "step": 336,
+      "state": {
+        "tps": 4186,
+        "mempool_bytes": 17784145,
+        "avg_fee_rate_sat_vb": 31.41,
+        "active_peers": 216
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 28.27,
+        "recommended_peers": 232
+      },
+      "reward_score": 0.8519
+    },
+    {
+      "step": 337,
+      "state": {
+        "tps": 2089,
+        "mempool_bytes": 33457396,
+        "avg_fee_rate_sat_vb": 58.97,
+        "active_peers": 240
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 53.07,
+        "recommended_peers": 256
+      },
+      "reward_score": 0.9334
+    },
+    {
+      "step": 338,
+      "state": {
+        "tps": 3343,
+        "mempool_bytes": 12810747,
+        "avg_fee_rate_sat_vb": 76.13,
+        "active_peers": 156
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 68.52,
+        "recommended_peers": 172
+      },
+      "reward_score": 0.9006
+    },
+    {
+      "step": 339,
+      "state": {
+        "tps": 1097,
+        "mempool_bytes": 24034949,
+        "avg_fee_rate_sat_vb": 137.82,
+        "active_peers": 213
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 124.04,
+        "recommended_peers": 229
+      },
+      "reward_score": 0.9484
+    },
+    {
+      "step": 340,
+      "state": {
+        "tps": 4368,
+        "mempool_bytes": 29821939,
+        "avg_fee_rate_sat_vb": 96.86,
+        "active_peers": 69
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 87.17,
+        "recommended_peers": 85
+      },
+      "reward_score": 0.8967
+    },
+    {
+      "step": 341,
+      "state": {
+        "tps": 4238,
+        "mempool_bytes": 49320136,
+        "avg_fee_rate_sat_vb": 120.54,
+        "active_peers": 205
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 108.49,
+        "recommended_peers": 221
+      },
+      "reward_score": 0.9314
+    },
+    {
+      "step": 342,
+      "state": {
+        "tps": 1067,
+        "mempool_bytes": 24009514,
+        "avg_fee_rate_sat_vb": 135.07,
+        "active_peers": 237
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 121.56,
+        "recommended_peers": 253
+      },
+      "reward_score": 0.8565
+    },
+    {
+      "step": 343,
+      "state": {
+        "tps": 1859,
+        "mempool_bytes": 49034283,
+        "avg_fee_rate_sat_vb": 130.43,
+        "active_peers": 88
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 117.39,
+        "recommended_peers": 104
+      },
+      "reward_score": 0.8621
+    },
+    {
+      "step": 344,
+      "state": {
+        "tps": 2858,
+        "mempool_bytes": 27506250,
+        "avg_fee_rate_sat_vb": 111.31,
+        "active_peers": 238
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 100.18,
+        "recommended_peers": 254
+      },
+      "reward_score": 0.9774
+    },
+    {
+      "step": 345,
+      "state": {
+        "tps": 2784,
+        "mempool_bytes": 9939959,
+        "avg_fee_rate_sat_vb": 22.35,
+        "active_peers": 232
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 20.12,
+        "recommended_peers": 248
+      },
+      "reward_score": 0.895
+    },
+    {
+      "step": 346,
+      "state": {
+        "tps": 3046,
+        "mempool_bytes": 37747864,
+        "avg_fee_rate_sat_vb": 80.37,
+        "active_peers": 230
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 72.33,
+        "recommended_peers": 246
+      },
+      "reward_score": 0.9639
+    },
+    {
+      "step": 347,
+      "state": {
+        "tps": 103,
+        "mempool_bytes": 48421994,
+        "avg_fee_rate_sat_vb": 3.97,
+        "active_peers": 98
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 3.57,
+        "recommended_peers": 114
+      },
+      "reward_score": 0.9688
+    },
+    {
+      "step": 348,
+      "state": {
+        "tps": 1669,
+        "mempool_bytes": 24006712,
+        "avg_fee_rate_sat_vb": 80.45,
+        "active_peers": 173
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 72.41,
+        "recommended_peers": 189
+      },
+      "reward_score": 0.9411
+    },
+    {
+      "step": 349,
+      "state": {
+        "tps": 1693,
+        "mempool_bytes": 7402876,
+        "avg_fee_rate_sat_vb": 80.07,
+        "active_peers": 98
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 72.06,
+        "recommended_peers": 114
+      },
+      "reward_score": 0.9659
+    },
+    {
+      "step": 350,
+      "state": {
+        "tps": 2238,
+        "mempool_bytes": 1307807,
+        "avg_fee_rate_sat_vb": 21.11,
+        "active_peers": 97
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 19.0,
+        "recommended_peers": 113
+      },
+      "reward_score": 0.8645
+    },
+    {
+      "step": 351,
+      "state": {
+        "tps": 608,
+        "mempool_bytes": 6091551,
+        "avg_fee_rate_sat_vb": 36.98,
+        "active_peers": 101
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 33.28,
+        "recommended_peers": 117
+      },
+      "reward_score": 0.8809
+    },
+    {
+      "step": 352,
+      "state": {
+        "tps": 4671,
+        "mempool_bytes": 21703178,
+        "avg_fee_rate_sat_vb": 3.26,
+        "active_peers": 196
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 2.93,
+        "recommended_peers": 212
+      },
+      "reward_score": 0.9482
+    },
+    {
+      "step": 353,
+      "state": {
+        "tps": 2774,
+        "mempool_bytes": 46660979,
+        "avg_fee_rate_sat_vb": 57.62,
+        "active_peers": 52
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 51.86,
+        "recommended_peers": 68
+      },
+      "reward_score": 0.8796
+    },
+    {
+      "step": 354,
+      "state": {
+        "tps": 3656,
+        "mempool_bytes": 25759241,
+        "avg_fee_rate_sat_vb": 143.6,
+        "active_peers": 240
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 129.24,
+        "recommended_peers": 256
+      },
+      "reward_score": 0.8746
+    },
+    {
+      "step": 355,
+      "state": {
+        "tps": 3518,
+        "mempool_bytes": 24479505,
+        "avg_fee_rate_sat_vb": 80.72,
+        "active_peers": 115
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 72.65,
+        "recommended_peers": 131
+      },
+      "reward_score": 0.8888
+    },
+    {
+      "step": 356,
+      "state": {
+        "tps": 3766,
+        "mempool_bytes": 35347041,
+        "avg_fee_rate_sat_vb": 110.47,
+        "active_peers": 161
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 99.42,
+        "recommended_peers": 177
+      },
+      "reward_score": 0.8734
+    },
+    {
+      "step": 357,
+      "state": {
+        "tps": 2904,
+        "mempool_bytes": 43700790,
+        "avg_fee_rate_sat_vb": 112.7,
+        "active_peers": 122
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 101.43,
+        "recommended_peers": 138
+      },
+      "reward_score": 0.8784
+    },
+    {
+      "step": 358,
+      "state": {
+        "tps": 2698,
+        "mempool_bytes": 49027447,
+        "avg_fee_rate_sat_vb": 113.0,
+        "active_peers": 83
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 101.7,
+        "recommended_peers": 99
+      },
+      "reward_score": 0.9206
+    },
+    {
+      "step": 359,
+      "state": {
+        "tps": 3530,
+        "mempool_bytes": 42399224,
+        "avg_fee_rate_sat_vb": 134.12,
+        "active_peers": 199
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 120.71,
+        "recommended_peers": 215
+      },
+      "reward_score": 0.8585
+    },
+    {
+      "step": 360,
+      "state": {
+        "tps": 2326,
+        "mempool_bytes": 13684275,
+        "avg_fee_rate_sat_vb": 88.08,
+        "active_peers": 48
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 79.27,
+        "recommended_peers": 64
+      },
+      "reward_score": 0.8764
+    },
+    {
+      "step": 361,
+      "state": {
+        "tps": 2785,
+        "mempool_bytes": 34235764,
+        "avg_fee_rate_sat_vb": 37.51,
+        "active_peers": 57
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 33.76,
+        "recommended_peers": 73
+      },
+      "reward_score": 0.9653
+    },
+    {
+      "step": 362,
+      "state": {
+        "tps": 1926,
+        "mempool_bytes": 13134229,
+        "avg_fee_rate_sat_vb": 64.53,
+        "active_peers": 219
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 58.08,
+        "recommended_peers": 235
+      },
+      "reward_score": 0.9321
+    },
+    {
+      "step": 363,
+      "state": {
+        "tps": 145,
+        "mempool_bytes": 6400971,
+        "avg_fee_rate_sat_vb": 7.66,
+        "active_peers": 42
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 6.89,
+        "recommended_peers": 58
+      },
+      "reward_score": 0.9717
+    },
+    {
+      "step": 364,
+      "state": {
+        "tps": 2036,
+        "mempool_bytes": 13966934,
+        "avg_fee_rate_sat_vb": 105.02,
+        "active_peers": 113
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 94.52,
+        "recommended_peers": 129
+      },
+      "reward_score": 0.9735
+    },
+    {
+      "step": 365,
+      "state": {
+        "tps": 888,
+        "mempool_bytes": 39592187,
+        "avg_fee_rate_sat_vb": 51.18,
+        "active_peers": 245
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 46.06,
+        "recommended_peers": 256
+      },
+      "reward_score": 0.8699
+    },
+    {
+      "step": 366,
+      "state": {
+        "tps": 1774,
+        "mempool_bytes": 32816056,
+        "avg_fee_rate_sat_vb": 64.63,
+        "active_peers": 107
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 58.17,
+        "recommended_peers": 123
+      },
+      "reward_score": 0.9483
+    },
+    {
+      "step": 367,
+      "state": {
+        "tps": 2275,
+        "mempool_bytes": 19901894,
+        "avg_fee_rate_sat_vb": 18.34,
+        "active_peers": 178
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 16.51,
+        "recommended_peers": 194
+      },
+      "reward_score": 0.862
+    },
+    {
+      "step": 368,
+      "state": {
+        "tps": 2045,
+        "mempool_bytes": 47672235,
+        "avg_fee_rate_sat_vb": 19.96,
+        "active_peers": 221
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 17.96,
+        "recommended_peers": 237
+      },
+      "reward_score": 0.8875
+    },
+    {
+      "step": 369,
+      "state": {
+        "tps": 2963,
+        "mempool_bytes": 17116363,
+        "avg_fee_rate_sat_vb": 27.04,
+        "active_peers": 36
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 24.34,
+        "recommended_peers": 52
+      },
+      "reward_score": 0.9755
+    },
+    {
+      "step": 370,
+      "state": {
+        "tps": 4593,
+        "mempool_bytes": 39244729,
+        "avg_fee_rate_sat_vb": 90.38,
+        "active_peers": 143
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 81.34,
+        "recommended_peers": 159
+      },
+      "reward_score": 0.9855
+    },
+    {
+      "step": 371,
+      "state": {
+        "tps": 3914,
+        "mempool_bytes": 8249936,
+        "avg_fee_rate_sat_vb": 1.42,
+        "active_peers": 86
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 1.28,
+        "recommended_peers": 102
+      },
+      "reward_score": 0.8706
+    },
+    {
+      "step": 372,
+      "state": {
+        "tps": 4496,
+        "mempool_bytes": 5543950,
+        "avg_fee_rate_sat_vb": 85.81,
+        "active_peers": 121
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 77.23,
+        "recommended_peers": 137
+      },
+      "reward_score": 0.9171
+    },
+    {
+      "step": 373,
+      "state": {
+        "tps": 3316,
+        "mempool_bytes": 15632470,
+        "avg_fee_rate_sat_vb": 121.19,
+        "active_peers": 204
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 109.07,
+        "recommended_peers": 220
+      },
+      "reward_score": 0.9139
+    },
+    {
+      "step": 374,
+      "state": {
+        "tps": 3796,
+        "mempool_bytes": 22020507,
+        "avg_fee_rate_sat_vb": 55.16,
+        "active_peers": 147
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 49.64,
+        "recommended_peers": 163
+      },
+      "reward_score": 0.9092
+    },
+    {
+      "step": 375,
+      "state": {
+        "tps": 1209,
+        "mempool_bytes": 49832273,
+        "avg_fee_rate_sat_vb": 22.42,
+        "active_peers": 227
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 20.18,
+        "recommended_peers": 243
+      },
+      "reward_score": 0.9388
+    },
+    {
+      "step": 376,
+      "state": {
+        "tps": 695,
+        "mempool_bytes": 6822367,
+        "avg_fee_rate_sat_vb": 123.75,
+        "active_peers": 68
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 111.38,
+        "recommended_peers": 84
+      },
+      "reward_score": 0.9804
+    },
+    {
+      "step": 377,
+      "state": {
+        "tps": 2724,
+        "mempool_bytes": 4677357,
+        "avg_fee_rate_sat_vb": 37.81,
+        "active_peers": 227
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 34.03,
+        "recommended_peers": 243
+      },
+      "reward_score": 0.8858
+    },
+    {
+      "step": 378,
+      "state": {
+        "tps": 2067,
+        "mempool_bytes": 19412927,
+        "avg_fee_rate_sat_vb": 132.24,
+        "active_peers": 90
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 119.02,
+        "recommended_peers": 106
+      },
+      "reward_score": 0.8656
+    },
+    {
+      "step": 379,
+      "state": {
+        "tps": 3645,
+        "mempool_bytes": 19623393,
+        "avg_fee_rate_sat_vb": 145.74,
+        "active_peers": 148
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 131.17,
+        "recommended_peers": 164
+      },
+      "reward_score": 0.8895
+    },
+    {
+      "step": 380,
+      "state": {
+        "tps": 4234,
+        "mempool_bytes": 4090937,
+        "avg_fee_rate_sat_vb": 123.67,
+        "active_peers": 167
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 111.3,
+        "recommended_peers": 183
+      },
+      "reward_score": 0.9204
+    },
+    {
+      "step": 381,
+      "state": {
+        "tps": 2401,
+        "mempool_bytes": 3417631,
+        "avg_fee_rate_sat_vb": 107.13,
+        "active_peers": 130
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 96.42,
+        "recommended_peers": 146
+      },
+      "reward_score": 0.9071
+    },
+    {
+      "step": 382,
+      "state": {
+        "tps": 2973,
+        "mempool_bytes": 22513235,
+        "avg_fee_rate_sat_vb": 67.28,
+        "active_peers": 212
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 60.55,
+        "recommended_peers": 228
+      },
+      "reward_score": 0.9414
+    },
+    {
+      "step": 383,
+      "state": {
+        "tps": 357,
+        "mempool_bytes": 2778092,
+        "avg_fee_rate_sat_vb": 128.02,
+        "active_peers": 225
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 115.22,
+        "recommended_peers": 241
+      },
+      "reward_score": 0.8976
+    },
+    {
+      "step": 384,
+      "state": {
+        "tps": 742,
+        "mempool_bytes": 42698622,
+        "avg_fee_rate_sat_vb": 35.23,
+        "active_peers": 48
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 31.71,
+        "recommended_peers": 64
+      },
+      "reward_score": 0.9823
+    },
+    {
+      "step": 385,
+      "state": {
+        "tps": 1835,
+        "mempool_bytes": 15780325,
+        "avg_fee_rate_sat_vb": 38.66,
+        "active_peers": 135
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 34.79,
+        "recommended_peers": 151
+      },
+      "reward_score": 0.8918
+    },
+    {
+      "step": 386,
+      "state": {
+        "tps": 4097,
+        "mempool_bytes": 26454354,
+        "avg_fee_rate_sat_vb": 97.07,
+        "active_peers": 32
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 87.36,
+        "recommended_peers": 48
+      },
+      "reward_score": 0.9565
+    },
+    {
+      "step": 387,
+      "state": {
+        "tps": 392,
+        "mempool_bytes": 19081707,
+        "avg_fee_rate_sat_vb": 140.02,
+        "active_peers": 101
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 126.02,
+        "recommended_peers": 117
+      },
+      "reward_score": 0.902
+    },
+    {
+      "step": 388,
+      "state": {
+        "tps": 131,
+        "mempool_bytes": 19336550,
+        "avg_fee_rate_sat_vb": 65.41,
+        "active_peers": 153
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 58.87,
+        "recommended_peers": 169
+      },
+      "reward_score": 0.8997
+    },
+    {
+      "step": 389,
+      "state": {
+        "tps": 1929,
+        "mempool_bytes": 797780,
+        "avg_fee_rate_sat_vb": 99.88,
+        "active_peers": 253
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 89.89,
+        "recommended_peers": 256
+      },
+      "reward_score": 0.858
+    },
+    {
+      "step": 390,
+      "state": {
+        "tps": 1907,
+        "mempool_bytes": 14795146,
+        "avg_fee_rate_sat_vb": 130.49,
+        "active_peers": 125
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 117.44,
+        "recommended_peers": 141
+      },
+      "reward_score": 0.9791
+    },
+    {
+      "step": 391,
+      "state": {
+        "tps": 4656,
+        "mempool_bytes": 829554,
+        "avg_fee_rate_sat_vb": 56.52,
+        "active_peers": 250
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 50.87,
+        "recommended_peers": 256
+      },
+      "reward_score": 0.8908
+    },
+    {
+      "step": 392,
+      "state": {
+        "tps": 1769,
+        "mempool_bytes": 18672352,
+        "avg_fee_rate_sat_vb": 66.16,
+        "active_peers": 92
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 59.54,
+        "recommended_peers": 108
+      },
+      "reward_score": 0.867
+    },
+    {
+      "step": 393,
+      "state": {
+        "tps": 457,
+        "mempool_bytes": 14526872,
+        "avg_fee_rate_sat_vb": 96.83,
+        "active_peers": 82
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 87.15,
+        "recommended_peers": 98
+      },
+      "reward_score": 0.9466
+    },
+    {
+      "step": 394,
+      "state": {
+        "tps": 1267,
+        "mempool_bytes": 19419534,
+        "avg_fee_rate_sat_vb": 41.57,
+        "active_peers": 81
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 37.41,
+        "recommended_peers": 97
+      },
+      "reward_score": 0.9873
+    },
+    {
+      "step": 395,
+      "state": {
+        "tps": 1213,
+        "mempool_bytes": 4700219,
+        "avg_fee_rate_sat_vb": 77.95,
+        "active_peers": 219
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 70.16,
+        "recommended_peers": 235
+      },
+      "reward_score": 0.8809
+    },
+    {
+      "step": 396,
+      "state": {
+        "tps": 2946,
+        "mempool_bytes": 16215980,
+        "avg_fee_rate_sat_vb": 25.77,
+        "active_peers": 112
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 23.19,
+        "recommended_peers": 128
+      },
+      "reward_score": 0.8587
+    },
+    {
+      "step": 397,
+      "state": {
+        "tps": 3436,
+        "mempool_bytes": 37513006,
+        "avg_fee_rate_sat_vb": 26.61,
+        "active_peers": 78
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 23.95,
+        "recommended_peers": 94
+      },
+      "reward_score": 0.8794
+    },
+    {
+      "step": 398,
+      "state": {
+        "tps": 1798,
+        "mempool_bytes": 18705924,
+        "avg_fee_rate_sat_vb": 38.22,
+        "active_peers": 243
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 34.4,
+        "recommended_peers": 256
+      },
+      "reward_score": 0.9236
+    },
+    {
+      "step": 399,
+      "state": {
+        "tps": 4126,
+        "mempool_bytes": 34298914,
+        "avg_fee_rate_sat_vb": 80.77,
+        "active_peers": 163
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 72.69,
+        "recommended_peers": 179
+      },
+      "reward_score": 0.9633
+    },
+    {
+      "step": 400,
+      "state": {
+        "tps": 3044,
+        "mempool_bytes": 38745644,
+        "avg_fee_rate_sat_vb": 101.06,
+        "active_peers": 69
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 90.95,
+        "recommended_peers": 85
+      },
+      "reward_score": 0.9004
+    },
+    {
+      "step": 401,
+      "state": {
+        "tps": 947,
+        "mempool_bytes": 33707727,
+        "avg_fee_rate_sat_vb": 40.74,
+        "active_peers": 94
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 36.67,
+        "recommended_peers": 110
+      },
+      "reward_score": 0.9488
+    },
+    {
+      "step": 402,
+      "state": {
+        "tps": 3115,
+        "mempool_bytes": 30252011,
+        "avg_fee_rate_sat_vb": 57.19,
+        "active_peers": 171
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 51.47,
+        "recommended_peers": 187
+      },
+      "reward_score": 0.8588
+    },
+    {
+      "step": 403,
+      "state": {
+        "tps": 2460,
+        "mempool_bytes": 9929379,
+        "avg_fee_rate_sat_vb": 18.74,
+        "active_peers": 187
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 16.87,
+        "recommended_peers": 203
+      },
+      "reward_score": 0.9872
+    },
+    {
+      "step": 404,
+      "state": {
+        "tps": 1906,
+        "mempool_bytes": 21931086,
+        "avg_fee_rate_sat_vb": 99.54,
+        "active_peers": 169
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 89.59,
+        "recommended_peers": 185
+      },
+      "reward_score": 0.9838
+    },
+    {
+      "step": 405,
+      "state": {
+        "tps": 4102,
+        "mempool_bytes": 6618612,
+        "avg_fee_rate_sat_vb": 22.73,
+        "active_peers": 76
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 20.46,
+        "recommended_peers": 92
+      },
+      "reward_score": 0.9189
+    },
+    {
+      "step": 406,
+      "state": {
+        "tps": 3989,
+        "mempool_bytes": 9660918,
+        "avg_fee_rate_sat_vb": 96.42,
+        "active_peers": 32
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 86.78,
+        "recommended_peers": 48
+      },
+      "reward_score": 0.9446
+    },
+    {
+      "step": 407,
+      "state": {
+        "tps": 3099,
+        "mempool_bytes": 24796443,
+        "avg_fee_rate_sat_vb": 5.77,
+        "active_peers": 191
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 5.19,
+        "recommended_peers": 207
+      },
+      "reward_score": 0.8725
+    },
+    {
+      "step": 408,
+      "state": {
+        "tps": 486,
+        "mempool_bytes": 35146028,
+        "avg_fee_rate_sat_vb": 144.92,
+        "active_peers": 108
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 130.43,
+        "recommended_peers": 124
+      },
+      "reward_score": 0.8907
+    },
+    {
+      "step": 409,
+      "state": {
+        "tps": 1660,
+        "mempool_bytes": 45291438,
+        "avg_fee_rate_sat_vb": 49.5,
+        "active_peers": 180
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 44.55,
+        "recommended_peers": 196
+      },
+      "reward_score": 0.8545
+    },
+    {
+      "step": 410,
+      "state": {
+        "tps": 4502,
+        "mempool_bytes": 8319654,
+        "avg_fee_rate_sat_vb": 146.49,
+        "active_peers": 248
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 131.84,
+        "recommended_peers": 256
+      },
+      "reward_score": 0.9115
+    },
+    {
+      "step": 411,
+      "state": {
+        "tps": 2709,
+        "mempool_bytes": 38006224,
+        "avg_fee_rate_sat_vb": 49.17,
+        "active_peers": 145
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 44.25,
+        "recommended_peers": 161
+      },
+      "reward_score": 0.941
+    },
+    {
+      "step": 412,
+      "state": {
+        "tps": 1488,
+        "mempool_bytes": 4309877,
+        "avg_fee_rate_sat_vb": 99.52,
+        "active_peers": 223
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 89.57,
+        "recommended_peers": 239
+      },
+      "reward_score": 0.9301
+    },
+    {
+      "step": 413,
+      "state": {
+        "tps": 119,
+        "mempool_bytes": 10806670,
+        "avg_fee_rate_sat_vb": 39.92,
+        "active_peers": 46
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 35.93,
+        "recommended_peers": 62
+      },
+      "reward_score": 0.9135
+    },
+    {
+      "step": 414,
+      "state": {
+        "tps": 3120,
+        "mempool_bytes": 8917109,
+        "avg_fee_rate_sat_vb": 22.77,
+        "active_peers": 35
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 20.49,
+        "recommended_peers": 51
+      },
+      "reward_score": 0.8519
+    },
+    {
+      "step": 415,
+      "state": {
+        "tps": 1595,
+        "mempool_bytes": 21387944,
+        "avg_fee_rate_sat_vb": 2.52,
+        "active_peers": 209
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 2.27,
+        "recommended_peers": 225
+      },
+      "reward_score": 0.9775
+    },
+    {
+      "step": 416,
+      "state": {
+        "tps": 3949,
+        "mempool_bytes": 16227199,
+        "avg_fee_rate_sat_vb": 146.24,
+        "active_peers": 226
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 131.62,
+        "recommended_peers": 242
+      },
+      "reward_score": 0.8794
+    },
+    {
+      "step": 417,
+      "state": {
+        "tps": 4700,
+        "mempool_bytes": 1692768,
+        "avg_fee_rate_sat_vb": 2.86,
+        "active_peers": 236
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 2.57,
+        "recommended_peers": 252
+      },
+      "reward_score": 0.9341
+    },
+    {
+      "step": 418,
+      "state": {
+        "tps": 4699,
+        "mempool_bytes": 46831236,
+        "avg_fee_rate_sat_vb": 96.99,
+        "active_peers": 232
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 87.29,
+        "recommended_peers": 248
+      },
+      "reward_score": 0.9361
+    },
+    {
+      "step": 419,
+      "state": {
+        "tps": 2341,
+        "mempool_bytes": 18765307,
+        "avg_fee_rate_sat_vb": 7.89,
+        "active_peers": 101
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 7.1,
+        "recommended_peers": 117
+      },
+      "reward_score": 0.9103
+    },
+    {
+      "step": 420,
+      "state": {
+        "tps": 2113,
+        "mempool_bytes": 36443286,
+        "avg_fee_rate_sat_vb": 79.17,
+        "active_peers": 76
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 71.25,
+        "recommended_peers": 92
+      },
+      "reward_score": 0.9601
+    },
+    {
+      "step": 421,
+      "state": {
+        "tps": 2163,
+        "mempool_bytes": 39760548,
+        "avg_fee_rate_sat_vb": 106.79,
+        "active_peers": 160
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 96.11,
+        "recommended_peers": 176
+      },
+      "reward_score": 0.9193
+    },
+    {
+      "step": 422,
+      "state": {
+        "tps": 4997,
+        "mempool_bytes": 23446997,
+        "avg_fee_rate_sat_vb": 115.03,
+        "active_peers": 44
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 103.53,
+        "recommended_peers": 60
+      },
+      "reward_score": 0.8699
+    },
+    {
+      "step": 423,
+      "state": {
+        "tps": 2801,
+        "mempool_bytes": 23417291,
+        "avg_fee_rate_sat_vb": 143.81,
+        "active_peers": 128
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 129.43,
+        "recommended_peers": 144
+      },
+      "reward_score": 0.9129
+    },
+    {
+      "step": 424,
+      "state": {
+        "tps": 2976,
+        "mempool_bytes": 16953488,
+        "avg_fee_rate_sat_vb": 98.37,
+        "active_peers": 119
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 88.53,
+        "recommended_peers": 135
+      },
+      "reward_score": 0.8705
+    },
+    {
+      "step": 425,
+      "state": {
+        "tps": 2509,
+        "mempool_bytes": 26990578,
+        "avg_fee_rate_sat_vb": 95.37,
+        "active_peers": 227
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 85.83,
+        "recommended_peers": 243
+      },
+      "reward_score": 0.9343
+    },
+    {
+      "step": 426,
+      "state": {
+        "tps": 4835,
+        "mempool_bytes": 706922,
+        "avg_fee_rate_sat_vb": 149.12,
+        "active_peers": 99
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 134.21,
+        "recommended_peers": 115
+      },
+      "reward_score": 0.9749
+    },
+    {
+      "step": 427,
+      "state": {
+        "tps": 3854,
+        "mempool_bytes": 16211451,
+        "avg_fee_rate_sat_vb": 118.86,
+        "active_peers": 177
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 106.97,
+        "recommended_peers": 193
+      },
+      "reward_score": 0.9283
+    },
+    {
+      "step": 428,
+      "state": {
+        "tps": 2628,
+        "mempool_bytes": 8731710,
+        "avg_fee_rate_sat_vb": 60.22,
+        "active_peers": 127
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 54.2,
+        "recommended_peers": 143
+      },
+      "reward_score": 0.8702
+    },
+    {
+      "step": 429,
+      "state": {
+        "tps": 2082,
+        "mempool_bytes": 33388273,
+        "avg_fee_rate_sat_vb": 11.28,
+        "active_peers": 252
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 10.15,
+        "recommended_peers": 256
+      },
+      "reward_score": 0.9669
+    },
+    {
+      "step": 430,
+      "state": {
+        "tps": 132,
+        "mempool_bytes": 2256986,
+        "avg_fee_rate_sat_vb": 68.77,
+        "active_peers": 136
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 61.89,
+        "recommended_peers": 152
+      },
+      "reward_score": 0.8764
+    },
+    {
+      "step": 431,
+      "state": {
+        "tps": 2524,
+        "mempool_bytes": 11057797,
+        "avg_fee_rate_sat_vb": 18.67,
+        "active_peers": 58
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 16.8,
+        "recommended_peers": 74
+      },
+      "reward_score": 0.9279
+    },
+    {
+      "step": 432,
+      "state": {
+        "tps": 2162,
+        "mempool_bytes": 33087353,
+        "avg_fee_rate_sat_vb": 20.4,
+        "active_peers": 215
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 18.36,
+        "recommended_peers": 231
+      },
+      "reward_score": 0.9068
+    },
+    {
+      "step": 433,
+      "state": {
+        "tps": 3030,
+        "mempool_bytes": 26378301,
+        "avg_fee_rate_sat_vb": 107.16,
+        "active_peers": 207
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 96.44,
+        "recommended_peers": 223
+      },
+      "reward_score": 0.8777
+    },
+    {
+      "step": 434,
+      "state": {
+        "tps": 4942,
+        "mempool_bytes": 6051476,
+        "avg_fee_rate_sat_vb": 142.21,
+        "active_peers": 75
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 127.99,
+        "recommended_peers": 91
+      },
+      "reward_score": 0.9118
+    },
+    {
+      "step": 435,
+      "state": {
+        "tps": 1018,
+        "mempool_bytes": 11904431,
+        "avg_fee_rate_sat_vb": 84.74,
+        "active_peers": 252
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 76.27,
+        "recommended_peers": 256
+      },
+      "reward_score": 0.8757
+    },
+    {
+      "step": 436,
+      "state": {
+        "tps": 2030,
+        "mempool_bytes": 27778688,
+        "avg_fee_rate_sat_vb": 103.72,
+        "active_peers": 208
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 93.35,
+        "recommended_peers": 224
+      },
+      "reward_score": 0.8908
+    },
+    {
+      "step": 437,
+      "state": {
+        "tps": 4706,
+        "mempool_bytes": 45967397,
+        "avg_fee_rate_sat_vb": 1.85,
+        "active_peers": 137
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 1.67,
+        "recommended_peers": 153
+      },
+      "reward_score": 0.968
+    },
+    {
+      "step": 438,
+      "state": {
+        "tps": 1805,
+        "mempool_bytes": 40542527,
+        "avg_fee_rate_sat_vb": 23.2,
+        "active_peers": 243
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 20.88,
+        "recommended_peers": 256
+      },
+      "reward_score": 0.8693
+    },
+    {
+      "step": 439,
+      "state": {
+        "tps": 976,
+        "mempool_bytes": 33002623,
+        "avg_fee_rate_sat_vb": 120.06,
+        "active_peers": 245
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 108.05,
+        "recommended_peers": 256
+      },
+      "reward_score": 0.9275
+    },
+    {
+      "step": 440,
+      "state": {
+        "tps": 3019,
+        "mempool_bytes": 7533121,
+        "avg_fee_rate_sat_vb": 78.44,
+        "active_peers": 47
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 70.6,
+        "recommended_peers": 63
+      },
+      "reward_score": 0.9754
+    },
+    {
+      "step": 441,
+      "state": {
+        "tps": 2811,
+        "mempool_bytes": 34654579,
+        "avg_fee_rate_sat_vb": 79.49,
+        "active_peers": 63
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 71.54,
+        "recommended_peers": 79
+      },
+      "reward_score": 0.8622
+    },
+    {
+      "step": 442,
+      "state": {
+        "tps": 436,
+        "mempool_bytes": 48817872,
+        "avg_fee_rate_sat_vb": 137.48,
+        "active_peers": 97
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 123.73,
+        "recommended_peers": 113
+      },
+      "reward_score": 0.9664
+    },
+    {
+      "step": 443,
+      "state": {
+        "tps": 1991,
+        "mempool_bytes": 29330230,
+        "avg_fee_rate_sat_vb": 50.3,
+        "active_peers": 165
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 45.27,
+        "recommended_peers": 181
+      },
+      "reward_score": 0.9522
+    },
+    {
+      "step": 444,
+      "state": {
+        "tps": 931,
+        "mempool_bytes": 36286638,
+        "avg_fee_rate_sat_vb": 42.73,
+        "active_peers": 70
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 38.46,
+        "recommended_peers": 86
+      },
+      "reward_score": 0.9842
+    },
+    {
+      "step": 445,
+      "state": {
+        "tps": 3250,
+        "mempool_bytes": 11958758,
+        "avg_fee_rate_sat_vb": 81.04,
+        "active_peers": 73
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 72.94,
+        "recommended_peers": 89
+      },
+      "reward_score": 0.878
+    },
+    {
+      "step": 446,
+      "state": {
+        "tps": 4217,
+        "mempool_bytes": 3084729,
+        "avg_fee_rate_sat_vb": 44.89,
+        "active_peers": 73
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 40.4,
+        "recommended_peers": 89
+      },
+      "reward_score": 0.9383
+    },
+    {
+      "step": 447,
+      "state": {
+        "tps": 62,
+        "mempool_bytes": 40877069,
+        "avg_fee_rate_sat_vb": 59.13,
+        "active_peers": 108
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 53.22,
+        "recommended_peers": 124
+      },
+      "reward_score": 0.9767
+    },
+    {
+      "step": 448,
+      "state": {
+        "tps": 2054,
+        "mempool_bytes": 48914006,
+        "avg_fee_rate_sat_vb": 41.04,
+        "active_peers": 173
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 36.94,
+        "recommended_peers": 189
+      },
+      "reward_score": 0.8848
+    },
+    {
+      "step": 449,
+      "state": {
+        "tps": 3049,
+        "mempool_bytes": 2699357,
+        "avg_fee_rate_sat_vb": 52.57,
+        "active_peers": 199
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 47.31,
+        "recommended_peers": 215
+      },
+      "reward_score": 0.8856
+    },
+    {
+      "step": 450,
+      "state": {
+        "tps": 940,
+        "mempool_bytes": 1651013,
+        "avg_fee_rate_sat_vb": 62.32,
+        "active_peers": 214
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 56.09,
+        "recommended_peers": 230
+      },
+      "reward_score": 0.8981
+    },
+    {
+      "step": 451,
+      "state": {
+        "tps": 3825,
+        "mempool_bytes": 34600125,
+        "avg_fee_rate_sat_vb": 17.93,
+        "active_peers": 192
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 16.14,
+        "recommended_peers": 208
+      },
+      "reward_score": 0.8606
+    },
+    {
+      "step": 452,
+      "state": {
+        "tps": 593,
+        "mempool_bytes": 31616389,
+        "avg_fee_rate_sat_vb": 4.6,
+        "active_peers": 64
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 4.14,
+        "recommended_peers": 80
+      },
+      "reward_score": 0.9709
+    },
+    {
+      "step": 453,
+      "state": {
+        "tps": 1399,
+        "mempool_bytes": 43320280,
+        "avg_fee_rate_sat_vb": 72.31,
+        "active_peers": 84
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 65.08,
+        "recommended_peers": 100
+      },
+      "reward_score": 0.8978
+    },
+    {
+      "step": 454,
+      "state": {
+        "tps": 584,
+        "mempool_bytes": 18790397,
+        "avg_fee_rate_sat_vb": 30.18,
+        "active_peers": 223
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 27.16,
+        "recommended_peers": 239
+      },
+      "reward_score": 0.921
+    },
+    {
+      "step": 455,
+      "state": {
+        "tps": 1278,
+        "mempool_bytes": 25349932,
+        "avg_fee_rate_sat_vb": 139.21,
+        "active_peers": 62
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 125.29,
+        "recommended_peers": 78
+      },
+      "reward_score": 0.9227
+    },
+    {
+      "step": 456,
+      "state": {
+        "tps": 4427,
+        "mempool_bytes": 20849778,
+        "avg_fee_rate_sat_vb": 15.89,
+        "active_peers": 227
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 14.3,
+        "recommended_peers": 243
+      },
+      "reward_score": 0.9307
+    },
+    {
+      "step": 457,
+      "state": {
+        "tps": 1653,
+        "mempool_bytes": 1523240,
+        "avg_fee_rate_sat_vb": 117.88,
+        "active_peers": 212
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 106.09,
+        "recommended_peers": 228
+      },
+      "reward_score": 0.9765
+    },
+    {
+      "step": 458,
+      "state": {
+        "tps": 1195,
+        "mempool_bytes": 15706452,
+        "avg_fee_rate_sat_vb": 19.75,
+        "active_peers": 160
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 17.78,
+        "recommended_peers": 176
+      },
+      "reward_score": 0.9124
+    },
+    {
+      "step": 459,
+      "state": {
+        "tps": 3620,
+        "mempool_bytes": 48561732,
+        "avg_fee_rate_sat_vb": 32.78,
+        "active_peers": 217
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 29.5,
+        "recommended_peers": 233
+      },
+      "reward_score": 0.8653
+    },
+    {
+      "step": 460,
+      "state": {
+        "tps": 2731,
+        "mempool_bytes": 15086625,
+        "avg_fee_rate_sat_vb": 136.94,
+        "active_peers": 166
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 123.25,
+        "recommended_peers": 182
+      },
+      "reward_score": 0.8637
+    },
+    {
+      "step": 461,
+      "state": {
+        "tps": 3301,
+        "mempool_bytes": 16418350,
+        "avg_fee_rate_sat_vb": 134.45,
+        "active_peers": 224
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 121.0,
+        "recommended_peers": 240
+      },
+      "reward_score": 0.9619
+    },
+    {
+      "step": 462,
+      "state": {
+        "tps": 662,
+        "mempool_bytes": 25972251,
+        "avg_fee_rate_sat_vb": 128.83,
+        "active_peers": 57
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 115.95,
+        "recommended_peers": 73
+      },
+      "reward_score": 0.8853
+    },
+    {
+      "step": 463,
+      "state": {
+        "tps": 4868,
+        "mempool_bytes": 34274830,
+        "avg_fee_rate_sat_vb": 112.61,
+        "active_peers": 91
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 101.35,
+        "recommended_peers": 107
+      },
+      "reward_score": 0.9298
+    },
+    {
+      "step": 464,
+      "state": {
+        "tps": 4599,
+        "mempool_bytes": 25412328,
+        "avg_fee_rate_sat_vb": 149.36,
+        "active_peers": 94
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 134.42,
+        "recommended_peers": 110
+      },
+      "reward_score": 0.9683
+    },
+    {
+      "step": 465,
+      "state": {
+        "tps": 2333,
+        "mempool_bytes": 24237405,
+        "avg_fee_rate_sat_vb": 92.16,
+        "active_peers": 132
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 82.94,
+        "recommended_peers": 148
+      },
+      "reward_score": 0.922
+    },
+    {
+      "step": 466,
+      "state": {
+        "tps": 3875,
+        "mempool_bytes": 6593431,
+        "avg_fee_rate_sat_vb": 40.75,
+        "active_peers": 228
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 36.68,
+        "recommended_peers": 244
+      },
+      "reward_score": 0.9087
+    },
+    {
+      "step": 467,
+      "state": {
+        "tps": 3040,
+        "mempool_bytes": 28677927,
+        "avg_fee_rate_sat_vb": 74.25,
+        "active_peers": 137
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 66.83,
+        "recommended_peers": 153
+      },
+      "reward_score": 0.9212
+    },
+    {
+      "step": 468,
+      "state": {
+        "tps": 2286,
+        "mempool_bytes": 16526874,
+        "avg_fee_rate_sat_vb": 133.07,
+        "active_peers": 83
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 119.76,
+        "recommended_peers": 99
+      },
+      "reward_score": 0.8654
+    },
+    {
+      "step": 469,
+      "state": {
+        "tps": 841,
+        "mempool_bytes": 12638630,
+        "avg_fee_rate_sat_vb": 82.05,
+        "active_peers": 38
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 73.84,
+        "recommended_peers": 54
+      },
+      "reward_score": 0.8903
+    },
+    {
+      "step": 470,
+      "state": {
+        "tps": 1716,
+        "mempool_bytes": 6639940,
+        "avg_fee_rate_sat_vb": 114.97,
+        "active_peers": 139
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 103.47,
+        "recommended_peers": 155
+      },
+      "reward_score": 0.8546
+    },
+    {
+      "step": 471,
+      "state": {
+        "tps": 901,
+        "mempool_bytes": 1081125,
+        "avg_fee_rate_sat_vb": 135.0,
+        "active_peers": 104
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 121.5,
+        "recommended_peers": 120
+      },
+      "reward_score": 0.8522
+    },
+    {
+      "step": 472,
+      "state": {
+        "tps": 4270,
+        "mempool_bytes": 4548633,
+        "avg_fee_rate_sat_vb": 69.6,
+        "active_peers": 37
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 62.64,
+        "recommended_peers": 53
+      },
+      "reward_score": 0.9579
+    },
+    {
+      "step": 473,
+      "state": {
+        "tps": 4238,
+        "mempool_bytes": 8131507,
+        "avg_fee_rate_sat_vb": 121.98,
+        "active_peers": 249
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 109.78,
+        "recommended_peers": 256
+      },
+      "reward_score": 0.9065
+    },
+    {
+      "step": 474,
+      "state": {
+        "tps": 4340,
+        "mempool_bytes": 6571618,
+        "avg_fee_rate_sat_vb": 147.26,
+        "active_peers": 206
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 132.53,
+        "recommended_peers": 222
+      },
+      "reward_score": 0.8957
+    },
+    {
+      "step": 475,
+      "state": {
+        "tps": 4566,
+        "mempool_bytes": 6565992,
+        "avg_fee_rate_sat_vb": 48.19,
+        "active_peers": 225
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 43.37,
+        "recommended_peers": 241
+      },
+      "reward_score": 0.8847
+    },
+    {
+      "step": 476,
+      "state": {
+        "tps": 2018,
+        "mempool_bytes": 35432914,
+        "avg_fee_rate_sat_vb": 7.24,
+        "active_peers": 201
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 6.52,
+        "recommended_peers": 217
+      },
+      "reward_score": 0.9734
+    },
+    {
+      "step": 477,
+      "state": {
+        "tps": 1747,
+        "mempool_bytes": 30620861,
+        "avg_fee_rate_sat_vb": 11.7,
+        "active_peers": 112
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 10.53,
+        "recommended_peers": 128
+      },
+      "reward_score": 0.9601
+    },
+    {
+      "step": 478,
+      "state": {
+        "tps": 2830,
+        "mempool_bytes": 26851852,
+        "avg_fee_rate_sat_vb": 68.28,
+        "active_peers": 109
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 61.45,
+        "recommended_peers": 125
+      },
+      "reward_score": 0.9654
+    },
+    {
+      "step": 479,
+      "state": {
+        "tps": 2571,
+        "mempool_bytes": 32614054,
+        "avg_fee_rate_sat_vb": 79.84,
+        "active_peers": 163
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 71.86,
+        "recommended_peers": 179
+      },
+      "reward_score": 0.9122
+    },
+    {
+      "step": 480,
+      "state": {
+        "tps": 3469,
+        "mempool_bytes": 41880899,
+        "avg_fee_rate_sat_vb": 51.17,
+        "active_peers": 233
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 46.05,
+        "recommended_peers": 249
+      },
+      "reward_score": 0.9217
+    },
+    {
+      "step": 481,
+      "state": {
+        "tps": 790,
+        "mempool_bytes": 48884234,
+        "avg_fee_rate_sat_vb": 92.85,
+        "active_peers": 107
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 83.56,
+        "recommended_peers": 123
+      },
+      "reward_score": 0.9082
+    },
+    {
+      "step": 482,
+      "state": {
+        "tps": 602,
+        "mempool_bytes": 38085436,
+        "avg_fee_rate_sat_vb": 21.06,
+        "active_peers": 83
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 18.95,
+        "recommended_peers": 99
+      },
+      "reward_score": 0.9285
+    },
+    {
+      "step": 483,
+      "state": {
+        "tps": 3498,
+        "mempool_bytes": 5431649,
+        "avg_fee_rate_sat_vb": 75.65,
+        "active_peers": 43
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 68.09,
+        "recommended_peers": 59
+      },
+      "reward_score": 0.9296
+    },
+    {
+      "step": 484,
+      "state": {
+        "tps": 1034,
+        "mempool_bytes": 37043600,
+        "avg_fee_rate_sat_vb": 139.52,
+        "active_peers": 182
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 125.57,
+        "recommended_peers": 198
+      },
+      "reward_score": 0.9235
+    },
+    {
+      "step": 485,
+      "state": {
+        "tps": 1080,
+        "mempool_bytes": 9875169,
+        "avg_fee_rate_sat_vb": 52.69,
+        "active_peers": 111
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 47.42,
+        "recommended_peers": 127
+      },
+      "reward_score": 0.9015
+    },
+    {
+      "step": 486,
+      "state": {
+        "tps": 854,
+        "mempool_bytes": 35792035,
+        "avg_fee_rate_sat_vb": 84.1,
+        "active_peers": 173
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 75.69,
+        "recommended_peers": 189
+      },
+      "reward_score": 0.8678
+    },
+    {
+      "step": 487,
+      "state": {
+        "tps": 2441,
+        "mempool_bytes": 15379639,
+        "avg_fee_rate_sat_vb": 50.65,
+        "active_peers": 60
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 45.59,
+        "recommended_peers": 76
+      },
+      "reward_score": 0.8808
+    },
+    {
+      "step": 488,
+      "state": {
+        "tps": 3611,
+        "mempool_bytes": 8269571,
+        "avg_fee_rate_sat_vb": 30.36,
+        "active_peers": 126
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 27.32,
+        "recommended_peers": 142
+      },
+      "reward_score": 0.9497
+    },
+    {
+      "step": 489,
+      "state": {
+        "tps": 1475,
+        "mempool_bytes": 39923155,
+        "avg_fee_rate_sat_vb": 20.87,
+        "active_peers": 42
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 18.78,
+        "recommended_peers": 58
+      },
+      "reward_score": 0.9599
+    },
+    {
+      "step": 490,
+      "state": {
+        "tps": 94,
+        "mempool_bytes": 12241597,
+        "avg_fee_rate_sat_vb": 46.25,
+        "active_peers": 201
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 41.62,
+        "recommended_peers": 217
+      },
+      "reward_score": 0.9439
+    },
+    {
+      "step": 491,
+      "state": {
+        "tps": 4650,
+        "mempool_bytes": 2080400,
+        "avg_fee_rate_sat_vb": 146.09,
+        "active_peers": 37
+      },
+      "optimal_action": {
+        "target_block_bytes": 2000000,
+        "target_min_fee": 131.48,
+        "recommended_peers": 53
+      },
+      "reward_score": 0.8782
+    },
+    {
+      "step": 492,
+      "state": {
+        "tps": 4209,
+        "mempool_bytes": 19997326,
+        "avg_fee_rate_sat_vb": 37.87,
+        "active_peers": 227
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 34.08,
+        "recommended_peers": 243
+      },
+      "reward_score": 0.9631
+    },
+    {
+      "step": 493,
+      "state": {
+        "tps": 3119,
+        "mempool_bytes": 19033883,
+        "avg_fee_rate_sat_vb": 64.77,
+        "active_peers": 33
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 58.29,
+        "recommended_peers": 49
+      },
+      "reward_score": 0.8533
+    },
+    {
+      "step": 494,
+      "state": {
+        "tps": 862,
+        "mempool_bytes": 30431137,
+        "avg_fee_rate_sat_vb": 133.17,
+        "active_peers": 104
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 119.85,
+        "recommended_peers": 120
+      },
+      "reward_score": 0.9721
+    },
+    {
+      "step": 495,
+      "state": {
+        "tps": 3340,
+        "mempool_bytes": 28530752,
+        "avg_fee_rate_sat_vb": 89.62,
+        "active_peers": 161
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 80.66,
+        "recommended_peers": 177
+      },
+      "reward_score": 0.8719
+    },
+    {
+      "step": 496,
+      "state": {
+        "tps": 1595,
+        "mempool_bytes": 17104781,
+        "avg_fee_rate_sat_vb": 10.64,
+        "active_peers": 71
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 9.58,
+        "recommended_peers": 87
+      },
+      "reward_score": 0.871
+    },
+    {
+      "step": 497,
+      "state": {
+        "tps": 4116,
+        "mempool_bytes": 21368850,
+        "avg_fee_rate_sat_vb": 73.47,
+        "active_peers": 196
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 66.12,
+        "recommended_peers": 212
+      },
+      "reward_score": 0.9017
+    },
+    {
+      "step": 498,
+      "state": {
+        "tps": 2378,
+        "mempool_bytes": 11414389,
+        "avg_fee_rate_sat_vb": 101.86,
+        "active_peers": 235
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 91.67,
+        "recommended_peers": 251
+      },
+      "reward_score": 0.8758
+    },
+    {
+      "step": 499,
+      "state": {
+        "tps": 445,
+        "mempool_bytes": 32608993,
+        "avg_fee_rate_sat_vb": 136.03,
+        "active_peers": 123
+      },
+      "optimal_action": {
+        "target_block_bytes": 4000000,
+        "target_min_fee": 122.43,
+        "recommended_peers": 139
+      },
+      "reward_score": 0.8786
+    }
+  ]
+}
