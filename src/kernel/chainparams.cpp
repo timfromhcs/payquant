@@ -158,6 +158,7 @@ public:
         assert(genesis.hashMerkleRoot == uint256{"90a319ee35fae5989c52bfe0c6693ef1f658f24513e2fd41f0fdbd1c465fa7bc"});
 
         vSeeds.clear();
+        vSeeds.emplace_back("seed.timfromhcs.github.io");
         vSeeds.emplace_back("seed.payquant.org");
         vSeeds.emplace_back("dnsseed.payquant.io");
         vSeeds.emplace_back("seed.pqn.network");
