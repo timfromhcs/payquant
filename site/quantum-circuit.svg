@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300" width="100%" height="100%">
+  <defs>
+    <linearGradient id="circuitGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00d4ff" />
+      <stop offset="100%" stop-color="#00ffaa" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="300" rx="16" fill="#060913" stroke="rgba(0, 212, 255, 0.2)"/>
+  <text x="400" y="40" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" fill="url(#circuitGrad)" text-anchor="middle">5-Qubit Qiskit Quantum Superposition Audit Circuit</text>
+
+  <!-- Qubit lines -->
+  <g fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2">
+    <!-- q0 -->
+    <line x1="80" y1="80" x2="720" y2="80"/>
+    <!-- q1 -->
+    <line x1="80" y1="130" x2="720" y2="130"/>
+    <!-- q2 -->
+    <line x1="80" y1="180" x2="720" y2="180"/>
+    <!-- q3 -->
+    <line x1="80" y1="230" x2="720" y2="230"/>
+  </g>
+
+  <!-- Labels -->
+  <text x="50" y="85" font-family="monospace" font-size="16" fill="#00d4ff">|q₀⟩</text>
+  <text x="50" y="135" font-family="monospace" font-size="16" fill="#00d4ff">|q₁⟩</text>
+  <text x="50" y="185" font-family="monospace" font-size="16" fill="#00d4ff">|q₂⟩</text>
+  <text x="50" y="235" font-family="monospace" font-size="16" fill="#00d4ff">|q₃⟩</text>
+
+  <!-- Gates H -->
+  <g fill="#00d4ff" stroke="#000" stroke-width="1">
+    <rect x="150" y="65" width="30" height="30" rx="4"/>
+    <rect x="150" y="115" width="30" height="30" rx="4"/>
+    <rect x="150" y="165" width="30" height="30" rx="4"/>
+    <rect x="150" y="215" width="30" height="30" rx="4"/>
+  </g>
+  <g font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#000" text-anchor="middle">
+    <text x="165" y="85">H</text>
+    <text x="165" y="135">H</text>
+    <text x="165" y="185">H</text>
+    <text x="165" y="235">H</text>
+  </g>
+
+  <!-- CNOT controls -->
+  <circle cx="300" cy="80" r="6" fill="#00ffaa"/>
+  <line x1="300" y1="80" x2="300" y2="180" stroke="#00ffaa" stroke-width="2"/>
+  <circle cx="300" cy="180" r="10" fill="none" stroke="#00ffaa" stroke-width="2"/>
+  <line x1="300" y1="170" x2="300" y2="190" stroke="#00ffaa" stroke-width="2"/>
+
+  <!-- Measurement Gates -->
+  <g fill="#7b2fbe" stroke="#000" stroke-width="1">
+    <rect x="550" y="65" width="35" height="30" rx="4"/>
+    <rect x="550" y="115" width="35" height="30" rx="4"/>
+    <rect x="550" y="165" width="35" height="30" rx="4"/>
+    <rect x="550" y="215" width="35" height="30" rx="4"/>
+  </g>
+  <g font-family="system-ui, sans-serif" font-size="12" fill="#fff" text-anchor="middle">
+    <text x="567" y="85">M</text>
+    <text x="567" y="135">M</text>
+    <text x="567" y="185">M</text>
+    <text x="567" y="235">M</text>
+  </g>
+
+  <text x="680" y="160" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#00ffaa">7.999 bits/byte</text>
+  <text x="680" y="180" font-family="system-ui, sans-serif" font-size="12" fill="#8899aa">Quantum Secure</text>
+</svg>

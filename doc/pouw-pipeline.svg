@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 250" width="100%" height="100%">
+  <defs>
+    <linearGradient id="pouwGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00d4ff" />
+      <stop offset="50%" stop-color="#7b2fbe" />
+      <stop offset="100%" stop-color="#00ffaa" />
+    </linearGradient>
+  </defs>
+  <rect width="900" height="250" rx="16" fill="#060913" stroke="rgba(255,255,255,0.1)"/>
+  <text x="450" y="40" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" fill="url(#pouwGrad)" text-anchor="middle">Proof of Useful Work (PoUW) &amp; ZKML Pipeline</text>
+
+  <!-- Step 1 -->
+  <g transform="translate(60, 80)">
+    <rect width="160" height="110" rx="12" fill="rgba(255,255,255,0.03)" stroke="#00d4ff" stroke-width="2"/>
+    <text x="80" y="40" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#00d4ff" text-anchor="middle">1. AI Training</text>
+    <text x="80" y="70" font-family="system-ui, sans-serif" font-size="12" fill="#8899aa" text-anchor="middle">GPU Matrix Compute</text>
+  </g>
+
+  <line x1="230" y1="135" x2="270" y2="135" stroke="#00d4ff" stroke-width="3"/>
+
+  <!-- Step 2 -->
+  <g transform="translate(280, 80)">
+    <rect width="160" height="110" rx="12" fill="rgba(255,255,255,0.03)" stroke="#7b2fbe" stroke-width="2"/>
+    <text x="80" y="40" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#7b2fbe" text-anchor="middle">2. ZK Proof</text>
+    <text x="80" y="70" font-family="system-ui, sans-serif" font-size="12" fill="#8899aa" text-anchor="middle">SNARK Generation</text>
+  </g>
+
+  <line x1="450" y1="135" x2="490" y2="135" stroke="#7b2fbe" stroke-width="3"/>
+
+  <!-- Step 3 -->
+  <g transform="translate(500, 80)">
+    <rect width="160" height="110" rx="12" fill="rgba(255,255,255,0.03)" stroke="#00ffaa" stroke-width="2"/>
+    <text x="80" y="40" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#00ffaa" text-anchor="middle">3. Verification</text>
+    <text x="80" y="70" font-family="system-ui, sans-serif" font-size="12" fill="#8899aa" text-anchor="middle">Validator Consensus</text>
+  </g>
+
+  <line x1="670" y1="135" x2="710" y2="135" stroke="#00ffaa" stroke-width="3"/>
+
+  <!-- Step 4 -->
+  <g transform="translate(720, 80)">
+    <rect width="130" height="110" rx="12" fill="rgba(255,255,255,0.03)" stroke="#ff007f" stroke-width="2"/>
+    <text x="65" y="40" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#ff007f" text-anchor="middle">4. Reward</text>
+    <text x="65" y="70" font-family="system-ui, sans-serif" font-size="12" fill="#8899aa" text-anchor="middle">Block + AI Mint</text>
+  </g>
+</svg>

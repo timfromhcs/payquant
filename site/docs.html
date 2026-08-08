@@ -90,8 +90,8 @@
 run release_dist/payquant-1.0.0-win64-setup.exe
 
 # Docker Deployment
-docker pull payquant/payquant:latest
-docker run -d -p 28333:28333 payquant/payquant</code></pre>
+docker pull ghcr.io/timfromhcs/payquant:latest
+docker run -d -p 28333:28333 ghcr.io/timfromhcs/payquant</code></pre>
 
             <h2 id="postquantum">ML-DSA-65 Post-Quantum Signatures</h2>
             <p>PayQuant implements NIST FIPS 204 ML-DSA-65 (Dilithium) signatures. Every transaction output created on PayQuant is protected against quantum decryption (Shor's algorithm).</p>
