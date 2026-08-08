@@ -1,0 +1,10 @@
+{
+  "appId": "com.payquant.wallet",
+  "appName": "PayQuant Wallet",
+  "webDir": "www",
+  "android": {
+    "allowMixedContent": true,
+    "backgroundColor": "#060814"
+  },
+  "backgroundColor": "#060814"
+}

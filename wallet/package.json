@@ -1,0 +1,61 @@
+{
+  "name": "payquant-wallet",
+  "version": "1.0.0",
+  "description": "PayQuant (PQN) Cross-Platform GUI Wallet - Electron + Capacitor",
+  "main": "main.js",
+  "author": "PayQuant",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "dist:win": "electron-builder --win",
+    "dist:linux": "electron-builder --linux",
+    "dist:mac": "electron-builder --mac",
+    "build:web": "node build_web.mjs",
+    "build:android": "npm run build:web && npx cap sync android && cd android && gradlew.bat assembleDebug",
+    "build:android:ci": "npm run build:web && npx cap sync android && cd android && chmod +x gradlew && ./gradlew assembleDebug"
+  },
+  "devDependencies": {
+    "electron": "^31.0.0",
+    "electron-builder": "^24.13.3"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.0.0",
+    "@capacitor/cli": "^6.0.0",
+    "@capacitor/core": "^6.0.0"
+  },
+  "build": {
+    "appId": "com.payquant.wallet",
+    "productName": "PayQuant Wallet",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "renderer/**/*",
+      "node_modules/**/*"
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "category": "Finance"
+    },
+    "mac": {
+      "target": [
+        "dmg"
+      ],
+      "category": "public.app-category.finance"
+    }
+  }
+}
