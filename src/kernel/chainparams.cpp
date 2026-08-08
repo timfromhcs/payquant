@@ -159,9 +159,6 @@ public:
 
         vSeeds.clear();
         vSeeds.emplace_back("seed.timfromhcs.github.io");
-        vSeeds.emplace_back("seed.payquant.org");
-        vSeeds.emplace_back("dnsseed.payquant.io");
-        vSeeds.emplace_back("seed.pqn.network");
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,55); // 'P' prefix
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,15);

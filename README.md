@@ -1,18 +1,18 @@
-# 🚀 PayQuant (PQN) – Die quantensichere KI-Blockchain (v2.0.0)
+# 🚀 PayQuant (PQN) – Die quantensichere KI-Blockchain (v2.0.1)
 
 [![Build Status](https://github.com/timfromhcs/payquant/actions/workflows/ci.yml/badge.svg)](https://github.com/timfromhcs/payquant/actions/workflows/ci.yml)
 [![Quantum Secure](https://img.shields.io/badge/Quantum-Secure-brightgreen)](https://github.com/timfromhcs/payquant)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Release v2.0.0](https://img.shields.io/github/v/release/timfromhcs/payquant)](https://github.com/timfromhcs/payquant/releases/tag/v2.0.0)
+[![Release v2.0.1](https://img.shields.io/github/v/release/timfromhcs/payquant)](https://github.com/timfromhcs/payquant/releases/tag/v2.0.1)
 [![GitHub Pages](https://img.shields.io/badge/GitHub-Pages-blue)](https://timfromhcs.github.io/payquant/)
 
-**PayQuant (PQN) Release 2.0** ist die erste quantensichere, selbstoptimierende KI-Blockchain. Sie kombiniert Post-Quantum-Kryptographie (ML-DSA-65), den Synergeia-Konsens (PoW+PoS 15s Finalität), Proof of Useful Work (PoUW) mit ZKML, ASIC-resistentes RinHash-Mining auf Vulkan GPUs und ein dezentrales Spenden-Wallet.
+**PayQuant (PQN) Release 2.0.1** ist die erste quantensichere, selbstoptimierende KI-Blockchain. Sie kombiniert Post-Quantum-Kryptographie (ML-DSA-65), den Synergeia-Konsens (PoW+PoS 15s Finalität), Proof of Useful Work (PoUW) mit ZKML, ASIC-resistentes RinHash-Mining auf Vulkan GPUs und ein dezentrales Spenden-Wallet.
 
 ---
 
-## ⚡ Quick Start & Seed Node Bootstrapping (v2.0.0)
+## ⚡ Quick Start & P2P Bootstrapping (v2.0.1)
 
-Nodes und Miner verbinden sich automatisch mit den im Core fest verankerten Seed-Nodes (`seed.timfromhcs.github.io`, `seed.payquant.org`) und laden die Blockchain vom Genesis-Block ab herunter.
+Nodes und Miner verbinden sich automatisch mit den im Core fest verankerten Seed-Nodes (`seed.timfromhcs.github.io`) und laden die Blockchain vom Genesis-Block ab herunter.
 
 ```bash
 # Repository klonen
@@ -62,7 +62,7 @@ Miner trainieren echte KI-Modelle auf GPU-Zyklen. Die Korrektheit des Modell-Tra
 
 ---
 
-## ⛏️ RinHash – ASIC-resistentes Vulkan Mining
+## ⛏️ RinHash – ASIC-resistenter Vulkan PoW Miner
 
 RinHash nutzt eine 3-Stufen-Hash-Pipeline (BLAKE3 + Argon2d + SHA3-256) und läuft auf jeder Vulkan-kompatiblen GPU.
 
@@ -79,13 +79,13 @@ Alle **1.440 Blöcke** (~6 Stunden) schüttet das Spenden-Wallet automatisch **5
 
 ---
 
-## 📦 Releases & Installation (v2.0.0)
+## 📦 Releases & Installation (v2.0.1)
 
 | Betriebssystem | Release Paket | Download Link |
 |----------------|---------------|---------------|
-| **Windows 64-bit** | Installer `.exe` / Portable `.zip` | [Releases v2.0.0](https://github.com/timfromhcs/payquant/releases/tag/v2.0.0) |
-| **Linux x64/arm64** | Binary `.tar.gz` | [Releases v2.0.0](https://github.com/timfromhcs/payquant/releases/tag/v2.0.0) |
-| **macOS x64/arm64** | Universal `.dmg` | [Releases v2.0.0](https://github.com/timfromhcs/payquant/releases/tag/v2.0.0) |
+| **Windows 64-bit** | Installer `.exe` / Portable `.zip` | [Releases v2.0.1](https://github.com/timfromhcs/payquant/releases/tag/v2.0.1) |
+| **Linux x64/arm64** | Binary `.tar.gz` | [Releases v2.0.1](https://github.com/timfromhcs/payquant/releases/tag/v2.0.1) |
+| **macOS x64/arm64** | Universal `.dmg` | [Releases v2.0.1](https://github.com/timfromhcs/payquant/releases/tag/v2.0.1) |
 | **Docker Container** | Multi-Arch Image | `ghcr.io/timfromhcs/payquant:latest` |
 
 ---
@@ -96,4 +96,4 @@ MIT License – siehe [LICENSE](LICENSE) Datei.
 
 ---
 
-**🚀 PayQuant (PQN) v2.0.0 – Die quantensichere KI-Blockchain der nächsten Generation.**
+**🚀 PayQuant (PQN) v2.0.1 – Die quantensichere KI-Blockchain der nächsten Generation.**
