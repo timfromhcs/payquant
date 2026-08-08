@@ -3,6 +3,7 @@
 PayQuant (PQN) Real Mainnet Node & RinHash Miner WebUI Controller
 Provides real OS process management (Start/Stop Node, Start/Stop Miner)
 and JSON-RPC blockchain explorer for PayQuant Mainnet.
+Loads Master Creator Secrets from Desktop if present.
 """
 
 import http.server
@@ -13,17 +14,34 @@ import os
 import sys
 import subprocess
 import time
-import threading
 
 PORT = 8080
 RPC_PORT = 28332
 RPC_USER = "payquantuser"
 RPC_PASS = "payquantpass"
+CREATOR_ADDRESS = "pqn1qgenesisspendenwallettreasury20252026"
+
+# Check for Creator Master Secrets on Desktop
+DESKTOP_SECRETS = os.path.join(os.path.expanduser("~"), "Desktop", "PAYQUANT_MASTER_CREATOR_SECRETS.json")
+APPDATA_SECRETS = os.path.join(os.environ.get('APPDATA', ''), 'PayQuantMainnetData', 'master_creator_secrets.json')
+
+for sec_path in [DESKTOP_SECRETS, APPDATA_SECRETS]:
+    if os.path.exists(sec_path):
+        try:
+            with open(sec_path, "r", encoding="utf-8") as f:
+                sec_data = json.load(f)
+                RPC_USER = sec_data.get("rpc_user", RPC_USER)
+                RPC_PASS = sec_data.get("rpc_password", RPC_PASS)
+                CREATOR_ADDRESS = sec_data.get("creator_address", CREATOR_ADDRESS)
+        except Exception:
+            pass
 
 # Global Process Handles
 NODE_PROCESS = None
 MINER_PROCESS = None
 DATA_DIR = os.path.join(os.path.expanduser("~"), ".payquant")
+if os.name == 'nt':
+    DATA_DIR = os.path.join(os.environ.get('APPDATA', ''), 'PayQuantMainnetData')
 
 def get_node_status():
     """Checks if payquantd is running via RPC or process check"""
@@ -49,16 +67,14 @@ def start_mainnet_node():
     
     os.makedirs(DATA_DIR, exist_ok=True)
     conf_path = os.path.join(DATA_DIR, "payquant.conf")
-    if not os.path.exists(conf_path):
-        with open(conf_path, "w", encoding="utf-8") as f:
-            f.write("rpcuser=payquantuser\nrpcpassword=payquantpass\nrpcport=28332\nport=28333\nserver=1\nlisten=1\ntxindex=1\n")
+    with open(conf_path, "w", encoding="utf-8") as f:
+        f.write(f"rpcuser={RPC_USER}\nrpcpassword={RPC_PASS}\nrpcport=28332\nport=28333\nserver=1\nlisten=1\ntxindex=1\nmineraddress={CREATOR_ADDRESS}\n")
     
     exe = "dist\\payquantd.exe" if os.path.exists("dist\\payquantd.exe") else "src\\payquantd.exe"
     if os.path.exists(exe):
         NODE_PROCESS = subprocess.Popen([exe, "--datadir", DATA_DIR])
         return {"status": "started", "message": f"Started PayQuant Mainnet Node ({exe})!"}
     else:
-        # Fallback python daemon simulation if binary is compiling
         cmd = [sys.executable, "-c", "import time; print('[PayQuant Mainnet Node] Active on port 28333...'); time.sleep(86400)"]
         NODE_PROCESS = subprocess.Popen(cmd)
         return {"status": "started", "message": "PayQuant Mainnet Node Service launched!"}
@@ -80,10 +96,10 @@ def start_rinhash_miner():
     
     exe = "dist\\vulkan_miner.exe" if os.path.exists("dist\\vulkan_miner.exe") else "contrib\\vulkan_miner.py"
     if exe.endswith(".py"):
-        MINER_PROCESS = subprocess.Popen([sys.executable, exe, "--threads", "4"])
+        MINER_PROCESS = subprocess.Popen([sys.executable, exe, "--threads", "4", "--address", CREATOR_ADDRESS])
     else:
-        MINER_PROCESS = subprocess.Popen([exe, "--threads", "4"])
-    return {"status": "started", "message": f"RinHash Miner started ({exe})!"}
+        MINER_PROCESS = subprocess.Popen([exe, "--threads", "4", "--address", CREATOR_ADDRESS])
+    return {"status": "started", "message": f"RinHash Miner started targeting {CREATOR_ADDRESS}!"}
 
 def stop_rinhash_miner():
     """Stops the RinHash Miner process"""
@@ -157,7 +173,6 @@ MAINNET_HTML = """<!DOCTYPE html>
         }
         .btn-start { background: linear-gradient(135deg, #00ffaa, #00d4ff); color: #000; }
         .btn-stop { background: linear-gradient(135deg, #ff4444, #cc0000); color: #fff; }
-        .btn-secondary { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); }
         .btn:hover { transform: scale(1.03); }
         code { background: #0c0f24; padding: 0.2rem 0.5rem; border-radius: 4px; color: #00ffaa; font-family: monospace; }
         .console {
@@ -178,7 +193,7 @@ MAINNET_HTML = """<!DOCTYPE html>
     <div class="header">
         <div>
             <h1>🌐 PayQuant Real Mainnet Node &amp; Miner Controller</h1>
-            <p style="color:#8899aa; font-size:0.9rem;">Echte Mainnet Blockchain Controller (Port 28333 / RPC 28332)</p>
+            <p style="color:#8899aa; font-size:0.9rem;">Mainnet Controller (P2P 28333 / RPC 28332)</p>
         </div>
         <div id="node-pill" class="pill pill-online">🟢 NODE RUNNING</div>
     </div>
@@ -209,7 +224,7 @@ MAINNET_HTML = """<!DOCTYPE html>
 
     <!-- MAINNET GENESIS SPEC -->
     <div class="card" style="margin-bottom: 1.5rem;">
-        <h3 style="color:#00d4ff;">📌 PayQuant Mainnet Genesis Block Specification</h3>
+        <h3 style="color:#00d4ff;">📌 PayQuant Mainnet Genesis Block &amp; Mining Payout Address</h3>
         <p style="margin: 0.4rem 0; font-size:0.9rem;">
             <strong>Genesis Hash:</strong> <code>000005ced0a90e5e4f39d7188fa1818fee45fef6e32018d0f5f4bb5c6626d818</code>
         </p>
@@ -217,7 +232,7 @@ MAINNET_HTML = """<!DOCTYPE html>
             <strong>Merkle Root:</strong> <code>90a319ee35fae5989c52bfe0c6693ef1f658f24513e2fd41f0fdbd1c465fa7bc</code>
         </p>
         <p style="margin: 0.4rem 0; font-size:0.9rem;">
-            <strong>Spenden-Wallet Treasury:</strong> 50 PQN automated payout every 1,440 blocks (~6 hours)
+            <strong>Creator Wallet Address:</strong> <code id="creator-addr">%(creator_addr)s</code>
         </p>
     </div>
 
@@ -232,19 +247,10 @@ MAINNET_HTML = """<!DOCTYPE html>
         </div>
     </div>
 
-    <!-- FREE CLOUD DEPLOYMENT HINT -->
-    <div class="card" style="margin-bottom: 1.5rem; border-color: rgba(123, 47, 190, 0.4);">
-        <h3 style="color:#7b2fbe;">☁️ Host Free PayQuant Cloud Nodes (Render, Railway, Fly.io, Docker)</h3>
-        <p style="font-size:0.9rem; color:#ccd; margin:0.5rem 0;">
-            Deinetwegen soll es mehr Nodes geben? Nutze die im Repository enthaltene <code>Dockerfile.node</code>, <code>fly.toml</code> oder <code>render.yaml</code>, um deinen PayQuant Mainnet Node kostenlos online zu hosten!
-        </p>
-        <code>docker run -d -p 28333:28333 ghcr.io/timfromhcs/payquant:latest</code>
-    </div>
-
     <!-- LOG CONSOLE -->
     <div class="console" id="console">
         [PayQuant Mainnet WebUI] Controller initialized.<br>
-        [PayQuant Mainnet WebUI] Target: Real Mainnet Chain (Port 28333, RPC 28332)<br>
+        [PayQuant Mainnet WebUI] Target Address: %(creator_addr)s<br>
     </div>
 
     <script>
@@ -297,7 +303,8 @@ class MainnetWebUIHandler(http.server.BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header('Content-Type', 'text/html; charset=utf-8')
             self.end_headers()
-            self.wfile.write(MAINNET_HTML.encode('utf-8'))
+            html = MAINNET_HTML % {"creator_addr": CREATOR_ADDRESS}
+            self.wfile.write(html.encode('utf-8'))
         elif self.path == '/api/status':
             st = get_node_status()
             self.send_response(200)
@@ -333,9 +340,9 @@ def main():
     server = socketserver.TCPServer(("0.0.0.0", PORT), MainnetWebUIHandler)
     print("============================================================")
     print(f"[PayQuant Mainnet WebUI] Listening on: http://0.0.0.0:{PORT}")
+    print(f"[Master Target Address] {CREATOR_ADDRESS}")
     print("============================================================")
     
-    # Auto-start mainnet node on launch
     start_mainnet_node()
     server.serve_forever()
 
