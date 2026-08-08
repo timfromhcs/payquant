@@ -1,0 +1,19 @@
+app = "payquant-seed-node"
+primary_region = "fra"
+
+[build]
+  dockerfile = "Dockerfile.node"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = false
+  auto_start_machines = true
+  min_machines_running = 1
+
+[[services]]
+  protocol = "tcp"
+  internal_port = 28333
+  ports = [
+    { port = 28333 }
+  ]

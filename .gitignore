@@ -25,6 +25,9 @@ __pycache__/
 private.key
 public.key
 payquant_backup/
+USER_PRIVATE_GENESIS_KEYS.json
+release_dist/USER_PRIVATE_GENESIS_KEYS.json
+release_dist/*.zip
 
 # IDE and spec files
 .idea/

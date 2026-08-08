@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: payquant-mainnet-node
+    env: docker
+    dockerfilePath: Dockerfile.node
+    plan: free
+    region: frankfurt
+    envVars:
+      - key: PORT
+        value: 8080

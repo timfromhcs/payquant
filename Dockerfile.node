@@ -1,0 +1,24 @@
+FROM ubuntu:22.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    cmake \
+    libboost-all-dev \
+    libssl-dev \
+    libevent-dev \
+    python3 \
+    python3-pip \
+    curl \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+COPY . .
+
+RUN mkdir -p build && cd build && cmake .. -DBUILD_GUI=OFF && make -j$(nproc) || true
+
+EXPOSE 28333 28332 8080
+
+CMD ["python3", "contrib/mainnet_webui.py"]

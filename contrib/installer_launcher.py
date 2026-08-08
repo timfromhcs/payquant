@@ -43,7 +43,7 @@ def install_payquant():
 def main():
     root = tk.Tk()
     root.title("PayQuant v1.0.0 Win64 Setup")
-    root.geometry("500 x 300")
+    root.geometry("500x300")
     root.configure(bg="#060913")
 
     lbl = tk.Label(root, text="⚛️ PayQuant Win64 Installation Wizard", font=("Outfit", 14, "bold"), fg="#00f2fe", bg="#060913")

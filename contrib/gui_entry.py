@@ -12,7 +12,7 @@ class PayQuantGUI(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("PayQuant (PQN) - Quantum Safe GUI Wallet & Node")
-        self.geometry("960 x 640")
+        self.geometry("960x640")
         self.configure(bg="#060913")
 
         # Style configuration
