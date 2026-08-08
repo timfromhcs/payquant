@@ -1,5 +1,6 @@
 # Build subdirectories
 build/
+dist/*.exe
 cmake-build-debug/
 cmake-build-release/
 /guix-build-*
