@@ -1,16 +1,15 @@
 @echo off
-TITLE PayQuant PQN Real Mainnet Node & Miner Controller
+TITLE PayQuant (PQN) Native Mainnet Launcher v3.0.0
 COLOR 0A
 CLS
 
 echo ===============================================================================
-echo PAYQUANT (PQN) REAL MAINNET NODE AND MINER CONTROLLER
+echo            PAYQUANT (PQN) MAINNET STANDALONE GUI LAUNCHER
 echo ===============================================================================
-echo Chain Target: REAL MAINNET (P2P Port 28333, RPC 28332)
+echo Mode: REAL MAINNET (P2P Port 28333)
 echo Post-Quantum Crypto: ML-DSA-65 (Dilithium NIST FIPS 204)
-echo Consensus Engine: Synergeia Hybrid (PoW + PoS 15s Block Target)
-echo Genesis Block Hash: 000005ced0a90e5e4f39d7188fa1818fee45fef6e32018d0f5f4bb5c6626d818
-echo Merkle Root: 90a319ee35fae5989c52bfe0c6693ef1f658f24513e2fd41f0fdbd1c465fa7bc
+echo Consensus Engine: Synergeia Hybrid (PoW + PoS 15s Target)
+echo Database: Persistent LevelDB / ChainDB State
 echo ===============================================================================
 echo.
 
@@ -20,19 +19,26 @@ if not exist "%DATA_DIR%" (
     mkdir "%DATA_DIR%"
 )
 
-echo [1/2] Starting Mainnet WebUI Management Server...
-start "PayQuantWebUI" /B python "contrib\mainnet_webui.py"
+echo [1/2] Launching Standalone GUI Node...
+if exist "dist\payquant-node-gui.exe" (
+    start "PayQuantNode" "dist\payquant-node-gui.exe"
+) else (
+    start "PayQuantNode" python "contrib\node_gui.py"
+)
 
-timeout /t 3 /nobreak >nul
+timeout /t 2 /nobreak >nul
 
-echo [2/2] Opening WebUI Control Panel on http://127.0.0.1:8080...
-start http://127.0.0.1:8080
+echo [2/2] Launching Standalone GUI Miner...
+if exist "dist\payquant-miner-gui.exe" (
+    start "PayQuantMiner" "dist\payquant-miner-gui.exe"
+) else (
+    start "PayQuantMiner" python "contrib\miner_gui.py"
+)
 
 echo.
 echo ===============================================================================
-echo PAYQUANT REAL MAINNET CONTROLLER IS ACTIVE!
-echo WebUI URL: http://127.0.0.1:8080
-echo Features: Zero-Server P2P Signaling, IRC Discovery, Node/Miner Controls
+echo PAYQUANT STANDALONE MAINNET ECOSYSTEM ACTIVE!
+echo Node GUI & Miner GUI running natively on desktop.
 echo ===============================================================================
 echo.
 pause

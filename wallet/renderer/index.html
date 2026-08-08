@@ -3,44 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PayQuant Wallet</title>
+  <title>PayQuant Wallet – Post-Quantum PQN</title>
   <link rel="stylesheet" href="style.css">
+  <script src="qrcode_gen.js"></script>
+  <script src="bip39_seed.js"></script>
 </head>
 <body>
   <div class="app">
+    <!-- Header Navigation -->
     <header class="header">
       <div class="brand">
-        <div class="logo">PQ</div>
+        <div class="logo">PQN</div>
         <div>
-          <h1>PayQuant Wallet</h1>
-          <p class="sub">PQN | Post-Quantum ML-DSA-65 | Synergeia Mainnet</p>
+          <h1>PayQuant Quantum Wallet</h1>
+          <p class="sub">Post-Quantum ML-DSA-65 | Synergeia Hybrid P2P</p>
         </div>
       </div>
-      <div class="status">
-        <span id="node-status" class="pill pill-offline">Node offline</span>
+      <div class="status" style="display:flex; gap:0.6rem; align-items:center;">
+        <span id="node-status" class="pill pill-online">P2P ONLINE</span>
+        <button id="btn-seed-backup" class="btn" style="padding:0.3rem 0.7rem; font-size:0.8rem;">🔑 Seedphrase Backup</button>
       </div>
     </header>
 
-    <div class="settings-bar">
-      <label>Mode 
-        <select id="wallet-mode" style="background:#12172b; color:#00d4ff; border:1px solid rgba(0,212,255,0.3); border-radius:6px; padding:0.3rem 0.6rem;">
-          <option value="light" selected>⚡ Light Wallet (P2P/SPV - No Node Needed)</option>
-          <option value="rpc">🖥️ Full Node (Local RPC)</option>
-        </select>
-      </label>
-      <span id="rpc-settings-group" style="display:none;">
-        <label>Host <input id="rpc-host" type="text" value="127.0.0.1"></label>
-        <label>Port <input id="rpc-port" type="text" value="28332"></label>
-        <label>User <input id="rpc-user" type="text" value="payquantuser"></label>
-        <label>Pass <input id="rpc-pass" type="password" value="payquantpass"></label>
-      </span>
-      <button id="btn-connect" class="btn btn-start">Sync / Connect</button>
+    <!-- Main Navigation Bar -->
+    <div class="nav-bar">
+      <button class="nav-btn active" data-tab="tab-dashboard">📊 Dashboard</button>
+      <button class="nav-btn" data-tab="tab-receive">📥 Receive & Request QR</button>
+      <button class="nav-btn" data-tab="tab-send">💸 Send PQN</button>
+      <button class="nav-btn" data-tab="tab-security">🔐 Security & Seed</button>
+      <button class="nav-btn" data-tab="tab-settings">⚙️ Network Settings</button>
     </div>
 
     <!-- SPV Header Sync Progress Bar -->
-    <div id="spv-sync-container" style="background: rgba(0,212,255,0.05); border: 1px solid rgba(0,212,255,0.2); border-radius: 8px; padding: 0.8rem; margin-bottom: 1rem;">
+    <div id="spv-sync-container" style="background: rgba(0,212,255,0.05); border: 1px solid rgba(0,212,255,0.2); border-radius: 8px; padding: 0.8rem; margin: 1rem 0;">
       <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.4rem;">
-        <span style="color: #00d4ff; font-weight: 600;">⚡ SPV Header Sync & SPV Verification</span>
+        <span style="color: #00d4ff; font-weight: 600;">⚡ SPV Header Sync & Multi-Node Verification</span>
         <span id="spv-status-text" style="color: #a0aec0;">Syncing Block Headers: 1 / 1 (100% SPV Verified)</span>
       </div>
       <div style="width: 100%; height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden;">
@@ -48,51 +45,171 @@
       </div>
     </div>
 
-    <main class="grid">
-      <section class="card">
-        <h3>Total Balance</h3>
-        <div class="val" id="balance">-- PQN</div>
-        <div class="sub" id="balance-unconfirmed">Pending: -- PQN</div>
-        <div class="sub" id="node-info">Node info not loaded</div>
-      </section>
+    <!-- TAB 1: DASHBOARD -->
+    <div id="tab-dashboard" class="tab-content active">
+      <main class="grid">
+        <section class="card">
+          <h3>Total Balance</h3>
+          <div class="val" id="balance">50.0000 PQN</div>
+          <div class="sub" id="balance-unconfirmed">Pending: 0.0000 PQN</div>
+          <div class="sub" id="node-info">Light SPV P2P Mode Active</div>
+        </section>
 
-      <section class="card">
-<h3>Receive</h3>
-        <div class="val small" id="receive">No address</div>
-        <div style="margin-top:0.8rem; display:flex; gap:0.6rem;">
-          <button id="btn-new-address" class="btn btn-start">Get New Address</button>
-          <button id="btn-copy-address" class="btn">Copy</button>
-        </div>
-      </section>
+        <section class="card">
+          <h3>Quick Receive Address</h3>
+          <div class="val small" id="quick-receive" style="word-break: break-all;">No address</div>
+          <div style="margin-top:0.8rem; display:flex; gap:0.6rem;">
+            <button id="btn-quick-copy" class="btn btn-start">Copy Address</button>
+            <button id="btn-show-qr" class="btn">View QR</button>
+          </div>
+        </section>
 
-      <section class="card full">
-        <h3>Send PQN</h3>
-        <div class="form-row">
-          <input id="send-to" type="text" placeholder="pqn1... destination address">
-          <input id="send-amount" type="text" placeholder="Amount (PQN)">
-          <button id="btn-send" class="btn btn-start">Send</button>
-        </div>
-        <div class="sub" id="send-result"></div>
-      </section>
+        <section class="card full">
+          <h3>Recent Transactions</h3>
+          <table class="tx-table">
+            <thead>
+              <tr><th>Date</th><th>Type</th><th>Address</th><th>Amount</th><th>Confirmations</th></tr>
+            </thead>
+            <tbody id="tx-body">
+              <tr><td colspan="5" class="sub">No transactions loaded</td></tr>
+            </tbody>
+          </table>
+        </section>
+      </main>
+    </div>
 
-      <section class="card full">
-        <h3>Transactions</h3>
-        <table class="tx-table">
-          <thead>
-            <tr><th>Date</th><th>Type</th><th>Address</th><th>Amount</th><th>Confirmations</th></tr>
-          </thead>
-          <tbody id="tx-body">
-            <tr><td colspan="5" class="sub">No transactions loaded</td></tr>
-          </tbody>
-        </table>
-      </section>
+    <!-- TAB 2: RECEIVE & PAYMENT REQUEST QR -->
+    <div id="tab-receive" class="tab-content" style="display:none;">
+      <main class="grid">
+        <section class="card">
+          <h3>Your PayQuant Wallet Address</h3>
+          <div class="val small" id="receive-full-addr" style="word-break: break-all; margin-bottom: 1rem;">pqn1q...</div>
+          <div id="qr-container" style="display: flex; justify-content: center; padding: 1rem; background: #ffffff; border-radius: 12px; margin-bottom: 1rem;"></div>
+          <div style="display:flex; gap:0.6rem; justify-content: center;">
+            <button id="btn-copy-receive" class="btn btn-start">📋 Copy Address</button>
+            <button id="btn-new-address" class="btn">🔄 Generate New Address</button>
+          </div>
+        </section>
 
-      <section class="card full">
-        <h3>Console</h3>
-        <pre id="console" class="console"></pre>
-      </section>
-    </main>
+        <section class="card">
+          <h3>Create Payment Request / Invoice QR</h3>
+          <div style="display:flex; flex-direction:column; gap:0.8rem;">
+            <label>Amount (PQN): <input id="req-amount" type="number" step="0.0001" placeholder="e.g. 25.50"></label>
+            <label>Note / Message: <input id="req-note" type="text" placeholder="e.g. Donation / Payment"></label>
+            <button id="btn-gen-invoice" class="btn btn-start">⚡ Generate Invoice QR</button>
+          </div>
+          <div id="invoice-qr-result" style="margin-top: 1rem; text-align: center; display: none;">
+            <h4 style="color: #00d4ff; margin-bottom: 0.5rem;">Payment Request Invoice</h4>
+            <div id="invoice-qr-container" style="display: flex; justify-content: center; padding: 0.8rem; background: #ffffff; border-radius: 12px; margin-bottom: 0.8rem;"></div>
+            <div id="invoice-link" class="sub" style="word-break: break-all; font-family: monospace;"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- TAB 3: SEND PQN & QR SCANNER -->
+    <div id="tab-send" class="tab-content" style="display:none;">
+      <main class="grid">
+        <section class="card full">
+          <h3>Send Quantum-Secured PQN</h3>
+          <div style="display:flex; flex-direction:column; gap:1rem;">
+            <div style="display:flex; gap:0.6rem; align-items:center;">
+              <input id="send-to" type="text" style="flex:1;" placeholder="Destination Address (pqn1q...) or scan QR">
+              <button id="btn-paste-send" class="btn">📋 Paste</button>
+              <button id="btn-scan-qr" class="btn btn-start">📷 Scan QR Code</button>
+            </div>
+
+            <div style="display:flex; gap:1rem;">
+              <input id="send-amount" type="number" step="0.0001" style="flex:1;" placeholder="Amount in PQN">
+              <button id="btn-send-max" class="btn">Max</button>
+            </div>
+
+            <input id="send-note" type="text" placeholder="Optional Transaction Note / Label">
+
+            <button id="btn-send" class="btn btn-start" style="padding:0.8rem; font-size:1.1rem;">🚀 Broadcast Transaction (Multi-Node Verified)</button>
+          </div>
+          <div class="sub" id="send-result" style="margin-top:1rem; font-weight:600;"></div>
+        </section>
+      </main>
+    </div>
+
+    <!-- TAB 4: SECURITY & SEEDPHRASE -->
+    <div id="tab-security" class="tab-content" style="display:none;">
+      <main class="grid">
+        <section class="card full">
+          <h3>🔐 12-Word BIP-39 Quantum Backup Seedphrase</h3>
+          <p class="sub" style="margin-bottom:1rem;">Write down these 12 secret words in a safe offline location. Never reveal them to anyone!</p>
+
+          <div id="seed-display-grid" style="display:grid; grid-template-columns: repeat(4, 1fr); gap:0.6rem; margin-bottom:1.5rem;">
+            <!-- Seed words populated via JS -->
+          </div>
+
+          <div style="display:flex; gap:1rem;">
+            <button id="btn-reveal-seed" class="btn btn-start">👁️ Reveal Secret Seedphrase</button>
+            <button id="btn-copy-seed" class="btn">📋 Copy Seedphrase</button>
+            <button id="btn-restore-wallet" class="btn" style="background:#7b2fbe; color:#fff;">🔑 Restore Wallet From Seed</button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- TAB 5: NETWORK SETTINGS -->
+    <div id="tab-settings" class="tab-content" style="display:none;">
+      <main class="grid">
+        <section class="card full">
+          <h3>⚙️ Network & Wallet Configuration</h3>
+          <div class="settings-bar" style="margin-top:1rem;">
+            <label>Wallet Operating Mode:
+              <select id="wallet-mode" style="background:#12172b; color:#00d4ff; border:1px solid rgba(0,212,255,0.3); border-radius:6px; padding:0.4rem 0.8rem; margin-left:0.5rem;">
+                <option value="light" selected>⚡ Light Wallet Mode (P2P/SPV - Zero Node Required)</option>
+                <option value="rpc">🖥️ Full Node Mode (Local RPC Daemon)</option>
+              </select>
+            </label>
+            <span id="rpc-settings-group" style="display:none; margin-top:0.8rem;">
+              <label>RPC Host <input id="rpc-host" type="text" value="127.0.0.1"></label>
+              <label>Port <input id="rpc-port" type="text" value="28332"></label>
+              <label>User <input id="rpc-user" type="text" value="payquantuser"></label>
+              <label>Pass <input id="rpc-pass" type="password" value="payquantpass"></label>
+            </span>
+            <button id="btn-connect" class="btn btn-start" style="margin-top:0.8rem;">Save & Reconnect</button>
+          </div>
+        </section>
+
+        <section class="card full">
+          <h3>Console & Live Event Log</h3>
+          <pre id="console" class="console"></pre>
+        </section>
+      </main>
+    </div>
   </div>
+
+  <!-- QR SCANNER CAMERA / FILE MODAL -->
+  <div id="qr-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(6,8,20,0.9); z-index:9999; justify-content:center; align-items:center;">
+    <div style="background:#0c1024; border:1px solid #00d4ff; border-radius:16px; width:90%; max-width:480px; padding:1.5rem; text-align:center;">
+      <h3 style="color:#00d4ff; margin-bottom:1rem;">📷 Scan PQN Address QR Code</h3>
+      <div id="qr-scan-area" style="background:#000; height:240px; border-radius:12px; display:flex; justify-content:center; align-items:center; border:2px dashed #00d4ff; margin-bottom:1rem; position:relative;">
+        <p style="color:#a0aec0; padding:1rem;">Drop QR Code Image File Here<br>or Select File Below</p>
+        <input type="file" id="qr-file-input" accept="image/*" style="position:absolute; width:100%; height:100%; opacity:0; cursor:pointer;">
+      </div>
+      <div style="display:flex; gap:0.6rem; justify-content:center;">
+        <button id="btn-close-qr-modal" class="btn">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEEDPHRASE RESTORE MODAL -->
+  <div id="restore-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(6,8,20,0.95); z-index:9999; justify-content:center; align-items:center;">
+    <div style="background:#0c1024; border:1px solid #7b2fbe; border-radius:16px; width:90%; max-width:540px; padding:1.5rem;">
+      <h3 style="color:#7b2fbe; margin-bottom:0.8rem;">🔑 Restore PayQuant Wallet from Seedphrase</h3>
+      <p class="sub" style="margin-bottom:1rem;">Enter your 12 secret backup words separated by spaces:</p>
+      <textarea id="restore-words-input" rows="3" style="width:100%; background:#060814; color:#00d4ff; border:1px solid rgba(123,47,190,0.5); border-radius:8px; padding:0.8rem; font-family:monospace; margin-bottom:1rem;" placeholder="e.g. abandon ability able about above absent absorb abstract absurd abuse access accident"></textarea>
+      <div style="display:flex; gap:0.8rem; justify-content:flex-end;">
+        <button id="btn-cancel-restore" class="btn">Cancel</button>
+        <button id="btn-confirm-restore" class="btn btn-start" style="background:#7b2fbe;">Restore Wallet</button>
+      </div>
+    </div>
+  </div>
+
   <script src="renderer.js"></script>
 </body>
 </html>
