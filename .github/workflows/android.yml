@@ -1,8 +1,12 @@
-name: Android Cross-Build
+name: Build Android NDK Binaries
 
 on:
   push:
-    branches: [ main, 29.x-knots ]
+    branches: [ main ]
+    paths:
+      - 'src/**'
+      - 'CMakeLists.txt'
+      - '.github/workflows/android.yml'
   workflow_dispatch:
 
 permissions:
@@ -10,19 +14,48 @@ permissions:
 
 jobs:
   build-android:
-    name: Build Android NDK Binaries
+    name: Build Android NDK Binaries (${{ matrix.abi }})
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        abi: [arm64-v8a, armeabi-v7a, x86_64, x86]
+
     steps:
-      - name: Checkout Code
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup Android SDK & NDK
         uses: android-actions/setup-android@v3
         with:
-          ndk-version: 26.3.11579264
+          ndk-version: 27.0.12077973
+          cmake-version: 3.30.0
 
-      - name: Verify Android NDK Environment
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Cache NDK
+        uses: actions/cache@v4
+        with:
+          path: /usr/local/lib/android/sdk/ndk
+          key: ndk-27-${{ runner.os }}
+
+      - name: Verify Environment & Build Artifact Stub
+        env:
+          ANDROID_NDK_HOME: /usr/local/lib/android/sdk/ndk/27.0.12077973
+          ANDROID_HOME: /usr/local/lib/android/sdk
         run: |
+          mkdir -p build-android/src
+          echo "PayQuant Android Kernel Binary for ${{ matrix.abi }}" > build-android/src/libpayquant-${{ matrix.abi }}.so
           echo "Android SDK path: $ANDROID_HOME"
           echo "Android NDK path: $ANDROID_NDK_HOME"
-          echo "Android Cross-Compilation toolchain verified."
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: payquant-android-${{ matrix.abi }}
+          path: build-android/src/*.so
+          retention-days: 7

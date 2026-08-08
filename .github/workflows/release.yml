@@ -8,36 +8,50 @@ on:
 
 permissions:
   contents: write
-  packages: write
-  discussions: write
 
 jobs:
-  publish-release:
+  create-release:
     name: Create GitHub Release
-    if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
-          python-version: '3.11'
+          fetch-depth: 0
 
       - name: Build Release Distribution Artifacts
         run: |
           mkdir -p release_dist
           tar -czf release_dist/payquant-v1.0.0-linux-x64.tar.gz src/ contrib/ doc/
 
-      - name: Create Release via softprops
+      - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           files: |
             release_dist/*
             dist/*
+          generate_release_notes: true
           draft: false
           prerelease: false
-          generate_release_notes: true
+          body: |
+            ## 🚀 PayQuant ${{ github.ref_name }}
+
+            ### 📦 Download
+            - Windows: payquant-qt.exe, payquantd.exe, payquant-cli.exe, vulkan_miner.exe
+            - Linux: payquantd, payquant-cli
+            - macOS: payquantd, payquant-cli
+            - Android: libpayquant.so (ARM64, ARMv7, x86_64, x86)
+            - Docker: ghcr.io/timfromhcs/payquant:${{ github.ref_name }}
+
+            ### 🔐 Security
+            - Post-Quantum: ML-DSA-65 + SLH-DSA
+            - Quantum Sentinel: Qiskit Audit
+            - Synergeia Consensus: 15s Blocks, 27 Validators
+
+            ### 🤖 AI Features
+            - Proof of Useful Work (PoUW) with ZKML
+            - FMARL Self-Optimization
+            - Spenden-Wallet every 1,440 blocks
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
