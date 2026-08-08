@@ -3,9 +3,8 @@ name: Build PayQuant Wallet
 on:
   push:
     branches: [ main ]
-    paths:
-      - 'wallet/**'
-      - '.github/workflows/build-wallet.yml'
+    tags:
+      - 'v*'
   workflow_dispatch:
 
 jobs:
