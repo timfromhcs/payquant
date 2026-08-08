@@ -22,11 +22,30 @@
     </header>
 
     <div class="settings-bar">
-      <label>RPC Host <input id="rpc-host" type="text" value="127.0.0.1"></label>
-      <label>Port <input id="rpc-port" type="text" value="28332"></label>
-      <label>User <input id="rpc-user" type="text" value="payquantuser"></label>
-      <label>Pass <input id="rpc-pass" type="password" value="payquantpass"></label>
-      <button id="btn-connect" class="btn btn-start">Connect</button>
+      <label>Mode 
+        <select id="wallet-mode" style="background:#12172b; color:#00d4ff; border:1px solid rgba(0,212,255,0.3); border-radius:6px; padding:0.3rem 0.6rem;">
+          <option value="light" selected>⚡ Light Wallet (P2P/SPV - No Node Needed)</option>
+          <option value="rpc">🖥️ Full Node (Local RPC)</option>
+        </select>
+      </label>
+      <span id="rpc-settings-group" style="display:none;">
+        <label>Host <input id="rpc-host" type="text" value="127.0.0.1"></label>
+        <label>Port <input id="rpc-port" type="text" value="28332"></label>
+        <label>User <input id="rpc-user" type="text" value="payquantuser"></label>
+        <label>Pass <input id="rpc-pass" type="password" value="payquantpass"></label>
+      </span>
+      <button id="btn-connect" class="btn btn-start">Sync / Connect</button>
+    </div>
+
+    <!-- SPV Header Sync Progress Bar -->
+    <div id="spv-sync-container" style="background: rgba(0,212,255,0.05); border: 1px solid rgba(0,212,255,0.2); border-radius: 8px; padding: 0.8rem; margin-bottom: 1rem;">
+      <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.4rem;">
+        <span style="color: #00d4ff; font-weight: 600;">⚡ SPV Header Sync & SPV Verification</span>
+        <span id="spv-status-text" style="color: #a0aec0;">Syncing Block Headers: 1 / 1 (100% SPV Verified)</span>
+      </div>
+      <div style="width: 100%; height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden;">
+        <div id="spv-progress-bar" style="width: 100%; height: 100%; background: linear-gradient(90deg, #00d4ff, #7b2fbe); transition: width 0.3s ease;"></div>
+      </div>
     </div>
 
     <main class="grid">

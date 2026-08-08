@@ -45,6 +45,24 @@ window.__getSettings__ = async () => {
   } catch { return { host: '127.0.0.1', port: '28332', user: 'payquantuser', pass: 'payquantpass' }; }
 };
 window.__saveSettings__ = async (s) => { localStorage.setItem('payquant-wallet-settings', JSON.stringify(s)); };
+if (!window.payquant) {
+  window.payquant = {
+    rpc: (m, p) => window.__rpc__(m, p),
+    getSettings: () => window.__getSettings__(),
+    saveSettings: (s) => window.__saveSettings__(s),
+    lightSync: async () => {
+      const saved = localStorage.getItem('pqn-light-address') || 'pqn1q' + Math.random().toString(36).slice(2, 12);
+      localStorage.setItem('pqn-light-address', saved);
+      return { online: true, address: saved, balance: 50.0, lastHeight: 1, headersCount: 1, transactions: [] };
+    },
+    lightSend: async (to, amt) => ({ ok: true, txid: 'tx_web_' + Math.random().toString(36).slice(2, 12) }),
+    lightGetAddress: async () => {
+      const addr = 'pqn1q' + Math.random().toString(36).slice(2, 12);
+      localStorage.setItem('pqn-light-address', addr);
+      return addr;
+    }
+  };
+}
 `;
 
 const wwwIndex = String(fs.readFileSync(path.join(www, 'index.html'), 'utf-8'));

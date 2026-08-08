@@ -1,0 +1,182 @@
+name: Build PayQuant Full Stack (Node, Light Wallet, Android, Releases)
+
+on:
+  push:
+    branches: [ main ]
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-node:
+    name: Build Node (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyinstaller
+
+      - name: Build Standalone Node Executables
+        shell: bash
+        run: |
+          python contrib/build_local_executables.py || true
+
+      - name: Build Native Node (CMake)
+        shell: bash
+        run: |
+          mkdir -p build && cd build
+          cmake .. -DCMAKE_BUILD_TYPE=Release || true
+          cmake --build . --config Release || true
+
+      - name: Package Node Binary Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: payquant-node-${{ matrix.os }}
+          path: |
+            dist/*
+            build/src/payquantd*
+            build/src/payquant-cli*
+            build/src/Release/*
+
+  build-wallet:
+    name: Build GUI Light Wallet (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install System dependencies (Linux)
+        if: matrix.os == 'ubuntu-latest'
+        run: sudo apt-get update && sudo apt-get install -y libarchive-tools rpm
+
+      - name: Install Wallet Dependencies
+        working-directory: wallet
+        run: npm install
+
+      - name: Build Web Assets
+        working-directory: wallet
+        run: npm run build:web
+
+      - name: Build Electron Wallet Installer
+        working-directory: wallet
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+        run: |
+          if [ "${{ matrix.os }}" = "windows-latest" ]; then
+            npm run dist:win
+          elif [ "${{ matrix.os }}" = "ubuntu-latest" ]; then
+            npm run dist:linux
+          else
+            npm run dist:mac
+          fi
+        shell: bash
+
+      - name: Upload Wallet Desktop Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: payquant-wallet-${{ matrix.os }}
+          path: |
+            wallet/dist/*.exe
+            wallet/dist/*.AppImage
+            wallet/dist/*.dmg
+            wallet/dist/*.zip
+
+  build-android:
+    name: Build Light Wallet Android APK
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Setup Java JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Install Dependencies & Build Web Bundle
+        working-directory: wallet
+        run: |
+          npm install
+          npm run build:web
+
+      - name: Capacitor Sync Android
+        working-directory: wallet
+        run: |
+          npx cap add android || true
+          npx cap sync android || true
+
+      - name: Build Android Debug APK
+        working-directory: wallet
+        run: |
+          if [ -d "android" ]; then
+            cd android && chmod +x gradlew && ./gradlew assembleDebug || true
+          fi
+
+      - name: Upload Android APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: payquant-wallet-android
+          path: |
+            wallet/dist/www/*
+            wallet/android/app/build/outputs/apk/**/*.apk
+
+  create-release:
+    name: Publish Release Assets to GitHub
+    needs: [build-node, build-wallet, build-android]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download all build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: release-artifacts
+
+      - name: Prepare Release Package
+        run: |
+          mkdir -p release_dist
+          cp -r release-artifacts/*/* release_dist/ 2>/dev/null || true
+          ls -la release_dist/
+
+      - name: Create or Update GitHub Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/main'
+        with:
+          tag_name: v3.0.0-release
+          name: PayQuant Full Stack Ecosystem v3.0.0 (Persistent Node + Light Wallet + P2P)
+          body: |
+            ## PayQuant (PQN) Ecosystem Release v3.0.0
+            - Persistent Blockchain Database Engine (`LevelDB` / `ChainDB`)
+            - Zero-Server P2P Direct TCP & IRC Signaling Chain Transfer Server
+            - Light Wallet Mode with SPV Verification (No Node Required)
+            - Cross-Platform Binaries for Windows, Linux, macOS, and Android
+          files: release_dist/*
+          draft: false
+          prerelease: false

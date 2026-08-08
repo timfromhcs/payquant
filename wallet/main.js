@@ -94,11 +94,26 @@ function createWindow() {
   win.loadFile(path.join(__dirname, 'renderer', 'index.html'));
 }
 
+const LightWalletManager = require('./src/light_wallet');
+let lightWallet = null;
+
 ipcMain.handle('rpc:call', async (_e, method, params) => callRpc(method, params || []));
 ipcMain.handle('settings:get', () => ({ ...settings }));
 ipcMain.handle('settings:save', (_e, next) => {
   saveSettings(next);
   return { ...settings };
+});
+ipcMain.handle('light:sync', async () => {
+  if (!lightWallet) lightWallet = new LightWalletManager(app.getPath('userData'));
+  return await lightWallet.syncLightWallet();
+});
+ipcMain.handle('light:send', async (_e, to, amt) => {
+  if (!lightWallet) lightWallet = new LightWalletManager(app.getPath('userData'));
+  return await lightWallet.sendTransactionP2P(to, amt);
+});
+ipcMain.handle('light:getaddress', () => {
+  if (!lightWallet) lightWallet = new LightWalletManager(app.getPath('userData'));
+  return lightWallet.generateNewAddress();
 });
 
 app.whenReady().then(() => {
