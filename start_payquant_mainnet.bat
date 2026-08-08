@@ -1,10 +1,10 @@
 @echo off
-TITLE PayQuant PQN Real Mainnet Node AND Miner WebUI Controller
+TITLE PayQuant PQN Real Mainnet Node & Miner Controller
 COLOR 0A
 CLS
 
 echo ===============================================================================
-echo            PAYQUANT (PQN) REAL MAINNET NODE AND MINER CONTROLLER
+echo PAYQUANT (PQN) REAL MAINNET NODE AND MINER CONTROLLER
 echo ===============================================================================
 echo Chain Target: REAL MAINNET (P2P Port 28333, RPC 28332)
 echo Post-Quantum Crypto: ML-DSA-65 (Dilithium NIST FIPS 204)
@@ -20,15 +20,10 @@ if not exist "%DATA_DIR%" (
     mkdir "%DATA_DIR%"
 )
 
-echo [P2P Discovery] Starting Zero-Server IRC P2P Signaling AND Peer Fetcher...
-python "contrib\http_seed_fetcher.py"
-start /min python "contrib\irc_p2p_signaling.py"
+echo [1/2] Starting Mainnet WebUI Management Server...
+start "PayQuantWebUI" /B python "contrib\mainnet_webui.py"
 
-echo.
-echo [1/2] Launching Mainnet WebUI Management Server...
-start "PayQuantWebUI" python "contrib\mainnet_webui.py"
-
-timeout /t 2 /nobreak >nul
+timeout /t 3 /nobreak >nul
 
 echo [2/2] Opening WebUI Control Panel on http://127.0.0.1:8080...
 start http://127.0.0.1:8080

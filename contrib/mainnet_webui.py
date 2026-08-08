@@ -152,7 +152,7 @@ def start_mainnet_node():
     
     exe = "dist\\payquantd.exe" if os.path.exists("dist\\payquantd.exe") else "src\\payquantd.exe"
     if os.path.exists(exe):
-        NODE_PROCESS = subprocess.Popen([exe, "--datadir", DATA_DIR])
+        NODE_PROCESS = subprocess.Popen([exe, "--daemon", "--datadir", DATA_DIR])
         add_log("NODE", f"Started PayQuant Mainnet Daemon ({exe})")
         return {"status": "started", "message": f"Started PayQuant Mainnet Node ({exe})!"}
     else:
