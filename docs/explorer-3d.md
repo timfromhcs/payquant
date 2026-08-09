@@ -27,6 +27,13 @@ TRNG seed (desktop only) ─▶ 8-qubit quantum simulator (panta-sim)
 - The **TRNG seed** is used once at mint time and never stored in a block or
   committed to the repository.
 
+## The mainnet genesis diamond
+
+Block **0** of the mainnet is shown first in the gallery. Its diamond is derived
+from the canonical public genesis record in `contrib/chain_db.py`
+(`GENESIS_BLOCK`) — same geometry, lighting and colors every node and every
+re-render produces. Chain-start constants are listed in `README.md`.
+
 ## Exploring the diamonds
 
 ### 1. Local file explorer (`explorer_3d/`)

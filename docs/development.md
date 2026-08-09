@@ -1,6 +1,6 @@
 # 🛠️ PayQuant (PQN) Developer Setup & Testing Guide
 
-Welcome developers! This document explains how to set up your local environment, run tests, and build standalone applications for PayQuant v6.0.0.
+Welcome developers! This document explains how to set up your local environment, run tests, and build standalone applications for PayQuant v2.0.0-quantum-genesis.
 
 ---
 
@@ -36,6 +36,23 @@ This tests:
 4. WebRTC DataChannel SDP Offer/Answer Signaling
 5. P2P BitTorrent Chunk Server & Universal Transport
 6. 24-Word Quantum Seedphrase Generation & Validation
+7. TRNG + 8-Qubit Quantum Simulation
+8. Quantum Footprint Generation & Validator
+9. Public 3D Diamond Gallery integrity
+10. Repository Secret Gate (no keys/seeds in tree)
+
+### Chain start (mainnet genesis)
+
+The canonical mainnet genesis block is **TRNG-minted** — its hash is a quantum
+footprint, not a mined nonce. To mint a fresh genesis locally (secrets stay on
+the Desktop, the repo receives only public data):
+
+```bash
+python tools/mint_mainnet_genesis.py --source anu   # or outshift / fallback
+```
+
+The public constants baked into the repo are defined in
+`contrib/chain_db.py` (`GENESIS_BLOCK`) and shown in `README.md`.
 
 ---
 

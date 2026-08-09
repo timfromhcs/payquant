@@ -169,6 +169,28 @@ pip install numpy panta-sim requests
 
 ---
 
+## 🧬 Chain Start & Mainnet Genesis
+
+The PayQuant mainnet was launched with a **TRNG-minted genesis block** — the
+only block whose hash is a direct quantum footprint (no previous hash). The
+seed was generated on the desktop of the chain creator and has never been
+committed to the repository; only public constants ship in code.
+
+| Chain-start constant | Value |
+| --- | --- |
+| **Genesis hash** | `c01d52bda35800c5d4f88d35f23529032fa8261938dfb300ea8b5c19218cc031` |
+| **Merkle root** | `f48783d9e4a05e0a6856d2adac4415d12fcf73c42df72835c37aae537fb791c3` |
+| **Timestamp** | `1786283877` (UTC) |
+| **Backend** | `panta_sim` · 8-qubit · outcome `00000011` |
+| **Coinbase** | `50.00000000 PQN` → `pqn1qgenesisspendenwallettreasury20252026` |
+
+The exact public record is reproduced by `contrib/chain_db.py` (`GENESIS_BLOCK`)
+and rendered as the height-0 diamond in the 3D gallery. Nodes varify every
+subsequent block against this chain start — no trust required, only
+deterministic geometry and the public SHA-256 footprint.
+
+---
+
 ## 🧪 Testing & Validation Gate
 
 ```bash

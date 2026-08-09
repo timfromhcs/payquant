@@ -1,6 +1,21 @@
 # 🏛️ PayQuant (PQN) Ecosystem Architecture Specifications
 
-PayQuant (PQN) v6.0.0 is built on a modular 3-tier architecture comprising **Post-Quantum Cryptography**, **Enterprise RocksDB Storage**, and **Zero-Port-Forwarding Hybrid P2P Networking**.
+PayQuant (PQN) v2.0.0-quantum-genesis is built on a modular 3-tier architecture comprising **Post-Quantum Cryptography**, **Enterprise RocksDB Storage**, and **Zero-Port-Forwarding Hybrid P2P Networking**, anchored by a **TRNG-minted canonical mainnet genesis block**.
+
+## 🧬 Chain Start (Mainnet Genesis)
+
+| Chain-start constant | Value |
+| --- | --- |
+| **Genesis hash** | `c01d52bda35800c5d4f88d35f23529032fa8261938dfb300ea8b5c19218cc031` |
+| **Merkle root** | `f48783d9e4a05e0a6856d2adac4415d12fcf73c42df72835c37aae537fb791c3` |
+| **Timestamp** | `1786283877` (UTC) |
+| **Backend** | `panta_sim` · 8-qubit · outcome `00000011` |
+| **Coinbase** | `50.00000000 PQN` → `pqn1qgenesisspendenwallettreasury20252026` |
+
+The genesis block hash is the direct SHA-256 quantum footprint of the minting
+run: `SHA-256(0^64 | outcome | miner | TRNG seed)`. Only the *public* footprint
+is stored in `contrib/chain_db.py` (`GENESIS_BLOCK`); the TRNG seed lives on the
+chain creator's desktop and has never been committed.
 
 ---
 

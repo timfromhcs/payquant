@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PayQuant (PQN) – Technical Documentation (v6.4.0)</title>
-    <meta name="description" content="PayQuant v6.4.0 technical documentation: JSON-RPC API, node setup, zero-server P2P signaling, RinHash mining and post-quantum ML-DSA-65 security.">
+    <title>PayQuant (PQN) – Technical Documentation (v2.0.0-quantum-genesis)</title>
+    <meta name="description" content="PayQuant v2.0.0-quantum-genesis technical documentation: JSON-RPC API, node setup, zero-server P2P signaling, RinHash mining and post-quantum ML-DSA-65 security.">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="icon" href="payquant-icon.svg" type="image/svg+xml">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -37,7 +37,7 @@
 
     <main class="max-w-5xl mx-auto px-6 py-12 flex-1">
         <h1 class="text-4xl font-extrabold text-white">Technical Documentation</h1>
-        <p class="text-slate-400 mt-2">Network specs, node setup, JSON-RPC reference and mining configuration for PayQuant v6.4.0.</p>
+        <p class="text-slate-400 mt-2">Network specs, node setup, JSON-RPC reference and mining configuration for PayQuant v2.0.0-quantum-genesis.</p>
 
         <section class="mt-10">
             <h2 class="text-2xl font-bold text-cyan-400 mb-4">1. Network &amp; Genesis Specifications</h2>
@@ -45,8 +45,9 @@
                 <table>
                     <tbody>
                         <tr><th>Network Name</th><td>PayQuant Mainnet (PQN)</td></tr>
-                        <tr><th>Genesis Block Hash</th><td><code>000005ced0a90e5e4f39d7188fa1818fee45fef6e32018d0f5f4bb5c6626d818</code></td></tr>
-                        <tr><th>Merkle Root</th><td><code>90a319ee35fae5989c52bfe0c6693ef1f658f24513e2fd41f0fdbd1c465fa8bc</code></td></tr>
+                        <tr><th>Genesis Block Hash</th><td><code>c01d52bda35800c5d4f88d35f23529032fa8261938dfb300ea8b5c19218cc031</code></td></tr>
+                        <tr><th>Merkle Root</th><td><code>f48783d9e4a05e0a6856d2adac4415d12fcf73c42df72835c37aae537fb791c3</code></td></tr>
+                        <tr><th>Genesis Mint</th><td>TRNG-minted (8-qubit panta-sim, outcome <code>00000011</code>)</td></tr>
                         <tr><th>Network Magic Bytes</th><td><code>0x70 0x71 0x6e 0x31</code> (pqn1)</td></tr>
                         <tr><th>P2P Port / RPC Port</th><td><code>28333</code> / <code>28332</code></td></tr>
                         <tr><th>Bech32 Address HRP</th><td><code>pqn</code></td></tr>
@@ -109,7 +110,7 @@ cd wallet && npm run build:web               # wallet web/Android bundle</code><
     </main>
 
     <footer class="w-full border-t border-slate-800/60 bg-[#02040b] py-6 text-center text-xs text-slate-500">
-        PayQuant (PQN) v6.4.0 — MIT License.
+        PayQuant (PQN) v2.0.0-quantum-genesis — MIT License.
     </footer>
 </body>
 </html>
