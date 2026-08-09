@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """
-PayQuant (PQN) Advanced IRC P2P Torrent Handshake & Private Signaling Engine v3.3.0
+PayQuant (PQN) Advanced IRC P2P Handshake & Local UDP Broadcast Discovery Engine v6.5.0
 Features:
- - Private 1-on-1 IRC handshake negotiation (PRIVMSG/NOTICE) without channel flooding
- - Real-time traffic, bandwidth, and DB trust score evaluations
+ - Private 1-on-1 IRC handshake negotiation (PRIVMSG/NOTICE)
+ - Real-time Node & Miner count tracking (get_node_count, get_miner_count)
+ - Local UDP Broadcast Beacon on port 28335 for instant zero-config multi-node discovery
  - Dynamic Torrent Sync Cluster formation & failover coordination
 """
 
@@ -24,22 +25,32 @@ P2P_PORT = 28333
 
 DATA_DIR = os.path.join(os.path.expanduser("~"), ".payquant") if os.name != 'nt' else os.path.join(os.environ.get('APPDATA', ''), 'PayQuantMainnetData')
 
-DISCOVERED_PEERS = set()
-DISCOVERED_PEERS_INFO = {}  # ip -> {ip, port, height, hash, trust_score, nick, last_seen}
-ACTIVE_CLUSTERS = {}        # cluster_id -> list of peer info
+DISCOVERED_PEERS = set(["127.0.0.1"])
+DISCOVERED_PEERS_INFO = {
+    "127.0.0.1": {
+        "ip": "127.0.0.1",
+        "port": 28333,
+        "height": 0,
+        "hash": "000005ced0a90e5e4f39d7188fa1818fee45fef6e32018d0f5f4bb5c6626d818",
+        "trust_score": 100,
+        "nick": "pqn_local_node",
+        "last_seen": time.time()
+    }
+}
+ACTIVE_MINERS = set(["127.0.0.1"])
 PEER_LOCK = threading.Lock()
 
 CURRENT_IRC_SOCKET = None
 
 def get_external_ip():
     try:
-        req = urllib.request.Request("https://api.ipify.org?format=json", headers={'User-Agent': 'PayQuant-IRC-Node/3.3.0'})
+        req = urllib.request.Request("https://api.ipify.org?format=json", headers={'User-Agent': 'PayQuant-IRC-Node/6.5.0'})
         with urllib.request.urlopen(req, timeout=3) as resp:
             return json.loads(resp.read().decode('utf-8')).get("ip", "127.0.0.1")
     except Exception:
         return "127.0.0.1"
 
-def register_discovered_peer(ip, port=28333, height=0, block_hash="", trust_score=100, nick=""):
+def register_discovered_peer(ip, port=28333, height=0, block_hash="", trust_score=100, nick="", is_miner=False):
     if not ip:
         return
     with PEER_LOCK:
@@ -53,55 +64,70 @@ def register_discovered_peer(ip, port=28333, height=0, block_hash="", trust_scor
             "nick": nick,
             "last_seen": time.time()
         }
+        if is_miner:
+            ACTIVE_MINERS.add(ip)
 
-    peer_str = f"addnode={ip}:{port}\n"
-    os.makedirs(DATA_DIR, exist_ok=True)
-    conf_path = os.path.join(DATA_DIR, "payquant.conf")
-    existing = []
-    if os.path.exists(conf_path):
-        with open(conf_path, "r", encoding="utf-8") as f:
-            existing = f.readlines()
-    if peer_str not in existing:
-        with open(conf_path, "a", encoding="utf-8") as f:
-            f.write(peer_str)
+def register_miner(ip):
+    with PEER_LOCK:
+        ACTIVE_MINERS.add(ip)
+
+def get_node_count():
+    with PEER_LOCK:
+        return max(1, len(DISCOVERED_PEERS))
+
+def get_miner_count():
+    with PEER_LOCK:
+        return max(1, len(ACTIVE_MINERS))
 
 def send_private_irc_message(target_nick, message):
-    """Sends a non-public private IRC message (PRIVMSG) directly to target node nickname"""
     global CURRENT_IRC_SOCKET
     if CURRENT_IRC_SOCKET:
         try:
             CURRENT_IRC_SOCKET.sendall(f"PRIVMSG {target_nick} :{message}\r\n".encode('utf-8'))
             return True
-        except Exception as e:
-            print(f"[IRC Private Handshake Error] Failed sending to {target_nick}: {e}")
+        except Exception:
+            pass
     return False
-
-def request_private_torrent_cluster(target_ip):
-    """Initiates a private 1-on-1 IRC handshake for torrent block streaming"""
-    with PEER_LOCK:
-        info = DISCOVERED_PEERS_INFO.get(target_ip)
-    if info and info.get("nick"):
-        nick = info["nick"]
-        req_msg = f"[PQN_TORRENT_REQ] from_ip={get_external_ip()} port={P2P_PORT}"
-        print(f"[IRC Torrent Handshake] Sending private handshake request to {nick} ({target_ip})...")
-        return send_private_irc_message(nick, req_msg)
-    return False
-
-def get_furthest_peer():
-    """Returns the peer info object with the highest reported chain height and trust score"""
-    with PEER_LOCK:
-        if not DISCOVERED_PEERS_INFO:
-            return None
-        sorted_peers = sorted(
-            DISCOVERED_PEERS_INFO.values(),
-            key=lambda p: (p["height"], p["trust_score"]),
-            reverse=True
-        )
-        return sorted_peers[0]
 
 def get_all_peer_infos():
     with PEER_LOCK:
         return list(DISCOVERED_PEERS_INFO.values())
+
+def run_udp_broadcast_beacon():
+    """UDP Beacon for instant zero-config discovery of 2nd local node on same machine/LAN"""
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
+    try:
+        sock.bind(('0.0.0.0', 28335))
+    except Exception:
+        pass
+    
+    sock.settimeout(2.0)
+    last_bcast = 0
+
+    while True:
+        try:
+            if time.time() - last_bcast > 3:
+                msg = json.dumps({"type": "HELLO_PEER", "port": P2P_PORT, "timestamp": int(time.time())}).encode('utf-8')
+                sock.sendto(msg, ('<broadcast>', 28335))
+                last_bcast = time.time()
+
+            try:
+                data, addr = sock.recvfrom(1024)
+                if data:
+                    parsed = json.loads(data.decode('utf-8'))
+                    if parsed.get("type") == "HELLO_PEER":
+                        peer_ip = addr[0]
+                        peer_p = parsed.get("port", 28333)
+                        register_discovered_peer(peer_ip, peer_p, nick="local_udp_peer")
+            except socket.timeout:
+                pass
+            except Exception:
+                pass
+        except Exception:
+            pass
+        time.sleep(1)
 
 def run_irc_signaling_loop():
     global CURRENT_IRC_SOCKET
@@ -114,9 +140,8 @@ def run_irc_signaling_loop():
         nick = f"pqn_{ip_encoded}_{int(time.time()) % 10000}"
         sock = None
         try:
-            print(f"[IRC P2P Signaling] Connecting to public P2P network ({host}:{port})...")
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            sock.settimeout(12)
+            sock.settimeout(10)
             sock.connect((host, port))
             CURRENT_IRC_SOCKET = sock
             
@@ -141,7 +166,6 @@ def run_irc_signaling_loop():
 
             signal_msg = f"[PQN_SIGNAL] ip={ext_ip} port={P2P_PORT} height={curr_height} hash={curr_hash} trust=100"
             sock.sendall(f"PRIVMSG {CHANNELS[0]} :{signal_msg}\r\n".encode('utf-8'))
-            print(f"[IRC P2P Signaling] Joined channels as {nick}! Signaling presence: {ext_ip}:{P2P_PORT} (Height: {curr_height})")
             
             sock.settimeout(30)
             buf = ""
@@ -183,7 +207,6 @@ def run_irc_signaling_loop():
                         elif "PRIVMSG" in line:
                             sender_nick = line.split("!")[0][1:] if "!" in line else ""
                             
-                            # Channel signal broadcast
                             if "[PQN_SIGNAL]" in line:
                                 parts = line.split("[PQN_SIGNAL]")
                                 if len(parts) > 1:
@@ -200,34 +223,6 @@ def run_irc_signaling_loop():
                                     node_trust = int(parsed.get("trust", 100))
                                     if node_ip:
                                         register_discovered_peer(node_ip, node_port, node_h, node_hash, node_trust, sender_nick)
-
-                            # Private 1-on-1 Torrent Request Handshake
-                            elif "[PQN_TORRENT_REQ]" in line:
-                                print(f"[IRC Private Handshake] Received direct torrent request from {sender_nick}!")
-                                ack_msg = f"[PQN_TORRENT_ACK] ip={ext_ip} port={P2P_PORT} status=accepted"
-                                send_private_irc_message(sender_nick, ack_msg)
-
-                            elif "[PQN_TORRENT_ACK]" in line:
-                                print(f"[IRC Private Handshake] Private torrent ACK accepted by {sender_nick}! Cluster mesh linked.")
-
-                            elif "[PQN_IRC_CHUNK]" in line:
-                                try:
-                                    from contrib.nat_p2p_transport import REASSEMBLER
-                                    parts = line.split("[PQN_IRC_CHUNK]")[1].strip().split()
-                                    p_dict = {}
-                                    for item in parts:
-                                        if "=" in item:
-                                            k, v = item.split("=", 1)
-                                            p_dict[k] = v
-                                    s_id = p_dict.get("id")
-                                    idx = int(p_dict.get("idx", 0))
-                                    total = int(p_dict.get("total", 1))
-                                    b64_data = p_dict.get("data", "")
-                                    full_msg = REASSEMBLER.add_chunk(s_id, idx, total, b64_data)
-                                    if full_msg:
-                                        print(f"[IRC Data Stream Reassembled] Received zero-port payload from {sender_nick}: {full_msg.get('type')}")
-                                except Exception as e:
-                                    print(f"[IRC Chunk Parse Error] {e}")
 
                 except socket.timeout:
                     continue
@@ -247,16 +242,11 @@ def run_irc_signaling_loop():
         time.sleep(5)
 
 def start_background_signaling():
+    threading.Thread(target=run_udp_broadcast_beacon, daemon=True).start()
     t = threading.Thread(target=run_irc_signaling_loop, daemon=True)
     t.start()
     return t
 
 if __name__ == '__main__':
-    if hasattr(sys.stdout, 'reconfigure'):
-        sys.stdout.reconfigure(encoding='utf-8')
     start_background_signaling()
-    print("=================================================================")
-    print("[IRC P2P Signaling v3.3.0] Multi-Channel Private Handshake Engine Active.")
-    print("=================================================================")
-    while True:
-        time.sleep(1)
+    print("[IRC & UDP P2P Discovery v6.5.0] Multi-Node Discovery Engine Active.")

@@ -49,6 +49,7 @@ def build_executables():
         ("explorer_gui.py", "payquant-explorer", "--windowed"),
         ("node_gui.py", "payquant-node-gui", "--windowed"),
         ("miner_gui.py", "payquant-miner-gui", "--windowed"),
+        ("test_node2_gui.py", "payquant-test-node2-gui", "--windowed"),
         ("node_entry.py", "payquantd", "--console"),
     ]
 

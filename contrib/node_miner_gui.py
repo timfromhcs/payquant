@@ -155,6 +155,25 @@ class PayQuantNodeMinerGUI:
     def start_node_services(self):
         self.log_node("P2P", "Starting P2P Stream Server on port 28333...")
         p2p_transfer.start_p2p_server(28333)
+        irc_signaling.start_background_signaling()
+
+        def update_metrics_loop():
+            while True:
+                try:
+                    h = self.db.getLastHeight()
+                    node_cnt = irc_signaling.get_node_count()
+                    miner_cnt = irc_signaling.get_miner_count()
+                    best = self.db.getBestBlock()
+                    best_h = best.get("hash", "0000...")[:16] + "..." if best else "0000..."
+
+                    self.root.after(0, self.card_blocks.config, {"text": str(h)})
+                    self.root.after(0, self.card_peers.config, {"text": f"{node_cnt} Nodes | {miner_cnt} Miners"})
+                    self.root.after(0, self.card_hash.config, {"text": best_h})
+                except Exception:
+                    pass
+                time.sleep(3)
+
+        threading.Thread(target=update_metrics_loop, daemon=True).start()
 
     def paste_address(self):
         try:

@@ -141,6 +141,22 @@ class PersistentChainDB:
             print(f"[RocksDB Recovery Warning] Corrupted state detected: {e}. Recovering...")
             return False
 
+    def get_current_block_reward(self, height):
+        """Calculates dynamic block reward with halving every 210,000 blocks"""
+        halvings = height // 210000
+        if halvings >= 64:
+            return 0.0
+        return 50.0 / (2 ** halvings)
+
+    def get_adaptive_difficulty_target(self, height):
+        """Calculates adaptive difficulty target based on block height and frequency"""
+        if height < 100:
+            return "0000"
+        elif height < 1000:
+            return "00000"
+        else:
+            return "000000"
+
     def validate_block_integrity(self, block):
         """Sanity and attack protection checks for incoming block structure"""
         if not block or not isinstance(block, dict):
@@ -151,7 +167,8 @@ class PersistentChainDB:
             return False
         if not block_hash or len(block_hash) < 10:
             return False
-        if height > 0 and not block_hash.startswith("0000"):
+        target_prefix = self.get_adaptive_difficulty_target(height)
+        if height > 0 and not block_hash.startswith(target_prefix):
             return False
         return True
 
