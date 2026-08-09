@@ -155,14 +155,15 @@ jobs:
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/main'
         with:
-          tag_name: v6.3.0-release
-          name: PayQuant Ultimate Multi-Platform Release v6.3.0 (Node+Miner Suite, Wallet, Explorer)
+          tag_name: v6.5.0-release
+          name: PayQuant Ultimate Multi-Platform Release v6.5.0 (Node+Miner Suite, Wallet, Explorer, Test Node 2)
           body: |
-            ## PayQuant (PQN) Multi-Platform Ecosystem Release v6.3.0
-            - **Combined Node + Miner Suite (`payquant-node-miner-gui.exe`)**: Unified desktop suite integrating Full Node RocksDB engine, WebRTC/IRC-DCC P2P streaming, and RinHash Solo GPU/CPU Miner.
-            - **Standalone Light Wallet GUI (`payquant-wallet-gui.exe`)**: 24-Word BIP-39 Seedphrase Generator, Tap-to-Hide Balance, QR Code Invoices, and Local Risk Assessment.
-            - **Standalone Public Explorer (`payquant-explorer.exe`)**: Zero-node address & chain auditor.
-            - **Organized Platform Installer Folders**: Separate release directory trees for `windows/`, `linux/`, `macos/`, and `android/`.
+            ## PayQuant (PQN) Multi-Platform Ecosystem Release v6.5.0
+            - **Auto-Backup & Pruned Fast-Sync Mode**: Automatic startup database backup and fast-sync catch-up engine.
+            - **Test Node #2 Executable (`payquant-test-node2-gui.exe`)**: 2nd independent test node instance on Port 28334 for testing zero-port P2P communication on 1 PC.
+            - **Combined Node + Miner Suite (`payquant-node-miner-gui.exe`)**: Integrated PQN payout address entry, auto-mining, and live peer counters.
+            - **Standalone Light Wallet GUI (`payquant-wallet-gui.exe`)**: Live daemon balance sync & P2P transaction submission.
+            - **Standalone Public Explorer (`payquant-explorer.exe`)**: Block reward halving & adaptive PoW difficulty tracking.
           files: final_release_assets/*
           draft: false
           prerelease: false

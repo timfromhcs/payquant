@@ -127,6 +127,38 @@ class PersistentChainDB:
 
             conn.close()
 
+    def auto_backup_on_startup(self):
+        """Creates an automatic timestamped backup of the chain database upon startup"""
+        try:
+            if not os.path.exists(self.db_file):
+                return None
+            backup_dir = os.path.join(os.path.dirname(self.db_file), "backups")
+            os.makedirs(backup_dir, exist_ok=True)
+            backup_filename = f"chain_backup_{int(time.time())}.zip"
+            backup_path = os.path.join(backup_dir, backup_filename)
+
+            with zipfile.ZipFile(backup_path, "w", zipfile.ZIP_DEFLATED) as zf:
+                zf.write(self.db_file, arcname=os.path.basename(self.db_file))
+
+            print(f"[RocksDB Engine] Automatic startup backup generated: {backup_path}")
+            return backup_path
+        except Exception as e:
+            print(f"[Auto Backup Warning] Could not generate startup backup: {e}")
+            return None
+
+    def reconcile_and_fast_sync(self, peer_height, peer_snapshot=None):
+        """Reconciles local chain height with remote peers using Pruned Fast-Sync Mode"""
+        local_height = self.getLastHeight()
+        if peer_height <= local_height:
+            return {"status": "synced", "mode": "FULL_MAINNET_SYNCED", "height": local_height}
+
+        print(f"[Pruned Fast-Sync] Local height #{local_height} < Peer height #{peer_height}. Catching up...")
+        if peer_snapshot:
+            self.apply_utxo_snapshot(peer_snapshot)
+            print(f"[Pruned Fast-Sync] Applied UTXO snapshot for instant function at height #{peer_height}!")
+
+        return {"status": "catching_up", "mode": "PRUNED_FAST_SYNC", "local_height": local_height, "peer_height": peer_height}
+
     def repair_db(self):
         """Attempts automatic database recovery and integrity fix"""
         print(f"[RocksDB Engine] Running automatic database recovery check on {self.db_file}...")
@@ -136,6 +168,7 @@ class PersistentChainDB:
                 conn.execute("PRAGMA integrity_check;")
                 conn.close()
             print("[RocksDB Engine] Database integrity check passed cleanly!")
+            self.auto_backup_on_startup()
             return True
         except Exception as e:
             print(f"[RocksDB Recovery Warning] Corrupted state detected: {e}. Recovering...")
