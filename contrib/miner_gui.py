@@ -214,4 +214,7 @@ def main():
     root.mainloop()
 
 if __name__ == '__main__':
+    if len(sys.argv) > 1 and sys.argv[1] in ["--help", "-h"]:
+        print("PayQuant (PQN) Standalone RinHash Solo Miner GUI v6.4.0")
+        sys.exit(0)
     main()

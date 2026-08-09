@@ -208,6 +208,9 @@ class PayQuantExplorerGUI:
             self.peers_tree.insert("", tk.END, values=(p.get("ip"), p.get("port", 28333), p.get("height", 0), f"{p.get('trust_score', 100)}/100", t_str))
 
 def main():
+    if len(sys.argv) > 1 and sys.argv[1] in ["--help", "-h"]:
+        print("PayQuant (PQN) Standalone Public Explorer GUI v6.4.0")
+        sys.exit(0)
     root = tk.Tk()
     app = PayQuantExplorerGUI(root)
     root.mainloop()

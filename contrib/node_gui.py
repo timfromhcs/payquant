@@ -156,6 +156,9 @@ class PayQuantNodeGUI:
             self.log("BACKUP", f"Exported Chain ZIP to {zip_path}")
 
 def main():
+    if len(sys.argv) > 1 and sys.argv[1] in ["--help", "-h"]:
+        print("PayQuant (PQN) Standalone Full Node GUI v6.4.0")
+        sys.exit(0)
     root = tk.Tk()
     app = PayQuantNodeGUI(root)
     root.mainloop()

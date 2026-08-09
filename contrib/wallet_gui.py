@@ -191,6 +191,9 @@ class PayQuantWalletGUI:
         messagebox.showinfo("Payment Broadcasted", f"Successfully simulated & broadcasted payment of {amt:.2f} PQN!\nStatus: P2P Confirmed.")
 
 if __name__ == '__main__':
+    if len(sys.argv) > 1 and sys.argv[1] in ["--help", "-h"]:
+        print("PayQuant (PQN) Standalone Light Wallet GUI v6.4.0")
+        sys.exit(0)
     root = tk.Tk()
     app = PayQuantWalletGUI(root)
     root.mainloop()
