@@ -123,7 +123,25 @@ class PersistentChainDB:
                 """, (txid, block["height"], recipient, amount, json.dumps(tx)))
         conn.commit()
 
+    def validate_block_integrity(self, block):
+        """Sanity and attack protection checks for incoming block structure"""
+        if not block or not isinstance(block, dict):
+            return False
+        height = block.get("height")
+        block_hash = block.get("hash", "")
+        prev_hash = block.get("prev_hash", "")
+        if height is None or not isinstance(height, int) or height < 0:
+            return False
+        if not block_hash or len(block_hash) < 10:
+            return False
+        if height > 0 and not block_hash.startswith("0000"):
+            return False
+        return True
+
     def putBlock(self, block):
+        if not self.validate_block_integrity(block):
+            print(f"[ChainDB Security Warning] Rejected malformed/invalid block structure!")
+            return False
         with self.lock:
             conn = self._get_connection()
             try:
