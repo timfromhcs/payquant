@@ -26,15 +26,19 @@ DB_PATH = os.path.join(DATA_DIR, "chainstate_v6.db")
 
 GENESIS_BLOCK = {
     "height": 0,
-    "hash": "000005ced0a90e5e4f39d7188fa1818fee45fef6e32018d0f5f4bb5c6626d818",
+    "hash": "c01d52bda35800c5d4f88d35f23529032fa8261938dfb300ea8b5c19218cc031",
     "prev_hash": "0000000000000000000000000000000000000000000000000000000000000000",
-    "merkle_root": "90a319ee35fae5989c52bfe0c6693ef1f658f24513e2fd41f0fdbd1c465fa7bc",
-    "timestamp": 1770000000,
-    "nonce": 1048576,
+    "merkle_root": "f48783d9e4a05e0a6856d2adac4415d12fcf73c42df72835c37aae537fb791c3",
+    "timestamp": 1786283877,
+    "nonce": 1,
+    "difficulty": 1,
+    "network": "mainnet",
     "miner": "pqn1qgenesisspendenwallettreasury20252026",
+    "quantum_footprint": "c01d52bda35800c5d4f88d35f23529032fa8261938dfb300ea8b5c19218cc031",
+    "raw_outcome": "00000011",
+    "backend": "panta_sim",
     "transactions": [
         {
-            "txid": "90a319ee35fae5989c52bfe0c6693ef1f658f24513e2fd41f0fdbd1c465fa7bc",
             "type": "GENESIS_COINBASE",
             "amount": "50.00000000 PQN",
             "signature": "ML-DSA-65 (Dilithium)",
@@ -42,6 +46,19 @@ GENESIS_BLOCK = {
         }
     ]
 }
+
+# Public-only quantum fields derived deterministically from the public
+# footprint (same code path as the TRNG mint, so every node reproduces the
+# exact same 3D diamond from the header alone - no secret in the repo).
+try:
+    from contrib.pqn_quantum.footprints import QuantumFootprintGenerator3D as _Q3D
+    _q3d = _Q3D()
+    _fprint = GENESIS_BLOCK["quantum_footprint"]
+    GENESIS_BLOCK["quantum_3d_geometry"] = _q3d.hash_to_3d(_fprint)
+    GENESIS_BLOCK["quantum_lighting"] = _q3d.hash_to_lighting(_fprint)
+    GENESIS_BLOCK["colors"] = _q3d.hash_to_colors(_fprint)
+except Exception:
+    pass
 
 # Enterprise Storage Configurations
 ROCKSDB_CONFIG = {

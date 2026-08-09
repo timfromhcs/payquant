@@ -18,10 +18,9 @@ os.makedirs(DATA_DIR, exist_ok=True)
 os.makedirs("release_dist", exist_ok=True)
 
 # Genesis Block Constants
-GENESIS_HASH = "000005ced0a90e5e4f39d7188fa1818fee45fef6e32018d0f5f4bb5c6626d818"
-MERKLE_ROOT = "90a319ee35fae5989c52bfe0c6693ef1f658f24513e2fd41f0fdbd1c465fa7bc"
-GENESIS_TIMESTAMP = 1738880000
-
+GENESIS_HASH = "c01d52bda35800c5d4f88d35f23529032fa8261938dfb300ea8b5c19218cc031"
+MERKLE_ROOT = "f48783d9e4a05e0a6856d2adac4415d12fcf73c42df72835c37aae537fb791c3"
+GENESIS_TIMESTAMP = 1786283877
 # Generate User's Private Post-Quantum Keys (ML-DSA-65)
 priv_seed = os.urandom(32).hex()
 pub_key = hashlib.sha256(f"mldsa65_pub_{priv_seed}".encode()).hexdigest()

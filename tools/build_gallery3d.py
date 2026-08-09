@@ -29,22 +29,12 @@ OUT_DIR = os.path.join(BASE_DIR, "explorer_3d")
 OUT_FILE = os.path.join(OUT_DIR, "diamonds.json")
 
 
-def seed_for_public(block: dict) -> int:
-    """Deterministic public seed derived from the block hash (NOT the TRNG seed).
-
-    This makes the gallery reproducible by any node from public headers alone,
-    while real mined blocks use a TRNG seed that is never exposed.
-    """
-    h = hashlib.sha256(f"pqn-public-diamond|{block.get('hash', '')}".encode()).digest()
-    return int.from_bytes(h[:4], "big")
-
-
 def build_gallery(limit: int = 64) -> dict:
     db = get_db()
     last = int(db.getLastHeight() or 0)
     gen = QuantumFootprintGenerator3D()
-    blocks = []
-    for h in range(max(0, last - limit + 1), last + 1):
+    blocks = [genesis_entry(gen)]
+    for h in range(max(1, last - limit + 2), last + 1):
         blk = db.getBlockByHeight(h)
         if not blk:
             continue
@@ -52,30 +42,48 @@ def build_gallery(limit: int = 64) -> dict:
         # public micro-footprint per block (derived from public fields)
         payload = f"{block_hash}|{blk.get('merkle_root', '')}|{blk.get('miner', '')}"
         fp = hashlib.sha256(payload.encode()).hexdigest()
-        geom = gen.hash_to_3d(fp)
-        light = gen.hash_to_lighting(fp)
-        colors = gen.hash_to_colors(fp)
-        blocks.append({
-            "height": int(h),
-            "hash": block_hash,
-            "timestamp": blk.get("timestamp", 0),
-            "miner": blk.get("miner", ""),
-            "quantum_footprint": fp,
-            "geometry_3d": geom,
-            "lighting": light,
-            "colors": colors,
-        })
+        blocks.append(block_entry(blk, fp, gen))
     payload_doc = {
         "engine": "pqn_quantum 2.0.0-quantum",
-        "generated_from": "public_block_headers",
+        "generated_from": "public_block_headers + canonical mainnet genesis",
         "count": len(blocks),
-        "note": "Public-only: geometry derived from block hashes. No seeds committed.",
+        "note": "Public-only: geometry derived from public hashes. No seeds committed.",
         "diamonds": blocks,
     }
     os.makedirs(OUT_DIR, exist_ok=True)
     with open(OUT_FILE, "w", encoding="utf-8") as f:
         json.dump(payload_doc, f, indent=1)
     return OUT_FILE
+
+
+def genesis_entry(gen: QuantumFootprintGenerator3D) -> dict:
+    """The canonical mainnet genesis (height 0) as a public gallery diamond."""
+    from contrib.chain_db import GENESIS_BLOCK
+    gb = GENESIS_BLOCK
+    fp = gb["quantum_footprint"]
+    return {
+        "height": 0,
+        "hash": gb["hash"],
+        "timestamp": gb.get("timestamp", 0),
+        "miner": gb.get("miner", ""),
+        "quantum_footprint": fp,
+        "geometry_3d": gen.hash_to_3d(fp),
+        "lighting": gen.hash_to_lighting(fp),
+        "colors": gen.hash_to_colors(fp),
+    }
+
+
+def block_entry(blk: dict, fp: str, gen) -> dict:
+    return {
+        "height": int(blk.get("height", 0)),
+        "hash": blk.get("hash", ""),
+        "timestamp": blk.get("timestamp", 0),
+        "miner": blk.get("miner", ""),
+        "quantum_footprint": fp,
+        "geometry_3d": gen.hash_to_3d(fp),
+        "lighting": gen.hash_to_lighting(fp),
+        "colors": gen.hash_to_colors(fp),
+    }
 
 
 if __name__ == "__main__":

@@ -45,8 +45,8 @@ master_secrets = {
     "mldsa65_master_public_key": pub_key_hex,
     "rpc_user": rpc_user,
     "rpc_password": rpc_password,
-    "genesis_block_hash": "000005ced0a90e5e4f39d7188fa1818fee45fef6e32018d0f5f4bb5c6626d818",
-    "merkle_root": "90a319ee35fae5989c52bfe0c6693ef1f658f24513e2fd41f0fdbd1c465fa7bc",
+    "genesis_block_hash": "c01d52bda35800c5d4f88d35f23529032fa8261938dfb300ea8b5c19218cc031",
+    "merkle_root": "f48783d9e4a05e0a6856d2adac4415d12fcf73c42df72835c37aae537fb791c3",
     "created_at": time.strftime("%Y-%m-%d %H:%M:%S UTC", time.gmtime())
 }
 
