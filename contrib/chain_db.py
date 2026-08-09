@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-PayQuant (PQN) Enterprise RocksDB / LevelDB Storage Engine v6.0.0
+PayQuant (PQN) Enterprise RocksDB / LevelDB Storage Engine v7.0.0
 Location: src/db/ / contrib/chain_db.py
 
 Enterprise Features:
@@ -334,6 +334,96 @@ class PersistentChainDB:
             rows = cur.fetchall()
             conn.close()
             return [json.loads(r["data_json"]) for r in rows]
+
+    def getAllUTXOs(self):
+        """All UTXO rows (spent + unspent) as dicts, for Merkle-fingerprint sync."""
+        with self.lock:
+            conn = self._get_connection()
+            cur = conn.cursor()
+            cur.execute("SELECT data_json FROM utxo_set")
+            rows = [json.loads(r["data_json"]) for r in cur.fetchall()]
+            conn.close()
+            return rows
+
+    def getUTXOsSince(self, since_height):
+        """UTXOs inserted at height > since_height (the Merkle-delta set)."""
+        with self.lock:
+            conn = self._get_connection()
+            cur = conn.cursor()
+            cur.execute("SELECT data_json FROM utxo_set WHERE height > ?", (int(since_height),))
+            rows = [json.loads(r["data_json"]) for r in cur.fetchall()]
+            conn.close()
+            return rows
+
+    def applyUTXODelta(self, delta_rows):
+        """Apply a wire-format UTXO delta set into the utxo_set column family."""
+        if not delta_rows:
+            return 0
+        applied = 0
+        with self.lock:
+            conn = self._get_connection()
+            try:
+                for row in delta_rows:
+                    if not isinstance(row, dict):
+                        continue
+                    recipient = row.get("recipient", "")
+                    txid = row.get("txid", row.get("utxo_id", ""))
+                    utxo_id = f"utxo_{txid}_{recipient}"
+                    try:
+                        amount = float(str(row.get("amount", "0")).split()[0])
+                    except (TypeError, ValueError):
+                        amount = 0.0
+                    try:
+                        height = int(row.get("height", row.get("block_height", 0)) or 0)
+                    except (TypeError, ValueError):
+                        height = 0
+                    conn.execute(
+                        "INSERT OR REPLACE INTO utxo_set "
+                        "(utxo_id, recipient, amount, height, spent, data_json) "
+                        "VALUES (?, ?, ?, ?, 0, ?)",
+                        (utxo_id, recipient, amount, height, json.dumps(row)),
+                    )
+                    applied += 1
+                conn.commit()
+            except Exception:
+                conn.rollback()
+            finally:
+                conn.close()
+        return applied
+
+    def merkleRootOfUTXOs(self, utxos=None):
+        """Canonical Merkle tree root over the UTXO set (v7 fast-sync fingerprint).
+
+        Leaf format is intentionally identical to contrib.pqn_sync.canonical_utxo_hash
+        so that requester and responder always agree on the network fingerprint:
+        sha256("{recipient}|{amount:.8f}|{txid_or_utxo_id}|{height}").
+        """
+
+        def _amount(v):
+            try:
+                return float(str(v).split()[0])
+            except (TypeError, ValueError):
+                return 0.0
+
+        if utxos is None:
+            utxos = self.getAllUTXOs()
+        leaves = sorted(
+            hashlib.sha256(
+                f"{u.get('recipient','')}|{_amount(u.get('amount','0')):.8f}|"
+                f"{u.get('txid', u.get('utxo_id',''))}|"
+                f"{int(u.get('height', u.get('block_height',0)) or 0)}".encode("utf-8")
+            ).hexdigest()
+            for u in (utxos or [])
+        )
+        if not leaves:
+            return hashlib.sha256(b"pqn-empty-utxo-set").hexdigest()
+        level = leaves
+        while len(level) > 1:
+            if len(level) % 2 == 1:
+                level.append(level[-1])
+            level = [hashlib.sha256(f"{a}{b}".encode("utf-8")).hexdigest()
+                     for a, b in zip(level[0::2], level[1::2])]
+        return level[0]
 
     def create_utxo_snapshot(self):
         """Fast-Sync UTXO Snapshot Generator: Creates a verified snapshot for new nodes"""

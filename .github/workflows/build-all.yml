@@ -169,16 +169,17 @@ jobs:
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/main'
         with:
-          tag_name: v6.6.0-release
-          name: PayQuant Ultimate Ecosystem v6.6.0 (Unified Dark UI, Resilient IRC Mesh, Live RPC)
+          tag_name: v7.0.0-release
+          name: PayQuant Ultimate Ecosystem v7.0.0 (Super-Transport, Merkle-Delta Sync, DirectDrop)
           body: |
-            ## PayQuant (PQN) Ultimate Ecosystem Release v6.6.0
-            - **Unified Modern Dark UI Theme**: Shared design kit across Node, Miner, Explorer, and Node+Miner GUIs with DPI-aware rendering, stat cards, and styled tabs/tables.
-            - **Resilient IRC P2P Mesh**: Multi-server IRC fallback (TLS + plaintext), channel topic re-join, message reassembly across socket chunks, and periodic peer re-announce for NAT'd nodes.
-            - **Live JSON-RPC for Wallet**: The API server now serves both REST (28377) and JSON-RPC (28332) endpoints (`getblockchaininfo`, `getbalance`, `listtransactions`), so the Electron light wallet reports real chain state.
-            - **Real Node Metrics**: `/api/status` now reports real peer counts, live hashrate from the active miner, and best block hash instead of mock values.
-            - **Enterprise RocksDB Storage Engine**: Tuned Column Families (`blocks`, `utxo_set`, `snapshots`), In-Memory LRU UTXO Cache, Bloom Filters, and Auto-Repair.
-            - **Fast-Sync Engine with UTXO Snapshots**: Instant UTXO snapshot sync reducing initial sync time from hours to minutes.
+            ## PayQuant (PQN) Ultimate Ecosystem Release v7.0.0
+            - **Super-Transport Layer**: Universal P2P backbone (`pqn_netlib`) with STUN UDP hole punch -> Direct TCP -> IRC Base64 relay fallback ladder, optionally accelerated by the libp2p/Noise network.
+            - **Merkle-Delta UTXO Sync**: New `pqn_sync` protocol compares canonical Merkle root fingerprints before shipping data, transferring only UTXO deltas over the Super-Transport.
+            - **DirectDrop Encrypted File Transfer**: AES-256-GCM sealed, Code-Exchange (file-drop love code) transfer engine (`pqn_file`) integrated into the node protocol.
+            - **Fast-Sync Integration**: The v6 UTXO snapshot engine now prefers Merkle-Delta reconciliation first, falling back to verified full snapshots only when needed.
+            - **Wallet v7 UX**: Warm-palette UI polish ("delta of love" glow), SPV transport-ladder status indicator, and updated versioning across the light wallet and node GUIs.
+            - **Resilient IRC P2P Mesh**: Multi-server IRC fallback (TLS + plaintext), channel topic re-join, message reassembly, and periodic peer re-announce for NAT'd nodes.
+            - **Live JSON-RPC for Wallet**: REST (28377) + JSON-RPC (28332) endpoints report real chain state to the Electron light wallet.
             - **Full Stack Multi-Platform Binaries**: Windows (`.exe`), Linux (`.AppImage`), macOS (`.dmg`), and Android (`.apk`).
           files: release_dist/*
           draft: false

@@ -41,7 +41,7 @@ class P2PProtocolHandler(socketserver.BaseRequestHandler):
     def handle(self):
         db = get_db()
         try:
-            raw_data = self.request.recv(BUFFER_SIZE).decode('utf-8', errors='ignore')
+            raw_data = self._recv_json_message()
             if not raw_data:
                 return
 
@@ -153,6 +153,21 @@ class P2PProtocolHandler(socketserver.BaseRequestHandler):
                 response = {"type": "send_utxo_snapshot", "status": "ok", "snapshot": snapshot}
                 self.request.sendall(json.dumps(response).encode('utf-8'))
 
+            elif msg_type == "pqn_sync_offer":
+                from contrib.pqn_sync import handle_sync_offer
+                response = handle_sync_offer(msg)
+                self.request.sendall(json.dumps(response).encode('utf-8'))
+
+            elif msg_type == "pqn_file_offer":
+                from contrib.pqn_file import handle_file_offer
+                response = handle_file_offer(msg)
+                self.request.sendall(json.dumps(response).encode('utf-8'))
+
+            elif msg_type == "pqn_file_chunks":
+                from contrib.pqn_file import handle_file_chunks
+                response = handle_file_chunks(msg)
+                self.request.sendall(json.dumps(response).encode('utf-8'))
+
             elif msg_type == "submit_tx":
                 tx = msg.get("tx", {})
                 txid = tx.get("txid", f"tx_{int(time.time()*1000)}")
@@ -241,6 +256,37 @@ class P2PProtocolHandler(socketserver.BaseRequestHandler):
 
         except Exception as e:
             print(f"[P2P Server Exception] {e}")
+
+    def _recv_json_message(self, max_bytes=8 * 1024 * 1024):
+        """Read the request socket until a complete JSON body is buffered.
+
+        Legacy clients send a single JSON line; new v7 clients (pqn_file_chunks,
+        pqn_sync_offer) may send multi-KB base64 payloads that exceed one recv().
+        We buffer up to max_bytes and stop as soon as json.loads() succeeds, which
+        keeps the handler identical for existing small messages.
+        """
+        buf = b""
+        while len(buf) < max_bytes:
+            try:
+                chunk = self.request.recv(BUFFER_SIZE)
+            except Exception:
+                break
+            if not chunk:
+                break
+            buf += chunk
+            try:
+                json.loads(buf.decode("utf-8", errors="ignore"))
+                return buf.decode("utf-8", errors="ignore")
+            except Exception:
+                continue  # incomplete JSON - keep buffering
+        try:
+            return buf.decode("utf-8", errors="ignore")
+        except Exception:
+            return ""
+
+    def _send_json(self, obj):
+        payload = json.dumps(obj).encode("utf-8")
+        self.request.sendall(payload)
 
 class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
     allow_reuse_address = True

@@ -6,7 +6,7 @@
 
 <p align="center">
   <b>The World's First Post-Quantum, Self-Optimizing Blockchain Ecosystem</b><br>
-  <i>NIST FIPS 204 ML-DSA-65 Signatures · Zero-Port-Forwarding P2P Streaming · Enterprise RocksDB · Fast-Sync UTXO Snapshots</i>
+  <i>NIST FIPS 204 ML-DSA-65 Signatures · Zero-Port-Forwarding P2P Streaming · Enterprise RocksDB · Merkle-Delta UTXO Sync · DirectDrop Encrypted Files</i>
 </p>
 
 <p align="center">
@@ -38,6 +38,8 @@ cloud server. It combines:
 | 🛡️ **ML-DSA-65 (Dilithium)** | NIST FIPS 204 lattice signatures — quantum-attack resistant *today* |
 | 🔀 **Zero-Port P2P** | 5-layer transport cascade (WebRTC → IRC DCC → STUN → TCP → encrypted relay). No port forwarding needed |
 | 🗄️ **RocksDB Engine** | Column-family storage, UTXO LRU cache, Bloom filters, auto-repair on startup |
+| 🧮 **Merkle-Delta Sync** | Canonical fingerprint compare → ships only UTXO deltas, not whole blobs |
+| 📦 **DirectDrop Files** | AES-256-GCM sealed, love-code exchanged peer-to-peer file transfer |
 | ⚡ **Fast-Sync** | Verified UTXO snapshots cut initial sync from hours to minutes |
 | ⚡ **RinHash PoW** | ASIC-resistant memory-hard mining with 50 PQN block rewards |
 | 💳 **Quantum Wallet** | 24-word BIP-39 seed encrypted with Argon2id master password |
@@ -54,6 +56,9 @@ cloud server. It combines:
 - **Argon2id-encrypted wallet vault** – 24-word BIP-39 seeds, AES-256-GCM vault, seed-only recovery, auto-lock.
 - **Built-in block explorer** – chain, address auditor and transaction viewer (desktop + light wallet).
 - **Fast-sync UTXO snapshots** – verified snapshot generation & instant import via `contrib/fast_sync_engine.py`.
+- **Merkle-delta UTXO sync** – `contrib/pqn_sync.py` compares canonical Merkle roots before transferring only changed UTXOs.
+- **Super-Transport layer** – `contrib/pqn_netlib.py` unifies WebRTC/IRC-DCC/STUN/TCP/relay under one retryable ladder, optionally accelerated by libp2p/Noise.
+- **DirectDrop peer-to-peer files** – 4-char transfer codes, AES-256-GCM sealed frames via `contrib/pqn_file.py`.
 - **Cross-platform release pipeline** – `.github/workflows/build-all.yml` produces Windows `.exe`, Linux `.AppImage`, macOS `.dmg` and Android `.apk` on every release.
 
 ---
@@ -84,7 +89,7 @@ graph TD
 git clone https://github.com/timfromhcs/payquant.git
 cd payquant
 
-# 2. Run the 7-category ecosystem test suite
+# 2. Run the 9-category ecosystem test suite
 python scripts/local_test_suite.py
 
 # 3. Launch the unified desktop suite (Full Node + Solo Miner)
@@ -136,7 +141,7 @@ python backend/api_server.py                # starts both :28377 (REST/WS) and :
 ## 🧪 Testing & Validation Gate
 
 ```bash
-python scripts/local_test_suite.py          # 7 categories, MUST pass 100% clean
+python scripts/local_test_suite.py          # 9 categories, MUST pass 100% clean
 python contrib/build_local_executables.py   # rebuild local standalone binaries
 cd wallet && npm run build:web              # wallet web/Android bundle
 ```

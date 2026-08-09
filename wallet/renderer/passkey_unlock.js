@@ -1,5 +1,5 @@
 /**
- * PayQuant (PQN) WebAuthn / Passkey Biometric Unlock Module v6.0.0
+ * PayQuant (PQN) WebAuthn / Passkey Biometric Unlock Module v7.0.0
  * Provides native biometric security (TouchID, FaceID, Windows Hello, YubiKey) for wallet access.
  */
 const PasskeyUnlock = {

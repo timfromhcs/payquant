@@ -8,6 +8,9 @@
   --red: #ff4444;
   --text: #e0e0e0;
   --muted: #8899aa;
+  --love-a: #ff7eb3;
+  --love-b: #ffd77d;
+  --glow: rgba(255, 126, 179, 0.45);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -21,7 +24,10 @@
 
 body {
   font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-  background: var(--bg);
+  background:
+    radial-gradient(1200px 600px at 85% -10%, rgba(255, 126, 179, 0.12), transparent 60%),
+    radial-gradient(1000px 500px at -10% 110%, rgba(255, 215, 125, 0.08), transparent 55%),
+    var(--bg);
   color: var(--text);
   min-height: 100vh;
 }
@@ -50,8 +56,9 @@ body {
   width: 48px; height: 48px;
   display: flex; align-items: center; justify-content: center;
   border-radius: 12px;
-  background: linear-gradient(135deg, #00d4ff, #7b2fbe);
+  background: linear-gradient(135deg, #ff7eb3, #7b2fbe);
   font-weight: 900; font-size: 1.2rem; color: #000;
+  box-shadow: 0 0 22px var(--glow);
 }
 
 h1 { font-size: 1.5rem; }
@@ -88,6 +95,11 @@ h1 { font-size: 1.5rem; }
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 1.5rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.card:hover {
+  border-color: rgba(255, 126, 179, 0.35);
+  box-shadow: 0 0 26px rgba(255, 126, 179, 0.12);
 }
 .card.full { grid-column: 1 / -1; }
 .card h3 { color: var(--muted); font-size: 0.85rem; text-transform: uppercase; margin-bottom: 0.8rem; }

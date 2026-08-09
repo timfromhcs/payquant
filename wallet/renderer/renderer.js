@@ -64,6 +64,11 @@ function setPillStatus(status, online, isLight) {
   }
 }
 
+function setTransportLadder(text) {
+  const el = $('transport-ladder-text');
+  if (el && text) el.textContent = text;
+}
+
 function deriveAddr(mnemonic) {
   if (window.PayQuantSeed && typeof PayQuantSeed.deriveAddress === 'function') {
     return PayQuantSeed.deriveAddress(mnemonic);
@@ -358,6 +363,7 @@ async function syncLightMode() {
   if ($('balance-unconfirmed')) $('balance-unconfirmed').textContent = 'Pending: 0.0000 PQN';
   if ($('node-info')) $('node-info').textContent = online ? `Light SPV | Headers: ${data.headersCount} | Height: ${data.lastHeight}` : '⚠️ Node offline - start the node (Port 28333)';
   if ($('spv-status-text')) $('spv-status-text').textContent = `Syncing: ${data ? data.headersCount : 0}/${data ? data.lastHeight : 0}`;
+  if (online) setTransportLadder('WebRTC ▸ IRC DCC ▸ STUN ▸ TCP ▸ IRC B64');
   updateQRCodes(currentAddress);
   renderTxs((data && data.transactions) || []);
 }
@@ -524,7 +530,7 @@ function copyToClipboard(text) {
   consoleEl = $('console');
   bind();
   setupChart();
-  log('PAYQUANT', 'PayQt Quantum Wallet v6.0.0 ready.');
+  log('PAYQUANT', 'PayQt Quantum Wallet v7.0.0 ready.');
   try {
     const state = await window.payquant.authState();
     if (state && state.hasWallet === true) {

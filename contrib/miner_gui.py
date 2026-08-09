@@ -67,7 +67,7 @@ class PayQuantMinerGUI:
             self.addr_entry.insert(0, self.payout_address)
             self.log("STARTUP", f"Loaded saved payout address: {self.payout_address[:16]}...")
 
-        self.log("STARTUP", "PayQuant RinHash Miner GUI v6.1.0 initializing...")
+        self.log("STARTUP", "PayQuant RinHash Miner GUI v7.0.0 initializing...")
         self.log("HARDWARE", "CPU/GPU mining thread pool initialized (RinHash ASIC-Resistant PoW).")
 
     def setup_ui(self):
