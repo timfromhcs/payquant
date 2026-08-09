@@ -169,14 +169,15 @@ jobs:
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/main'
         with:
-          tag_name: v3.4.0-release
-          name: PayQuant Full Stack Ecosystem v3.4.0 (Public Explorer App, Anti-Attack Security Hardening, BitTorrent P2P)
+          tag_name: v3.5.0-release
+          name: PayQuant Full Stack Ecosystem v3.5.0 (Zero-Port NAT Traversal, STUN UDP Hole Punch, IRC Base64 Relay)
           body: |
-            ## PayQuant (PQN) Ecosystem Release v3.4.0
-            - **Standalone Public Explorer App** (`payquant-explorer`): Zero-node standalone desktop app for searching addresses, auditing UTXOs, and tracking network hashrate/peers via IRC discovery.
-            - **Anti-Attack Security Hardening**: Block structure validation, IRC signal anti-flooding, long-range reorg protection, and peer trust scoring.
-            - **BitTorrent P2P Streaming Engine**: Piece-partitioned parallel block downloads across cluster peers with dynamic failover.
-            - **Cross-Platform Release Packages**: Windows (`.exe`), Linux (`.AppImage`), macOS (`.dmg`), and Android (`.apk`).
+            ## PayQuant (PQN) Ecosystem Release v3.5.0
+            - **Zero-Port Router Forwarding NAT Traversal Engine**: Universal 4-tier P2P transport cascade guaranteeing connectivity behind any firewall or CGNAT.
+            - **UPnP / NAT-PMP Auto-Mapping**: Automatic router port mapping without user configuration.
+            - **STUN UDP Hole Punching**: Direct peer-to-peer UDP hole punching via public STUN servers.
+            - **Encrypted IRC Base64 Relay Stream**: 100% guaranteed fallback relaying data chunks over private IRC channels when direct sockets are blocked.
+            - **Full Stack Desktop & Mobile Suite**: `payquant-node-gui`, `payquant-miner-gui`, `payquant-explorer`, and Light Wallet for Windows, Linux, macOS, and Android.
           files: release_dist/*
           draft: false
           prerelease: false

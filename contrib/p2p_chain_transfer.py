@@ -220,9 +220,18 @@ def start_p2p_server(port=P2P_TCP_PORT):
         print(f"[P2P Torrent Warning] Server could not bind to port {port}: {e}")
         return None
 
-def p2p_query_peer(peer_ip, port=P2P_TCP_PORT, request_msg=None, timeout=5):
+def p2p_query_peer(peer_ip, port=P2P_TCP_PORT, request_msg=None, timeout=5, peer_nick=None):
     if request_msg is None:
         request_msg = {"type": "get_headers", "from_height": 0}
+    try:
+        from contrib.nat_p2p_transport import send_p2p_data_universal
+        res = send_p2p_data_universal(peer_ip, request_msg, peer_nick=peer_nick, port=port)
+        if res.get("status") == "ok":
+            return res.get("data", res)
+    except Exception as e:
+        pass
+
+    # Direct TCP Fallback
     try:
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.settimeout(timeout)

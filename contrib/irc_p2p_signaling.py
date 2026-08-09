@@ -210,6 +210,25 @@ def run_irc_signaling_loop():
                             elif "[PQN_TORRENT_ACK]" in line:
                                 print(f"[IRC Private Handshake] Private torrent ACK accepted by {sender_nick}! Cluster mesh linked.")
 
+                            elif "[PQN_IRC_CHUNK]" in line:
+                                try:
+                                    from contrib.nat_p2p_transport import REASSEMBLER
+                                    parts = line.split("[PQN_IRC_CHUNK]")[1].strip().split()
+                                    p_dict = {}
+                                    for item in parts:
+                                        if "=" in item:
+                                            k, v = item.split("=", 1)
+                                            p_dict[k] = v
+                                    s_id = p_dict.get("id")
+                                    idx = int(p_dict.get("idx", 0))
+                                    total = int(p_dict.get("total", 1))
+                                    b64_data = p_dict.get("data", "")
+                                    full_msg = REASSEMBLER.add_chunk(s_id, idx, total, b64_data)
+                                    if full_msg:
+                                        print(f"[IRC Data Stream Reassembled] Received zero-port payload from {sender_nick}: {full_msg.get('type')}")
+                                except Exception as e:
+                                    print(f"[IRC Chunk Parse Error] {e}")
+
                 except socket.timeout:
                     continue
                 except (ConnectionResetError, OSError):
