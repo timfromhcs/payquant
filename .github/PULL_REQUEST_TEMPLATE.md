@@ -1,28 +1,13 @@
-<!--
-*** Please remove the following help text before submitting: ***
+## 🚀 Pull Request Description
 
-Before opening a pull request to Bitcoin Knots, please first consider if it
-is appropriate for Bitcoin Core and, if so, rebase it and [open a pull request](https://github.com/bitcoin/bitcoin/compare)
-there first! Bitcoin Core has a strict and slow review process, but since
-Knots is more relaxed, feel free to request a merge of your Core PR into
-Knots even while it's waiting on Core.
+### 🔍 Summary of Changes
+- High-level overview of edits made in this PR.
 
--->
+### 🧪 Verification & Test Steps
+- [ ] Ran `python scripts/local_test_suite.py` (100% pass)
+- [ ] Tested local standalone binaries (`python contrib/build_local_executables.py`)
+- [ ] Verified wallet web build (`npm run build:web` in `wallet/`)
 
-<!--
-Please provide clear motivation for your patch and explain how it improves
-Bitcoin Knots user experience or Bitcoin Knots developer experience
-significantly:
-
-* Any test improvements or new tests that improve coverage are always welcome.
-* All other changes should have accompanying unit tests (see `src/test/`) or
-  functional tests (see `test/`). Contributors should note which tests cover
-  modified code. If no tests exist for a region of modified code, new tests
-  should accompany the change.
-* Bug fixes are most welcome when they come with steps to reproduce or an
-  explanation of the potential issue as well as reasoning for the way the bug
-  was fixed.
-* Features are typically welcome.
-* Refactoring changes are never accepted in Knots, and must be performed in
-  Bitcoin Core.
--->
+### 🛡️ Security Check
+- [ ] No hardcoded private keys or seeds included.
+- [ ] Zero-port NAT Traversal & fallback transport compatibility maintained.

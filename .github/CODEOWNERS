@@ -1,0 +1,8 @@
+# PayQuant Codeowners Rule
+# Protect critical wallet, storage, P2P, and CI/CD paths
+
+wallet/                     @timfromhcs
+contrib/chain_db.py         @timfromhcs
+contrib/nat_p2p_transport.py @timfromhcs
+contrib/irc_p2p_signaling.py @timfromhcs
+.github/workflows/          @timfromhcs
