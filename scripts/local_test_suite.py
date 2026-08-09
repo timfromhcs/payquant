@@ -25,7 +25,7 @@ from contrib.webrtc_p2p_engine import get_webrtc_engine
 
 def run_tests():
     print("==================================================")
-    print("   PAYQUANT (PQN) ECOSYSTEM v6.0.0 TEST SUITE    ")
+    print("   PAYQUANT (PQN) ECOSYSTEM v6.3.0 TEST SUITE    ")
     print("==================================================")
 
     # 1. Test Enterprise RocksDB Engine & RepairDB
