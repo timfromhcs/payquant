@@ -1,219 +1,250 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PayQuant (PQN) – Quantensichere KI-Blockchain</title>
-    <meta name="description" content="PayQuant (PQN) ist die erste quantensichere, selbstoptimierende KI-Blockchain mit ML-DSA-65, Synergeia-Konsens und Proof of Useful Work.">
+    <title>PayQuant (PQN) – Quantum-Resistant AI Blockchain</title>
+    <meta name="description" content="PayQuant (PQN) is the world's first quantum-resistant, self-optimizing AI blockchain platform powered by NIST FIPS 204 ML-DSA-65, Synergeia consensus, and RinHash PoW.">
     <!-- Open Graph -->
-    <meta property="og:title" content="PayQuant (PQN) – Quantensichere KI-Blockchain">
-    <meta property="og:description" content="Post-Quantum, AI-gesteuert, selbstoptimierend – die Blockchain der nächsten Generation.">
+    <meta property="og:title" content="PayQuant (PQN) – Quantum-Resistant AI Blockchain">
+    <meta property="og:description" content="Post-Quantum cryptography, AI-optimized consensus, and decentralized P2P infrastructure.">
     <meta property="og:image" content="https://timfromhcs.github.io/payquant/payquant-social.svg">
     <meta property="og:url" content="https://timfromhcs.github.io/payquant/">
     <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="icon" href="payquant-icon.svg" type="image/svg+xml">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-            background: #060814;
-            color: #e0e0e0;
+            background: #040612;
+            color: #e0e6ed;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
+            line-height: 1.6;
         }
         .container {
             max-width: 1100px;
             width: 92%;
-            padding: 2rem 1rem;
+            padding: 2.5rem 1rem;
         }
-        .glass {
-            background: rgba(255,255,255,0.03);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 24px;
-            padding: 2.5rem;
-            margin: 1.5rem 0;
+        .glass-hero {
+            background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(0,212,255,0.02) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(0,212,255,0.15);
+            border-radius: 28px;
+            padding: 3.5rem 2rem;
+            margin-bottom: 2rem;
             text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
-        .logo-container img {
-            max-width: 140px;
+        .logo-img {
+            max-width: 130px;
             height: auto;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 0 20px rgba(0,212,255,0.4));
         }
         h1 {
-            font-size: 3.8rem;
-            background: linear-gradient(135deg, #00d4ff 0%, #7b2fbe 50%, #00d4ff 100%);
-            background-size: 200% 200%;
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00d4ff 0%, #7b2fbe 50%, #00ffaa 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: shimmer 4s ease-in-out infinite;
-            margin-bottom: 0.5rem;
-        }
-        @keyframes shimmer {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
         }
         p.subtitle {
-            font-size: 1.3rem;
-            color: #8899aa;
-            max-width: 750px;
-            margin: 0.5rem auto 1.5rem;
-            line-height: 1.6;
+            font-size: 1.35rem;
+            color: #94a3b8;
+            max-width: 820px;
+            margin: 0 auto 1.5rem;
+            font-weight: 400;
         }
-        .badges {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.8rem;
-            margin: 1.5rem 0;
-        }
-        a.badge {
-            background: rgba(26, 26, 62, 0.8);
-            padding: 0.6rem 1.4rem;
-            border-radius: 24px;
-            border: 1px solid rgba(255,255,255,0.12);
-            font-size: 0.95rem;
-            color: #ccd;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.25s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-        }
-        a.badge:hover {
-            transform: translateY(-3px) scale(1.04);
-            border-color: #00d4ff;
-            color: #00d4ff;
-            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.25);
-        }
-        a.badge.highlight {
-            border-color: #00d4ff;
-            color: #00d4ff;
-            background: rgba(0, 212, 255, 0.1);
-        }
-        a.badge.tag-release {
-            border-color: #7b2fbe;
-            color: #d8b4fe;
-            background: rgba(123, 47, 190, 0.15);
-        }
-        .grid {
+        .section-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 1.5rem;
-            margin: 1.5rem 0;
-            text-align: left;
+            margin: 2rem 0;
         }
         .card {
-            background: rgba(255,255,255,0.02);
+            background: rgba(255,255,255,0.025);
+            border: 1px solid rgba(255,255,255,0.08);
             border-radius: 20px;
             padding: 2rem;
-            border: 1px solid rgba(255,255,255,0.06);
-            transition: transform 0.2s;
+            transition: all 0.3s ease;
         }
-        .card:hover { transform: translateY(-4px); border-color: rgba(0,212,255,0.3); }
-        .card .icon { font-size: 2.5rem; margin-bottom: 0.8rem; }
-        .card h3 { color: #00d4ff; font-size: 1.3rem; margin-bottom: 0.5rem; }
-        .card p { color: #8899aa; font-size: 0.95rem; line-height: 1.5; }
-        .diagram-img {
+        .card:hover {
+            border-color: rgba(0,212,255,0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0,212,255,0.08);
+        }
+        .card h3 {
+            font-size: 1.3rem;
+            color: #00d4ff;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .card p {
+            color: #cbd5e1;
+            font-size: 0.98rem;
+        }
+        .tech-table {
             width: 100%;
-            max-width: 950px;
-            height: auto;
-            border-radius: 16px;
-            margin: 1rem 0;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+            background: rgba(255,255,255,0.015);
+            border-radius: 12px;
+            overflow: hidden;
             border: 1px solid rgba(255,255,255,0.08);
         }
-        footer {
-            margin: 3rem 0 1rem;
-            color: #556677;
-            font-size: 0.9rem;
-            text-align: center;
+        .tech-table th, .tech-table td {
+            padding: 1rem 1.2rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
         }
-        footer code { background: #0c0f24; padding: 0.2rem 0.6rem; border-radius: 6px; color: #00ffaa; font-family: monospace; }
-        @media (max-width: 768px) {
-            h1 { font-size: 2.5rem; }
-            p.subtitle { font-size: 1.1rem; }
-            .glass { padding: 1.5rem; }
-            .grid { grid-template-columns: 1fr; }
+        .tech-table th {
+            background: rgba(0,212,255,0.08);
+            color: #00d4ff;
+            font-weight: 600;
+        }
+        .diagram-container {
+            text-align: center;
+            margin: 2.5rem 0;
+            padding: 2rem;
+            background: rgba(255,255,255,0.02);
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .diagram-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+        }
+        footer {
+            margin-top: 4rem;
+            padding: 2rem;
+            text-align: center;
+            color: #64748b;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            width: 100%;
         }
     </style>
 </head>
 <body>
     <div class="container">
-
-        <!-- HERO LANDING HEADER -->
-        <div class="glass">
-            <div class="logo-container">
-                <img src="payquant-logo.svg" alt="PayQuant Logo">
-            </div>
+        <!-- Hero Section -->
+        <header class="glass-hero">
+            <img src="payquant-logo.svg" alt="PayQuant Logo" class="logo-img">
             <h1>PayQuant (PQN)</h1>
-            <p class="subtitle">Die quantensichere, selbstoptimierende KI-Blockchain für das digitale Zeitalter</p>
-            
-            <!-- CLICKABLE INTERACTIVE TAGS & BADGES -->
-            <div class="badges">
-                <a href="https://github.com/timfromhcs/payquant/releases/tag/v2.1.4" target="_blank" class="badge tag-release">🏷️ Tag v2.1.4 Release</a>
-                <a href="https://github.com/timfromhcs/payquant" target="_blank" class="badge highlight">⭐️ GitHub Repo</a>
-                <a href="docs.html" class="badge">📖 Technical Docs</a>
-                <a href="download.html" class="badge">📦 Download Packages</a>
-                <a href="docs.html#post-quantum" class="badge">🔐 ML-DSA-65 Spec</a>
-                <a href="docs.html#synergeia" class="badge">⚡ Synergeia 15s</a>
-                <a href="docs.html#rinhash" class="badge">⛏️ RinHash Vulkan PoW</a>
-                <a href="https://raw.githubusercontent.com/timfromhcs/payquant/main/seeds.json" target="_blank" class="badge">🌐 Dynamic HTTP Seeds</a>
+            <p class="subtitle">
+                The World's First Post-Quantum, AI-Optimized Blockchain Architecture. Protected by NIST FIPS 204 ML-DSA-65 Cryptography and Synergeia Hybrid Consensus.
+            </p>
+        </header>
+
+        <!-- Core Architectural Pillars -->
+        <h2 style="font-size: 1.8rem; color: #ffffff; text-align: center; margin: 2rem 0 1rem;">Architectural Foundations</h2>
+        
+        <div class="section-grid">
+            <div class="card">
+                <h3>🔐 NIST FIPS 204 ML-DSA-65 Cryptography</h3>
+                <p>
+                    Every transaction and wallet address (`pqn1q...`) is secured by post-quantum lattice-based digital signatures. PayQuant guarantees protection against quantum decryption threats and Shor's algorithm.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>⚡ Synergeia Hybrid Consensus</h3>
+                <p>
+                    Combines Proof-of-Work (RinHash) block proposal with 27-node Proof-of-Stake consensus verification, delivering deterministic 15-second block finality with super-exponential safety margins.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>🌐 Zero-Server P2P & Furthest Node Sync</h3>
+                <p>
+                    Operating without central points of failure, PayQuant nodes discover global peers over multi-channel IRC signaling and synchronize with the network's furthest valid node to prevent chain splits.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>⛏️ Direct Solo P2P Mining (RinHash)</h3>
+                <p>
+                    Miners retrieve mining templates directly from P2P nodes without central pools. Memory-hard RinHash PoW rewards (50.0 PQN) are paid directly to the miner's wallet address.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>💳 SPV Light Wallet & 24-Word BIP-39</h3>
+                <p>
+                    The SPV Light Wallet functions independently without requiring a full node. Secured by a 24-word BIP-39 quantum backup seedphrase with integrated QR code payments and custom invoice requests.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>💾 Persistent LevelDB / Chainstate Engine</h3>
+                <p>
+                    High-performance block and transaction storage built on LevelDB and SQLite state indexes, ensuring full state persistence across process restarts and 1-click ZIP backup exports.
+                </p>
             </div>
         </div>
 
-        <!-- CORE ARCHITECTURE & FEATURES -->
-        <div class="grid">
-            <div class="card">
-                <div class="icon">⚛️</div>
-                <h3>Post-Quantum Cryptography</h3>
-                <p>Implementiert NIST FIPS 204 ML-DSA-65 (Dilithium) Signaturverfahren. Bietet vollständigen Schutz gegen Angriffe durch Shors Algorithmus auf Quantencomputern.</p>
-            </div>
-            <div class="card">
-                <div class="icon">⚡</div>
-                <h3>Synergeia Hybrid Consensus</h3>
-                <p>Verbindet Proof-of-Work und Proof-of-Stake mit 15-Sekunden-Block-Finalität und 27 rotierenden Validator-Slots für super-exponentielle Sicherheit.</p>
-            </div>
-            <div class="card">
-                <div class="icon">🌐</div>
-                <h3>Zero-Server P2P Signaling</h3>
-                <p>100% dezentralisierte Node-Signalisierung im gesamten Internet. Jede Node findet weltweit alle aktiven Online-Nodes ohne zentralen Hauptserver.</p>
-            </div>
-            <div class="card">
-                <div class="icon">🤖</div>
-                <h3>Proof of Useful Work &amp; ZKML</h3>
-                <p>GPU-Rechenleistung trainiert echte KI-Modelle. Die Korrektheit der Berechnungen wird über Zero-Knowledge Machine Learning Proofs auf der Blockchain verifiziert.</p>
-            </div>
-            <div class="card">
-                <div class="icon">⛏️</div>
-                <h3>RinHash Vulkan GPU Mining</h3>
-                <p>ASIC-resistenter 3-Stufen PoW (BLAKE3 + Argon2d + SHA3-256). Läuft nativ auf jeder Vulkan-kompatiblen GPU ohne proprietäre Treiber.</p>
-            </div>
-            <div class="card">
-                <div class="icon">💰</div>
-                <h3>Spenden-Wallet Treasury</h3>
-                <p>Automatische Ausschüttung von 50 PQN alle 1.440 Blöcke (~6 Stunden) an alle aktiven Wallets mit Anti-Sybil-Schutz.</p>
-            </div>
+        <!-- System Specifications Table -->
+        <h2 style="font-size: 1.8rem; color: #ffffff; text-align: center; margin: 3rem 0 1rem;">System Specifications</h2>
+        
+        <table class="tech-table">
+            <thead>
+                <tr>
+                    <th>Component</th>
+                    <th>Specification</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Digital Signature Algorithm</td>
+                    <td>NIST FIPS 204 ML-DSA-65 (Lattice-Based Post-Quantum)</td>
+                </tr>
+                <tr>
+                    <td>Block Target Time</td>
+                    <td>15 Seconds Finality</td>
+                </tr>
+                <tr>
+                    <td>Block Coinbase Reward</td>
+                    <td>50.00 PQN per Block</td>
+                </tr>
+                <tr>
+                    <td>Consensus Mechanics</td>
+                    <td>Synergeia Hybrid (RinHash PoW + 27-Validator PoS)</td>
+                </tr>
+                <tr>
+                    <td>P2P Discovery</td>
+                    <td>IRC Multi-Channel (`#payquant-mainnet`, `#payquant-nodes`, `#payquant-sync`) + Direct TCP Sockets</td>
+                </tr>
+                <tr>
+                    <td>Wallet Security</td>
+                    <td>24-Word BIP-39 Quantum Backup Seedphrase & SPV Verification</td>
+                </tr>
+                <tr>
+                    <td>Database Storage</td>
+                    <td>Persistent LevelDB / ChainDB State Engine</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Architecture Diagram -->
+        <div class="diagram-container">
+            <h3 style="color: #00d4ff; margin-bottom: 1rem;">Network & Consensus Architecture Flow</h3>
+            <img src="architecture.svg" alt="PayQuant Architecture Flow">
         </div>
-
-        <!-- ARCHITECTURE DIAGRAMS -->
-        <div class="glass">
-            <h2 style="color:#00d4ff; margin-bottom:1rem;">🏗️ PayQuant Blockchain Architektur &amp; Konsens-Flow</h2>
-            <img src="architecture.svg" alt="PayQuant Architecture Diagram" class="diagram-img">
-            <img src="consensus-flow.svg" alt="Synergeia Consensus Flowchart" class="diagram-img">
-        </div>
-
-        <!-- FOOTER -->
-        <footer>
-            <p>Genesis Block: <code>000005ced0a90e5e4f39d7188fa1818fee45fef6e32018d0f5f4bb5c6626d818</code></p>
-            <p style="margin-top:0.5rem;">© 2025-2026 PayQuant Contributors. Released under the MIT License.</p>
-        </footer>
-
     </div>
+
+    <footer>
+        <p>PayQuant (PQN) Ecosystem v3.1.0 – Post-Quantum Cryptographic Blockchain. Released under the MIT License.</p>
+    </footer>
 </body>
 </html>
