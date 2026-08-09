@@ -144,6 +144,122 @@ python backend/api_server.py                # starts both :28377 (REST/WS) and :
 
 ---
 
+## 🐳 Docker Setup — Run Multiple Nodes & Miners in Parallel
+
+Run an arbitrary number of **nodes** (`node`) and **miners** (`miner`) side by side
+with Docker Compose. Services talk over a private bridge network and are
+health-checked automatically.
+
+### Prerequisites
+- Docker Engine 20.10+ / Docker Desktop (with Compose v2)
+- A copy of `.env.example` → `.env` (optional; sensible defaults are built in):
+
+```bash
+cp .env.example .env   # then adjust PQN_NETWORK, PQN_MINING_THREADS, PQN_MINER_ADDRESS, ...
+```
+
+### 1. Build the images
+
+```bash
+./build.sh            # docker build payquant-node (Dockerfile.node) + payquant-miner (Dockerfile)
+make build            # same, via Makefile
+```
+
+### 2. Start a scalable stack
+
+```bash
+# 2 nodes + 2 miners, on the internal network (fully scalable)
+docker compose up -d --scale node=2 --scale miner=2
+
+# 1 node + 4 miners
+docker compose up -d --scale node=1 --scale miner=4
+
+# stop everything
+docker compose down
+```
+
+Containers discover each other by service name over `payquant-net`
+(`node:28333`, `node:28332`) — no fixed host ports, so `--scale node=X --scale miner=Y`
+works for any X and Y.
+
+### 3. Single-node development with host ports
+
+For a plain dev run PLUS published host ports (`28332`, `28333`, `8080`) use the
+overlay file:
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.publish.yml up -d
+# WebUI:  http://localhost:8080   RPC: 127.0.0.1:28332 (pqnqrpc / your RPC pass)
+```
+
+> ⚠️ The publish overlay binds host ports and is **not** compatible with
+> `--scale > 1` — use it only for a single dev pair.
+
+### Configure via environment variables
+
+| Variable | Default | Purpose |
+| --- | --- | --- |
+| `PQN_NETWORK` | `mainnet` | Network (`mainnet` / `testnet` / `regtest`) |
+| `PQN_P2P_PORT` | `28333` | P2P port |
+| `PQN_RPC_PORT` | `28332` | JSON-RPC port |
+| `PQN_RPC_USER` / `PQN_RPC_PASS` | `payquantuser` / `change_me_deploy_secret` | RPC auth |
+| `PQN_MINER_ADDRESS` | creator payout address | Mining payout address |
+| `PQN_MINING_THREADS` | `4` | Miner thread count |
+| `PQN_TAG` | `latest` | Image tag for compose `image:` refs |
+
+---
+
+## ☁️ Google Cloud Build Pipeline
+
+`cloudbuild.yaml` builds and pushes both images (Artifact Registry) and runs the
+test suite:
+
+```bash
+# Static validation / dry-run
+gcloud builds submit --config=cloudbuild.yaml . --dry-run
+
+# Real build + push (europe-west1, tag v4.0.0)
+gcloud builds submit \
+  --config=cloudbuild.yaml \
+  --substitutions=_REGION=europe-west1,_TAG=v4.0.0 \
+  .
+```
+
+Pipeline steps:
+1. `build-node` → `Dockerfile.node` → `payquant-node:${_TAG}` (+ commit SHA)
+2. `build-miner` → `Dockerfile` → `payquant-miner:${_TAG}` (+ commit SHA)
+3. `compose-config` → validates `docker-compose.yml` on Linux Compose v1
+4. `run-tests` → `python scripts/local_test_suite.py` (inside the node image)
+5. `compose-smoke-up` → boots `node=1, miner=1`, then `compose-teardown` cleans up
+
+---
+
+## 🔬 Local Build & Test Workflow
+
+```bash
+make build          # payquant-node + payquant-miner images + `docker compose build`
+make test           # `python scripts/local_test_suite.py` + compose config validation
+make mock-scale     # dry-run compose config check for `--scale node=2 --scale miner=2`
+make all            # build + test
+make up / make down # dev stack with the publish overlay
+
+# or the shell versions
+./build.sh          # build [node|miner|all]
+./test.sh           # test [unit|docker|all]  -> prints "ALL TESTS PASSED"
+```
+
+### Extended Docker test suite
+
+```bash
+# Unit tests: compose structure, healthchecks, cloudbuild steps
+python test/functional/payquant_docker_tests.py -v
+
+# Docker integration smoke test (boots a real node+miner stack):
+PQN_DOCKER_INTEGRATION=1 python test/functional/payquant_docker_tests.py
+```
+
+---
+
 ## 🔮 Quantum Footprint Live
 
 Every PayQuant block is tied to a **true-random seed** captured at mint time.
@@ -197,6 +313,7 @@ deterministic geometry and the public SHA-256 footprint.
 
 ```bash
 python scripts/local_test_suite.py          # 13 categories, MUST pass 100% clean
+python test/functional/payquant_docker_tests.py -v   # Docker/compose/cloudbuild unit tests
 python scripts/test_loop.py                 # self-healing loop → DEPLOY READY
 python tools/check_secrets.py               # secret gate (no keys/seeds in tree)
 python contrib/build_local_executables.py   # rebuild local standalone binaries

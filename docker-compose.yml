@@ -1,16 +1,74 @@
-version: '3.8'
+# PayQuant (PQN) scalable Docker environment
+# ---------------------------------------------------------------
+# Default (internal-only network, fully scalable):
+#   docker compose up -d --scale node=2 --scale miner=2
+#
+# Single-node dev setup WITH host ports published:
+#   docker compose -f docker-compose.yml -f docker-compose.publish.yml up -d
+#
+# Environment (copy .env.example -> .env) & overrides like
+#   PQN_NETWORK=mainnet PQN_MINING_THREADS=8 docker compose up -d --scale miner=3
+# ---------------------------------------------------------------
 
-services:
-  payquantd:
-    build: .
-    image: ghcr.io/timfromhcs/payquant:latest
-    container_name: payquant_node
-    restart: unless-stopped
-    ports:
-      - "28333:28333"
-      - "28332:28332"
-    volumes:
-      - payquant_data:/root/.payquant
+name: payquant
+
+networks:
+  payquant-net:
+    driver: bridge
 
 volumes:
-  payquant_data:
+  payquant_node_data:
+
+services:
+  node:
+    build:
+      context: .
+      dockerfile: Dockerfile.node
+    image: ghcr.io/timfromhcs/payquant-node:${PQN_TAG:-latest}
+    restart: unless-stopped
+    networks:
+      - payquant-net
+    environment:
+      PQN_NETWORK: ${PQN_NETWORK:-mainnet}
+      PQN_P2P_PORT: ${PQN_P2P_PORT:-28333}
+      PQN_RPC_PORT: ${PQN_RPC_PORT:-28332}
+      PQN_RPC_USER: ${PQN_RPC_USER:-payquantuser}
+      PQN_RPC_PASS: ${PQN_RPC_PASS:-change_me_deploy_secret}
+      PQN_MINER_ADDRESS: ${PQN_MINER_ADDRESS:-pqn1q65860565c97469d2f22665d0c9ca5d1d8176e2}
+    volumes:
+      - payquant_node_data:/root/.payquant
+    expose:
+      - "28332"
+      - "28333"
+      - "28334"
+      - "28335"
+      - "8080"
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import socket; s=socket.socket(); s.settimeout(2); s.connect(('127.0.0.1',8080))\" || exit 1"]
+      interval: 20s
+      timeout: 6s
+      retries: 6
+      start_period: 15s
+
+  miner:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ghcr.io/timfromhcs/payquant-miner:${PQN_TAG:-latest}
+    restart: unless-stopped
+    depends_on:
+      - node
+    networks:
+      - payquant-net
+    environment:
+      PQN_NETWORK: ${PQN_NETWORK:-mainnet}
+      PQN_MINING_THREADS: ${PQN_MINING_THREADS:-4}
+      PQN_MINER_ADDRESS: ${PQN_MINER_ADDRESS:-pqn1q65860565c97469d2f22665d0c9ca5d1d8176e2}
+    expose:
+      - "28333"
+    healthcheck:
+      test: ["CMD-SHELL", "kill -0 1 || exit 1"]
+      interval: 20s
+      timeout: 6s
+      retries: 6
+      start_period: 10s

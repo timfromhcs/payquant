@@ -1,0 +1,15 @@
+# PayQuant (PQN) - optional single-node dev overlay
+# ----------------------------------------------------------------------
+# Publishes host ports for a SINGLE node+miner pair. NOT scalable — use
+# it only for local development. For scaling use the base file alone:
+#
+#   docker compose -f docker-compose.yml -f docker-compose.publish.yml up -d   # single pair
+#   docker compose up -d --scale node=2 --scale miner=2                       # scalable
+# ----------------------------------------------------------------------
+
+services:
+  node:
+    ports:
+      - "28332:28332"
+      - "28333:28333"
+      - "8080:8080"

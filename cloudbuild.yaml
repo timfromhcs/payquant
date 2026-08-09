@@ -1,0 +1,98 @@
+# PayQuant (PQN) - Google Cloud Build pipeline
+# ----------------------------------------------------------------------
+# Builds the node and miner container images and pushes them to Google
+# Container Registry / Artifact Registry.
+#
+# Local dry-run / validation:
+#   gcloud builds submit --config=cloudbuild.yaml . --dry-run
+#
+# Trigger:
+#   gcloud builds submit \
+#     --config=cloudbuild.yaml \
+#     --substitutions=_REGION=europe-west1,_TAG=v4.0.0 \
+#     .
+#
+# Substitutions (defaults overridable via --substitutions=KEY=VALUE):
+#   _REGION     Image registry region (default: europe-west1)
+#   _TAG        Image tag (default: latest)
+#   _PROJECT    target project id (default: $PROJECT_ID)
+#   _COMPOSE    compose file used for the smoke-up (default: docker-compose.yml)
+# ----------------------------------------------------------------------
+
+timeout: 3600s
+
+options:
+  substitution_option: "ALLOW_LOOSE"
+  logging: "GCS_ONLY"
+  machineType: "E2_HIGHCPU_8"
+
+substitutions:
+  _REGION: "europe-west1"
+  _TAG: "latest"
+  _PROJECT: "$PROJECT_ID"
+  _COMPOSE: "docker-compose.yml"
+
+steps:
+  # 1. Build the Node image
+  - id: build-node
+    name: "gcr.io/cloud-builders/docker"
+    args:
+      - build
+      - -f
+      - Dockerfile.node
+      - -t
+      - "${_REGION}-docker.pkg.dev/${_PROJECT}/payquant/payquant-node:${_TAG}"
+      - -t
+      - "${_REGION}-docker.pkg.dev/${_PROJECT}/payquant/payquant-node:${COMMIT_SHA}"
+      - .
+
+  # 2. Build the Miner image
+  - id: build-miner
+    name: "gcr.io/cloud-builders/docker"
+    args:
+      - build
+      - -f
+      - Dockerfile
+      - -t
+      - "${_REGION}-docker.pkg.dev/${_PROJECT}/payquant/payquant-miner:${_TAG}"
+      - -t
+      - "${_REGION}-docker.pkg.dev/${_PROJECT}/payquant/payquant-miner:${COMMIT_SHA}"
+      - .
+
+  # 3. Validate the compose file & configuration
+  - id: compose-config
+    name: "docker/compose:1.29.2"
+    waitFor: ["build-node", "build-miner"]
+    args: ["-f", "$_COMPOSE", "config", "--quiet"]
+
+  # 4. Run the local ecosystem test suite inside the freshly-built node image
+  - id: run-tests
+    name: "${_REGION}-docker.pkg.dev/${_PROJECT}/payquant/payquant-node:${_TAG}"
+    waitFor: ["compose-config"]
+    entrypoint: "python3"
+    args: ["scripts/local_test_suite.py"]
+
+  # 5. Smoke-test: boot the full stack (default 1 node + 1 miner)
+  - id: compose-smoke-up
+    name: "docker/compose:1.29.2"
+    waitFor: ["run-tests"]
+    entrypoint: "sh"
+    args:
+      - "-c"
+      - |
+        docker compose -f $_COMPOSE up -d --scale node=1 --scale miner=1 && \
+        sleep 30 && \
+        docker compose -f $_COMPOSE ps --format json || echo "COMPOSE_SMOKE_FAILED"
+
+  # 6. Tear the smoke-test stack down
+  - id: compose-teardown
+    name: "docker/compose:1.29.2"
+    waitFor: ["compose-smoke-up"]
+    entrypoint: "sh"
+    args: ["-c", "docker compose -f $_COMPOSE down --volumes || true"]
+
+images:
+  - "${_REGION}-docker.pkg.dev/${_PROJECT}/payquant/payquant-node:${_TAG}"
+  - "${_REGION}-docker.pkg.dev/${_PROJECT}/payquant/payquant-node:${COMMIT_SHA}"
+  - "${_REGION}-docker.pkg.dev/${_PROJECT}/payquant/payquant-miner:${_TAG}"
+  - "${_REGION}-docker.pkg.dev/${_PROJECT}/payquant/payquant-miner:${COMMIT_SHA}"

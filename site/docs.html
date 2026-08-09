@@ -103,9 +103,32 @@ python contrib/miner_gui.py --help</code></pre>
         <section class="mt-10">
             <h2 class="text-2xl font-bold text-cyan-300 mb-4">5. Testing &amp; Validation Gate</h2>
             <pre><code>python scripts/local_test_suite.py          # 13-category ecosystem test
+python test/functional/payquant_docker_tests.py -v   # Docker/compose/cloudbuild unit tests
 python contrib/build_local_executables.py    # rebuild standalone binaries
 cd wallet && npm run build:web               # wallet web/Android bundle</code></pre>
             <p class="text-sm text-slate-400 mt-3">Fork-specific docs for the underlying Bitcoin-Knots core live in <code>doc/</code> (release notes, build guides, developer notes).</p>
+        </section>
+
+        <section class="mt-10">
+            <h2 class="text-2xl font-bold text-emerald-400 mb-4">6. Docker &amp; Cloud Build — Parallel Nodes &amp; Miners</h2>
+            <p class="text-slate-300">Scale any number of full nodes and RinHash miners side-by-side with Docker Compose:</p>
+            <pre><code># 2 nodes + 2 miners on the internal bridge network
+docker compose up -d --scale node=2 --scale miner=2
+
+# 1 node + 4 miners
+docker compose up -d --scale node=1 --scale miner=4
+
+# stop
+docker compose down</code></pre>
+            <p class="text-slate-300 mt-3">Single-node dev stack with host ports <code>28332</code>, <code>28333</code>, <code>8080</code>:</p>
+            <pre><code>docker compose -f docker-compose.yml -f docker-compose.publish.yml up -d
+# WebUI: http://localhost:8080</code></pre>
+            <p class="text-slate-300 mt-3">Google Cloud Build — build &amp; push both images, then run the test suite:</p>
+            <pre><code>gcloud builds submit \
+  --config=cloudbuild.yaml \
+  --substitutions=_REGION=europe-west1,_TAG=v4.0.0 \
+  .</code></pre>
+            <p class="text-sm text-slate-400 mt-3">Pipeline: <code>build-node</code> → <code>build-miner</code> → <code>compose-config</code> → <code>run-tests</code> → <code>compose-smoke-up</code> → <code>compose-teardown</code>. Full docs in <code>README.md</code> (🛠 Docker Setup / ☁️ Cloud Build).</p>
         </section>
     </main>
 
