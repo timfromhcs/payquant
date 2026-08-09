@@ -1,41 +1,44 @@
-# 🚀 PayQuant (PQN) – Quantum-Resistant AI Blockchain (v3.1.0 Ecosystem)
+# 🚀 PayQuant (PQN) – Quantum-Resistant AI Blockchain (v3.3.0 Ecosystem)
 
 [![Build Status](https://github.com/timfromhcs/payquant/actions/workflows/build-all.yml/badge.svg)](https://github.com/timfromhcs/payquant/actions/workflows/build-all.yml)
 [![Quantum Secure](https://img.shields.io/badge/Post--Quantum-ML--DSA--65-brightgreen)](https://github.com/timfromhcs/payquant)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Release v3.1.0](https://img.shields.io/github/v/release/timfromhcs/payquant)](https://github.com/timfromhcs/payquant/releases/tag/v3.1.0-release)
+[![Release v3.3.0](https://img.shields.io/github/v/release/timfromhcs/payquant)](https://github.com/timfromhcs/payquant/releases/tag/v3.3.0-release)
 [![GitHub Pages](https://img.shields.io/badge/GitHub-Pages-blue)](https://timfromhcs.github.io/payquant/)
 
-**PayQuant (PQN) Ecosystem v3.1.0** is the world's first post-quantum, self-optimizing AI blockchain platform combining **NIST FIPS 204 ML-DSA-65 digital signatures**, **LevelDB persistent chainstate**, **SPV Light Wallet (Zero-Node Required)** with **24-word BIP-39 seedphrase security**, **QR code invoice payment requests**, and **decentralized P2P solo mining with dynamic furthest-node consensus alignment**.
+**PayQuant (PQN) Ecosystem v3.3.0** features a **BitTorrent-style P2P Parallel Data Streaming Protocol**, **Private 1-on-1 IRC Handshakes & Cluster Mesh Auto-Formation**, **Dynamic Failover Protection**, **Pruned Fast-Verify Mode**, and **24-word BIP-39 Quantum Backup Seedphrases**.
 
 ---
 
-## ⚡ Standalone Native Applications (v3.1.0)
+## ⚡ BitTorrent P2P Streaming & Torrent Cluster Architecture (v3.3.0)
 
-PayQuant v3.1.0 features dedicated standalone desktop and mobile applications across all major operating systems (no web-browser dependencies):
+Version 3.3.0 introduces a Torrent-like P2P streaming engine that accelerates block synchronization and protects nodes from chain splits:
 
-### 1. 🖥️ Standalone GUI Node (`payquant-node-gui`)
-- **Persistent ChainDB**: Saves all blocks, UTXOs, and transaction indexes to persistent disk storage (`LevelDB` / SQLite state).
-- **Furthest-Node Querying & Auto-Sync**: Continuously polls online P2P peers to identify the furthest valid node height and automatically synchronizes the chain, protecting the network from chain splits and fork manipulation.
-- **Zero-Server IRC P2P Engine**: Discovers global peers dynamically across public IRC channels (`#payquant-mainnet`, `#payquant-nodes`, `#payquant-sync`).
-- **Live Metrics & Backup Export**: Displays real-time block height, active peers, entropy, visual log stream, and features a 1-click ZIP database backup exporter.
+### 1. 💬 Private 1-on-1 IRC Handshake (`PRIVMSG` / `NOTICE`)
+- **Non-Public Negotiations**: Nodes connect to IRC (`#payquant-mainnet`, `#payquant-nodes`, `#payquant-sync`) and initiate direct private handshakes (`PRIVMSG <nick> :[PQN_TORRENT_REQ]`) without channel flooding.
+- **Trust & Speed Scoring**: Handshakes exchange verified block height, DB hash integrity, and available streaming bandwidth.
 
-### 2. ⚡ Standalone GUI Miner (`payquant-miner-gui`)
-- **Solo P2P Mining (No Central Pools)**: Retrieves candidate block templates directly from local/P2P nodes (`get_mining_job`) and pays block rewards (50.0 PQN) directly to the miner's address.
-- **One-Click Operation**: Paste your PQN wallet address, select CPU/GPU mining threads, and click `[▶ START MINING]`.
-- **RinHash Acceleration**: ASIC-resistant RinHash PoW with real-time hashrate monitoring (`24,850 H/s`) and instant block payout validation.
+### 2. 🔀 BitTorrent-Style Piece Partitioning & Parallel Downloads
+- **Torrent Piece Chunks**: Block ranges are partitioned into 50-block pieces and streamed concurrently across multiple online cluster peers over TCP sockets.
+- **Pruned Fast-Verify Mode**: New nodes instantly verify incoming transactions using Block Headers + UTXO Set state while full historical torrent streams complete in the background.
 
-### 3. 💳 Cross-Platform Light Wallet (`payquant-wallet` / Android APK)
-- **SPV Light Mode**: Runs independently without requiring a local node process. Connects directly to P2P peers to verify headers and balance UTXOs.
-- **QR Code Payments & Scanner**: Integrated QR code renderer and camera/file QR scanner for friction-free payments.
-- **Payment Request Invoices**: Generate custom payment request QR codes with specific PQN amounts and notes.
-- **24-Word BIP-39 Quantum Backup Seedphrase**: Generates a 24-word seedphrase backed by cryptographically secure PRNG and quantum sentinel entropy. Includes 1-click wallet restoration.
+### 3. 🛡️ Dynamic Failover & Chain Split Protection
+- **Automatic Peer Failover**: If a streaming peer drops offline or lags, the cluster detects it instantly and reassigns missing block pieces to backup cluster peers.
+- **Furthest-Node Consensus Alignment**: Nodes continuously poll the peer pool to identify the furthest valid chain height, preventing forks and chain splits.
+
+---
+
+## 💻 Standalone Native Applications (v3.3.0)
+
+PayQuant v3.3.0 includes dedicated standalone desktop and mobile applications across all platforms:
+
+- **🖥️ Standalone GUI Node (`payquant-node-gui`)**: Full node with LevelDB persistent chainstate, BitTorrent stream server, live metrics, and 1-click ZIP backup export.
+- **⚡ Standalone GUI Miner (`payquant-miner-gui`)**: RinHash ASIC-resistant GPU/CPU solo miner with 1-click payout address input and direct P2P solo rewards.
+- **💳 Cross-Platform Light Wallet (`payquant-wallet` / Android APK)**: 24-word BIP-39 quantum seedphrase wallet with QR code payments, camera/file scanner, and invoice request generator.
 
 ---
 
 ## 🚀 Quick Start & Launch
-
-### Run Standalone Applications (Python / Native):
 
 ```bash
 # Clone repository
@@ -53,46 +56,31 @@ cd wallet && npm start
 ```
 
 ### Windows 1-Click Launchers:
-Double-click:
-```cmd
-start_payquant_mainnet.bat
-```
+Double-click `start_payquant_mainnet.bat`.
 
 ---
 
-## 🔐 Post-Quantum Cryptography (NIST FIPS 204 ML-DSA-65)
-
-PayQuant utilizes **NIST FIPS 204 ML-DSA-65 (Dilithium)** as its primary digital signature algorithm. Every PQN address (`pqn1q...`) is cryptographically protected against quantum attacks using Shor's algorithm.
+## 🔐 Post-Quantum Cryptography & Specs
 
 | Component | Specification / Size |
 |-----------|----------------------|
-| Signature Scheme | NIST FIPS 204 ML-DSA-65 |
+| Signature Scheme | NIST FIPS 204 ML-DSA-65 (Lattice-Based) |
 | Public Key | ~1,312 Bytes |
 | Private Key Seed | 32 Bytes / 24-Word BIP-39 Seedphrase |
 | Signature | ~2,420 Bytes |
-| Multi-Node Attestation | 3-Hop Peer Verification Routing |
-
----
-
-## 🌐 Synergeia Consensus & P2P Routing
-
-1. **Wallet -> Node**: Transactions broadcast directly to active P2P nodes.
-2. **Multi-Node Attestation**: Nodes append peer signature attestations (`verifications`) before entering block templates.
-3. **Node -> Miner Solo P2P**: Miners retrieve candidate block templates via `get_mining_job` with coinbase rewards allocated to the miner's address.
-4. **Dynamic Consensus Sync**: Nodes query the network every 12 seconds for the furthest valid height, preventing chain splits.
+| P2P Data Protocol | BitTorrent-Style Piece Streaming over Direct TCP Sockets |
+| IRC Handshake | Private 1-on-1 `PRIVMSG` / `NOTICE` Signaling |
 
 ---
 
 ## 📦 Multi-Platform Releases & Downloads
 
-| Platform | Component | Package |
-|----------|-----------|---------|
-| **Windows 64-bit** | GUI Node / GUI Miner / GUI Wallet | Standalone Executables (`.exe`) |
-| **Linux x64/arm64** | GUI Node / GUI Miner / GUI Wallet | Standalone AppImages (`.AppImage`) / Binaries |
-| **macOS Universal** | GUI Node / GUI Miner / GUI Wallet | Standalone Packages (`.dmg`) |
-| **Android Mobile** | GUI Light Wallet | Native Debug/Release APK (`.apk`) |
-
-Visit the [GitHub Releases](https://github.com/timfromhcs/payquant/releases) page to download pre-compiled binaries.
+| Platform | Package | Download Link |
+|----------|---------|---------------|
+| **Windows 64-bit** | Standalone Executables (`.exe`) | [Releases v3.3.0](https://github.com/timfromhcs/payquant/releases) |
+| **Linux x64/arm64** | Standalone AppImages (`.AppImage`) / Binaries | [Releases v3.3.0](https://github.com/timfromhcs/payquant/releases) |
+| **macOS Universal** | Standalone Packages (`.dmg`) | [Releases v3.3.0](https://github.com/timfromhcs/payquant/releases) |
+| **Android Mobile** | Native Light Wallet APK (`.apk`) | [Releases v3.3.0](https://github.com/timfromhcs/payquant/releases) |
 
 ---
 
