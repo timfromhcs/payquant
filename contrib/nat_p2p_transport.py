@@ -24,6 +24,16 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if BASE_DIR not in sys.path:
     sys.path.insert(0, BASE_DIR)
 
+def get_external_ip():
+    """Helper to query external IP address"""
+    try:
+        import urllib.request
+        req = urllib.request.Request("https://api.ipify.org?format=json", headers={'User-Agent': 'PayQuant-NAT/6.0.0'})
+        with urllib.request.urlopen(req, timeout=3) as resp:
+            return json.loads(resp.read().decode('utf-8')).get("ip", "127.0.0.1")
+    except Exception:
+        return "127.0.0.1"
+
 STUN_SERVERS = [
     ("stun.l.google.com", 19302),
     ("stun1.l.google.com", 19302),

@@ -110,6 +110,11 @@ class P2PProtocolHandler(socketserver.BaseRequestHandler):
                 response = {"type": "send_utxos", "status": "ok", "address": address, "utxos": txs, "last_height": db.getLastHeight()}
                 self.request.sendall(json.dumps(response).encode('utf-8'))
 
+            elif msg_type == "get_utxo_snapshot":
+                snapshot = db.create_utxo_snapshot()
+                response = {"type": "send_utxo_snapshot", "status": "ok", "snapshot": snapshot}
+                self.request.sendall(json.dumps(response).encode('utf-8'))
+
             elif msg_type == "submit_tx":
                 tx = msg.get("tx", {})
                 txid = tx.get("txid", f"tx_{int(time.time()*1000)}")

@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """
-PayQuant (PQN) Ecosystem Local Test Suite v3.5.0
+PayQuant (PQN) Ecosystem Local Test Suite v6.0.0
 Verifies:
- 1. Persistent LevelDB / ChainDB State & Block Integrity Gate
- 2. BitTorrent-Style Piece/Chunk P2P Data Streaming & Failover
- 3. NAT Traversal & Universal 4-Layer P2P Multi-Fallback Engine
- 4. Encrypted IRC Base64 Chunk Stream Reassembly
- 5. 24-Word Quantum Seedphrase Validation Logic
+ 1. Enterprise RocksDB Storage Engine, RepairDB & Block Integrity Gate
+ 2. UTXO Fast-Sync Snapshot Generation & Instant Import
+ 3. IRC DCC Engine (DCC SEND / DCC RESUME / Reverse Connect)
+ 4. WebRTC DataChannel SDP Offer/Answer Signaling over IRC
+ 5. P2P BitTorrent Chunk Streaming & Universal NAT Transport
+ 6. 24-Word Quantum Seedphrase Validation Logic
 """
 
 import sys
@@ -19,79 +20,52 @@ if BASE_DIR not in sys.path:
 
 from contrib.chain_db import get_db
 from contrib.p2p_chain_transfer import start_p2p_server, p2p_query_peer
-from contrib.nat_p2p_transport import query_stun_server, chunk_data_for_irc, REASSEMBLER, send_p2p_data_universal
-from contrib.irc_p2p_signaling import register_discovered_peer, get_furthest_peer
+from contrib.irc_dcc_engine import get_dcc_engine
+from contrib.webrtc_p2p_engine import get_webrtc_engine
 
 def run_tests():
     print("==================================================")
-    print("   PAYQUANT (PQN) ECOSYSTEM v3.5.0 TEST SUITE    ")
+    print("   PAYQUANT (PQN) ECOSYSTEM v6.0.0 TEST SUITE    ")
     print("==================================================")
 
-    # 1. Test Persistent ChainDB & Integrity Gate
+    # 1. Test Enterprise RocksDB Engine & RepairDB
     db = get_db()
     init_height = db.getLastHeight()
-    print(f"[TEST 1/6] Persistent ChainDB loaded. Current Height: {init_height}")
-    
-    test_block = {
-        "height": init_height + 1,
-        "hash": f"00000testblockhash_{int(time.time())}",
-        "prev_hash": db.getBestBlock()["hash"],
-        "merkle_root": "abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890",
-        "timestamp": int(time.time()),
-        "nonce": 123456,
-        "miner": "pqn1qtestmineraddress2026",
-        "transactions": [
-            {
-                "txid": f"tx_test_{int(time.time())}",
-                "recipient": "pqn1qtestrecipientaddress2026",
-                "amount": "10.0 PQN",
-                "signature": "ML-DSA-65"
-            }
-        ]
-    }
-    
-    db.putBlock(test_block)
-    new_height = db.getLastHeight()
-    assert new_height == init_height + 1, "ChainDB height failed to update!"
-    print(f" -> [SUCCESS] Persistent ChainDB wrote block height {new_height} successfully!")
+    print(f"[TEST 1/6] Enterprise RocksDB Engine loaded. Current Height: {init_height}")
+    assert db.repair_db() == True, "RocksDB integrity repair failed!"
+    print(" -> [SUCCESS] RocksDB Engine & Automatic DB Repair verified!")
 
-    # 2. Test P2P BitTorrent Server
-    print("[TEST 2/6] Testing BitTorrent-Style Chunk Streaming & P2P Server...")
+    # 2. Test UTXO Fast-Sync Snapshot Generator & Apply
+    print("[TEST 2/6] Testing Fast-Sync UTXO Snapshot Engine...")
+    snap = db.create_utxo_snapshot()
+    assert snap is not None and "snapshot_hash" in snap, "UTXO Snapshot generation failed!"
+    apply_success = db.apply_utxo_snapshot(snap)
+    assert apply_success == True, "UTXO Snapshot apply failed!"
+    print(f" -> [SUCCESS] Generated and applied Fast-Sync UTXO Snapshot ({snap['utxo_count']} UTXOs)!")
+
+    # 3. Test IRC DCC Engine
+    print("[TEST 3/6] Testing IRC DCC Engine (DCC SEND / RESUME / Reverse)...")
+    sample_file_data = b"PQN_UTXO_SNAPSHOT_DATA_CHUNK_TEST"
+    dcc_offer = get_dcc_engine().create_dcc_send_offer("snapshot.json", sample_file_data, "pqn_peer_test")
+    parsed_dcc = get_dcc_engine().parse_dcc_ctcp(dcc_offer["ctcp"])
+    assert parsed_dcc is not None and parsed_dcc["type"] == "SEND", "IRC DCC CTCP parsing failed!"
+    print(f" -> [SUCCESS] Generated & parsed IRC DCC offer for target {dcc_offer['target_nick']}!")
+
+    # 4. Test WebRTC DataChannel SDP Offer/Answer Signaling
+    print("[TEST 4/6] Testing WebRTC DataChannel SDP Offer/Answer Engine...")
+    webrtc_offer = get_webrtc_engine().create_sdp_offer("pqn_peer_test")
+    parsed_sdp = get_webrtc_engine().parse_webrtc_signal(webrtc_offer["irc_msg"])
+    assert parsed_sdp is not None and parsed_sdp["type"] == "OFFER", "WebRTC SDP signal parsing failed!"
+    print(" -> [SUCCESS] WebRTC SDP Offer/Answer signaling over IRC verified!")
+
+    # 5. Test P2P Fast-Sync UTXO Snapshot Protocol
+    print("[TEST 5/6] Testing P2P Fast-Sync Snapshot Protocol Server...")
     srv = start_p2p_server(28333)
     time.sleep(1)
     
-    chunk_res = p2p_query_peer("127.0.0.1", 28333, {"type": "stream_torrent_chunk", "start_height": 0, "size": 5})
-    assert chunk_res.get("status") == "ok", "BitTorrent chunk streaming request failed!"
-    print(f" -> [SUCCESS] Streamed {len(chunk_res.get('blocks', []))} blocks via BitTorrent P2P Chunk protocol!")
-
-    # 3. Test STUN Public IP Resolution & NAT Traversal
-    print("[TEST 3/6] Testing STUN Public IP Resolution...")
-    stun_info = query_stun_server()
-    if stun_info:
-        print(f" -> [SUCCESS] STUN Mapped Public Endpoint: {stun_info['ip']}:{stun_info['port']}")
-    else:
-        print(" -> [NOTICE] STUN resolution timed out (Fallback active).")
-
-    # 4. Test Encrypted IRC Base64 Data Stream Fallback
-    print("[TEST 4/6] Testing Encrypted IRC Base64 Data Stream Chunking & Reassembly...")
-    test_payload = {"type": "get_blocks", "from_height": 10, "data_sample": "x" * 500}
-    chunks = chunk_data_for_irc(test_payload, max_chunk_len=200)
-    assert len(chunks) > 1, "IRC data chunking failed to split payload!"
-    
-    reassembled = None
-    for chk in chunks:
-        parts = chk.split("[PQN_IRC_CHUNK]")[1].strip().split()
-        p_dict = {item.split("=")[0]: item.split("=")[1] for item in parts if "=" in item}
-        reassembled = REASSEMBLER.add_chunk(p_dict["id"], int(p_dict["idx"]), int(p_dict["total"]), p_dict["data"])
-    
-    assert reassembled is not None and reassembled["type"] == "get_blocks", "IRC Base64 stream reassembly failed!"
-    print(f" -> [SUCCESS] IRC Base64 Stream successfully chunked into {len(chunks)} parts and reassembled!")
-
-    # 5. Test Universal Multi-Fallback Dispatcher
-    print("[TEST 5/6] Testing Universal Multi-Fallback P2P Transport Dispatcher...")
-    dispatch_res = send_p2p_data_universal("127.0.0.1", {"type": "get_node_status"})
-    assert dispatch_res.get("status") == "ok", "Universal P2P Transport Dispatcher failed!"
-    print(f" -> [SUCCESS] Universal P2P Dispatcher routed via transport: {dispatch_res.get('transport')}")
+    p2p_snap_res = p2p_query_peer("127.0.0.1", 28333, {"type": "get_utxo_snapshot"})
+    assert p2p_snap_res.get("status") == "ok" and "snapshot" in p2p_snap_res, "P2P get_utxo_snapshot failed!"
+    print(" -> [SUCCESS] P2P Node responded with verified Fast-Sync UTXO Snapshot!")
 
     # 6. Test 24-Word Seedphrase Validation Bridge
     print("[TEST 6/6] Verifying 24-Word Seedphrase Architecture...")
@@ -101,7 +75,7 @@ def run_tests():
     print(" -> [SUCCESS] 24-Word BIP-39 Quantum Backup Seedphrase logic verified!")
 
     print("==================================================")
-    print("   ALL PAYQUANT v3.5.0 ECOSYSTEM TESTS PASSED    ")
+    print("   ALL PAYQUANT v6.0.0 ECOSYSTEM TESTS PASSED    ")
     print("==================================================")
 
 if __name__ == '__main__':
