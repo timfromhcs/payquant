@@ -22,9 +22,11 @@ def build_executables():
         node_gui_py = os.path.join("contrib", "node_gui.py")
         miner_gui_py = os.path.join("contrib", "miner_gui.py")
         explorer_gui_py = os.path.join("contrib", "explorer_gui.py")
+        wallet_gui_py = os.path.join("contrib", "wallet_gui.py")
         node_py = os.path.join("contrib", "node_entry.py")
         gui_py = os.path.join("contrib", "gui_entry.py")
 
+        PyInstaller.__main__.run([wallet_gui_py, '--onefile', '--name=payquant-wallet-gui', '--distpath=dist', '--noconfirm', '--windowed'])
         PyInstaller.__main__.run([node_gui_py, '--onefile', '--name=payquant-node-gui', '--distpath=dist', '--noconfirm', '--windowed'])
         PyInstaller.__main__.run([miner_gui_py, '--onefile', '--name=payquant-miner-gui', '--distpath=dist', '--noconfirm', '--windowed'])
         PyInstaller.__main__.run([explorer_gui_py, '--onefile', '--name=payquant-explorer', '--distpath=dist', '--noconfirm', '--windowed'])
