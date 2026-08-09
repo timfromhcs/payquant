@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-PayQuant (PQN) WebRTC DataChannel & ICE Signaling Engine v6.0.0
+PayQuant (PQN) WebRTC DataChannel & ICE Signaling Engine v6.4.0
 
 Provides high-speed DataChannel P2P streaming for blocks and UTXO snapshots over WebRTC ICE framework.
-Uses IRC as the signaling channel for SDP Offer/Answer and ICE candidate exchange.
+Uses IRC as the signaling channel for SDP Offer/Answer, ICE candidate exchange, and status report daemons.
 """
 
 import socket
@@ -21,6 +21,13 @@ if BASE_DIR not in sys.path:
 class PayQuantWebRTCEngine:
     def __init__(self):
         self.active_sessions = {}
+        self.channel_stats = {
+            "packets_sent": 0,
+            "packets_received": 0,
+            "bytes_transferred": 0,
+            "ice_status": "CONNECTED_ICE_STUN",
+            "active_channels": 1
+        }
         self.lock = threading.Lock()
 
     def create_sdp_offer(self, peer_nick):
@@ -32,7 +39,7 @@ class PayQuantWebRTCEngine:
 
         session_id = f"sdp_{int(time.time()*1000)}"
         sdp_offer = {
-            "version": "v6.0.0",
+            "version": "v6.4.0",
             "type": "offer",
             "session_id": session_id,
             "ice_candidate": {
@@ -47,6 +54,7 @@ class PayQuantWebRTCEngine:
         
         with self.lock:
             self.active_sessions[session_id] = sdp_offer
+            self.channel_stats["packets_sent"] += 1
 
         b64_sdp = base64.b64encode(json.dumps(sdp_offer).encode('utf-8')).decode('utf-8')
         irc_msg = f"[PQN_WEBRTC_OFFER] sid={session_id} sdp={b64_sdp}"
@@ -60,7 +68,7 @@ class PayQuantWebRTCEngine:
         udp_port = stun_res["port"] if stun_res else 28333
 
         sdp_answer = {
-            "version": "v6.0.0",
+            "version": "v6.4.0",
             "type": "answer",
             "session_id": session_id,
             "ice_candidate": {
@@ -71,6 +79,9 @@ class PayQuantWebRTCEngine:
             },
             "status": "accepted"
         }
+
+        with self.lock:
+            self.channel_stats["packets_sent"] += 1
 
         b64_sdp = base64.b64encode(json.dumps(sdp_answer).encode('utf-8')).decode('utf-8')
         irc_msg = f"[PQN_WEBRTC_ANSWER] sid={session_id} sdp={b64_sdp}"
@@ -87,6 +98,8 @@ class PayQuantWebRTCEngine:
                 if missing_pad:
                     b64_sdp += "=" * (4 - missing_pad)
                 sdp_json = json.loads(base64.b64decode(b64_sdp).decode('utf-8'))
+                with self.lock:
+                    self.channel_stats["packets_received"] += 1
                 return {"type": "OFFER", "session_id": p_dict.get("sid"), "sdp": sdp_json}
             
             elif "[PQN_WEBRTC_ANSWER]" in irc_line:
@@ -97,10 +110,23 @@ class PayQuantWebRTCEngine:
                 if missing_pad:
                     b64_sdp += "=" * (4 - missing_pad)
                 sdp_json = json.loads(base64.b64decode(b64_sdp).decode('utf-8'))
+                with self.lock:
+                    self.channel_stats["packets_received"] += 1
                 return {"type": "ANSWER", "session_id": p_dict.get("sid"), "sdp": sdp_json}
         except Exception as e:
             print(f"[WebRTC Signal Error] {e}")
         return None
+
+    def get_status_report(self):
+        """Returns WebRTC DataChannel health and state status report"""
+        with self.lock:
+            return {
+                "active_sessions": len(self.active_sessions),
+                "packets_sent": self.channel_stats["packets_sent"],
+                "packets_received": self.channel_stats["packets_received"],
+                "ice_status": self.channel_stats["ice_status"],
+                "timestamp": int(time.time())
+            }
 
 WEBRTC_ENGINE = PayQuantWebRTCEngine()
 
@@ -113,4 +139,6 @@ if __name__ == '__main__':
     print("==================================================")
     offer = get_webrtc_engine().create_sdp_offer("pqn_peer_node")
     print(f"Generated WebRTC SDP Offer Signal: {offer['irc_msg']}")
+    report = get_webrtc_engine().get_status_report()
+    print(f"WebRTC Status Report: {json.dumps(report, indent=2)}")
     print("==================================================")
