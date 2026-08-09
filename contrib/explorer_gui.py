@@ -24,13 +24,14 @@ from contrib.chain_db import get_db
 class PayQuantExplorerGUI:
     def __init__(self, root):
         self.root = root
-        self.root.title("PayQuant (PQN) Public Blockchain Explorer – v3.4.0")
+        self.root.title("PayQuant (PQN) Public Blockchain Explorer – v6.1.0")
         self.root.geometry("960x680")
         self.root.configure(bg="#040612")
 
         self.db = get_db()
         self.setup_ui()
         self.start_explorer_daemon()
+        print("[Explorer GUI v6.1.0] Standalone Public Blockchain Explorer & Address Auditor running.")
 
     def setup_ui(self):
         # Header Banner

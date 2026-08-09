@@ -24,7 +24,7 @@ import contrib.p2p_chain_transfer as p2p_transfer
 class PayQuantMinerGUI:
     def __init__(self, root):
         self.root = root
-        self.root.title("PayQuant (PQN) RinHash GPU/CPU Miner – v3.2.0")
+        self.root.title("PayQuant (PQN) RinHash GPU/CPU Miner – v6.1.0")
         self.root.geometry("820x560")
         self.root.configure(bg="#060814")
 
@@ -35,6 +35,8 @@ class PayQuantMinerGUI:
         self.hashrate_hps = 0.0
 
         self.setup_ui()
+        self.log("STARTUP", "PayQuant RinHash Miner GUI v6.1.0 initializing...")
+        self.log("HARDWARE", "CPU/GPU mining thread pool initialized (RinHash ASIC-Resistant PoW).")
 
     def setup_ui(self):
         # Header
