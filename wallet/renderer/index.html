@@ -21,6 +21,7 @@
       </div>
       <div class="status" style="display:flex; gap:0.6rem; align-items:center;">
         <span id="node-status" class="pill pill-online">P2P ONLINE</span>
+        <button id="btn-lock" class="btn" style="padding:0.3rem 0.7rem; font-size:0.8rem;">🔒 Lock</button>
         <button id="btn-seed-backup" class="btn" style="padding:0.3rem 0.7rem; font-size:0.8rem;">🔑 Seedphrase Backup</button>
       </div>
     </header>
@@ -30,6 +31,7 @@
       <button class="nav-btn active" data-tab="tab-dashboard">📊 Dashboard</button>
       <button class="nav-btn" data-tab="tab-receive">📥 Receive & Request QR</button>
       <button class="nav-btn" data-tab="tab-send">💸 Send PQN</button>
+      <button class="nav-btn" data-tab="tab-explorer">🔍 Block Explorer</button>
       <button class="nav-btn" data-tab="tab-security">🔐 Security & Seed</button>
       <button class="nav-btn" data-tab="tab-settings">⚙️ Network Settings</button>
     </div>
@@ -65,15 +67,24 @@
         </section>
 
         <section class="card full">
+          <h3>⚡ Live Mining Hashrate</h3>
+          <canvas id="hashrate-chart" width="820" height="140" style="width:100%; height:140px; background:#12172b; border-radius:10px;"></canvas>
+        </section>
+
+        <section class="card full">
           <h3>Recent Transactions</h3>
-          <table class="tx-table">
+          <div style="display:flex; gap:0.6rem; align-items:center; margin-bottom:0.6rem;">
+            <input id="tx-search" type="text" placeholder="Search by TXID / address / amount..." style="flex:1; background:#0c1024; color:#e0e0e0; border:1px solid rgba(0,212,255,0.3); border-radius:6px; padding:0.4rem 0.8rem;">
+          </div>
+          <table class="tx-table" id="tx-table">
             <thead>
-              <tr><th>Date</th><th>Type</th><th>Address</th><th>Amount</th><th>Confirmations</th></tr>
+              <tr><th>Date</th><th>Type</th><th>Address</th><th>Amount</th><th>Confirmations</th><th></th></tr>
             </thead>
             <tbody id="tx-body">
-              <tr><td colspan="5" class="sub">No transactions loaded</td></tr>
+              <tr><td colspan="6" class="sub">No transactions loaded</td></tr>
             </tbody>
           </table>
+          <div class="sub" style="margin-top:0.5rem;">Click a column header to sort.</div>
         </section>
       </main>
     </div>
@@ -129,6 +140,21 @@
             <button id="btn-send" class="btn btn-start" style="padding:0.8rem; font-size:1.1rem;">🚀 Broadcast Transaction (Multi-Node Verified)</button>
           </div>
           <div class="sub" id="send-result" style="margin-top:1rem; font-weight:600;"></div>
+        </section>
+      </main>
+    </div>
+
+    <!-- TAB 3.5: BLOCK EXPLORER -->
+    <div id="tab-explorer" class="tab-content" style="display:none;">
+      <main class="grid">
+        <section class="card full">
+          <h3>🔍 PayQuant Block Explorer</h3>
+          <div style="display:flex; gap:0.8rem; flex-wrap:wrap; align-items:center; margin-top:0.8rem;">
+            <label>Block Height: <input id="explorer-height" type="number" min="1" value="1" style="background:#0c1024; color:#00d4ff; border:1px solid rgba(0,212,255,0.3); border-radius:6px; padding:0.4rem 0.8rem;"></label>
+            <button id="btn-explorer-query" class="btn btn-start">🧱 Fetch Block</button>
+          </div>
+          <div class="sub" style="margin-top:0.6rem;">Queries the local node via getblockhash / getblock / getrawtransaction.</div>
+          <pre id="explorer-result" class="console" style="margin-top:0.8rem; white-space:pre-wrap;"></pre>
         </section>
       </main>
     </div>
@@ -200,12 +226,48 @@
   <!-- SEEDPHRASE RESTORE MODAL -->
   <div id="restore-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(6,8,20,0.95); z-index:9999; justify-content:center; align-items:center;">
     <div style="background:#0c1024; border:1px solid #7b2fbe; border-radius:16px; width:90%; max-width:540px; padding:1.5rem;">
-      <h3 style="color:#7b2fbe; margin-bottom:0.8rem;">🔑 Restore PayQuant Wallet from 24-Word Seedphrase</h3>
-      <p class="sub" style="margin-bottom:1rem;">Enter your 24 secret backup words separated by spaces:</p>
+      <h3 style="color:#7b2fbe; margin-bottom:0.8rem;">🔑 Restore PayQuant Wallet from 24-Word Seed</h3>
+      <p class="sub" style="margin-bottom:1rem;">Enter your 24 secret backup words and a new master password:</p>
       <textarea id="restore-words-input" rows="4" style="width:100%; background:#060814; color:#00d4ff; border:1px solid rgba(123,47,190,0.5); border-radius:8px; padding:0.8rem; font-family:monospace; margin-bottom:1rem;" placeholder="Enter 24 seed words separated by spaces..."></textarea>
+      <input id="restore-pw" type="password" style="width:100%; background:#060814; color:#00d4ff; border:1px solid rgba(123,47,190,0.5); border-radius:8px; padding:0.8rem; font-family:monospace; margin-bottom:1rem;" placeholder="New master password (min 8 chars)">
       <div style="display:flex; gap:0.8rem; justify-content:flex-end;">
         <button id="btn-cancel-restore" class="btn">Cancel</button>
-        <button id="btn-confirm-restore" class="btn btn-start" style="background:#7b2fbe;">Restore Wallet</button>
+        <button id="btn-confirm-restore" class="btn btn-start" style="background:#7b2fbe; color:#fff;">Restore Wallet</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ONBOARDING MODAL -->
+  <div id="onboarding-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(6,8,20,0.96); z-index:20000; justify-content:center; align-items:center;">
+    <div style="background:#0c1024; border:1px solid #00d4ff; border-radius:16px; width:92%; max-width:600px; padding:1.6rem;">
+      <h2 id="onb-title" style="color:#00d4ff; margin-bottom:0.6rem;">Welcome to PayQuant Quantum Wallet</h2>
+      <div id="seed-display-grid" style="display:grid; grid-template-columns: repeat(4, 1fr); gap:0.5rem; margin:1rem 0;"></div>
+      <p id="onb-desc" class="sub" style="margin-bottom:1rem; font-size:0.9rem;"></p>
+      <div id="onb-pw-group" style="display:none; flex-direction:column; gap:0.6rem; margin-bottom:1rem;">
+        <label style="color:#a0aec0; font-size:0.85rem;">Master Password
+          <input id="onb-pw" type="password" style="width:100%; background:#060814; color:#00d4ff; border:1px solid rgba(0,212,255,0.4); border-radius:8px; padding:0.7rem;" placeholder="Min 8 characters">
+        </label>
+      </div>
+      <div style="display:flex; gap:0.8rem; justify-content:flex-end;">
+        <button id="onb-btn-back" class="btn">Back</button>
+        <button id="onb-btn-primary" class="btn btn-start">Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TX DETAIL MODAL -->
+  <div id="tx-detail-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(6,8,20,0.92); z-index:18000; justify-content:center; align-items:center;">
+    <div style="background:#0c1024; border:1px solid #00d4ff; border-radius:16px; width:94%; max-width:520px; padding:1.4rem;">
+      <h3 style="color:#00d4ff; margin-bottom:1rem;">🧾 Transaction Details</h3>
+      <div class="sub" style="display:grid; grid-template-columns:110px 1fr; gap:0.5rem; align-items:start;">
+        <b>TXID</b><span class="mono" id="txd-txid" style="word-break:break-all;"></span>
+        <b>Date</b><span id="txd-date"></span>
+        <b>Amount</b><span id="txd-amount"></span>
+        <b>Confirmations</b><span id="txd-conf"></span>
+        <b>Address</b><span class="mono" id="txd-addr" style="word-break:break-all;"></span>
+      </div>
+      <div style="display:flex; justify-content:flex-end; margin-top:1rem;">
+        <button id="btn-close-tx-detail" class="btn">Close</button>
       </div>
     </div>
   </div>

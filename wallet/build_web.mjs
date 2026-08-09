@@ -9,7 +9,7 @@ const www = path.join(root, 'www');
 fs.rmSync(www, { recursive: true, force: true });
 fs.mkdirSync(www, { recursive: true });
 
-for (const f of ['index.html', 'renderer.js', 'style.css']) {
+for (const f of ['index.html', 'renderer.js', 'style.css', 'bip39_wordlist.js']) {
   const src = path.join(root, 'renderer', f);
   fs.copyFileSync(src, path.join(www, f));
 }
@@ -60,7 +60,25 @@ if (!window.payquant) {
       const addr = 'pqn1q' + Math.random().toString(36).slice(2, 12);
       localStorage.setItem('pqn-light-address', addr);
       return addr;
-    }
+    },
+    lightGetBalance: async () => ({ balance: 50.0 }),
+    lightList: async () => ({ transactions: [] }),
+    lightGetTx: async () => ({ error: 'web fallback has no local tx store' }),
+    hasHasWallet: async () => ({ hasWallet: false, unlocked: true }),
+    authState: async () => ({ hasWallet: false, unlocked: true }),
+    authGenerateSeed: async () => 'abandon ability able about above absent absorb abstract absurd abuse access accident adult advance advice aerobic afford afraid again age agent agree ahead aim',
+    authSetup: async () => ({ ok: true, mnemonic: 'demo-session' }),
+    authUnlock: async () => ({ ok: true, mnemonic: 'demo-session', seedWords: ['demo'] }),
+    authRecover: async () => ({ ok: true, mnemonic: 'demo-session', seedWords: ['demo'] }),
+    authChangePassword: async () => ({ ok: true }),
+    authLock: async () => ({ ok: true }),
+    syncPoll: async () => ({ ok: false, online: false, source: 'web', balance: 50.0, transactions: [] }),
+    onSync: () => {},
+    explorerBlockcount: async () => 1,
+    explorerBlockhash: async () => '000005ced0a90e5e4f39d7188fa1818fee45fef6e32018d0f5f4bb1c6626d818',
+    explorerBlock: async () => ({ height: 1, hash: '000005ced0a90e5e4f39d7188fa1818fee45fef6e32018d8f5f4bb5c6626d818', timestamp: 0, txes: [] }),
+    explorerBlocktxs: async () => [],
+    explorerTx: async () => ({ txid: 'n/a' })
   };
 }
 `;

@@ -37,6 +37,12 @@ release_dist/*.zip
 *.swo
 *.spec
 
+# Wallet runtime data & web build output
+wallet/.tmp_vault/
+wallet/www/
+wallet/www.zip
+miner_config.json
+
 # Ignore test target build outputs except release packages
 test/lint/test_runner/target/
 /CMakeUserPresets.json

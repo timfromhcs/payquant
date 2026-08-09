@@ -38,6 +38,13 @@ except ModuleNotFoundError:
     import p2p_chain_transfer as p2p_transfer
     import irc_p2p_signaling as irc_signaling
 
+# FS-02-01 / FS-02-02: persistent miner settings (payout address, threads, intensity)
+sys.path.insert(0, os.path.join(BASE_DIR, "miner", "backend"))
+try:
+    import config_manager as miner_cfg
+except Exception:
+    miner_cfg = None
+
 class PayQuantNodeMinerGUI:
     def __init__(self, root):
         self.root = root
@@ -53,7 +60,22 @@ class PayQuantNodeMinerGUI:
         self.total_payout = 0.0
         self.hashrate_hps = 0.0
 
+        # FS-02-02: auto-load the saved payout address
+        first_addr = "pqn1qdefaultminerpayoutaddress2026"
+        if miner_cfg:
+            try:
+                saved = miner_cfg.load_config()
+                if saved and saved.get("payout_address"):
+                    first_addr = str(saved["payout_address"])
+                if saved and saved.get("threads"):
+                    self.threads_count = int(saved["threads"])
+            except Exception:
+                pass
+
         self.setup_ui()
+        if first_addr and hasattr(self, "entry_miner_addr"):
+            self.entry_miner_addr.delete(0, tk.END)
+            self.entry_miner_addr.insert(0, first_addr)
         self.start_node_services()
         self.log_node("STARTUP", "PayQuant Unified Node & Miner Suite v6.4.0 initialized.")
         self.log_node("STORAGE", f"RocksDB Persistent Engine loaded at {self.db.db_file}")
@@ -202,6 +224,17 @@ class PayQuantNodeMinerGUI:
             self.btn_mine.config(text="⏹ STOP MINING", bg="#ff0055", fg="white")
             self.status_pill.config(text="🟢 NODE ONLINE | ⚡ MINING ACTIVE", fg="#00ffaa")
             self.log_miner("MINER", f"Auto-Mining started! Direct PQN payouts to: {payout_addr[:16]}...{payout_addr[-8:]}")
+
+            try:
+                if miner_cfg:
+                    cfg = miner_cfg.load_config()
+                    cfg["payout_address"] = payout_addr
+                    cfg["threads"] = self.threads_count
+                    miner_cfg.save_config(cfg)
+                    self.log_miner("CONFIG", "Miner settings saved to miner_config.json")
+            except Exception as e:
+                self.log_miner("WARN", f"Config save failed: {e}")
+
             threading.Thread(target=self.mining_loop, daemon=True).start()
 
     def mining_loop(self):

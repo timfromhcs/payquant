@@ -29,6 +29,13 @@ try:
 except ModuleNotFoundError:
     import p2p_chain_transfer as p2p_transfer
 
+# FS-02-01 / FS-02-02: persistent miner settings (payout address, threads, intensity)
+sys.path.insert(0, os.path.join(BASE_DIR, "miner", "backend"))
+try:
+    import config_manager as miner_cfg
+except Exception:
+    miner_cfg = None
+
 class PayQuantMinerGUI:
     def __init__(self, root):
         self.root = root
@@ -42,7 +49,19 @@ class PayQuantMinerGUI:
         self.total_payout = 0.0
         self.hashrate_hps = 0.0
 
+        # FS-02-02: auto-load the saved payout address & settings on every launch
+        self.saved_cfg = miner_cfg.load_config() if miner_cfg else {}
+        self.payout_address = str(self.saved_cfg.get("payout_address") or "").strip()
+        if self.saved_cfg.get("threads"):
+            self.threads_count = int(self.saved_cfg["threads"])
+
         self.setup_ui()
+
+        if self.payout_address and self.addr_entry:
+            self.addr_entry.delete(0, tk.END)
+            self.addr_entry.insert(0, self.payout_address)
+            self.log("STARTUP", f"Loaded saved payout address: {self.payout_address[:16]}...")
+
         self.log("STARTUP", "PayQuant RinHash Miner GUI v6.1.0 initializing...")
         self.log("HARDWARE", "CPU/GPU mining thread pool initialized (RinHash ASIC-Resistant PoW).")
 
@@ -144,6 +163,18 @@ class PayQuantMinerGUI:
             self.status_pill.config(text="🟢 MINING ACTIVE", fg="#00ffaa")
             self.btn_toggle.config(text="⏹ STOP MINING", bg="#ff0055", fg="white")
             self.log("MINER", f"Started RinHash PoW Mining on {self.threads_count} threads -> Payout: {payout_addr}")
+
+            # FS-02-01: persist the payout address & settings to disk
+            try:
+                if miner_cfg:
+                    current = miner_cfg.load_config()
+                    current["payout_address"] = payout_addr
+                    current["threads"] = self.threads_count
+                    current["intensity"] = self.thread_slider.get()
+                    miner_cfg.save_config(current)
+                    self.log("CONFIG", "Saved payout address & mining settings to miner_config.json")
+            except Exception as e:
+                self.log("WARN", f"Could not save config: {e}")
 
             threading.Thread(target=self.mining_loop, daemon=True).start()
 

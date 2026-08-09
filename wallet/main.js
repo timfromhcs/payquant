@@ -10,7 +10,7 @@ const RPC_DEFAULTS = {
   pass: 'payquantpass'
 };
 
-let settingsFile = path.join(app.getPath('userData'), 'payquant-wallet-settings.json');
+let settingsFile = path.join(app.getPath('userData'), 'payquant-ux.json');
 let settings = { ...RPC_DEFAULTS };
 
 function loadSettings() {
@@ -76,6 +76,12 @@ function callRpc(method, params = []) {
   });
 }
 
+const MasterPasswordAuth = require('./backend/auth.js');
+const SyncService = require('./backend/sync_service.js');
+const BlockExplorer = require('./backend/explorer.js');
+
+const LightWalletManager = require('./src/light_wallet');
+
 function createWindow() {
   const win = new BrowserWindow({
     width: 1080,
@@ -92,32 +98,74 @@ function createWindow() {
     }
   });
   win.loadFile(path.join(__dirname, 'renderer', 'index.html'));
+  return win;
 }
-
-const LightWalletManager = require('./src/light_wallet');
-let lightWallet = null;
-
-ipcMain.handle('rpc:call', async (_e, method, params) => callRpc(method, params || []));
-ipcMain.handle('settings:get', () => ({ ...settings }));
-ipcMain.handle('settings:save', (_e, next) => {
-  saveSettings(next);
-  return { ...settings };
-});
-ipcMain.handle('light:sync', async () => {
-  if (!lightWallet) lightWallet = new LightWalletManager(app.getPath('userData'));
-  return await lightWallet.syncLightWallet();
-});
-ipcMain.handle('light:send', async (_e, to, amt) => {
-  if (!lightWallet) lightWallet = new LightWalletManager(app.getPath('userData'));
-  return await lightWallet.sendTransactionP2P(to, amt);
-});
-ipcMain.handle('light:getaddress', () => {
-  if (!lightWallet) lightWallet = new LightWalletManager(app.getPath('userData'));
-  return lightWallet.generateNewAddress();
-});
 
 app.whenReady().then(() => {
   loadSettings();
+
+  const auth = new MasterPasswordAuth(app.getPath('userData'));
+  const sync = new SyncService({ callRpc });
+  const explorer = new BlockExplorer({ callRpc });
+  let lightWallet = null;
+  if (!lightWallet) lightWallet = new LightWalletManager(app.getPath('userData'));
+
+  /* ---------- Seed & password (FS-01-01 / FS-01-02) ---------- */
+  ipcMain.handle('auth:hasWallet', () => ({ hasWallet: auth.hasWallet(), unlocked: auth.isUnlocked() }));
+  ipcMain.handle('auth:generateSeed', () => auth.generateSeed());
+  ipcMain.handle('auth:setup', async (_e, { mnemonic, password }) => {
+    try { return await auth.setup({ mnemonic, password }); }
+    catch (e) { return { ok: false, error: e.message }; }
+  });
+  ipcMain.handle('auth:unlock', async (_e, password) => {
+    try { return { ok: true, ...(await auth.unlock(password)) }; }
+    catch (e) { return { ok: false, error: e.message }; }
+  });
+  ipcMain.handle('auth:recover', async (_e, { mnemonic, password }) => {
+    try { return { ok: true, ...(await auth.recover({ mnemonic, password })) }; }
+    catch (e) { return { ok: false, error: e.message }; }
+  });
+  ipcMain.handle('auth:changePassword', async (_e, oldPw, newPw) => {
+    try { await auth.changePassword(oldPw, newPw); return { ok: true }; }
+    catch (e) { return { ok: false, error: e.message }; }
+  });
+  ipcMain.handle('auth:lock', () => { auth.lock(); return { ok: true }; });
+  ipcMain.handle('auth:isLocked', () => ({ locked: !auth.isUnlocked() }));
+
+  /* ---------- RPC / settings ---------- */
+  ipcMain.handle('rpc:call', async (_e, method, params) => callRpc(method, params || []));
+  ipcMain.handle('settings:get', () => ({ ...settings }));
+  ipcMain.handle('settings:save', (_e, next) => {
+    saveSettings(next);
+    return { ...settings };
+  });
+
+  /* ---------- Light wallet ---------- */
+  ipcMain.handle('light:sync', async () => await lightWallet.syncLightWallet());
+  ipcMain.handle('light:send', async (_e, to, amt) => await lightWallet.sendTransactionP2P(to, amt));
+  ipcMain.handle('light:getaddress', () => lightWallet.generateNewAddress());
+  ipcMain.handle('light:getbalance', () => ({ balance: lightWallet.walletData.balance }));
+  ipcMain.handle('light:listtransactions', () => ({ transactions: lightWallet.walletData.transactions }));
+  ipcMain.handle('light:gettransaction', async (_e, txid) => {
+    const tx = (lightWallet.walletData.transactions || []).find((t) => t.txid === txid);
+    return tx || { error: 'tx not found' };
+  });
+
+  /* ---------- Live sync + explorer (FS-01-03 / FS-01-05) ---------- */
+  sync.onUpdate((payload) => {
+    for (const w of BrowserWindow.getAllWindows()) {
+      w.webContents.send('sync:update', payload);
+    }
+  });
+  ipcMain.handle('sync:poll', () => sync.poll());
+  sync.start();
+
+  ipcMain.handle('explorer:blockcount', () => explorer.getBlockCount());
+  ipcMain.handle('explorer:blockhash', (_e, h) => explorer.getBlockHash(h));
+  ipcMain.handle('explorer:block', (_e, h) => explorer.getBlock(h));
+  ipcMain.handle('explorer:blocktxs', (_e, h) => explorer.getBlockTxs(h));
+  ipcMain.handle('explorer:tx', (_e, txid) => explorer.getTransaction(txid));
+
   createWindow();
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
