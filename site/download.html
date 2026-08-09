@@ -1,77 +1,89 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PayQuant (PQN) – Downloads &amp; Packages (v2.1.0)</title>
-    <meta name="description" content="Download PayQuant Core v2.1.0 Standalone Binaries, GUI Wallet, Vulkan GPU Miner, and Docker Container Image.">
+    <title>PayQuant (PQN) – Downloads &amp; Packages (v6.4.0)</title>
+    <meta name="description" content="Download PayQuant v6.4.0 standalone binaries and installers: Node GUI, RinHash Miner, Quantum Wallet, Block Explorer and Android APK.">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="icon" href="payquant-icon.svg" type="image/svg+xml">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: system-ui, -apple-system, sans-serif;
-            background: #060814;
-            color: #e0e0e0;
-            padding: 2rem;
-            line-height: 1.6;
-        }
-        .container { max-width: 1000px; margin: 0 auto; }
-        h1 {
-            font-size: 2.8rem;
-            background: linear-gradient(135deg, #00d4ff, #7b2fbe);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
-        }
-        nav { margin-bottom: 2rem; }
-        nav a { color: #8899aa; text-decoration: none; margin-right: 1.5rem; font-weight: 600; }
-        nav a:hover { color: #00d4ff; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
-        .card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 1.8rem; }
-        .card h3 { color: #00d4ff; font-size: 1.3rem; margin-bottom: 0.5rem; }
-        .btn-download { display: inline-block; padding: 0.8rem 1.6rem; border-radius: 12px; background: linear-gradient(135deg, #00d4ff, #7b2fbe); color: #fff; text-decoration: none; font-weight: bold; margin-top: 1rem; }
-        .btn-download:hover { transform: scale(1.03); }
-        code { background: #0c0f24; padding: 0.2rem 0.5rem; border-radius: 4px; color: #00ffaa; font-family: monospace; }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div class="container">
-        <nav>
-            <a href="index.html">← Zurück zur Hauptseite</a>
-            <a href="docs.html">Dokumentation &amp; API</a>
-            <a href="https://github.com/timfromhcs/payquant">GitHub Repository</a>
-        </nav>
+<body class="bg-[#040612] text-slate-100 font-sans min-h-screen flex flex-col selection:bg-cyan-500 selection:text-black">
 
-        <h1>PayQuant (PQN) Official Downloads (v2.1.0)</h1>
-        <p>Precompiled standalone binaries for Windows, Linux, macOS, and Docker.</p>
+    <nav class="w-full border-b border-slate-800/60 bg-[#060919]/85 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <img src="payquant-logo.svg" alt="PayQuant" class="h-8 w-auto">
+                <span class="text-lg font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-500 to-emerald-400">PayQuant</span>
+            </div>
+            <div class="flex space-x-4">
+                <a href="index.html" class="text-sm text-slate-300 hover:text-cyan-400 transition">Home</a>
+                <a href="architecture.html" class="text-sm text-slate-300 hover:text-cyan-400 transition">Architecture</a>
+                <a href="security.html" class="text-sm text-slate-300 hover:text-cyan-400 transition">Security</a>
+                <a href="docs.html" class="text-sm text-slate-300 hover:text-cyan-400 transition">Docs</a>
+            </div>
+        </div>
+    </nav>
 
-        <div class="grid">
-            <div class="card">
-                <h3>🪟 Windows (64-bit)</h3>
-                <p>Installer <code>.exe</code> and Portable <code>.zip</code> containing Node, GUI Wallet, and RinHash Miner.</p>
-                <a href="https://github.com/timfromhcs/payquant/releases/tag/v2.1.0" class="btn-download">Download Windows Setup (v2.1.0)</a>
+    <main class="max-w-5xl mx-auto px-6 py-12 flex-1">
+        <h1 class="text-4xl font-extrabold text-white">Downloads &amp; Packages</h1>
+        <p class="text-slate-400 mt-2">Official releases — built automatically by GitHub Actions for Windows, Linux, macOS and Android.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
+            <div class="bg-slate-900/50 border border-slate-800/70 rounded-2xl p-6">
+                <h3 class="text-xl font-bold text-cyan-400">🪟 Windows x64</h3>
+                <p class="text-sm text-slate-400 mt-2">Setup installers &amp; standalone executables:</p>
+                <ul class="text-sm text-slate-300 list-disc list-inside mt-2 space-y-1">
+                    <li><code>PayQuant-Node-Miner-Suite-Setup.exe</code> — Full Node + Solo Miner</li>
+                    <li><code>PayQuant-Wallet-Setup.exe</code> — Quantum Light Wallet</li>
+                    <li><code>PayQuant-Explorer-Setup.exe</code> — Block Explorer &amp; Address Auditor</li>
+                </ul>
+                <a href="https://github.com/timfromhcs/payquant/releases" target="_blank" class="inline-block mt-4 bg-gradient-to-r from-cyan-500 to-purple-600 text-slate-950 font-bold px-5 py-2.5 rounded-xl transition hover:-translate-y-0.5">Download Windows</a>
             </div>
-            <div class="card">
-                <h3>🐧 Linux (x64 / ARM64)</h3>
-                <p>Headless Linux daemon tarball for server &amp; cloud node deployments.</p>
-                <a href="https://github.com/timfromhcs/payquant/releases/tag/v2.1.0" class="btn-download">Download Linux Tarball (v2.1.0)</a>
+
+            <div class="bg-slate-900/50 border border-slate-800/70 rounded-2xl p-6">
+                <h3 class="text-xl font-bold text-purple-400">🐧 Linux x64</h3>
+                <p class="text-sm text-slate-400 mt-2">Portable desktop applications and headless daemons:</p>
+                <ul class="text-sm text-slate-300 list-disc list-inside mt-2 space-y-1">
+                    <li>PayQuant <code>.AppImage</code> — Desktop Node + Miner suite</li>
+                    <li>Full node daemon <code>payquantd</code> for servers &amp; clouds</li>
+                    <li>`backend/` daemon orchestration via <code>scripts/start_backend.sh</code></li>
+                </ul>
+                <a href="https://github.com/timfromhcs/payquant/releases" target="_blank" class="inline-block mt-4 bg-purple-600 hover:bg-purple-500 text-white font-bold px-5 py-2.5 rounded-lg transition hover:-translate-y-0.5">Download Linux</a>
             </div>
-            <div class="card">
-                <h3>🍎 macOS (Universal)</h3>
-                <p>Universal macOS DMG for Intel &amp; Apple Silicon Macs.</p>
-                <a href="https://github.com/timfromhcs/payquant/releases/tag/v2.1.0" class="btn-download">Download macOS DMG (v2.1.0)</a>
+
+            <div class="bg-slate-900/50 border border-slate-800/70 rounded-2xl p-6">
+                <h3 class="text-xl font-bold text-emerald-400">🍎 macOS Universal</h3>
+                <p class="text-sm text-slate-400 mt-2">Universal binary for Intel &amp; Apple Silicon:</p>
+                <ul class="text-sm text-slate-300 list-disc list-inside mt-2 space-y-1">
+                    <li><code>PayQuant-Ecosystem-macOS.dmg</code> — Node, Miner, Wallet &amp; Explorer</li>
+                </ul>
+                <a href="https://github.com/timfromhcs/payquant/releases" target="_blank" class="inline-block mt-4 bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-5 py-2.5 rounded-lg transition hover:-translate-y-0.5">Download macOS</a>
             </div>
-            <div class="card">
-                <h3>🐳 Docker Container</h3>
-                <p>Multi-architecture container image for automated cloud deployments.</p>
-                <div style="margin-top:1rem;"><code>docker pull ghcr.io/timfromhcs/payquant:latest</code></div>
+
+            <div class="bg-slate-900/50 border border-slate-800/70 rounded-2xl p-6">
+                <h3 class="text-xl font-bold text-cyan-300">📱 Android Mobile</h3>
+                <p class="text-sm text-slate-400 mt-2">Native light wallet APK (Capacitor-based):</p>
+                <ul class="text-sm text-slate-300 list-disc list-inside mt-2 space-y-1">
+                    <li><code>PayQuant-Wallet-arm64-v8a.apk</code> — quantum wallet on the go</li>
+                </ul>
+                <a href="https://github.com/timfromhcs/payquant/releases" target="_blank" class="inline-block mt-4 bg-cyan-600 hover:bg-cyan-500 text-slate-950 font-bold px-5 py-2.5 rounded-lg transition hover:-translate-y-0.5">Download APK</a>
             </div>
         </div>
 
-        <footer>
-            <p style="margin-top:3rem; color:#556677; font-size:0.85rem;">© 2025-2026 PayQuant Contributors. Released under the MIT License.</p>
-        </footer>
-    </div>
+        <div class="mt-10 bg-slate-900/40 border border-slate-800/70 rounded-2xl p-6">
+            <h3 class="text-lg font-bold text-white mb-3">Run from source (any platform)</h3>
+            <pre class="bg-[#04050d] border border-cyan-800/50 rounded-xl p-4 overflow-x-auto"><code>git clone https://github.com/timfromhcs/payquant.git
+cd payquant
+python -m pip install pyinstaller
+python scripts/local_test_suite.py            # 7-category test gate
+python contrib/node_miner_gui.py              # Unified Node + Miner desktop suite</code></pre>
+        </div>
+    </main>
+
+    <footer class="w-full border-t border-slate-800/60 bg-[#02040b] py-6 text-center text-xs text-slate-500">
+        PayQuant (PQN) v6.4.0 — MIT License. All builds produced automatically by GitHub Actions.
+    </footer>
 </body>
 </html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayQuant (PQN) – Post-Quantum Security</title>
+    <meta name="description" content="PayQuant security model: NIST FIPS 204 ML-DSA-65 (Dilithium) signatures, Argon2id master-password vault, 24-word BIP-39 seed backup and encrypted P2P relay.">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="payquant-icon.svg" type="image/svg+xml">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        code { background: #0c0f24; padding: 0.15rem 0.45rem; border-radius: 6px; color: #00ffaa; font-family: ui-monospace, monospace; font-size: 0.9em; }
+    </style>
+</head>
+<body class="bg-[#040612] text-slate-100 font-sans min-h-screen flex flex-col selection:bg-cyan-500 selection:text-black">
+
+    <nav class="w-full border-b border-slate-800/60 bg-[#060919]/85 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <img src="payquant-logo.svg" alt="PayQuant" class="h-8 w-auto">
+                <span class="text-lg font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-500 to-emerald-400">PayQuant</span>
+            </div>
+            <div class="flex space-x-4">
+                <a href="index.html" class="text-sm text-slate-300 hover:text-cyan-400 transition">Home</a>
+                <a href="download.html" class="text-sm text-slate-300 hover:text-cyan-400 transition">Downloads</a>
+                <a href="architecture.html" class="text-sm text-slate-300 hover:text-cyan-400 transition">Architecture</a>
+                <a href="docs.html" class="text-sm text-slate-300 hover:text-cyan-400 transition">Docs</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-6 py-12 flex-1">
+        <div class="inline-flex items-center space-x-2 bg-emerald-950/60 border border-emerald-800/60 px-4 py-1.5 rounded-full text-xs font-bold text-emerald-300 mb-4">
+            <span>🛡️ NIST FIPS 204 — Post-Quantum Ready</span>
+        </div>
+        <h1 class="text-4xl font-extrabold text-white">Post-Quantum Security Model</h1>
+        <p class="text-slate-400 mt-2">Every PayQuant wallet is protected against both classical and quantum attackers today.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
+            <div class="bg-slate-900/50 border border-slate-800/70 rounded-2xl p-6">
+                <div class="text-3xl mb-3">🧬</div>
+                <h2 class="font-bold text-cyan-400">ML-DSA-65 (Dilithium)</h2>
+                <p class="text-sm text-slate-400 mt-2">Addresses and transaction signatures use the NIST-standardized lattice scheme — resistant to Shor's algorithm and future quantum decryption (FIPS 204).</p>
+            </div>
+            <div class="bg-slate-900/50 border border-slate-800/70 rounded-2xl p-6">
+                <div class="text-3xl mb-3">🔐</div>
+                <h2 class="font-bold text-purple-400">Argon2id Master Password</h2>
+                <p class="text-sm text-slate-400 mt-2">The seed is AES-256-GCM encrypted on disk with a memory-hard Argon2id-derived key. Readable only after unlocking with the master password.</p>
+            </div>
+            <div class="bg-slate-900/50 border border-slate-800/70 rounded-2xl p-6">
+                <div class="text-3xl mb-3">📝</div>
+                <h2 class="font-bold text-emerald-400">24-Word BIP-39 Seed</h2>
+                <p class="text-sm text-slate-400 mt-2">Full 2048-word standard wordlist with checksum validation. Recovery is seed-only — there is deliberately no password reset path.</p>
+            </div>
+        </div>
+
+        <section class="mt-12">
+            <h2 class="text-2xl font-bold text-cyan-400 mb-3">Threat Prevention</h2>
+            <ul class="list-disc list-inside text-slate-300 space-y-2">
+                <li><strong>Private keys never leave the device</strong> — signing happens locally in the wallet.</li>
+                <li><strong>Seed never stored in plaintext</strong> — only the encrypted vault file and an Argon2id password hash are persisted.</li>
+                <li><strong>Auto-lock after 10 minutes</strong> of inactivity; in-memory session is cleared on lock.</li>
+                <li><strong>No password reset</strong> — recovery requires the 24-word seed, protecting against both attackers and social-engineering resets.</li>
+            </ul>
+        </section>
+
+        <section class="mt-12">
+            <h2 class="text-2xl font-bold text-emerald-400 mb-3">Recommended Backup Best Practices</h2>
+            <ol class="list-decimal list-inside text-slate-300 space-y-2">
+                <li>Write the 24 seed words on paper in exact order during wallet creation.</li>
+                <li>Keep at least two physical copies in separate, secure locations.</li>
+                <li>Never store the seed in cloud notes, emails or screenshots.</li>
+                <li>Never enter the seed on any website or share it with anyone.</li>
+                <li>Test a restore from the seed into a fresh PayQuant wallet before sending significant funds.</li>
+            </ol>
+        </section>
+
+        <div class="mt-12 bg-gradient-to-r from-emerald-950/40 to-cyan-950/40 border border-emerald-800/50 rounded-2xl p-6">
+            <p class="text-sm text-slate-300"><strong>⚠️ Remember:</strong> whoever holds the 24-word seed controls the wallet. There is no master password reset — if the password is lost, the seed is the only recovery path.</p>
+        </div>
+    </main>
+
+    <footer class="w-full border-t border-slate-800/60 bg-[#02040b] py-6 text-center text-xs text-slate-500">
+        PayQuant (PQN) v6.4.0 — MIT License.
+    </footer>
+</body>
+</html>

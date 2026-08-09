@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayQuant (PQN) – Architecture</title>
+    <meta name="description" content="PayQuant architecture: 5-layer NAT traversal P2P transport, RocksDB storage engine, RinHash PoW, fast-sync UTXO snapshots and ML-DSA-65 post-quantum signing.">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="payquant-icon.svg" type="image/svg+xml">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        html { scroll-behavior: smooth; }
+        code { background: #0c0f24; padding: 0.15rem 0.45rem; border-radius: 6px; color: #00ffaa; font-family: ui-monospace, monospace; font-size: 0.9em; }
+        pre { background: #04050d; padding: 1rem; border-radius: 12px; border: 1px solid rgba(0,212,255,0.3); overflow-x: auto; }
+        pre code { background: none; padding: 0; color: #00d4ff; }
+    </style>
+</head>
+<body class="bg-[#040612] text-slate-100 font-sans min-h-screen flex flex-col selection:bg-cyan-500 selection:text-black">
+
+    <nav class="w-full border-b border-slate-800/60 bg-[#060919]/85 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <img src="payquant-logo.svg" alt="PayQuant" class="h-8 w-auto">
+                <span class="text-lg font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-500 to-emerald-400">PayQuant</span>
+            </div>
+            <div class="flex space-x-4">
+                <a href="index.html" class="text-sm text-slate-300 hover:text-cyan-400 transition">Home</a>
+                <a href="download.html" class="text-sm text-slate-300 hover:text-cyan-400 transition">Downloads</a>
+                <a href="security.html" class="text-sm text-slate-300 hover:text-cyan-400 transition">Security</a>
+                <a href="docs.html" class="text-sm text-slate-300 hover:text-cyan-400 transition">Docs</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-6 py-12 flex-1">
+        <h1 class="text-4xl font-extrabold text-white">System Architecture</h1>
+        <p class="text-slate-400 mt-2">The PayQuant ecosystem is a stack of zero-dependency engines that combine into a full node, miner, wallet and explorer.</p>
+
+        <img src="architecture.svg" alt="Architecture diagram" class="my-8 w-full rounded-2xl border border-slate-800/70 bg-slate-900/30 p-3">
+
+        <section class="mt-10">
+            <h2 class="text-2xl font-bold text-cyan-400 mb-4">Zero-Port NAT Traversal (5-Layer Cascade)</h2>
+            <p class="text-slate-300">Nodes stay reachable behind home routers without port forwarding. Each layer falls back to the next until a route is established:</p>
+            <pre><code>L1  WebRTC DataChannels (ICE + public STUN)
+      └─ fallback → L2  IRC DCC SEND / RESUME / Reverse DCC
+           └─ fallback → L3  STUN UDP Hole Punching
+                └─ fallback → L4  Direct TCP
+                     └─ fallback → L5  Encrypted IRC Base64 Relay</code></pre>
+            <p class="text-sm text-slate-400 mt-3">IRC signaling runs on <code>#payquant-mainnet</code> (Libera / OFTC) so peers discover each other without any central server or forwarded ports.</p>
+        </section>
+
+        <section class="mt-10">
+            <h2 class="text-2xl font-bold text-purple-400 mb-4">Enterprise Storage (RocksDB)</h2>
+            <p class="text-slate-300">The <code>contrib/chain_db.py</code> engine stores the chain in tuned column families with an in-memory UTXO LRU cache, Bloom filters and automatic database repair on startup:</p>
+            <ul class="list-disc list-inside text-slate-300 mt-3 space-y-1">
+                <li><code>blocks</code> — serialized block headers &amp; transactions</li>
+                <li><code>utxo_set</code> — spendable outputs with cached lookups</li>
+                <li><code>snapshots</code> — fast-sync UTXO snapshots</li>
+            </ul>
+            <pre class="mt-4"><code>python scripts/local_test_suite.py     # 7-category ecosystem test gate</code></pre>
+        </section>
+
+        <section class="mt-10">
+            <h2 class="text-2xl font-bold text-emerald-400 mb-4">Fast-Sync UTXO Snapshots</h2>
+            <p class="text-slate-300">New nodes pull a verified UTXO snapshot (fast_sync_engine.py) instead of replaying every transaction, reducing initial sync from hours to minutes, then download only missing block ranges over the P2P transport.</p>
+        </section>
+
+        <section class="mt-10">
+            <h2 class="text-2xl font-bold text-yellow-400 mb-4">RinHash Proof of Work</h2>
+            <p class="text-slate-300">ASIC-resistant memory-hard PoW. The solo miner distributes jobs via WebSocket (<code>get_mining_job</code> / <code>submit_block</code>), credits <strong>50 PQN</strong> per block and persists the payout address in <code>miner_config.json</code>.</p>
+        </section>
+
+        <section class="mt-10">
+            <h2 class="text-2xl font-bold text-cyan-400 mb-4">Background Daemon Orchestration</h2>
+            <p class="text-slate-300">The process manager (<code>backend/daemon.py</code>) launches node, miner, API and signaling as independent background processes with pidfiles, graceful shutdown and health checks:</p>
+            <pre><code>python backend/daemon.py start all
+python backend/daemon.py status
+python backend/daemon.py stop all
+
+# or via one-shot helpers
+scripts/start_backend.bat   # Windows
+scripts/start_backend.sh    # Linux / macOS</code></pre>
+        </section>
+    </main>
+
+    <footer class="w-full border-t border-slate-800/60 bg-[#02040b] py-6 text-center text-xs text-slate-500">
+        PayQuant (PQN) v6.4.0 — MIT License.
+    </footer>
+</body>
+</html>

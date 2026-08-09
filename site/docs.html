@@ -1,94 +1,114 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PayQuant (PQN) – Technical Documentation (v2.1.0)</title>
-    <meta name="description" content="PayQuant Core v2.1.0 Technical Documentation, Zero-Server P2P IRC Signaling, RPC API reference, ML-DSA-65 post-quantum specs, Synergeia consensus, and RinHash Vulkan GPU mining.">
+    <title>PayQuant (PQN) – Technical Documentation (v6.4.0)</title>
+    <meta name="description" content="PayQuant v6.4.0 technical documentation: JSON-RPC API, node setup, zero-server P2P signaling, RinHash mining and post-quantum ML-DSA-65 security.">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="icon" href="payquant-icon.svg" type="image/svg+xml">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: system-ui, -apple-system, sans-serif;
-            background: #060814;
-            color: #e0e0e0;
-            padding: 2rem;
-            line-height: 1.6;
-        }
-        .container { max-width: 1000px; margin: 0 auto; }
-        h1 {
-            font-size: 2.8rem;
-            background: linear-gradient(135deg, #00d4ff, #7b2fbe);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
-        }
-        h2 { color: #00d4ff; margin-top: 2rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem; }
-        h3 { color: #7b2fbe; margin-top: 1.2rem; }
-        code { background: #0c0f24; padding: 0.2rem 0.5rem; border-radius: 4px; color: #00ffaa; font-family: monospace; }
-        pre { background: #04050d; padding: 1rem; border-radius: 12px; border: 1px solid #00d4ff; overflow-x: auto; margin: 1rem 0; }
+        code { background: #0c0f24; padding: 0.15rem 0.4rem; border-radius: 6px; color: #00ffaa; font-family: ui-monospace, monospace; font-size: 0.9em; }
+        pre { background: #04050d; padding: 1rem; border-radius: 12px; border: 1px solid rgba(0,212,255,0.3); overflow-x: auto; }
         pre code { background: none; padding: 0; color: #00d4ff; }
-        .badge { display: inline-block; background: rgba(0, 212, 255, 0.1); border: 1px solid #00d4ff; padding: 0.2rem 0.8rem; border-radius: 12px; color: #00d4ff; font-weight: bold; font-size: 0.85rem; }
-        nav { margin-bottom: 2rem; }
-        nav a { color: #8899aa; text-decoration: none; margin-right: 1.5rem; font-weight: 600; }
-        nav a:hover { color: #00d4ff; }
-        table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
-        th, td { padding: 0.8rem; border: 1px solid rgba(255,255,255,0.1); text-align: left; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 0.7rem 0.9rem; border: 1px solid rgba(255,255,255,0.1); text-align: left; font-size: 0.9rem; }
         th { background: rgba(255,255,255,0.05); color: #00d4ff; }
     </style>
 </head>
-<body>
-    <div class="container">
-        <nav>
-            <a href="index.html">← Zurück zur Hauptseite</a>
-            <a href="https://github.com/timfromhcs/payquant">GitHub Repository</a>
-            <a href="https://github.com/timfromhcs/payquant/releases/tag/v2.1.0">Releases v2.1.0</a>
-        </nav>
+<body class="bg-[#040612] text-slate-100 font-sans min-h-screen flex flex-col selection:bg-cyan-500 selection:text-black">
 
-        <h1>PayQuant Technical Documentation v2.1.0</h1>
-        <p><span class="badge">Release 2.1.0</span> <span class="badge">Zero-Server P2P Signaling</span> <span class="badge">NIST FIPS 204 ML-DSA-65</span></p>
+    <nav class="w-full border-b border-slate-800/60 bg-[#060919]/85 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <img src="payquant-logo.svg" alt="PayQuant" class="h-8 w-auto">
+                <span class="text-lg font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-500 to-emerald-400">PayQuant</span>
+            </div>
+            <div class="flex space-x-4">
+                <a href="index.html" class="text-sm text-slate-300 hover:text-cyan-400 transition">Home</a>
+                <a href="download.html" class="text-sm text-slate-300 hover:text-cyan-400 transition">Downloads</a>
+                <a href="architecture.html" class="text-sm text-slate-300 hover:text-cyan-400 transition">Architecture</a>
+                <a href="security.html" class="text-sm text-slate-300 hover:text-cyan-400 transition">Security</a>
+            </div>
+        </div>
+    </nav>
 
-        <h2>1. Genesis Block &amp; Network Specifications</h2>
-        <table>
-            <tr><th>Parameter</th><th>Value</th></tr>
-            <tr><td>Network Name</td><td>PayQuant Mainnet (PQN)</td></tr>
-            <tr><td>Genesis Block Hash</td><td><code>000005ced0a90e5e4f39d7188fa1818fee45fef6e32018d0f5f4bb5c6626d818</code></td></tr>
-            <tr><td>Merkle Root</td><td><code>90a319ee35fae5989c52bfe0c6693ef1f658f24513e2fd41f0fdbd1c465fa7bc</code></td></tr>
-            <tr><td>Network Magic Bytes</td><td><code>0x70 0x71 0x6e 0x31</code> (pqn1)</td></tr>
-            <tr><td>P2P Port / RPC Port</td><td><code>28333</code> / <code>28332</code></td></tr>
-            <tr><td>Bech32 Address HRP</td><td><code>pqn</code></td></tr>
-            <tr><td>Spenden-Wallet Treasury</td><td><code>pqn1qgenesisspendenwallettreasury20252026</code> (50 PQN / 1,440 blocks)</td></tr>
-            <tr><td>Zero-Server P2P Signaling Channel</td><td><code>#payquant-mainnet</code> (irc.libera.chat:6667 / irc.oftc.net:6667)</td></tr>
-        </table>
+    <main class="max-w-5xl mx-auto px-6 py-12 flex-1">
+        <h1 class="text-4xl font-extrabold text-white">Technical Documentation</h1>
+        <p class="text-slate-400 mt-2">Network specs, node setup, JSON-RPC reference and mining configuration for PayQuant v6.4.0.</p>
 
-        <h2>2. Node Setup &amp; Zero-Server P2P Signaling</h2>
-        <p>Nodes signal their online presence on Libera/OFTC IRC channel <code>#payquant-mainnet</code> to discover all online nodes worldwide:</p>
-        <pre><code># Clone official repository
-git clone https://github.com/timfromhcs/payquant.git ~/payquant
-cd ~/payquant
+        <section class="mt-10">
+            <h2 class="text-2xl font-bold text-cyan-400 mb-4">1. Network &amp; Genesis Specifications</h2>
+            <div class="overflow-x-auto rounded-xl border border-slate-800/70">
+                <table>
+                    <tbody>
+                        <tr><th>Network Name</th><td>PayQuant Mainnet (PQN)</td></tr>
+                        <tr><th>Genesis Block Hash</th><td><code>000005ced0a90e5e4f39d7188fa1818fee45fef6e32018d0f5f4bb5c6626d818</code></td></tr>
+                        <tr><th>Merkle Root</th><td><code>90a319ee35fae5989c52bfe0c6693ef1f658f24513e2fd41f0fdbd1c465fa8bc</code></td></tr>
+                        <tr><th>Network Magic Bytes</th><td><code>0x70 0x71 0x6e 0x31</code> (pqn1)</td></tr>
+                        <tr><th>P2P Port / RPC Port</th><td><code>28333</code> / <code>28332</code></td></tr>
+                        <tr><th>Bech32 Address HRP</th><td><code>pqn</code></td></tr>
+                        <tr><th>Block Reward</th><td><code>50 PQN</code></td></tr>
+                        <tr><th>Zero-Server Signaling</th><td><code>#payquant-mainnet</code> on Libera / OFTC IRC</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
 
-# Start node with Zero-Server P2P signaling
-python contrib/mainnet_webui.py</code></pre>
+        <section class="mt-10">
+            <h2 class="text-2xl font-bold text-purple-400 mb-4">2. Node Setup &amp; Backend Daemons</h2>
+            <pre><code>git clone https://github.com/timfromhcs/payquant.git
+cd payquant
 
-        <h2>3. JSON-RPC API Reference</h2>
-        <p>PayQuant RPC interface runs on port <code>28332</code> (HTTP basic auth):</p>
-        <table>
-            <tr><th>Method</th><th>Description</th></tr>
-            <tr><td><code>getblockchaininfo</code></td><td>Returns current height, best block hash, difficulty, and chainstate metrics.</td></tr>
-            <tr><td><code>getnetworkinfo</code></td><td>Returns P2P port status, peer connections, and ML-DSA-65 security state.</td></tr>
-            <tr><td><code>getnewaddress</code></td><td>Generates a new ML-DSA-65 post-quantum address (bech32 hrp <code>pqn</code>).</td></tr>
-            <tr><td><code>sendtoaddress &lt;address&gt; &lt;amount&gt;</code></td><td>Signs and broadcasts an ML-DSA-65 transaction.</td></tr>
-            <tr><td><code>generatetoaddress &lt;nblocks&gt; &lt;address&gt;</code></td><td>Mines <code>nblocks</code> targeting <code>address</code>.</td></tr>
-        </table>
+# One-shot backend orchestration (node, miner, API, signaling)
+scripts/start_backend.sh        # Linux / macOS
+scripts/start_backend.bat       # Windows
 
-        <h2>4. RinHash Vulkan GPU Mining</h2>
-        <p>RinHash is an ASIC-resistant PoW algorithm combining BLAKE3, Argon2d (64KB, 2 passes), and SHA3-256:</p>
-        <pre><code>python contrib/vulkan_miner.py --threads 4 --address &lt;YOUR_ADDRESS&gt;</code></pre>
+# or individual control
+python backend/daemon.py start all
+python backend/daemon.py status
+python backend/daemon.py stop all</code></pre>
+        </section>
 
-        <footer>
-            <p style="margin-top:3rem; color:#556677; font-size:0.85rem;">© 2025-2026 PayQuant Contributors. Released under the MIT License.</p>
-        </footer>
-    </div>
+        <section class="mt-10">
+            <h2 class="text-2xl font-bold text-emerald-400 mb-4">3. JSON-RPC API Reference</h2>
+            <p class="text-sm text-slate-400 mb-3">Runs on port <code>28332</code> with HTTP basic auth. Get/status endpoints also exposed by the unified API server on <code>28377</code>.</p>
+            <div class="overflow-x-auto rounded-xl border border-slate-800/70">
+                <table>
+                    <thead><tr><th>Method</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>getblockchaininfo</code></td><td>Current height, best hash, difficulty and chainstate metrics.</td></tr>
+                        <tr><td><code>getnetworkinfo</code></td><td>P2P status, peer connections and ML-DSA-65 security state.</td></tr>
+                        <tr><td><code>getnewaddress</code></td><td>Generate a new post-quantum address (bech32 hrp <code>pqn</code>).</td></tr>
+                        <tr><td><code>sendtoaddress &lt;addr&gt; &lt;amount&gt;</code></td><td>Sign &amp; broadcast an ML-DSA-65 transaction.</td></tr>
+                        <tr><td><code>generatetoaddress &lt;n&gt; &lt;addr&gt;</code></td><td>Mine <code>n</code> blocks targeting <code>addr</code>.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="mt-10">
+            <h2 class="text-2xl font-bold text-yellow-400 mb-4">4. RinHash PoW Mining</h2>
+            <p class="text-slate-300">ASIC-resistant memory-hard PoW. The GUI miner auto-loads your saved payout address from <code>miner_config.json</code>:</p>
+            <pre><code>python contrib/miner_gui.py                 # GUI solo miner
+python backend/daemon.py start miner        # headless daemon miner
+
+# CLI flags (all GUI executables):
+python contrib/miner_gui.py --help</code></pre>
+        </section>
+
+        <section class="mt-10">
+            <h2 class="text-2xl font-bold text-cyan-300 mb-4">5. Testing &amp; Validation Gate</h2>
+            <pre><code>python scripts/local_test_suite.py          # 7-category ecosystem test
+python contrib/build_local_executables.py    # rebuild standalone binaries
+cd wallet && npm run build:web               # wallet web/Android bundle</code></pre>
+            <p class="text-sm text-slate-400 mt-3">Fork-specific docs for the underlying Bitcoin-Knots core live in <code>doc/</code> (release notes, build guides, developer notes).</p>
+        </section>
+    </main>
+
+    <footer class="w-full border-t border-slate-800/60 bg-[#02040b] py-6 text-center text-xs text-slate-500">
+        PayQuant (PQN) v6.4.0 — MIT License.
+    </footer>
 </body>
 </html>

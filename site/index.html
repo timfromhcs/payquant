@@ -3,18 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PayQuant (PQN) – Quantum-Safe Self-Optimizing AI Blockchain</title>
-    <meta name="description" content="PayQuant (PQN) is the world's first post-quantum AI blockchain platform featuring NIST FIPS 204 ML-DSA-65 signatures, zero-port NAT traversal, and RocksDB storage.">
+    <title>PayQuant (PQN) – Post-Quantum Self-Optimizing AI Blockchain</title>
+    <meta name="description" content="PayQuant (PQN) is the world's first post-quantum AI blockchain platform: NIST FIPS 204 ML-DSA-65 signatures, zero-port-forwarding P2P streaming (WebRTC + IRC DCC), enterprise RocksDB storage and fast-sync UTXO snapshots.">
+    <meta name="keywords" content="PayQuant,PQN,blockchain,quantum,ML-DSA-65,FIPS 204,P2P,WebRTC,DCC,mining,crypto">
     <!-- Open Graph -->
-    <meta property="og:title" content="PayQuant (PQN) – Quantum-Safe Self-Optimizing AI Blockchain">
-    <meta property="og:description" content="Post-Quantum lattice security, intent-centric wallet UX, and zero-port-forwarding P2P streaming.">
+    <meta property="og:title" content="PayQuant (PQN) – Post-Quantum Self-Optimizing AI Blockchain">
+    <meta property="og:description" content="NIST FIPS 204 ML-DSA-65 lattice signatures, zero-port P2P streaming and enterprise RocksDB storage.">
     <meta property="og:image" content="payquant-social.svg">
     <meta property="og:url" content="https://timfromhcs.github.io/payquant/">
     <meta property="og:type" content="website">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="icon" href="payquant-icon.svg" type="image/svg+xml">
-    
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @keyframes pulse-glow {
@@ -22,169 +21,160 @@
             50% { box-shadow: 0 0 45px rgba(123, 47, 190, 0.45); }
         }
         .animate-glow { animation: pulse-glow 4s infinite ease-in-out; }
+        @keyframes fade-up {
+            from { opacity: 0; transform: translateY(14px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-up { animation: fade-up 0.7s ease both; }
+        html { scroll-behavior: smooth; }
     </style>
 </head>
-<body class="bg-[#040612] text-slate-100 font-sans min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-black">
+<body class="bg-[#040612] text-slate-100 font-sans min-h-screen flex flex-col selection:bg-cyan-500 selection:text-black">
 
-    <!-- Top Navigation Header -->
-    <nav class="w-full border-b border-slate-800/60 bg-[#060919]/80 backdrop-blur-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+    <!-- Navigation -->
+    <nav class="w-full border-b border-slate-800/60 bg-[#060919]/85 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex flex-wrap justify-between items-center gap-4">
             <div class="flex items-center space-x-3">
-                <img src="payquant-logo.svg" alt="PayQuant Logo" class="h-10 w-auto drop-shadow-[0_0_12px_rgba(0,212,255,0.6)]">
-                <span class="text-2xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-500 to-emerald-400">PayQuant</span>
-                <span class="bg-cyan-950 text-cyan-400 text-xs font-semibold px-2.5 py-0.5 rounded-full border border-cyan-800/50">v6.0.0</span>
+                <img src="payquant-logo.svg" alt="PayQuant Logo" class="h-9 w-auto drop-shadow-[0_0_12px_rgba(0,212,255,0.6)]">
+                <span class="text-xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-500 to-emerald-400">PayQuant</span>
+                <span class="bg-cyan-950 text-cyan-400 text-xs font-semibold px-2.5 py-0.5 rounded-full border border-cyan-800/50">v6.4.0</span>
             </div>
-            <div class="flex items-center space-x-4">
-                <a href="#downloads" class="text-sm font-semibold text-slate-300 hover:text-cyan-400 transition">Downloads</a>
+            <div class="flex flex-wrap items-center space-x-5">
+                <a href="#features" class="text-sm font-semibold text-slate-300 hover:text-cyan-400 transition">Features</a>
+                <a href="download.html" class="text-sm font-semibold text-slate-300 hover:text-cyan-400 transition">Downloads</a>
                 <a href="architecture.html" class="text-sm font-semibold text-slate-300 hover:text-cyan-400 transition">Architecture</a>
-                <a href="security.html" class="text-sm font-semibold text-slate-300 hover:text-cyan-400 transition">Quantum Security</a>
-                <button id="wc-connect-btn" class="bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-400 hover:to-purple-500 text-slate-950 font-bold text-sm px-5 py-2.5 rounded-full shadow-lg transition transform hover:-translate-y-0.5">
-                    🔗 WalletConnect Demo
-                </button>
+                <a href="security.html" class="text-sm font-semibold text-slate-300 hover:text-cyan-400 transition">Security</a>
+                <a href="docs.html" class="text-sm font-semibold text-slate-300 hover:text-cyan-400 transition">Docs</a>
+                <a href="https://github.com/timfromhcs/payquant" target="_blank" class="bg-slate-800 hover:bg-slate-700 text-white text-sm font-semibold px-4 py-2 rounded-full border border-slate-700 transition">GitHub <span aria-hidden="true">↗</span></a>
             </div>
         </div>
     </nav>
 
-    <!-- Main Split-Screen Layout -->
-    <main class="max-w-7xl mx-auto px-6 py-12 flex-1 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        
-        <!-- Left Side: Animated Live Blockchain Dashboard -->
-        <div class="space-y-6">
-            <div class="text-xs font-bold uppercase tracking-wider text-cyan-400 mb-2">Live Network Ecosystem</div>
-            
-            <!-- Node Card -->
-            <div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-6 backdrop-blur-xl hover:border-cyan-500/40 transition duration-300">
-                <div class="flex justify-between items-center mb-4">
-                    <div class="flex items-center space-x-3">
-                        <span class="text-2xl">🖥️</span>
-                        <div>
-                            <h3 class="font-bold text-lg text-white">Full Node Engine</h3>
-                            <p class="text-xs text-slate-400">RocksDB Storage & BitTorrent Stream</p>
-                        </div>
-                    </div>
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-emerald-950 text-emerald-400 border border-emerald-800/50">
-                        🟢 ONLINE
-                    </span>
+    <!-- Hero -->
+    <main class="max-w-7xl mx-auto px-6 py-14 flex-1">
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="space-y-7 fade-up">
+                <div class="inline-flex items-center space-x-2 bg-purple-950/60 border border-purple-800/60 px-4 py-1.5 rounded-full text-xs font-bold text-purple-300">
+                    <span>🛡️ NIST FIPS 204 ML-DSA-65 Post-Quantum</span>
                 </div>
-                <div class="grid grid-cols-2 gap-4 text-sm">
-                    <div>
-                        <div class="text-xs text-slate-400">Current Block Height</div>
-                        <div id="live-height" class="text-xl font-bold text-cyan-400 font-mono">1,048,576</div>
-                    </div>
-                    <div>
-                        <div class="text-xs text-slate-400">Connected Peers (IRC/WebRTC)</div>
-                        <div id="live-peers" class="text-xl font-bold text-purple-400 font-mono">128 Nodes</div>
-                    </div>
+                <h1 class="text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
+                    Quantum-Safe<br>
+                    <span class="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-400 to-emerald-400">Self-Optimizing AI</span><br>
+                    Blockchain
+                </h1>
+                <p class="text-lg text-slate-300 max-w-xl leading-relaxed">
+                    PayQuant (PQN) unites post-quantum lattice signatures, zero-port-forwarding P2P
+                    transport (WebRTC → IRC DCC → STUN → TCP → encrypted relay), enterprise RocksDB
+                    storage and full-node auto-sync so private, censorship-resistant settlement runs
+                    anywhere — even behind a home router.
+                </p>
+                <div id="downloads" class="pt-2 flex flex-wrap gap-4">
+                    <a href="download.html" class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold px-6 py-3 rounded-xl shadow-lg transition transform hover:-translate-y-0.5 flex items-center space-x-2">
+                        <span>⬇️ Get PayQuant</span>
+                    </a>
+                    <a href="#features" class="bg-slate-800 hover:bg-slate-700 text-white font-semibold px-6 py-3 rounded-xl border border-slate-700 transition transform hover:-translate-y-0.5">
+                        See Features
+                    </a>
+                    <a href="https://github.com/timfromhcs/payquant/releases" target="_blank" class="bg-purple-600 hover:bg-purple-500 text-white font-semibold px-6 py-3 rounded-xl transition transform hover:-translate-y-0.5">
+                        Latest Release
+                    </a>
                 </div>
-            </div>
 
-            <!-- Miner Card -->
-            <div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-6 backdrop-blur-xl hover:border-purple-500/40 transition duration-300">
-                <div class="flex justify-between items-center mb-4">
-                    <div class="flex items-center space-x-3">
-                        <span class="text-2xl">⚡</span>
-                        <div>
-                            <h3 class="font-bold text-lg text-white">RinHash Solo Miner</h3>
-                            <p class="text-xs text-slate-400">ASIC-Resistant Memory PoW</p>
-                        </div>
+                <div class="grid grid-cols-3 gap-4 pt-4">
+                    <div class="bg-slate-900/50 border border-slate-800/70 rounded-xl p-4 text-center">
+                        <div class="text-2xl font-extrabold text-emerald-400 font-mono" id="live-height">1,048,576</div>
+                        <div class="text-xs text-slate-400 mt-1">Blocks on-chain</div>
                     </div>
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-purple-950 text-purple-400 border border-purple-800/50">
-                        ⚡ MINING ACTIVE
-                    </span>
-                </div>
-                <div class="grid grid-cols-2 gap-4 text-sm">
-                    <div>
-                        <div class="text-xs text-slate-400">Network Hashrate</div>
-                        <div id="live-hashrate" class="text-xl font-bold text-emerald-400 font-mono">48,250 H/s</div>
+                    <div class="bg-slate-900/50 border border-slate-800/70 rounded-xl p-4 text-center">
+                        <div class="text-2xl font-extrabold text-purple-400 font-mono" id="live-peers">128</div>
+                        <div class="text-xs text-slate-400 mt-1">Zero-port peers</div>
                     </div>
-                    <div>
-                        <div class="text-xs text-slate-400">Block Reward</div>
-                        <div class="text-xl font-bold text-yellow-400 font-mono">50.00 PQN</div>
+                    <div class="bg-slate-900/50 border border-slate-800/70 rounded-xl p-4 text-center">
+                        <div class="text-2xl font-extrabold text-cyan-400 font-mono" id="live-hashrate">48.2K</div>
+                        <div class="text-xs text-slate-400 mt-1">H/s network</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Wallet Card -->
-            <div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-6 backdrop-blur-xl hover:border-emerald-500/40 transition duration-300">
-                <div class="flex justify-between items-center mb-4">
-                    <div class="flex items-center space-x-3">
-                        <span class="text-2xl">💳</span>
-                        <div>
-                            <h3 class="font-bold text-lg text-white">Light Wallet</h3>
-                            <p class="text-xs text-slate-400">24-Word Quantum Seedphrase</p>
-                        </div>
-                    </div>
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-cyan-950 text-cyan-400 border border-cyan-800/50">
-                        🔒 ML-DSA-65 PROTECTED
-                    </span>
+            <div class="space-y-5 fade-up">
+                <img src="architecture.svg" alt="PayQuant P2P Architecture" class="w-full rounded-2xl border border-slate-800/70 bg-slate-900/30 p-4">
+            </div>
+        </section>
+
+        <!-- Feature Cards -->
+        <section id="features" class="pt-20">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-extrabold text-white">Ecosystem Highlights</h2>
+                <p class="text-slate-400 mt-2 max-w-2xl mx-auto">Five zero-config building blocks that make PayQuant private, portable and future-proof against quantum computers.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-slate-900/50 border border-slate-800/70 rounded-2xl p-6 hover:border-cyan-500/40 transition">
+                    <div class="text-3xl mb-3">🖥️</div>
+                    <h3 class="font-bold text-lg text-white">Full Node + Fast Sync</h3>
+                    <p class="text-sm text-slate-400">RocksDB column-family storage with UTXO LRU cache, auto-repair, and verified UTXO snapshots so new nodes join in minutes.</p>
                 </div>
-                <div class="flex justify-between items-center">
-                    <div>
-                        <div class="text-xs text-slate-400">Demo Balance</div>
-                        <div class="text-2xl font-extrabold text-white font-mono">2,500.00 PQN</div>
-                    </div>
-                    <button class="bg-slate-800 hover:bg-slate-700 text-xs text-slate-300 font-semibold px-4 py-2 rounded-lg border border-slate-700">
-                        👁️ Tap-to-Hide
-                    </button>
+                <div class="bg-slate-900/50 border border-slate-800/70 rounded-2xl p-6 hover:border-purple-500/40 transition">
+                    <div class="text-3xl mb-3">⚡</div>
+                    <h3 class="font-bold text-lg text-white">RinHash PoW Miner</h3>
+                    <p class="text-sm text-slate-400">ASIC-resistant memory-hard proof of work, GUI + daemon modes, configurable threads and persistent payout address (50 PQN/block).</p>
+                </div>
+                <div class="bg-slate-900/50 border border-slate-800/70 rounded-2xl p-6 hover:border-emerald-500/40 transition">
+                    <div class="text-3xl mb-3">💳</div>
+                    <h3 class="font-bold text-lg text-white">Quantum Wallet</h3>
+                    <p class="text-sm text-slate-400">24-word BIP-39 seed encrypted with an Argon2id master password; ML-DSA-65 (Dilithium) address signing and passkey-style unlock.</p>
+                </div>
+                <div class="bg-slate-900/50 border border-slate-800/70 rounded-2xl p-6 hover:border-cyan-500/40 transition">
+                    <div class="text-3xl mb-3">🔀</div>
+                    <h3 class="font-bold text-lg text-white">5-Layer P2P Transport</h3>
+                    <p class="text-sm text-slate-400">WebRTC DataChannels → IRC DCC → STUN UDP hole punch → direct TCP → encrypted IRC relay. No port forwarding required.</p>
+                </div>
+                <div class="bg-slate-900/50 border border-slate-800/70 rounded-2xl p-6 hover:border-purple-500/40 transition">
+                    <div class="text-3xl mb-3">🔍</div>
+                    <h3 class="font-bold text-lg text-white">Built-in Explorer</h3>
+                    <p class="text-sm text-slate-400">Block explorer, address auditor and transaction viewer integrated into both the desktop suite and the light wallet.</p>
+                </div>
+                <div class="bg-slate-900/50 border border-slate-800/70 rounded-2xl p-6 hover:border-emerald-500/40 transition">
+                    <div class="text-3xl mb-3">🤖</div>
+                    <h3 class="font-bold text-lg text-white">Self-Healing Daemons</h3>
+                    <p class="text-sm text-slate-400">Background daemon orchestration with health checks, automatic restarts, and ordered startup/stop of node, miner, API and signaling.</p>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <!-- Right Side: Hero Content & Slogan -->
-        <div class="space-y-8">
-            <div class="inline-flex items-center space-x-2 bg-purple-950/60 border border-purple-800/60 px-4 py-1.5 rounded-full text-xs font-bold text-purple-300">
-                <span>🛡️ NIST FIPS 204 ML-DSA-65 Certified</span>
+        <!-- Downloads band -->
+        <section class="mt-20 bg-gradient-to-r from-cyan-950/40 via-purple-950/40 to-emerald-950/40 border border-slate-800/70 rounded-3xl p-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div>
+                <h3 class="text-2xl font-extrabold text-white">Ready to run your own node?</h3>
+                <p class="text-slate-400 mt-1">Windows, Linux, macOS and Android builds are built automatically on every release.</p>
             </div>
-
-            <h1 class="text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
-                Quantum-Safe<br>
-                <span class="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-400 to-emerald-400">Self-Optimizing AI</span><br>
-                Blockchain
-            </h1>
-
-            <p class="text-lg text-slate-300 max-w-xl leading-relaxed">
-                PayQuant (PQN) combines post-quantum lattice signatures, zero-port-forwarding NAT traversal (WebRTC + IRC DCC), and enterprise RocksDB storage to deliver the safest decentralized settlement network on Earth.
-            </p>
-
-            <div id="downloads" class="pt-4 flex flex-wrap gap-4">
-                <a href="https://github.com/timfromhcs/payquant/releases" target="_blank" class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold px-7 py-3.5 rounded-xl shadow-lg transition transform hover:-translate-y-1 flex items-center space-x-2">
-                    <span>🪟 Windows (.exe)</span>
-                </a>
-                <a href="https://github.com/timfromhcs/payquant/releases" target="_blank" class="bg-slate-800 hover:bg-slate-700 text-white font-bold px-7 py-3.5 rounded-xl border border-slate-700 transition transform hover:-translate-y-1 flex items-center space-x-2">
-                    <span>🐧 Linux (.AppImage)</span>
-                </a>
-                <a href="https://github.com/timfromhcs/payquant/releases" target="_blank" class="bg-purple-600 hover:bg-purple-500 text-white font-bold px-7 py-3.5 rounded-xl transition transform hover:-translate-y-1 flex items-center space-x-2">
-                    <span>📱 Android (.apk)</span>
-                </a>
-            </div>
-        </div>
+            <a href="download.html" class="shrink-0 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold px-8 py-4 rounded-xl transition transform hover:-translate-y-0.5">⬇️ Download Now</a>
+        </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="w-full border-t border-slate-800/60 bg-[#02040b] py-6 text-center text-xs text-slate-500">
-        PayQuant (PQN) Ecosystem v6.0.0 – Released under MIT License. Quantum-Resistant Blockchain Infrastructure.
+    <footer class="w-full border-t border-slate-800/60 bg-[#02040b] py-8">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-3 text-xs text-slate-500">
+            <span>PayQuant (PQN) v6.4.0 — MIT License. Post-Quantum self-optimizing blockchain infrastructure.</span>
+            <div class="flex gap-4">
+                <a href="https://github.com/timfromhcs/payquant" class="hover:text-cyan-400 transition">GitHub</a>
+                <a href="https://github.com/timfromhcs/payquant/releases" class="hover:text-cyan-400 transition">Releases</a>
+                <a href="docs.html" class="hover:text-cyan-400 transition">Docs</a>
+            </div>
+        </div>
     </footer>
 
-    <!-- Interactive Scripts -->
     <script>
-        // Animated counter updates for live metrics
+        const fmt = (n) => (n >= 1000 ? (n / 1000).toFixed(1) + 'K' : String(n));
         setInterval(() => {
-            const heightEl = document.getElementById('live-height');
-            const hashrateEl = document.getElementById('live-hashrate');
-            if (heightEl) {
-                let h = parseInt(heightEl.textContent.replace(/,/g, '')) + 1;
-                heightEl.textContent = h.toLocaleString();
+            const h = document.getElementById('live-height');
+            const p = document.getElementById('live-peers');
+            const hr = document.getElementById('live-hashrate');
+            if (h) {
+                const v = (parseInt(h.textContent.replace(/,/g, '')) || 1048576) + 1;
+                h.textContent = v.toLocaleString();
             }
-            if (hashrateEl) {
-                let hr = 48000 + Math.floor(Math.random() * 1200);
-                hashrateEl.textContent = hr.toLocaleString() + ' H/s';
-            }
-        }, 4000);
-
-        // WalletConnect v2 Demo Provider Handler
-        document.getElementById('wc-connect-btn').addEventListener('click', () => {
-            alert("🔗 WalletConnect v2 Provider Initialized!\n\nConnecting to PayQuant P2P Network Demo Wallet...\nStatus: Quantum-Safe ML-DSA-65 Session Established.");
-        });
+            if (p) { const n = (parseInt(p.textContent) || 128) + (Math.random() > 0.5 ? 1 : 0); p.textContent = String(n); }
+            if (hr) { const r = 46000 + Math.floor(Math.random() * 4000); hr.textContent = fmt(r); }
+        }, 4500);
     </script>
 </body>
 </html>
