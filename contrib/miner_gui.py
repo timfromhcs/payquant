@@ -48,6 +48,8 @@ class PayQuantMinerGUI:
         self.total_blocks_mined = 0
         self.total_payout = 0.0
         self.hashrate_hps = 0.0
+        self.node_online = False
+        self.node_height = 0
 
         # FS-02-02: auto-load the saved payout address & settings on every launch
         self.saved_cfg = miner_cfg.load_config() if miner_cfg else {}
@@ -94,6 +96,9 @@ class PayQuantMinerGUI:
         btn_paste = tk.Button(addr_frame, text="📋 Paste Address", font=("Segoe UI", 9, "bold"), bg="#1a2035", fg="#00d4ff", bd=0, padx=10, pady=5, command=self.paste_address)
         btn_paste.pack(side="right")
 
+        btn_reset = tk.Button(addr_frame, text="↺ Reset Seed Phrase", font=("Segoe UI", 9, "bold"), bg="#1a2035", fg="#ff0055", bd=0, padx=10, pady=5, command=self.reset_seed_phrase)
+        btn_reset.pack(side="right", padx=(0, 8))
+
         # Stats Cards
         stats_frame = tk.Frame(main_frame, bg="#060814")
         stats_frame.pack(fill="x", pady=(0, 15))
@@ -101,6 +106,7 @@ class PayQuantMinerGUI:
         self.card_hashrate = self.create_card(stats_frame, "Mining Hashrate", "0 H/s", "#00ffaa")
         self.card_blocks = self.create_card(stats_frame, "Blocks Mined", "0 Blocks", "#00d4ff")
         self.card_payout = self.create_card(stats_frame, "Total PQN Payout", "0.00 PQN", "#7b2fbe")
+        self.card_node = self.create_card(stats_frame, "Node Sync", "🔴 OFFLINE", "#ff0055")
 
         # Thread Config & Big Toggle Button
         ctrl_frame = tk.Frame(main_frame, bg="#060814")
@@ -178,6 +184,31 @@ class PayQuantMinerGUI:
 
             threading.Thread(target=self.mining_loop, daemon=True).start()
 
+    def reset_seed_phrase(self):
+        if not messagebox.askyesno("Reset Seed Phrase", "Clear the saved payout address / seed phrase and mining stats?\n\nThe payout entry will be reset to default."):
+            return
+        try:
+            if miner_cfg:
+                current = miner_cfg.load_config()
+                current["payout_address"] = ""
+                miner_cfg.save_config(current)
+        except Exception as e:
+            self.log("WARN", f"Could not reset config: {e}")
+        self.addr_entry.delete(0, tk.END)
+        self.addr_entry.insert(0, "")
+        self.payout_address = ""
+        self.total_blocks_mined = 0
+        self.total_payout = 0.0
+        self.hashrate_hps = 0.0
+        self.update_mined_stats(0, "0.00 PQN")
+        self.card_hashrate.config(text="0 H/s")
+        self.log("RESET", "Payout address (seed) & mining stats cleared.")
+
+    def update_node_status(self):
+        status = "🟢 SYNCED" if self.node_online else "🔴 OFFLINE"
+        detail = f"{status} · H#{self.node_height}" if self.node_online else status
+        self.card_node.config(text=detail, fg="#00ffaa" if self.node_online else "#ff0055")
+
     def mining_loop(self):
         while self.is_mining:
             payout_addr = self.addr_entry.get().strip()
@@ -187,7 +218,17 @@ class PayQuantMinerGUI:
                 "miner_address": payout_addr
             })
 
-            target_height = job_res.get("height", 1)
+            node_ok = isinstance(job_res, dict) and job_res.get("status") == "ok"
+            self.node_online = node_ok
+            if node_ok:
+                self.node_height = max(0, int(job_res.get("height", 1)) - 1)
+            self.root.after(0, self.update_node_status)
+            if not node_ok:
+                self.root.after(0, self.log, "WARN", "Node unreachable on 127.0.0.1:28333 - retrying...")
+                time.sleep(3)
+                continue
+
+            target_height = job_res.get("height", self.node_height + 1)
             prev_hash = job_res.get("prev_hash", "000005ced0a90e5e4f39d7188fa1818fee45fef6e32018d0f5f4bb5c6626d818")
 
             # Simulate RinHash GPU/CPU execution
@@ -223,12 +264,18 @@ class PayQuantMinerGUI:
                     "type": "submit_mined_block",
                     "block": mined_block
                 })
+                submit_ok = isinstance(submit_res, dict) and submit_res.get("status") == "ok"
+                self.node_online = submit_ok
+                self.root.after(0, self.update_node_status)
 
-                if submit_res.get("status") == "ok":
+                if submit_ok:
                     self.total_blocks_mined += 1
                     self.total_payout += 50.0
                     self.root.after(0, self.update_mined_stats, self.total_blocks_mined, f"{self.total_payout:,.2f} PQN")
                     self.root.after(0, self.log, "BLOCK MINED", f"🎉 Mined Block #{target_height} ({block_hash[:16]}...) -> +50 PQN Payout!")
+                else:
+                    err = submit_res.get("message") if isinstance(submit_res, dict) else "node timeout"
+                    self.root.after(0, self.log, "WARN", f"Block submission rejected: {err}")
 
             time.sleep(3)
 

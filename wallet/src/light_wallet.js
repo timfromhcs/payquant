@@ -100,10 +100,10 @@ class LightWalletManager {
       if (res.status === 'ok') {
         const headers = res.headers || [];
         this.walletData.lastHeight = res.last_height || headers.length;
-        this.walletData.headersCount = headers.length;
+        this.walletData.headersCount = Math.max(this.walletData.headersCount || 1, headers.length);
         synced = true;
 
-        // Query UTXOs for address
+        // Query UTXOs & balance for address
         const utxoRes = await this.queryPeer(peer, {
           type: 'get_utxos',
           address: this.walletData.address
@@ -111,11 +111,26 @@ class LightWalletManager {
 
         if (utxoRes.status === 'ok' && utxoRes.utxos) {
           this.walletData.utxos = utxoRes.utxos;
-          let calculatedBal = 50.0;
+          let calculatedBal = 0.0;
           utxoRes.utxos.forEach(tx => {
             if (typeof tx.amount === 'number') calculatedBal += tx.amount;
           });
           this.walletData.balance = calculatedBal;
+        }
+
+        // Pull mempool / node txs for this address so tx list & balance stay live
+        const txRes = await this.queryPeer(peer, {
+          type: 'get_txs',
+          limit: 50
+        });
+        if (txRes.status === 'ok' && Array.isArray(txRes.txs)) {
+          const mine = txRes.txs.filter(t => String(t.address || '') === this.walletData.address);
+          for (const t of mine) {
+            if (!this.walletData.transactions.some(x => x.txid === t.txid)) {
+              this.walletData.transactions.unshift(t);
+            }
+          }
+          this.walletData.transactions = this.walletData.transactions.slice(0, 60);
         }
 
         break;

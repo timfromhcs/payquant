@@ -345,17 +345,21 @@ function drawChart() {
 /*  Sync modes                                                          */
 /* ------------------------------------------------------------------ */
 async function syncLightMode() {
+  let data = null;
   try {
-    const data = await window.payquant.lightSync();
-    if (data.address) currentAddress = data.address;
-    setPillStatus('⚡ P2P SPV ONLINE', true, true);
-    if ($('balance')) $('balance').textContent = `${Number(data.balance || 0).toFixed(4)} PQN`;
-    if ($('balance-unconfirmed')) $('balance-unconfirmed').textContent = 'Pending: 0.0000 PQN';
-    if ($('node-info')) $('node-info').textContent = `Light SPV | Headers: ${data.headersCount} | Height: ${data.lastHeight}`;
-    if ($('spv-status-text')) $('spv-status-text').textContent = `Syncing: ${data.headersCount}/${data.lastHeight}`;
-    updateQRCodes(currentAddress);
-    renderTxs(data.transactions || []);
-  } catch (e) { log('WARN', 'Light sync: ' + e.message); }
+    data = await window.payquant.lightSync();
+  } catch (e) {
+    log('WARN', 'Light sync: ' + e.message);
+  }
+  if (data && data.address) currentAddress = data.address;
+  const online = !!(data && (data.online || data.synced));
+  setPillStatus(online ? '⚡ P2P SPV ONLINE' : '🔴 P2P OFFLINE - start node', online, true);
+  if ($('balance')) $('balance').textContent = `${Number((data && data.balance) || 0).toFixed(4)} PQN`;
+  if ($('balance-unconfirmed')) $('balance-unconfirmed').textContent = 'Pending: 0.0000 PQN';
+  if ($('node-info')) $('node-info').textContent = online ? `Light SPV | Headers: ${data.headersCount} | Height: ${data.lastHeight}` : '⚠️ Node offline - start the node (Port 28333)';
+  if ($('spv-status-text')) $('spv-status-text').textContent = `Syncing: ${data ? data.headersCount : 0}/${data ? data.lastHeight : 0}`;
+  updateQRCodes(currentAddress);
+  renderTxs((data && data.transactions) || []);
 }
 
 async function refreshRpcMode() {
@@ -540,7 +544,15 @@ function copyToClipboard(text) {
   await refreshAll();
   window.setInterval(() => { if (unlocked) refreshAll(); }, 10000);
   window.payquant.onSync((payload) => {
-    if (payload && payload.transactions) renderTxs(payload.transactions);
+    if (!payload) return;
+    if (getMode() === 'rpc' && typeof payload.online === 'boolean') {
+      setPillStatus(payload.online ? (payload.syncState === 'syncing' ? '🔄 SYNCING' : '🖥️ SYNCED') : '🔴 OFFLINE - start node', payload.online);
+      if ($('node-info')) {
+        const h = payload.height || 0;
+        $('node-info').textContent = `${payload.syncState === 'syncing' ? 'Syncing...' : 'Live Sync'} | Height: ${h} | Headers: ${payload.headers || h}`;
+      }
+    }
+    if (payload.transactions) renderTxs(payload.transactions);
     if (payload && typeof payload.balance === 'number' && $('balance')) {
       $('balance').textContent = `${payload.balance.toFixed(4)} PQN`;
     }

@@ -128,6 +128,26 @@ class P2PProtocolHandler(socketserver.BaseRequestHandler):
                 }
                 self.request.sendall(json.dumps(response).encode('utf-8'))
 
+            elif msg_type == "get_txs":
+                limit = min(msg.get("limit", 50), 200)
+                txs = []
+                try:
+                    with MEMPOOL_LOCK:
+                        for tx in MEMPOOL[:limit]:
+                            txs.append({
+                                "txid": tx.get("txid", ""),
+                                "category": "recv",
+                                "address": tx.get("recipient", ""),
+                                "amount": tx.get("amount", 0),
+                                "time": int(time.time()),
+                                "confirmations": 0,
+                                "mempool": True
+                            })
+                except Exception:
+                    pass
+                response = {"type": "send_txs", "status": "ok", "txs": txs, "count": len(txs)}
+                self.request.sendall(json.dumps(response).encode('utf-8'))
+
             elif msg_type == "get_utxo_snapshot":
                 snapshot = db.create_utxo_snapshot()
                 response = {"type": "send_utxo_snapshot", "status": "ok", "snapshot": snapshot}

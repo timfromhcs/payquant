@@ -59,6 +59,7 @@ class PayQuantNodeMinerGUI:
         self.total_blocks_mined = 0
         self.total_payout = 0.0
         self.hashrate_hps = 0.0
+        self.node_online = True
 
         # FS-02-02: auto-load the saved payout address
         first_addr = "pqn1qdefaultminerpayoutaddress2026"
@@ -131,6 +132,9 @@ class PayQuantNodeMinerGUI:
 
         btn_paste = tk.Button(payout_frame, text="📋 Paste", font=("Segoe UI", 9, "bold"), bg="#1a2035", fg="#00d4ff", bd=0, padx=10, pady=5, command=self.paste_address)
         btn_paste.pack(side="right")
+
+        btn_reset = tk.Button(payout_frame, text="↺ Reset Seed Phrase", font=("Segoe UI", 9, "bold"), bg="#1a2035", fg="#ff0055", bd=0, padx=10, pady=5, command=self.reset_seed_phrase)
+        btn_reset.pack(side="right", padx=(0, 8))
 
         # Miner Stats Row
         miner_stats = tk.Frame(tab_miner, bg="#040612")
@@ -206,6 +210,26 @@ class PayQuantNodeMinerGUI:
                 self.log_miner("WALLET", f"Pasted Payout Address: {text.strip()}")
         except Exception:
             pass
+
+    def reset_seed_phrase(self):
+        if not messagebox.askyesno("Reset Seed Phrase", "Clear the saved payout address / seed phrase and reset mining stats to zero?"):
+            return
+        try:
+            if miner_cfg:
+                cfg = miner_cfg.load_config()
+                cfg["payout_address"] = ""
+                miner_cfg.save_config(cfg)
+                self.log_miner("CONFIG", "Saved payout address cleared in miner_config.json")
+        except Exception as e:
+            self.log_miner("WARN", f"Config reset failed: {e}")
+        self.entry_miner_addr.delete(0, tk.END)
+        self.entry_miner_addr.insert(0, "")
+        self.total_blocks_mined = 0
+        self.total_payout = 0.0
+        self.card_mined.config(text="0 Blocks")
+        self.card_rewards.config(text="0.00 PQN")
+        self.card_hashrate.config(text="0.00 H/s")
+        self.log_miner("RESET", "Payout address (seed) & mining stats cleared.")
 
     def toggle_mining(self):
         if self.is_mining:

@@ -108,6 +108,7 @@ class SyncService {
         out.headers = (chain.result && chain.result.headers) || out.height;
         out.online = true;
         out.sync = out.height > 0 && out.headers >= out.height ? 'synced' : 'syncing';
+        out.syncState = out.sync;
         out.ok = true;
         this._broadcast(out);
         return out;
@@ -130,6 +131,7 @@ class SyncService {
         const txs = await this._queryP2P({ type: 'get_txs' });
         out.transactions = Array.isArray(txs.txs) ? txs.txs : [];
         out.sync = out.height > 0 ? 'synced' : 'syncing';
+        out.syncState = out.sync;
         out.ok = true;
       }
     } catch {}
