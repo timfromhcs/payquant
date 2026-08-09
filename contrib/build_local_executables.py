@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-PayQuant (PQN) Multi-Platform Installer & Executable Builder v6.4.0
+PayQuant (PQN) Multi-Platform Installer & Executable Builder v4.0.0
 
 Compiles full multi-megabyte standalone PyInstaller binaries:
  1. Combined Node + Miner Suite (dist/payquant-node-miner-gui.exe)
@@ -15,6 +15,9 @@ Generates Inno Setup installer scripts and copies binaries into platform folders
  - build_dist/linux/
  - build_dist/macos/
  - build_dist/android/
+
+As a final step (Windows host) it bundles every built binary + installer script
+into a clean single-platform release ZIP: build_dist/payquant-v4.0.0-windows.zip
 """
 
 import os
@@ -41,7 +44,7 @@ def build_executables():
     os.makedirs(DIST_DIR, exist_ok=True)
     setup_platform_dirs()
 
-    print(f"[PayQuant Installer Builder v6.4.0] Target Directory: {DIST_DIR}")
+    print(f"[PayQuant Installer Builder v4.0.0] Target Directory: {DIST_DIR}")
 
     targets = [
         ("node_miner_gui.py", "payquant-node-miner-gui", "--windowed"),
@@ -97,6 +100,19 @@ def build_executables():
                 shutil.copy2(fpath, os.path.join(win_dir, fname))
             except Exception:
                 pass
+
+    # Bundle a clean single-OS release ZIP (Windows host)
+    try:
+        import zipfile
+        zip_path = os.path.join(BASE_DIR, "build_dist", "payquant-v4.0.0-windows.zip")
+        with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as zf:
+            for fname in sorted(os.listdir(win_dir)):
+                fpath = os.path.join(win_dir, fname)
+                if os.path.isfile(fpath):
+                    zf.write(fpath, f"payquant-v4.0.0-windows/{fname}")
+        print(f"[PayQuant Installer Builder] -> [SUCCESS] Release ZIP: {zip_path}")
+    except Exception as e:
+        print(f"[PayQuant Installer Builder] Release ZIP skipped: {e}")
 
     print("[PayQuant Installer Builder] All PyInstaller binaries compiled & platform setup installer scripts generated!")
 

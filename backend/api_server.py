@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-PayQuant (PQN) Unified REST / WebSocket / JSON-RPC API Server v6.6.0 (FS-03-01)
+PayQuant (PQN) Unified REST / WebSocket / JSON-RPC API Server v4.0.0 (FS-03-01)
 
 Single point of control for both the Wallet and the Miner:
   - /api/balance          -> wallet balance
@@ -170,7 +170,7 @@ def build_status():
     peers = _peer_count()
     return {
         "ok": True,
-        "version": "6.6.0",
+        "version": "4.0.0",
         "height": h,
         "balance": _balance(),
         "hashrate": _hashrate(),
@@ -211,7 +211,7 @@ def _fastapi_server():
     import uvicorn
     from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 
-    app = FastAPI(title="PayQuant Unified API", version="6.6.0")
+    app = FastAPI(title="PayQuant Unified API", version="4.0.0")
     clients = set()
 
     @app.get("/api/status")

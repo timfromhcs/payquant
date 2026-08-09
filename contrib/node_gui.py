@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-PayQuant (PQN) Standalone GUI Node Application v6.6.0
+PayQuant (PQN) Standalone GUI Node Application v4.0.0
 Desktop GUI Node with Persistent Chain DB, Live Metrics, IRC P2P Peer Discovery,
 Visual Log Feed, and ZIP Database Backup. Modern shared dark UI theme.
 """
@@ -36,7 +36,7 @@ class PayQuantNodeGUI:
     def __init__(self, root):
         theme.enable_hi_dpi(root)
         self.root = root
-        self.root.title("PayQuant (PQN) Full Node GUI – v6.6.0")
+        self.root.title("PayQuant (PQN) Full Node GUI – v4.0.0")
         self.root.geometry("900x640")
         self.root.configure(bg=theme.BG)
 
@@ -67,7 +67,9 @@ class PayQuantNodeGUI:
         stats_frame = tk.Frame(main_frame, bg=theme.BG)
         stats_frame.pack(fill="x", pady=(0, 15))
         self.card_blocks = self._mk_card(stats_frame, "Block Height", "0", theme.ACCENT)
-        self.card_peers = self._mk_card(stats_frame, "P2P Peers (IRC)", "0", theme.PURPLE)
+        self.card_mined = self._mk_card(stats_frame, "Blocks Mined", "0", theme.GOLD)
+        self.card_nodes = self._mk_card(stats_frame, "Connected Peers", "0", theme.PURPLE)
+        self.card_miners = self._mk_card(stats_frame, "Connected Miners", "0", theme.RED)
         self.card_hash = self._mk_card(stats_frame, "Best Block Hash", "0000...", theme.GREEN)
 
         # Live Log Console
@@ -103,7 +105,7 @@ class PayQuantNodeGUI:
 
     def start_node_services(self):
         self.node_running = True
-        self.log("STARTUP", "PayQuant Full Node GUI v6.6.0 initializing...")
+        self.log("STARTUP", "PayQuant Full Node GUI v4.0.0 initializing...")
         self.log("STORAGE", f"RocksDB Persistent State Engine loaded at: {self.db.db_file}")
         self.log("SECURITY", "NIST FIPS 204 ML-DSA-65 signature validator online.")
 
@@ -119,19 +121,24 @@ class PayQuantNodeGUI:
         threading.Thread(target=self.metrics_loop, daemon=True).start()
 
     def metrics_loop(self):
+        start_height = self.db.getLastHeight()
         while True:
             if self.node_running:
                 height = self.db.getLastHeight()
                 best = self.db.getBestBlock()
                 best_hash = best.get("hash", "0000...") if best else "0000..."
                 peers_count = irc_signaling.get_node_count()
+                miner_count = irc_signaling.get_miner_count()
+                mined_delta = max(0, height - start_height)
 
-                self.root.after(0, self.update_card_labels, height, peers_count, best_hash[:16] + "...")
+                self.root.after(0, self.update_card_labels, height, mined_delta, peers_count, miner_count, best_hash[:16] + "...")
             time.sleep(2)
 
-    def update_card_labels(self, height, peers, best_hash):
+    def update_card_labels(self, height, mined, nodes, miners, best_hash):
         self.card_blocks.config(text=str(height))
-        self.card_peers.config(text=f"{peers} Peers Online")
+        self.card_mined.config(text=f"{mined} Mined")
+        self.card_nodes.config(text=f"{nodes} Peers")
+        self.card_miners.config(text=f"{miners} Miners")
         self.card_hash.config(text=best_hash)
 
     def toggle_node(self):
@@ -154,7 +161,7 @@ class PayQuantNodeGUI:
 
 def main():
     if len(sys.argv) > 1 and sys.argv[1] in ["--help", "-h"]:
-        print("PayQuant (PQN) Standalone Full Node GUI v6.6.0")
+        print("PayQuant (PQN) Standalone Full Node GUI v4.0.0")
         sys.exit(0)
     root = tk.Tk()
     app = PayQuantNodeGUI(root)

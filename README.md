@@ -61,7 +61,9 @@ cloud server. It combines:
 - **Merkle-delta UTXO sync** – `contrib/pqn_sync.py` compares canonical Merkle roots before transferring only changed UTXOs.
 - **Super-Transport layer** – `contrib/pqn_netlib.py` unifies WebRTC/IRC-DCC/STUN/TCP/relay under one retryable ladder, optionally accelerated by libp2p/Noise.
 - **DirectDrop peer-to-peer files** – 4-char transfer codes, AES-256-GCM sealed frames via `contrib/pqn_file.py`.
-- **Cross-platform release pipeline** – `.github/workflows/build-all.yml` produces Windows `.exe`, Linux `.AppImage`, macOS `.dmg` and Android `.apk` on every release.
+- **Cross-platform release pipeline** – `.github/workflows/build-all.yml` produces Windows `.exe`, Linux `.AppImage`, macOS `.dmg` and Android `.apk` on every release, bundled into one clean ZIP per OS.
+- **Live Node GUI** – `contrib/node_gui.py` streams real-time block height, a mined-block counter, and **separate Connected Peers / Connected Miners** readouts every 2 seconds.
+- **Wallet seedphrase login** – one-click 🔑 **Login with Seedphrase** from the wallet header: enter your 24 words + master password to unlock the Argon2id-encrypted vault.
 - **Quantum footprints** – `contrib/pqn_quantum/` ties each block to a true-random seed via the 8-qubit panta-sim simulator and mints a public SHA-256 footprint (`footprints.py`); `TRNGClient` falls back to OS entropy when the QRNG endpoints are unreachable.
 - **3D Quantum Diamond explorer** – a Three.js WebGL gallery (`explorer_3d/`) renders one deterministic 3D diamond per block from the public footprint only; `tools/build_gallery3d.py` regenerates the public dataset from local chain headers.
 
@@ -207,12 +209,15 @@ All commit/push-request PRs must pass the full suite.
 
 ## 📦 Releases
 
+Every `v*` tag triggers the cross-platform build & release pipeline. Each
+release ships **one clean ZIP per operating system** containing the standalone
+apps plus the wallet:
+
 | Platform | Package |
 |---|---|
-| **Windows x64** | `PayQuant-Node-Miner-Suite-Setup.exe`, `PayQuant-Wallet-Setup.exe`, `PayQuant-Explorer-Setup.exe` |
-| **Linux x64** | `PayQuant-Node-Miner-Linux.AppImage`, `payquantd` headless daemon |
-| **macOS Universal** | `PayQuant-Ecosystem-macOS.dmg` |
-| **Android** | `PayQuant-Wallet-arm64-v8a.apk` |
+| **Windows x64** | `payquant-v4.0.0-windows.zip` (node GUI, miner GUI, suite, explorer, wallet installer, `payquantd`) |
+| **Linux x64** | `payquant-v4.0.0-linux.zip` (AppImages, binaries + Android APK) |
+| **macOS Universal** | `payquant-v4.0.0-macos.zip` (standalone apps + `.dmg`) |
 
 Every Tag `v*` triggers the full cross-platform build & release pipeline automatically.
 

@@ -1,5 +1,5 @@
 /**
- * PayQuant (PQN) Transaction Simulator & Quantum Risk Assessor v7.0.0
+ * PayQuant (PQN) Transaction Simulator & Quantum Risk Assessor v4.0.0
  * Local transaction simulation and quantum-resistance risk scoring without external APIs.
  */
 const PayQuantRiskSimulator = {

@@ -51,7 +51,7 @@ class PayQuantNodeMinerGUI:
     def __init__(self, root):
         theme.enable_hi_dpi(root)
         self.root = root
-        self.root.title("PayQuant (PQN) Unified Full Node & Solo Miner Suite – v6.6.0")
+        self.root.title("PayQuant (PQN) Unified Full Node & Solo Miner Suite – v4.0.0")
         self.root.geometry("980x680")
         self.root.configure(bg=theme.BG)
 
@@ -111,7 +111,8 @@ class PayQuantNodeMinerGUI:
         stats_frame.pack(fill="x", pady=(0, 15))
 
         self.card_blocks = self.create_card(stats_frame, "Current Block Height", str(self.db.getLastHeight()), "#00d4ff")
-        self.card_peers = self.create_card(stats_frame, "Connected P2P Peers", "128 Nodes", "#7b2fbe")
+        self.card_peers = self.create_card(stats_frame, "Connected Peers", "0 Nodes", "#7b2fbe")
+        self.card_miners = self.create_card(stats_frame, "Connected Miners", "0 Miners", "#ff0055")
         self.card_hash = self.create_card(stats_frame, "Best Block Hash", "0000...0000", "#00ffaa")
 
         # Node Log Console
@@ -196,7 +197,8 @@ class PayQuantNodeMinerGUI:
                     best_h = best.get("hash", "0000...")[:16] + "..." if best else "0000..."
 
                     self.root.after(0, self.card_blocks.config, {"text": str(h)})
-                    self.root.after(0, self.card_peers.config, {"text": f"{node_cnt} Nodes | {miner_cnt} Miners"})
+                    self.root.after(0, self.card_peers.config, {"text": f"{node_cnt} Nodes"})
+                    self.root.after(0, self.card_miners.config, {"text": f"{miner_cnt} Miners"})
                     self.root.after(0, self.card_hash.config, {"text": best_h})
                 except Exception:
                     pass

@@ -42,7 +42,7 @@ class PayQuantMinerGUI:
     def __init__(self, root):
         theme.enable_hi_dpi(root)
         self.root = root
-        self.root.title("PayQuant (PQN) RinHash GPU/CPU Miner – v6.6.0")
+        self.root.title("PayQuant (PQN) RinHash GPU/CPU Miner – v4.0.0")
         self.root.geometry("840x600")
         self.root.configure(bg=theme.BG)
 
@@ -67,7 +67,7 @@ class PayQuantMinerGUI:
             self.addr_entry.insert(0, self.payout_address)
             self.log("STARTUP", f"Loaded saved payout address: {self.payout_address[:16]}...")
 
-        self.log("STARTUP", "PayQuant RinHash Miner GUI v7.0.0 initializing...")
+        self.log("STARTUP", "PayQuant RinHash Miner GUI v4.0.0 initializing...")
         self.log("HARDWARE", "CPU/GPU mining thread pool initialized (RinHash ASIC-Resistant PoW).")
 
     def setup_ui(self):

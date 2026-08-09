@@ -37,14 +37,14 @@ class PayQuantExplorerGUI:
     def __init__(self, root):
         theme.enable_hi_dpi(root)
         self.root = root
-        self.root.title("PayQuant (PQN) Public Blockchain Explorer – v6.6.0")
+        self.root.title("PayQuant (PQN) Public Blockchain Explorer – v4.0.0")
         self.root.geometry("960x680")
         self.root.configure(bg=theme.BG)
 
         self.db = get_db()
         self.setup_ui()
         self.start_explorer_daemon()
-        print("[Explorer GUI v6.6.0] Standalone Public Blockchain Explorer & Address Auditor running.")
+        print("[Explorer GUI v4.0.0] Standalone Public Blockchain Explorer & Address Auditor running.")
 
     def setup_ui(self):
         theme.configure_ttk(self.root)

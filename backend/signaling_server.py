@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-PayQuant (PQN) Real-Time WebSocket Signaling Server v6.6.0 (FS-03-03)
+PayQuant (PQN) Real-Time WebSocket Signaling Server v4.0.0 (FS-03-03)
 
 Provides live status + mining job distribution + wallet notifications over
 WebSocket (raw WS via `websockets`, fallback to a minimal handshake).

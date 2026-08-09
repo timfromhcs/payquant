@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-PayQuant (PQN) Multi-Platform Installers Generator v6.3.0
+PayQuant (PQN) Multi-Platform Installers Generator v4.0.0
 
 Generates platform setup installers (Windows .exe Installers, Linux AppImages, macOS DMGs, Android APKs)
 for:
@@ -24,14 +24,14 @@ def create_inno_setup_scripts():
     iss_node = """
 [Setup]
 AppName=PayQuant Full Node
-AppVersion=6.3.0
+AppVersion=4.0.0
 WizardStyle=modern
 DefaultDirName={autopf}\\PayQuant\\Node
 DefaultGroupName=PayQuant Ecosystem
 Compression=lzma2
 SolidCompression=yes
 OutputDir=..\\build_dist\\windows
-OutputBaseFilename=PayQuant-Node-Setup-v6.3.0
+OutputBaseFilename=PayQuant-Node-Setup-v4.0.0
 
 [Files]
 Source: "payquant-node-gui.exe"; DestDir: "{app}"; Flags: ignoreversion
@@ -44,14 +44,14 @@ Name: "{commondesktop}\\PayQuant Full Node"; Filename: "{app}\\payquant-node-gui
     iss_miner = """
 [Setup]
 AppName=PayQuant RinHash Solo Miner
-AppVersion=6.3.0
+AppVersion=4.0.0
 WizardStyle=modern
 DefaultDirName={autopf}\\PayQuant\\Miner
 DefaultGroupName=PayQuant Ecosystem
 Compression=lzma2
 SolidCompression=yes
 OutputDir=..\\build_dist\\windows
-OutputBaseFilename=PayQuant-Miner-Setup-v6.3.0
+OutputBaseFilename=PayQuant-Miner-Setup-v4.0.0
 
 [Files]
 Source: "payquant-miner-gui.exe"; DestDir: "{app}"; Flags: ignoreversion
@@ -64,14 +64,14 @@ Name: "{commondesktop}\\PayQuant Miner"; Filename: "{app}\\payquant-miner-gui.ex
     iss_node_miner = """
 [Setup]
 AppName=PayQuant Node & Miner Suite
-AppVersion=6.3.0
+AppVersion=4.0.0
 WizardStyle=modern
 DefaultDirName={autopf}\\PayQuant\\NodeMinerSuite
 DefaultGroupName=PayQuant Ecosystem
 Compression=lzma2
 SolidCompression=yes
 OutputDir=..\\build_dist\\windows
-OutputBaseFilename=PayQuant-Node-Miner-Suite-Setup-v6.3.0
+OutputBaseFilename=PayQuant-Node-Miner-Suite-Setup-v4.0.0
 
 [Files]
 Source: "payquant-node-miner-gui.exe"; DestDir: "{app}"; Flags: ignoreversion
@@ -84,14 +84,14 @@ Name: "{commondesktop}\\PayQuant Node & Miner Suite"; Filename: "{app}\\payquant
     iss_wallet = """
 [Setup]
 AppName=PayQuant Light Wallet
-AppVersion=6.3.0
+AppVersion=4.0.0
 WizardStyle=modern
 DefaultDirName={autopf}\\PayQuant\\Wallet
 DefaultGroupName=PayQuant Ecosystem
 Compression=lzma2
 SolidCompression=yes
 OutputDir=..\\build_dist\\windows
-OutputBaseFilename=PayQuant-Wallet-Setup-v6.3.0
+OutputBaseFilename=PayQuant-Wallet-Setup-v4.0.0
 
 [Files]
 Source: "payquant-wallet-gui.exe"; DestDir: "{app}"; Flags: ignoreversion

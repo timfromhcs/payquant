@@ -21,6 +21,7 @@
       </div>
       <div class="status" style="display:flex; gap:0.6rem; align-items:center;">
         <span id="node-status" class="pill pill-online">P2P ONLINE</span>
+        <button id="btn-login-seed" class="btn btn-start" style="padding:0.3rem 0.7rem; font-size:0.8rem; background:#00d4ff; color:#060814;">🔑 Login with Seedphrase</button>
         <button id="btn-lock" class="btn" style="padding:0.3rem 0.7rem; font-size:0.8rem;">🔒 Lock</button>
         <button id="btn-seed-backup" class="btn" style="padding:0.3rem 0.7rem; font-size:0.8rem;">🔑 Seedphrase Backup</button>
       </div>
@@ -230,13 +231,13 @@
   <!-- SEEDPHRASE RESTORE MODAL -->
   <div id="restore-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(6,8,20,0.95); z-index:9999; justify-content:center; align-items:center;">
     <div style="background:#0c1024; border:1px solid #7b2fbe; border-radius:16px; width:90%; max-width:540px; padding:1.5rem;">
-      <h3 style="color:#7b2fbe; margin-bottom:0.8rem;">🔑 Restore PayQuant Wallet from 24-Word Seed</h3>
-      <p class="sub" style="margin-bottom:1rem;">Enter your 24 secret backup words and a new master password:</p>
+      <h3 style="color:#7b2fbe; margin-bottom:0.8rem;">🔑 Login to PayQuant Wallet from Seedphrase</h3>
+      <p class="sub" style="margin-bottom:1rem;">Enter your 24-word seed and a master password to unlock this wallet:</p>
       <textarea id="restore-words-input" rows="4" style="width:100%; background:#060814; color:#00d4ff; border:1px solid rgba(123,47,190,0.5); border-radius:8px; padding:0.8rem; font-family:monospace; margin-bottom:1rem;" placeholder="Enter 24 seed words separated by spaces..."></textarea>
       <input id="restore-pw" type="password" style="width:100%; background:#060814; color:#00d4ff; border:1px solid rgba(123,47,190,0.5); border-radius:8px; padding:0.8rem; font-family:monospace; margin-bottom:1rem;" placeholder="New master password (min 8 chars)">
       <div style="display:flex; gap:0.8rem; justify-content:flex-end;">
         <button id="btn-cancel-restore" class="btn">Cancel</button>
-        <button id="btn-confirm-restore" class="btn btn-start" style="background:#7b2fbe; color:#fff;">Restore Wallet</button>
+        <button id="btn-confirm-restore" class="btn btn-start" style="background:#7b2fbe; color:#fff;">Login Wallet</button>
       </div>
     </div>
   </div>

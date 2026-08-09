@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-PayQuant (PQN) Advanced IRC P2P Handshake & Local UDP Broadcast Discovery Engine v6.6.0
+PayQuant (PQN) Advanced IRC P2P Handshake & Local UDP Broadcast Discovery Engine v4.0.0
 Features:
  - Private 1-on-1 IRC handshake negotiation (PRIVMSG/NOTICE)
  - Real-time Node & Miner count tracking (get_node_count, get_miner_count)
@@ -62,7 +62,7 @@ CURRENT_IRC_SOCKET = None
 
 def get_external_ip():
     try:
-        req = urllib.request.Request("https://api.ipify.org?format=json", headers={'User-Agent': 'PayQuant-IRC-Node/6.6.0'})
+        req = urllib.request.Request("https://api.ipify.org?format=json", headers={'User-Agent': 'PayQuant-IRC-Node/4.0.0'})
         with urllib.request.urlopen(req, timeout=3) as resp:
             return json.loads(resp.read().decode('utf-8')).get("ip", "127.0.0.1")
     except Exception:
@@ -414,4 +414,4 @@ def run_udp_broadcast_beacon():
 
 if __name__ == '__main__':
     start_background_signaling()
-    print("[IRC & UDP P2P Discovery v6.6.0] Multi-Node Discovery Engine Active.")
+    print("[IRC & UDP P2P Discovery v4.0.0] Multi-Node Discovery Engine Active.")

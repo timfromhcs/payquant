@@ -262,12 +262,15 @@ function onboardingBack() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Restore (FS-01 seed recovery)                                      */
+/*  Restore / Login from seedphrase (FS-01 seed recovery)              */
 /* ------------------------------------------------------------------ */
 async function confirmRestore() {
-  const words = $('restore-words-input').value.trim();
+  const rawWords = $('restore-words-input').value.trim();
+  const words = rawWords.toLowerCase().replace(/\s+/g, ' ').trim();
   const pw = $('restore-pw').value.trim();
-  if (!words || !pw) { toast('Enter seed words and a new password.', 'error'); return; }
+  const wordCount = words ? words.split(' ').length : 0;
+  if (!words || wordCount !== 24) { toast('Enter your full 24-word seedphrase to log in.', 'error'); return; }
+  if (!pw || pw.length < 8) { toast('Set a master password (min 8 chars) to encrypt this seed.', 'error'); return; }
   try {
     const res = await window.payquant.authRecover(words, pw);
     if (res && res.ok) {
@@ -275,11 +278,14 @@ async function confirmRestore() {
       currentMnemonic = res.seedWords || words.split(' ');
       currentAddress = deriveAddr(res.mnemonic || words);
       closeModal('restore-modal');
-      toast('Wallet recovered from seed!', 'success');
+      $('restore-words-input').value = '';
+      $('restore-pw').value = '';
+      setPillStatus('⚡ WALLET LOGGED IN', true, true);
+      toast('Logged in from seedphrase!', 'success');
       renderAll();
       refreshAll();
-    } else toast((res && res.error) || 'Recovery failed', 'error');
-  } catch (e) { toast('Recovery error: ' + e.message, 'error'); }
+    } else toast((res && res.error) || 'Login failed - check your seedphrase.', 'error');
+  } catch (e) { toast('Login error: ' + e.message, 'error'); }
 }
 
 async function lockWallet() {
@@ -412,6 +418,7 @@ function bind() {
   if ($('wallet-mode')) $('wallet-mode').addEventListener('change', refreshAll);
   if ($('btn-connect')) $('btn-connect').addEventListener('click', refreshAll);
   if ($('btn-restore-wallet')) $('btn-restore-wallet').addEventListener('click', () => { const m = $('restore-modal'); if (m) m.style.display = 'flex'; });
+  if ($('btn-login-seed')) $('btn-login-seed').addEventListener('click', () => { const m = $('restore-modal'); if (m) m.style.display = 'flex'; const el = $('restore-words-input'); if (el) el.focus(); });
   if ($('btn-confirm-restore')) $('btn-confirm-restore').addEventListener('click', confirmRestore);
   if ($('btn-cancel-restore')) $('btn-cancel-restore').addEventListener('click', () => closeModal('restore-modal'));
   if ($('btn-close-tx-detail')) $('btn-close-tx-detail').addEventListener('click', () => closeModal('tx-detail-modal'));
@@ -530,7 +537,7 @@ function copyToClipboard(text) {
   consoleEl = $('console');
   bind();
   setupChart();
-  log('PAYQUANT', 'PayQt Quantum Wallet v7.0.0 ready.');
+  log('PAYQUANT', 'PayQt Quantum Wallet v4.0.0 ready.');
   try {
     const state = await window.payquant.authState();
     if (state && state.hasWallet === true) {

@@ -1,13 +1,13 @@
 [Setup]
 AppName=PayQuant Light Wallet
-AppVersion=6.3.0
+AppVersion=4.0.0
 WizardStyle=modern
 DefaultDirName={autopf}\PayQuant\Wallet
 DefaultGroupName=PayQuant Ecosystem
 Compression=lzma2
 SolidCompression=yes
 OutputDir=..\build_dist\windows
-OutputBaseFilename=PayQuant-Wallet-Setup-v6.3.0
+OutputBaseFilename=PayQuant-Wallet-Setup-v4.0.0
 
 [Files]
 Source: "payquant-wallet-gui.exe"; DestDir: "{app}"; Flags: ignoreversion
