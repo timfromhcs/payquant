@@ -1,6 +1,5 @@
-#!/usr/bin/env python3
 """
-PayQuant (PQN) Ecosystem Local Test Suite v7.0.0
+PayQuant (PQN) Ecosystem Local Test Suite v2.0.0-quantum
 Verifies:
   1. Enterprise RocksDB Storage Engine, RepairDB & Block Integrity Gate
   2. UTXO Fast-Sync Snapshot Generation & Instant Import
@@ -11,6 +10,10 @@ Verifies:
   7. WebRTC Status Report & Background Daemon Health Queries
   8. Super-Transport Ladder & Merkle-Delta UTXO Sync Protocol (v7)
   9. DirectDrop-style Encrypted File Transfer Protocol (v7)
+ 10. TRNG + Quantum Circuit simulation (panta-sim / NumPy fallback)
+ 11. Quantum Footprint Generation & Validator authenticity
+ 12. Public 3D Diamond Gallery integrity (deterministic, no secrets)
+ 13. Repository Secret Gate (no keys/seeds/wallet data in tree)
 """
 
 import os
@@ -30,7 +33,7 @@ from contrib.webrtc_p2p_engine import get_webrtc_engine
 
 def run_tests():
     print("=" * 52)
-    print("   PAYQUANT (PQN) ECOSYSTEM v7.0.0 TEST SUITE")
+    print("   PAYQUANT (PQN) ECOSYSTEM v2.0.0-quantum TEST SUITE")
     print("=" * 52)
 
     # 1. Test Chain DB Engine & RepairDB
@@ -135,8 +138,53 @@ def run_tests():
     assert sha256_of_file(written) == send_resp.get("sha256"), "SHA-256 mismatch after transfer!"
     print(f" -> [SUCCESS] DirectDrop encrypted transfer verified ({send_resp.get('size')} bytes)!")
 
+    # 10. Test TRNG + Quantum Circuit Simulation
+    print("[TEST 10/13] Testing TRNG Engine & 8-Qubit Quantum Simulation...")
+    from contrib.pqn_quantum import TRNGClient, QuantumCircuitBackend, PANTASIM_AVAILABLE
+    trng = TRNGClient("fallback")
+    s1, s2 = trng.get_seed(), trng.get_seed()
+    assert s1 != s2, "TRNG seeds must be unique!"
+    sim = QuantumCircuitBackend()
+    res = sim.run(20260809)
+    assert res["counts"] and len(res["most_probable"]) == 8, "Quantum simulation failed!"
+    print(f" -> [SUCCESS] TRNG + {sim.backend} simulation verified (8 qubits, {len(res['counts'])} outcomes)!")
+
+    # 11. Test Quantum Footprint Generation & Validator
+    print("[TEST 11/13] Testing Quantum Footprint Gen + Validator...")
+    from contrib.pqn_quantum import (QuantumFootprintGenerator3D, verify_footprint,
+                                     sha256_of)
+    gen = QuantumFootprintGenerator3D(trng=trng, backend=sim)
+    fp = gen.generate_footprint("deadbeef" * 8, "pqn1qtest")
+    assert len(fp["footprint"]) == 64, "Footprint must be 64-char sha256!"
+    assert fp["geometry_3d"]["vertices"] and fp["geometry_3d"]["faces"], "3D geometry empty!"
+    assert verify_footprint("deadbeef" * 8, "pqn1qtest", fp["seed"], fp["footprint"]), \
+        "Validator rejected a genuine footprint!"
+    assert not verify_footprint("deadbeef" * 8, "pqn1qtest", fp["seed"] + 1, fp["footprint"]), \
+        "Validator accepted a tampered footprint!"
+    print(f" -> [SUCCESS] Footprint {fp['footprint'][:12]}… + 3D diamond verified!")
+
+    # 12. Test Public 3D Diamond Gallery integrity
+    print("[TEST 12/13] Testing Public 3D Diamond Gallery integrity...")
+    import json as _json
+    gallery_path = os.path.join(BASE_DIR, "explorer_3d", "diamonds.json")
+    assert os.path.exists(gallery_path), "explorer_3d/diamonds.json missing!"
+    with open(gallery_path, "r", encoding="utf-8") as jf:
+        gallery = _json.load(jf)
+    assert gallery.get("diamonds"), "Gallery has no diamonds!"
+    for d in gallery["diamonds"]:
+        assert len(d.get("quantum_footprint", "")) == 64, "Bad footprint in gallery!"
+        assert d.get("geometry_3d", {}).get("faces"), "Diamond geometry missing!"
+    print(f" -> [SUCCESS] {gallery['count']} deterministic public diamonds verified!")
+
+    # 13. Test Secret Gate (no keys/seeds in the tree)
+    print("[TEST 13/13] Testing Repository Secret Gate...")
+    from scripts.check_secrets import scan as secret_scan
+    violations = secret_scan(BASE_DIR)
+    assert not violations, f"Secret gate found: {violations}"
+    print(" -> [SUCCESS] Repository secret gate clean - no keys/seeds/wallet data.")
+
     print("=" * 52)
-    print("   ALL PAYQUANT v7.0.0 ECOSYSTEM TESTS PASSED")
+    print("   ALL PAYQUANT v2.0.0-quantum ECOSYSTEM TESTS PASSED")
     print("=" * 52)
 
 

@@ -6,7 +6,7 @@
 
 <p align="center">
   <b>The World's First Post-Quantum, Self-Optimizing Blockchain Ecosystem</b><br>
-  <i>NIST FIPS 204 ML-DSA-65 Signatures · Zero-Port-Forwarding P2P Streaming · Enterprise RocksDB · Merkle-Delta UTXO Sync · DirectDrop Encrypted Files</i>
+  <i>NIST FIPS 204 ML-DSA-65 Signatures · Zero-Port-Forwarding P2P Streaming · 3D Quantum Diamonds · Merkle-Delta UTXO Sync</i>
 </p>
 
 <p align="center">
@@ -44,6 +44,8 @@ cloud server. It combines:
 | ⚡ **RinHash PoW** | ASIC-resistant memory-hard mining with 50 PQN block rewards |
 | 💳 **Quantum Wallet** | 24-word BIP-39 seed encrypted with Argon2id master password |
 | 🤖 **Self-Healing Daemons** | Background orchestration with health checks and ordered lifecycle |
+| 🎲 **TRNG Quantum Core** | True-random seeds from Cisco Outshift / ANU QRNG (desktop-only) drive the 8-qubit simulator |
+| 💎 **3D Quantum Diamonds** | Every block mints a unique, publicly verifiable 3D diamond derived from its quantum footprint |
 
 ---
 
@@ -60,6 +62,8 @@ cloud server. It combines:
 - **Super-Transport layer** – `contrib/pqn_netlib.py` unifies WebRTC/IRC-DCC/STUN/TCP/relay under one retryable ladder, optionally accelerated by libp2p/Noise.
 - **DirectDrop peer-to-peer files** – 4-char transfer codes, AES-256-GCM sealed frames via `contrib/pqn_file.py`.
 - **Cross-platform release pipeline** – `.github/workflows/build-all.yml` produces Windows `.exe`, Linux `.AppImage`, macOS `.dmg` and Android `.apk` on every release.
+- **Quantum footprints** – `contrib/pqn_quantum/` ties each block to a true-random seed via the 8-qubit panta-sim simulator and mints a public SHA-256 footprint (`footprints.py`); `TRNGClient` falls back to OS entropy when the QRNG endpoints are unreachable.
+- **3D Quantum Diamond explorer** – a Three.js WebGL gallery (`explorer_3d/`) renders one deterministic 3D diamond per block from the public footprint only; `tools/build_gallery3d.py` regenerates the public dataset from local chain headers.
 
 ---
 
@@ -138,10 +142,39 @@ python backend/api_server.py                # starts both :28377 (REST/WS) and :
 
 ---
 
+## 🔮 Quantum Footprint Live
+
+Every PayQuant block is tied to a **true-random seed** captured at mint time.
+
+```bash
+# OPTIONAL deps for the 8-qubit simulator + luminance helpers
+pip install numpy panta-sim requests
+```
+
+- **Sources** — Cisco (Outshift) QRNG REST or ANU QRNG (desktop-only keys in
+  `.env`, see `.env.example`). No key = OS `os.urandom` fallback, so mining works
+  offline everywhere.
+- **Simulation** — the seed drives an 8-qubit quantum circuit (panta-sim when
+  installed, pure-Python fallback otherwise).
+- **Footprint** — `SHA-256(prev_hash | outcome | miner | seed)` produces the
+  public 64-hex fingerprint `contrib/pqn_quantum/footprints.py`;
+  `quantum_tools.py` prints the interpretable qubit schedule.
+- **3D signature** — each footprint becomes a unique diamond-like crystal
+  (facet geometry, lighting & color palette) in `contrib/pqn_quantum/diamond.py`;
+  explore every block in `explorer_3d/` (see `docs/explorer-3d.md`).
+
+> **Secure by default:** the seed is generated once, stored only on the signer,
+> and never leaves the desktop. Diamonds are reproducible from public headers
+> alone — no key in the repo, no seed in git.
+
+---
+
 ## 🧪 Testing & Validation Gate
 
 ```bash
-python scripts/local_test_suite.py          # 9 categories, MUST pass 100% clean
+python scripts/local_test_suite.py          # 13 categories, MUST pass 100% clean
+python scripts/test_loop.py                 # self-healing loop → DEPLOY READY
+python tools/check_secrets.py               # secret gate (no keys/seeds in tree)
 python contrib/build_local_executables.py   # rebuild local standalone binaries
 cd wallet && npm run build:web              # wallet web/Android bundle
 ```

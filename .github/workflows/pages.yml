@@ -36,6 +36,7 @@ jobs:
         run: |
           mkdir -p _site
           cp -r site/* _site/ 2>/dev/null || true
+          cp -r explorer_3d _site/explorer_3d 2>/dev/null || true
           rm -f _site/CNAME 2>/dev/null || true
           if [ ! -f _site/index.html ]; then
             echo "<h1>PayQuant Network</h1>" > _site/index.html

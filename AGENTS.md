@@ -45,4 +45,4 @@ python contrib/build_local_executables.py
 cd wallet && npm run build:web
 ```
 
-All 7 test categories in `scripts/local_test_suite.py` MUST pass with 100% clean output.
+All 13 test categories in `scripts/local_test_suite.py` MUST pass with 100% clean output.

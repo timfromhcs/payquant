@@ -43,6 +43,22 @@ wallet/www/
 wallet/www.zip
 miner_config.json
 
+# Quantum Footprint Upgrade (v2.0.0-quantum) - desktop-only & local secrets
+*genesis_seed*.tmp
+*genesis_local*.json
+public_genesis.json
+secrets/
+private_keys/
+chain_data/
+utxo_cache/
+payquant_quantum_reset/
+payquant_wallet_backups/
+wallet.dat
+*.keystore
+*.p12
+*.pfx
+*.pem
+
 # Ignore test target build outputs except release packages
 test/lint/test_runner/target/
 /CMakeUserPresets.json
