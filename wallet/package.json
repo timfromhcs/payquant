@@ -1,6 +1,6 @@
 {
   "name": "payquant-wallet",
-  "version": "1.0.0",
+  "version": "3.2.0",
   "description": "PayQuant (PQN) Cross-Platform GUI Wallet - Electron + Capacitor",
   "main": "main.js",
   "author": "PayQuant",

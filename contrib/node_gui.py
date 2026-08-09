@@ -24,7 +24,7 @@ import contrib.irc_p2p_signaling as irc_signaling
 class PayQuantNodeGUI:
     def __init__(self, root):
         self.root = root
-        self.root.title("PayQuant (PQN) Full Node GUI – v3.0.0")
+        self.root.title("PayQuant (PQN) Full Node GUI – v3.2.0")
         self.root.geometry("880x620")
         self.root.configure(bg="#060814")
 
@@ -42,7 +42,7 @@ class PayQuantNodeGUI:
         title_lbl = tk.Label(header, text="PayQuant (PQN) Full Node", font=("Segoe UI", 18, "bold"), fg="#00d4ff", bg="#0c1024")
         title_lbl.pack(side="left", padx=20, pady=10)
 
-        sub_lbl = tk.Label(header, text="Post-Quantum ML-DSA-65 | Persistent Chainstate | IRC P2P", font=("Segoe UI", 9), fg="#a0aec0", bg="#0c1024")
+        sub_lbl = tk.Label(header, text="Post-Quantum ML-DSA-65 | Persistent Chainstate | IRC P2P Sync", font=("Segoe UI", 9), fg="#a0aec0", bg="#0c1024")
         sub_lbl.pack(side="left", pady=18)
 
         self.status_pill = tk.Label(header, text="🟢 NODE ONLINE", font=("Segoe UI", 10, "bold"), fg="#00ffaa", bg="#0c1024")
@@ -96,7 +96,7 @@ class PayQuantNodeGUI:
 
     def start_node_services(self):
         self.node_running = True
-        self.log("INIT", "PayQuant Persistent Full Node v3.0.0 Initialized.")
+        self.log("INIT", "PayQuant Persistent Full Node v3.2.0 Initialized.")
         
         # Start P2P TCP Server
         p2p_transfer.start_p2p_server(28333)
