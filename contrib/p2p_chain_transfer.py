@@ -110,6 +110,24 @@ class P2PProtocolHandler(socketserver.BaseRequestHandler):
                 response = {"type": "send_utxos", "status": "ok", "address": address, "utxos": txs, "last_height": db.getLastHeight()}
                 self.request.sendall(json.dumps(response).encode('utf-8'))
 
+            elif msg_type == "get_balance":
+                address = msg.get("address", "")
+                utxos = db.getAddressUTXOs(address)
+                calc_balance = sum(u.get("amount", 0.0) for u in utxos)
+                last_h = db.getLastHeight()
+                for h in range(1, last_h + 1):
+                    blk = db.getBlockByHeight(h)
+                    if blk and blk.get("miner") == address:
+                        calc_balance += blk.get("reward", 50.0)
+                response = {
+                    "type": "send_balance",
+                    "status": "ok",
+                    "address": address,
+                    "balance": calc_balance,
+                    "last_height": last_h
+                }
+                self.request.sendall(json.dumps(response).encode('utf-8'))
+
             elif msg_type == "get_utxo_snapshot":
                 snapshot = db.create_utxo_snapshot()
                 response = {"type": "send_utxo_snapshot", "status": "ok", "snapshot": snapshot}
