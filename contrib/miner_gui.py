@@ -26,8 +26,10 @@ if getattr(sys, 'frozen', False):
 
 try:
     import contrib.p2p_chain_transfer as p2p_transfer
+    import contrib.ui_theme as theme
 except ModuleNotFoundError:
     import p2p_chain_transfer as p2p_transfer
+    import ui_theme as theme
 
 # FS-02-01 / FS-02-02: persistent miner settings (payout address, threads, intensity)
 sys.path.insert(0, os.path.join(BASE_DIR, "miner", "backend"))
@@ -38,10 +40,11 @@ except Exception:
 
 class PayQuantMinerGUI:
     def __init__(self, root):
+        theme.enable_hi_dpi(root)
         self.root = root
-        self.root.title("PayQuant (PQN) RinHash GPU/CPU Miner – v6.1.0")
-        self.root.geometry("820x560")
-        self.root.configure(bg="#060814")
+        self.root.title("PayQuant (PQN) RinHash GPU/CPU Miner – v6.6.0")
+        self.root.geometry("840x600")
+        self.root.configure(bg=theme.BG)
 
         self.is_mining = False
         self.threads_count = 4
@@ -68,71 +71,65 @@ class PayQuantMinerGUI:
         self.log("HARDWARE", "CPU/GPU mining thread pool initialized (RinHash ASIC-Resistant PoW).")
 
     def setup_ui(self):
+        theme.configure_ttk(self.root)
+
         # Header
-        header = tk.Frame(self.root, bg="#0c1024", height=65)
+        header = tk.Frame(self.root, bg=theme.HEADER, height=65)
         header.pack(fill="x", side="top")
 
-        title_lbl = tk.Label(header, text="⚡ PayQuant Solo Miner", font=("Segoe UI", 18, "bold"), fg="#00ffaa", bg="#0c1024")
-        title_lbl.pack(side="left", padx=20, pady=10)
+        tk.Label(header, text="⚡ PayQuant Solo Miner", font=theme.FONT_TITLE, fg=theme.GREEN, bg=theme.HEADER).pack(side="left", padx=20, pady=10)
 
-        sub_lbl = tk.Label(header, text="RinHash ASIC-Resistant PoW | Solo P2P Payouts", font=("Segoe UI", 9), fg="#a0aec0", bg="#0c1024")
-        sub_lbl.pack(side="left", pady=18)
+        tk.Label(header, text="RinHash ASIC-Resistant PoW | Solo P2P Payouts", font=theme.FONT_SUB, fg=theme.MUTED, bg=theme.HEADER).pack(side="left", pady=18)
 
-        self.status_pill = tk.Label(header, text="🔴 MINER IDLE", font=("Segoe UI", 10, "bold"), fg="#a0aec0", bg="#0c1024")
+        self.status_pill = tk.Label(header, text="🔴 MINER IDLE", font=(theme.FONT, 10, "bold"), fg=theme.MUTED, bg=theme.HEADER)
         self.status_pill.pack(side="right", padx=20)
 
         # Main Layout
-        main_frame = tk.Frame(self.root, bg="#060814", padx=15, pady=15)
+        main_frame = tk.Frame(self.root, bg=theme.BG, padx=15, pady=15)
         main_frame.pack(fill="both", expand=True)
 
         # Wallet Input Section
-        addr_frame = tk.LabelFrame(main_frame, text=" Miner PQN Payout Address ", font=("Segoe UI", 10, "bold"), fg="#00d4ff", bg="#060814", bd=1, padx=10, pady=10)
+        addr_frame = tk.LabelFrame(main_frame, text=" Miner PQN Payout Address ", font=(theme.FONT, 10, "bold"), fg=theme.ACCENT, bg=theme.BG, bd=1, padx=10, pady=10)
         addr_frame.pack(fill="x", pady=(0, 15))
 
-        self.addr_entry = tk.Entry(addr_frame, font=("Consolas", 11), bg="#04050d", fg="#00ffaa", insertbackground="white", bd=1)
+        self.addr_entry = theme.mk_entry(addr_frame, font=("Consolas", 11), width=64)
         self.addr_entry.insert(0, "pqn1qdefaultminerpayoutaddress2026")
         self.addr_entry.pack(side="left", fill="x", expand=True, padx=(0, 10))
 
-        btn_paste = tk.Button(addr_frame, text="📋 Paste Address", font=("Segoe UI", 9, "bold"), bg="#1a2035", fg="#00d4ff", bd=0, padx=10, pady=5, command=self.paste_address)
-        btn_paste.pack(side="right")
-
-        btn_reset = tk.Button(addr_frame, text="↺ Reset Seed Phrase", font=("Segoe UI", 9, "bold"), bg="#1a2035", fg="#ff0055", bd=0, padx=10, pady=5, command=self.reset_seed_phrase)
-        btn_reset.pack(side="right", padx=(0, 8))
+        theme.mk_button(addr_frame, "📋 Paste", bg=theme.PANEL, fg=theme.ACCENT, command=self.paste_address, padx=12, pady=5).pack(side="right")
+        theme.mk_button(addr_frame, "↺ Reset", bg=theme.PANEL, fg=theme.RED, command=self.reset_seed_phrase, padx=12, pady=5).pack(side="right", padx=(0, 8))
 
         # Stats Cards
-        stats_frame = tk.Frame(main_frame, bg="#060814")
+        stats_frame = tk.Frame(main_frame, bg=theme.BG)
         stats_frame.pack(fill="x", pady=(0, 15))
 
-        self.card_hashrate = self.create_card(stats_frame, "Mining Hashrate", "0 H/s", "#00ffaa")
-        self.card_blocks = self.create_card(stats_frame, "Blocks Mined", "0 Blocks", "#00d4ff")
-        self.card_payout = self.create_card(stats_frame, "Total PQN Payout", "0.00 PQN", "#7b2fbe")
-        self.card_node = self.create_card(stats_frame, "Node Sync", "🔴 OFFLINE", "#ff0055")
+        self.card_hashrate = self.create_card(stats_frame, "Mining Hashrate", "0 H/s", theme.GREEN)
+        self.card_blocks = self.create_card(stats_frame, "Blocks Mined", "0 Blocks", theme.ACCENT)
+        self.card_payout = self.create_card(stats_frame, "Total PQN Payout", "0.00 PQN", theme.PURPLE)
+        self.card_node = self.create_card(stats_frame, "Node Sync", "🔴 OFFLINE", theme.RED)
 
         # Thread Config & Big Toggle Button
-        ctrl_frame = tk.Frame(main_frame, bg="#060814")
+        ctrl_frame = tk.Frame(main_frame, bg=theme.BG)
         ctrl_frame.pack(fill="x", pady=(0, 15))
 
-        tk.Label(ctrl_frame, text="Mining Threads:", font=("Segoe UI", 10), fg="#e0e0e0", bg="#060814").pack(side="left", padx=(0, 10))
-        self.thread_slider = tk.Scale(ctrl_frame, from_=1, to=16, orient="horizontal", bg="#060814", fg="#00d4ff", highlightthickness=0, length=180)
+        tk.Label(ctrl_frame, text="Mining Threads:", font=(theme.FONT, 10), fg=theme.TEXT, bg=theme.BG).pack(side="left", padx=(0, 10))
+        self.thread_slider = tk.Scale(ctrl_frame, from_=1, to=16, orient="horizontal", bg=theme.BG, fg=theme.ACCENT, highlightthickness=0, length=180)
         self.thread_slider.set(4)
         self.thread_slider.pack(side="left", padx=(0, 20))
 
-        self.btn_toggle = tk.Button(ctrl_frame, text="▶ START MINING", font=("Segoe UI", 12, "bold"), bg="#00ffaa", fg="#060814", bd=0, padx=25, pady=8, command=self.toggle_mining)
+        self.btn_toggle = tk.Button(ctrl_frame, text="▶ START MINING", font=(theme.FONT, 12, "bold"), bg=theme.GREEN, fg=theme.BG, bd=0, padx=25, pady=8, command=self.toggle_mining, cursor="hand2", activebackground=theme.GREEN, activeforeground=theme.BG)
         self.btn_toggle.pack(side="left")
 
         # Visual Log
-        log_frame = tk.LabelFrame(main_frame, text=" Real-Time Mining Engine Log ", font=("Segoe UI", 10, "bold"), fg="#00d4ff", bg="#060814", bd=1)
+        log_frame = tk.LabelFrame(main_frame, text=" Real-Time Mining Engine Log ", font=(theme.FONT, 10, "bold"), fg=theme.ACCENT, bg=theme.BG, bd=1)
         log_frame.pack(fill="both", expand=True)
 
-        self.log_text = tk.Text(log_frame, bg="#04050d", fg="#e0e0e0", font=("Consolas", 9), bd=0, insertbackground="white")
-        self.log_text.pack(fill="both", expand=True, padx=5, pady=5)
+        log_frame, self.log_text, _ = theme.scrollable_text(log_frame)
+        log_frame.pack(fill="both", expand=True, padx=5, pady=5)
 
     def create_card(self, parent, title, val, color):
-        card = tk.Frame(parent, bg="#0c1024", highlightbackground=color, highlightthickness=1, bd=0, padx=15, pady=10)
-        card.pack(side="left", fill="both", expand=True, padx=5)
-        tk.Label(card, text=title, font=("Segoe UI", 9), fg="#a0aec0", bg="#0c1024").pack(anchor="w")
-        val_lbl = tk.Label(card, text=val, font=("Segoe UI", 12, "bold"), fg=color, bg="#0c1024")
-        val_lbl.pack(anchor="w", pady=(2, 0))
+        frame, val_lbl = theme.card(parent, title, color)
+        frame.pack(side="left", fill="both", expand=True, padx=5)
         return val_lbl
 
     def log(self, tag, msg):
@@ -245,6 +242,14 @@ class PayQuantMinerGUI:
                     elapsed = max(0.001, time.time() - start_t)
                     self.hashrate_hps = (hashes_calculated / elapsed) * self.threads_count * 4.5
                     self.root.after(0, self.update_hashrate, f"{self.hashrate_hps:,.0f} H/s")
+                    try:
+                        if miner_cfg:
+                            current = miner_cfg.load_config()
+                            current["_hashrate"] = round(self.hashrate_hps, 2)
+                            current["_active"] = True
+                            miner_cfg.save_config(current)
+                    except Exception:
+                        pass
 
             if self.is_mining:
                 # Successfully mined block

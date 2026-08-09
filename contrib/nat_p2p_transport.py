@@ -105,9 +105,10 @@ def attempt_upnp_port_mapping(port=P2P_PORT):
 def udp_hole_punch_peer(peer_ip, peer_port, duration=3):
     """Sends outbound UDP hole-punching packets to open bilateral NAT firewall pinholes"""
     try:
+        # Use an ephemeral local port so we never clash with the TCP P2P listener on 28333
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        sock.bind(("0.0.0.0", P2P_PORT))
+        sock.bind(("0.0.0.0", 0))
         sock.settimeout(1)
 
         punch_msg = json.dumps({"type": "PQN_UDP_PING", "ts": time.time()}).encode('utf-8')
@@ -118,14 +119,13 @@ def udp_hole_punch_peer(peer_ip, peer_port, duration=3):
             try:
                 data, addr = sock.recvfrom(1024)
                 if data and addr[0] == peer_ip:
-                    print(f"[NAT UDP Hole Punch] Successfully established direct P2P UDP link with {peer_ip}:{peer_port}!")
                     sock.close()
                     return True
             except socket.timeout:
                 pass
             time.sleep(0.3)
         sock.close()
-    except Exception as e:
+    except Exception:
         pass
     return False
 
@@ -224,11 +224,18 @@ def send_p2p_data_universal(peer_ip, req_payload, peer_nick=None, port=P2P_PORT)
 
     # 4. Encrypted IRC Base64 Data Stream Fallback
     if peer_nick:
-        from contrib.irc_p2p_signaling import send_private_irc_message
+        from contrib.irc_p2p_signaling import send_private_irc_message, drain_inbox
         irc_chunks = chunk_data_for_irc(req_payload)
         print(f"[NAT Fallback] Direct socket blocked. Streaming {len(irc_chunks)} IRC Base64 data chunks to {peer_nick}...")
         for chk in irc_chunks:
             send_private_irc_message(peer_nick, chk)
+            time.sleep(0.15)
+        # Wait briefly for a reassembled response arriving via the IRC inbox
+        deadline = time.time() + 6
+        while time.time() < deadline:
+            for item in drain_inbox():
+                if isinstance(item, dict) and item.get("request_id") == req_payload.get("request_id"):
+                    return {"status": "ok", "transport": "IRC_BASE64_FALLBACK", "data": item}
             time.sleep(0.2)
         return {"status": "ok", "transport": "IRC_BASE64_FALLBACK", "message": "Streamed over private IRC channel."}
 

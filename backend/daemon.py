@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-PayQuant (PQN) Daemon / Process Manager v6.4.0 (FS-03-02)
+PayQuant (PQN) Daemon / Process Manager v6.6.0 (FS-03-02)
 
 Runs the Node and Miner as genuine independent background processes
 (NOT GUI threads), with unified lifecycle control.

@@ -26,83 +26,85 @@ try:
     import contrib.p2p_chain_transfer as p2p_transfer
     import contrib.irc_p2p_signaling as irc_signaling
     from contrib.chain_db import get_db
+    import contrib.ui_theme as theme
 except ModuleNotFoundError:
     import p2p_chain_transfer as p2p_transfer
     import irc_p2p_signaling as irc_signaling
     from chain_db import get_db
+    import ui_theme as theme
 
 class PayQuantExplorerGUI:
     def __init__(self, root):
+        theme.enable_hi_dpi(root)
         self.root = root
-        self.root.title("PayQuant (PQN) Public Blockchain Explorer – v6.1.0")
+        self.root.title("PayQuant (PQN) Public Blockchain Explorer – v6.6.0")
         self.root.geometry("960x680")
-        self.root.configure(bg="#040612")
+        self.root.configure(bg=theme.BG)
 
         self.db = get_db()
         self.setup_ui()
         self.start_explorer_daemon()
-        print("[Explorer GUI v6.1.0] Standalone Public Blockchain Explorer & Address Auditor running.")
+        print("[Explorer GUI v6.6.0] Standalone Public Blockchain Explorer & Address Auditor running.")
 
     def setup_ui(self):
+        theme.configure_ttk(self.root)
+
         # Header Banner
-        header = tk.Frame(self.root, bg="#0c1024", height=70)
+        header = tk.Frame(self.root, bg=theme.HEADER, height=70)
         header.pack(fill="x", side="top")
 
-        title_lbl = tk.Label(header, text="🔍 PayQuant Blockchain Explorer", font=("Segoe UI", 18, "bold"), fg="#00d4ff", bg="#0c1024")
-        title_lbl.pack(side="left", padx=20, pady=10)
+        tk.Label(header, text="🔍 PayQuant Blockchain Explorer", font=theme.FONT_TITLE, fg=theme.ACCENT, bg=theme.HEADER).pack(side="left", padx=20, pady=10)
 
-        sub_lbl = tk.Label(header, text="Zero-Node Standalone P2P Network Explorer & Wallet Auditor", font=("Segoe UI", 9), fg="#94a3b8", bg="#0c1024")
-        sub_lbl.pack(side="left", pady=18)
+        tk.Label(header, text="Zero-Node Standalone P2P Network Explorer & Wallet Auditor", font=theme.FONT_SUB, fg=theme.MUTED, bg=theme.HEADER).pack(side="left", pady=18)
 
-        self.status_pill = tk.Label(header, text="🌐 NETWORK CONNECTED", font=("Segoe UI", 10, "bold"), fg="#00ffaa", bg="#0c1024")
+        self.status_pill = tk.Label(header, text="🌐 NETWORK CONNECTED", font=(theme.FONT, 10, "bold"), fg=theme.GREEN, bg=theme.HEADER)
         self.status_pill.pack(side="right", padx=20)
 
         # Address Search Bar
-        search_frame = tk.Frame(self.root, bg="#080d24", padx=15, pady=10)
+        search_frame = tk.Frame(self.root, bg=theme.BG_SOFT, padx=15, pady=10)
         search_frame.pack(fill="x")
 
-        tk.Label(search_frame, text="Search Address / TX / Hash:", font=("Segoe UI", 10, "bold"), fg="#00d4ff", bg="#080d24").pack(side="left", padx=(0, 10))
-        
-        self.search_entry = tk.Entry(search_frame, font=("Consolas", 11), bg="#04050d", fg="#00ffaa", insertbackground="white", bd=1)
+        tk.Label(search_frame, text="Search Address / TX / Hash:", font=(theme.FONT, 10, "bold"), fg=theme.ACCENT, bg=theme.BG_SOFT).pack(side="left", padx=(0, 10))
+
+        self.search_entry = theme.mk_entry(search_frame, font=("Consolas", 11), width=60)
         self.search_entry.insert(0, "pqn1qgenesisspendenwallettreasury20252026")
         self.search_entry.pack(side="left", fill="x", expand=True, padx=(0, 10))
 
-        btn_search = tk.Button(search_frame, text="🔍 Search", font=("Segoe UI", 9, "bold"), bg="#00d4ff", fg="#040612", bd=0, padx=15, pady=5, command=self.perform_search)
-        btn_search.pack(side="right")
+        theme.mk_button(search_frame, "🔍 Search", bg=theme.ACCENT, fg=theme.BG, command=self.perform_search, padx=15, pady=6).pack(side="right")
 
         # Main Layout Notebook (Tabs)
         self.notebook = ttk.Notebook(self.root)
         self.notebook.pack(fill="both", expand=True, padx=15, pady=15)
 
         # TAB 1: Network Overview
-        self.tab_overview = tk.Frame(self.notebook, bg="#040612", padx=10, pady=10)
+        self.tab_overview = tk.Frame(self.notebook, bg=theme.BG, padx=10, pady=10)
         self.notebook.add(self.tab_overview, text="📊 Network Metrics")
         self.setup_overview_tab()
 
         # TAB 2: Latest Blocks
-        self.tab_blocks = tk.Frame(self.notebook, bg="#040612", padx=10, pady=10)
+        self.tab_blocks = tk.Frame(self.notebook, bg=theme.BG, padx=10, pady=10)
         self.notebook.add(self.tab_blocks, text="📦 Blocks Stream")
         self.setup_blocks_tab()
 
         # TAB 3: Active P2P Peers Map
-        self.tab_peers = tk.Frame(self.notebook, bg="#040612", padx=10, pady=10)
+        self.tab_peers = tk.Frame(self.notebook, bg=theme.BG, padx=10, pady=10)
         self.notebook.add(self.tab_peers, text="🌐 Online Peers (IRC)")
         self.setup_peers_tab()
 
     def setup_overview_tab(self):
-        stats_frame = tk.Frame(self.tab_overview, bg="#040612")
+        stats_frame = tk.Frame(self.tab_overview, bg=theme.BG)
         stats_frame.pack(fill="x", pady=(0, 15))
 
-        self.card_height = self.create_card(stats_frame, "Chain Height", "0", "#00d4ff")
-        self.card_hashrate = self.create_card(stats_frame, "Est. Network Hashrate", "38,500 H/s", "#00ffaa")
-        self.card_peers = self.create_card(stats_frame, "Discovered Peers", "0 Nodes", "#7b2fbe")
+        self.card_height = self.create_card(stats_frame, "Chain Height", "0", theme.ACCENT)
+        self.card_hashrate = self.create_card(stats_frame, "Est. Network Hashrate", "38,500 H/s", theme.GREEN)
+        self.card_peers = self.create_card(stats_frame, "Discovered Peers", "0 Nodes", theme.PURPLE)
 
         # Result Display Area for Wallet Search
-        self.search_result_frame = tk.LabelFrame(self.tab_overview, text=" Address Lookup & UTXO Audit ", font=("Segoe UI", 10, "bold"), fg="#00d4ff", bg="#040612", bd=1, padx=10, pady=10)
+        self.search_result_frame = tk.LabelFrame(self.tab_overview, text=" Address Lookup & UTXO Audit ", font=(theme.FONT, 10, "bold"), fg=theme.ACCENT, bg=theme.BG, bd=1, padx=10, pady=10)
         self.search_result_frame.pack(fill="both", expand=True)
 
-        self.search_result_text = tk.Text(self.search_result_frame, bg="#020308", fg="#e0e0e0", font=("Consolas", 10), bd=0)
-        self.search_result_text.pack(fill="both", expand=True)
+        self.search_result_frame, self.search_result_text, _ = theme.scrollable_text(self.search_result_frame)
+        self.search_result_frame.pack(fill="both", expand=True)
 
     def setup_blocks_tab(self):
         self.blocks_tree = ttk.Treeview(self.tab_blocks, columns=("height", "hash", "miner", "txs", "time"), show="headings")
@@ -137,11 +139,8 @@ class PayQuantExplorerGUI:
         self.peers_tree.pack(fill="both", expand=True)
 
     def create_card(self, parent, title, val, color):
-        card = tk.Frame(parent, bg="#0c1024", highlightbackground=color, highlightthickness=1, bd=0, padx=15, pady=12)
-        card.pack(side="left", fill="both", expand=True, padx=5)
-        tk.Label(card, text=title, font=("Segoe UI", 9), fg="#94a3b8", bg="#0c1024").pack(anchor="w")
-        val_lbl = tk.Label(card, text=val, font=("Segoe UI", 13, "bold"), fg=color, bg="#0c1024")
-        val_lbl.pack(anchor="w", pady=(4, 0))
+        frame, val_lbl = theme.card(parent, title, color)
+        frame.pack(side="left", fill="both", expand=True, padx=5)
         return val_lbl
 
     def perform_search(self):

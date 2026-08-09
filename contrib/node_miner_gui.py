@@ -33,10 +33,12 @@ try:
     from contrib.chain_db import get_db
     import contrib.p2p_chain_transfer as p2p_transfer
     import contrib.irc_p2p_signaling as irc_signaling
+    import contrib.ui_theme as theme
 except ModuleNotFoundError:
     from chain_db import get_db
     import p2p_chain_transfer as p2p_transfer
     import irc_p2p_signaling as irc_signaling
+    import ui_theme as theme
 
 # FS-02-01 / FS-02-02: persistent miner settings (payout address, threads, intensity)
 sys.path.insert(0, os.path.join(BASE_DIR, "miner", "backend"))
@@ -47,10 +49,11 @@ except Exception:
 
 class PayQuantNodeMinerGUI:
     def __init__(self, root):
+        theme.enable_hi_dpi(root)
         self.root = root
-        self.root.title("PayQuant (PQN) Unified Full Node & Solo Miner Suite – v6.4.0")
+        self.root.title("PayQuant (PQN) Unified Full Node & Solo Miner Suite – v6.6.0")
         self.root.geometry("980x680")
-        self.root.configure(bg="#040612")
+        self.root.configure(bg=theme.BG)
 
         self.db = get_db()
         self.node_running = True

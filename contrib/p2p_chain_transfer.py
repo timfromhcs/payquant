@@ -369,17 +369,17 @@ def run_continuous_torrent_sync():
     db = get_db()
     while True:
         try:
-            from contrib.irc_p2p_signaling import get_all_peer_infos, get_furthest_peer, request_private_torrent_cluster
-            
+            from contrib.irc_p2p_signaling import get_furthest_peer, get_cluster_peers, request_private_torrent_cluster
+
             furthest = get_furthest_peer()
             if furthest:
                 my_height = db.getLastHeight()
                 target_height = furthest.get("height", 0)
 
                 if target_height > my_height:
-                    all_peers = get_all_peer_infos()
+                    all_peers = get_cluster_peers(cluster_size=8)
                     capable_peers = [p for p in all_peers if p.get("height", 0) >= target_height or p.get("ip") == furthest.get("ip")]
-                    
+
                     if not capable_peers:
                         capable_peers = [furthest]
 
@@ -387,7 +387,7 @@ def run_continuous_torrent_sync():
 
                     # Initiate private IRC handshakes with cluster peers
                     for p in capable_peers[:3]:
-                        request_private_torrent_cluster(p.get("ip"))
+                        request_private_torrent_cluster(p.get("ip"), p.get("nick"))
 
                     # Stream torrent blocks in parallel
                     blocks_added = torrent_cluster_mesh_download(capable_peers, my_height, target_height)

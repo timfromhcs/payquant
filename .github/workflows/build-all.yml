@@ -169,12 +169,14 @@ jobs:
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/main'
         with:
-          tag_name: v6.0.0-release
-          name: PayQuant Ultimate Ecosystem v6.0.0 (WebRTC P2P DataChannels, IRC DCC, RocksDB Engine & Fast-Sync)
+          tag_name: v6.6.0-release
+          name: PayQuant Ultimate Ecosystem v6.6.0 (Unified Dark UI, Resilient IRC Mesh, Live RPC)
           body: |
-            ## PayQuant (PQN) Ultimate Ecosystem Release v6.0.0
-            - **WebRTC DataChannels & ICE Engine**: High-speed P2P data channel streaming over public STUN servers with IRC SDP signaling.
-            - **IRC DCC (Direct Client-to-Client)**: DCC SEND, DCC RESUME, and Reverse DCC P2P file transfers for firewalled nodes.
+            ## PayQuant (PQN) Ultimate Ecosystem Release v6.6.0
+            - **Unified Modern Dark UI Theme**: Shared design kit across Node, Miner, Explorer, and Node+Miner GUIs with DPI-aware rendering, stat cards, and styled tabs/tables.
+            - **Resilient IRC P2P Mesh**: Multi-server IRC fallback (TLS + plaintext), channel topic re-join, message reassembly across socket chunks, and periodic peer re-announce for NAT'd nodes.
+            - **Live JSON-RPC for Wallet**: The API server now serves both REST (28377) and JSON-RPC (28332) endpoints (`getblockchaininfo`, `getbalance`, `listtransactions`), so the Electron light wallet reports real chain state.
+            - **Real Node Metrics**: `/api/status` now reports real peer counts, live hashrate from the active miner, and best block hash instead of mock values.
             - **Enterprise RocksDB Storage Engine**: Tuned Column Families (`blocks`, `utxo_set`, `snapshots`), In-Memory LRU UTXO Cache, Bloom Filters, and Auto-Repair.
             - **Fast-Sync Engine with UTXO Snapshots**: Instant UTXO snapshot sync reducing initial sync time from hours to minutes.
             - **Full Stack Multi-Platform Binaries**: Windows (`.exe`), Linux (`.AppImage`), macOS (`.dmg`), and Android (`.apk`).

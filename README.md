@@ -112,6 +112,25 @@ python contrib/miner_gui.py                 # GUI solo miner (uses saved payout 
 python backend/daemon.py start miner       # headless miner daemon
 ```
 
+### API Server (REST + JSON-RPC)
+
+The unified API server (`backend/api_server.py`) boots in any environment
+(FastAPI/uvicorn when installed, pure-stdlib fallback otherwise) and exposes:
+
+| Endpoint | Port | Purpose |
+| --- | --- | --- |
+| `GET /api/status` | `28377` | Real node height, balance, peers, hashrate, sync state |
+| `GET /api/balance` | `28377` | Wallet balance |
+| `GET /api/transactions` | `28377` | Wallet transaction history |
+| `GET /api/mining/status` | `28377` | Live miner hashrate + active state |
+| `GET /api/health` | `28377` | Liveness probe (daemon/scripts) |
+| `WS /ws/events` | `28377` | Live status push stream |
+| `POST /` (JSON-RPC) | `28332` | `getblockchaininfo`, `getbalance`, `listtransactions`, `gettransaction`, `getblockcount`, `getmininginfo` — consumed by the Electron light wallet |
+
+```bash
+python backend/api_server.py                # starts both :28377 (REST/WS) and :28332 (JSON-RPC)
+```
+
 ---
 
 ## 🧪 Testing & Validation Gate
