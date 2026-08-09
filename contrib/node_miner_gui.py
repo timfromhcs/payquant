@@ -18,9 +18,19 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if BASE_DIR not in sys.path:
     sys.path.insert(0, BASE_DIR)
 
-from contrib.chain_db import get_db
-import contrib.p2p_chain_transfer as p2p_transfer
-import contrib.irc_p2p_signaling as irc_signaling
+if getattr(sys, 'frozen', False):
+    MEIPASS = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+    if MEIPASS not in sys.path:
+        sys.path.insert(0, MEIPASS)
+
+try:
+    from contrib.chain_db import get_db
+    import contrib.p2p_chain_transfer as p2p_transfer
+    import contrib.irc_p2p_signaling as irc_signaling
+except ModuleNotFoundError:
+    from chain_db import get_db
+    import p2p_chain_transfer as p2p_transfer
+    import irc_p2p_signaling as irc_signaling
 
 class PayQuantNodeMinerGUI:
     def __init__(self, root):

@@ -19,7 +19,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if BASE_DIR not in sys.path:
     sys.path.insert(0, BASE_DIR)
 
-import contrib.p2p_chain_transfer as p2p_transfer
+if getattr(sys, 'frozen', False):
+    MEIPASS = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+    if MEIPASS not in sys.path:
+        sys.path.insert(0, MEIPASS)
+
+try:
+    import contrib.p2p_chain_transfer as p2p_transfer
+except ModuleNotFoundError:
+    import p2p_chain_transfer as p2p_transfer
 
 class PayQuantMinerGUI:
     def __init__(self, root):

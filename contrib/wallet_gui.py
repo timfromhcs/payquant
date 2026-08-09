@@ -23,7 +23,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if BASE_DIR not in sys.path:
     sys.path.insert(0, BASE_DIR)
 
-from contrib.chain_db import get_db
+if getattr(sys, 'frozen', False):
+    MEIPASS = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+    if MEIPASS not in sys.path:
+        sys.path.insert(0, MEIPASS)
+
+try:
+    from contrib.chain_db import get_db
+except ModuleNotFoundError:
+    from chain_db import get_db
 
 BIP39_WORDLIST = [
     "abandon", "ability", "able", "about", "above", "absent", "absorb", "abstract", "absurd", "abuse",
