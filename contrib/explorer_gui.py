@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """
-PayQuant (PQN) Standalone Public Blockchain Explorer Application v3.4.0
+PayQuant (PQN) Standalone Public Blockchain Explorer Application v4.0.0
+
 Zero-Node Required: Connects to global P2P nodes via IRC peer discovery,
-queries network metrics, streams live blocks and transactions, and searches wallet balances.
+queries network metrics, streams live blocks and transactions, audits wallet balances,
+and saves bookmarked addresses & history persistently.
 """
 
 import sys
@@ -27,21 +29,47 @@ try:
     import contrib.irc_p2p_signaling as irc_signaling
     from contrib.chain_db import get_db
     import contrib.ui_theme as theme
+    import contrib.wallet_storage as wallet_storage
 except ModuleNotFoundError:
     import p2p_chain_transfer as p2p_transfer
     import irc_p2p_signaling as irc_signaling
     from chain_db import get_db
     import ui_theme as theme
+    import wallet_storage as wallet_storage
+
+EXPLORER_CONFIG_FILE = os.path.join(wallet_storage.user_data_dir(), "explorer_config.json")
+
+def load_explorer_config():
+    defaults = {"history": [], "bookmarks": []}
+    try:
+        if os.path.exists(EXPLORER_CONFIG_FILE):
+            with open(EXPLORER_CONFIG_FILE, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                if isinstance(data, dict):
+                    defaults.update(data)
+    except Exception:
+        pass
+    return defaults
+
+def save_explorer_config(cfg):
+    try:
+        os.makedirs(os.path.dirname(EXPLORER_CONFIG_FILE), exist_ok=True)
+        with open(EXPLORER_CONFIG_FILE, "w", encoding="utf-8") as f:
+            json.dump(cfg, f, indent=2)
+    except Exception:
+        pass
 
 class PayQuantExplorerGUI:
     def __init__(self, root):
         theme.enable_hi_dpi(root)
         self.root = root
         self.root.title("PayQuant (PQN) Public Blockchain Explorer – v4.0.0")
-        self.root.geometry("960x680")
+        self.root.geometry("980x700")
         self.root.configure(bg=theme.BG)
+        theme.set_app_icon(self.root, "payquant-explorer.ico")
 
         self.db = get_db()
+        self.cfg = load_explorer_config()
         self.setup_ui()
         self.start_explorer_daemon()
         print("[Explorer GUI v4.0.0] Standalone Public Blockchain Explorer & Address Auditor running.")
@@ -50,11 +78,10 @@ class PayQuantExplorerGUI:
         theme.configure_ttk(self.root)
 
         # Header Banner
-        header = tk.Frame(self.root, bg=theme.HEADER, height=70)
+        header = tk.Frame(self.root, bg=theme.HEADER, height=75)
         header.pack(fill="x", side="top")
 
         tk.Label(header, text="🔍 PayQuant Blockchain Explorer", font=theme.FONT_TITLE, fg=theme.ACCENT, bg=theme.HEADER).pack(side="left", padx=20, pady=10)
-
         tk.Label(header, text="Zero-Node Standalone P2P Network Explorer & Wallet Auditor", font=theme.FONT_SUB, fg=theme.MUTED, bg=theme.HEADER).pack(side="left", pady=18)
 
         self.status_pill = tk.Label(header, text="🌐 NETWORK CONNECTED", font=(theme.FONT, 10, "bold"), fg=theme.GREEN, bg=theme.HEADER)
@@ -66,11 +93,15 @@ class PayQuantExplorerGUI:
 
         tk.Label(search_frame, text="Search Address / TX / Hash:", font=(theme.FONT, 10, "bold"), fg=theme.ACCENT, bg=theme.BG_SOFT).pack(side="left", padx=(0, 10))
 
-        self.search_entry = theme.mk_entry(search_frame, font=("Consolas", 11), width=60)
-        self.search_entry.insert(0, "pqn1qgenesisspendenwallettreasury20252026")
+        self.search_entry = theme.mk_entry(search_frame, font=("Consolas", 11), width=58)
+        
+        # Load last search or genesis default
+        last_q = self.cfg.get("history", ["pqn1qgenesisspendenwallettreasury20252026"])[-1]
+        self.search_entry.insert(0, last_q)
         self.search_entry.pack(side="left", fill="x", expand=True, padx=(0, 10))
 
         theme.mk_button(search_frame, "🔍 Search", bg=theme.ACCENT, fg=theme.BG, command=self.perform_search, padx=15, pady=6).pack(side="right")
+        theme.mk_button(search_frame, "🔑 From Wallet", bg=theme.PANEL_2, fg=theme.GREEN, command=self.search_my_wallet, padx=10, pady=6).pack(side="right", padx=(0, 8))
 
         # Main Layout Notebook (Tabs)
         self.notebook = ttk.Notebook(self.root)
@@ -143,11 +174,27 @@ class PayQuantExplorerGUI:
         frame.pack(side="left", fill="both", expand=True, padx=5)
         return val_lbl
 
+    def search_my_wallet(self):
+        w = wallet_storage.load_wallet()
+        if w and w.get("address"):
+            self.search_entry.delete(0, tk.END)
+            self.search_entry.insert(0, w["address"])
+            self.perform_search()
+        else:
+            messagebox.showinfo("No Saved Wallet", "No saved wallet found. Open Light Wallet to create or import one.")
+
     def perform_search(self):
         query = self.search_entry.get().strip()
         if not query:
             return
         
+        # Save query to history config
+        if query not in self.cfg.get("history", []):
+            hist = self.cfg.get("history", [])
+            hist.append(query)
+            self.cfg["history"] = hist[-20:]
+            save_explorer_config(self.cfg)
+
         self.search_result_text.delete("1.0", tk.END)
         self.search_result_text.insert(tk.END, f"Querying P2P Network for address: {query}...\n\n")
 
@@ -164,8 +211,10 @@ class PayQuantExplorerGUI:
         res = f"=== PAYQUANT ADDRESS AUDIT RESULT ===\n"
         res += f"Address: {query}\n"
         res += f"Calculated Balance: {balance:,.4f} PQN\n"
-        res += f"Recorded Transactions: {len(utxos)}\n\n"
+        res += f"Recorded UTXO Entries: {len(utxos)}\n\n"
         res += f"--- TRANSACTION HISTORY ---\n"
+        if not utxos:
+            res += f"(No recorded transactions for this address on current chain view)\n"
         for tx in utxos:
             res += f"TXID: {tx.get('txid', '-')} | Amount: {tx.get('amount', '-')} | Type: {tx.get('type', 'TRANSFER')}\n"
 
@@ -208,7 +257,7 @@ class PayQuantExplorerGUI:
 
 def main():
     if len(sys.argv) > 1 and sys.argv[1] in ["--help", "-h"]:
-        print("PayQuant (PQN) Standalone Public Explorer GUI v6.4.0")
+        print("PayQuant (PQN) Standalone Public Explorer GUI v4.0.0")
         sys.exit(0)
     root = tk.Tk()
     app = PayQuantExplorerGUI(root)

@@ -2,7 +2,7 @@
 """
 PayQuant (PQN) Multi-Platform Installer & Executable Builder v4.0.0
 
-Compiles full multi-megabyte standalone PyInstaller binaries:
+Compiles full multi-megabyte standalone PyInstaller binaries with embedded icons:
  1. Combined Node + Miner Suite (dist/payquant-node-miner-gui.exe)
  2. Standalone Light Wallet GUI (dist/payquant-wallet-gui.exe)
  3. Standalone Public Explorer (dist/payquant-explorer.exe)
@@ -28,6 +28,7 @@ import subprocess
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DIST_DIR = os.path.join(BASE_DIR, "dist")
 BUILD_DIST_DIR = os.path.join(BASE_DIR, "build_dist")
+PIXMAPS_DIR = os.path.join(BASE_DIR, "share", "pixmaps")
 
 PLATFORM_DIRS = {
     "windows": os.path.join(BUILD_DIST_DIR, "windows"),
@@ -36,6 +37,14 @@ PLATFORM_DIRS = {
     "android": os.path.join(BUILD_DIST_DIR, "android"),
 }
 
+def ensure_icons():
+    """Ensure all required .ico icons are present."""
+    try:
+        from contrib.generate_app_icons import generate_all
+        generate_all()
+    except Exception as e:
+        print(f"[Icon Generator Warning] {e}")
+
 def setup_platform_dirs():
     for p_name, p_path in PLATFORM_DIRS.items():
         os.makedirs(p_path, exist_ok=True)
@@ -43,31 +52,37 @@ def setup_platform_dirs():
 def build_executables():
     os.makedirs(DIST_DIR, exist_ok=True)
     setup_platform_dirs()
+    ensure_icons()
 
     print(f"[PayQuant Installer Builder v4.0.0] Target Directory: {DIST_DIR}")
 
     targets = [
-        ("node_miner_gui.py", "payquant-node-miner-gui", "--windowed"),
-        ("wallet_gui.py", "payquant-wallet-gui", "--windowed"),
-        ("explorer_gui.py", "payquant-explorer", "--windowed"),
-        ("node_gui.py", "payquant-node-gui", "--windowed"),
-        ("miner_gui.py", "payquant-miner-gui", "--windowed"),
-        ("test_node2_gui.py", "payquant-test-node2-gui", "--windowed"),
-        ("node_entry.py", "payquantd", "--console"),
+        ("node_miner_gui.py", "payquant-node-miner-gui", "--windowed", "payquant-node-miner.ico"),
+        ("wallet_gui.py", "payquant-wallet-gui", "--windowed", "payquant-wallet.ico"),
+        ("explorer_gui.py", "payquant-explorer", "--windowed", "payquant-explorer.ico"),
+        ("node_gui.py", "payquant-node-gui", "--windowed", "payquant-node.ico"),
+        ("miner_gui.py", "payquant-miner-gui", "--windowed", "payquant-miner.ico"),
+        ("test_node2_gui.py", "payquant-test-node2-gui", "--windowed", "payquant-node.ico"),
+        ("node_entry.py", "payquantd", "--console", "payquant-node.ico"),
     ]
 
-    for script_name, exe_name, mode in targets:
+    for script_name, exe_name, mode, icon_name in targets:
         script_path = os.path.join(BASE_DIR, "contrib", script_name)
         if not os.path.exists(script_path):
             continue
 
-        print(f"[PayQuant Installer Builder] Compiling {exe_name}.exe with PyInstaller...")
+        icon_path = os.path.join(PIXMAPS_DIR, icon_name)
+        if not os.path.exists(icon_path):
+            icon_path = os.path.join(PIXMAPS_DIR, "payquant.ico")
+
+        print(f"[PayQuant Installer Builder] Compiling {exe_name}.exe with PyInstaller (Icon: {os.path.basename(icon_path)})...")
         cmd = [
             sys.executable, "-m", "PyInstaller",
             script_path,
             "--onefile",
             f"--name={exe_name}",
             f"--distpath={DIST_DIR}",
+            f"--icon={icon_path}",
             "--noconfirm",
             mode
         ]

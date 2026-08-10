@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-PayQuant (PQN) Shared UI Theme & Widget Kit v1.0.0
+PayQuant (PQN) Shared UI Theme & Widget Kit v4.0.0
 
 Central design tokens + shared widget helpers so every PayQuant desktop GUI
 (node, miner, explorer, wallet) renders with one consistent modern dark theme.
@@ -8,17 +8,20 @@ Pure stdlib - zero external dependencies.
 """
 
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, messagebox
 import ctypes
 import os
 import sys
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PIXMAPS_DIR = os.path.join(BASE_DIR, "share", "pixmaps")
 
 # ---------------------------------------------------------------- palette
 BG = "#060814"            # window background
 BG_SOFT = "#0a0e1f"       # slightly lighter panels
 PANEL = "#0c1024"         # card / panel surface
 PANEL_2 = "#090d26"
-HEADER = "#0b1026"
+HEADER = "#080c21"
 TEXT = "#e2e6f1"
 MUTED = "#a0aec0"
 MUTED_DIM = "#6b7688"
@@ -32,16 +35,15 @@ BORDER = "#1c2440"
 FONT = "Segoe UI"
 FONT_CARD_TITLE = (FONT, 9)
 FONT_CARD_VALUE = (FONT, 14, "bold")
-FONT_TITLE = (FONT, 18, "bold")
+FONT_TITLE = (FONT, 17, "bold")
 FONT_SUB = (FONT, 9)
 FONT_BODY = (FONT, 10)
-MONO = "Consolas"
+FONT_MONO = "Consolas"
 
 PAD = 10
 CARD_PAD = 12
-RADIUS_HINT = 8
 
-# ---------------------------------------------------------------- dpi
+# ---------------------------------------------------------------- dpi & icon
 def enable_hi_dpi(root):
     try:
         if sys.platform == "win32":
@@ -53,6 +55,16 @@ def enable_hi_dpi(root):
     except Exception:
         pass
 
+def set_app_icon(root, icon_name="payquant.ico"):
+    """Set the window icon from share/pixmaps."""
+    try:
+        ico_path = os.path.join(PIXMAPS_DIR, icon_name)
+        if not os.path.exists(ico_path):
+            ico_path = os.path.join(PIXMAPS_DIR, "payquant.ico")
+        if os.path.exists(ico_path):
+            root.iconbitmap(ico_path)
+    except Exception as e:
+        pass
 
 # ---------------------------------------------------------------- style
 def configure_ttk(root):
@@ -64,7 +76,7 @@ def configure_ttk(root):
         pass
     style.configure(
         "TNotebook",
-        background=HEADER,
+        background=BG,
         borderwidth=0,
         tabmargins=(6, 6, 6, 0),
     )
@@ -87,7 +99,7 @@ def configure_ttk(root):
         fieldbackground=PANEL,
         foreground=TEXT,
         borderwidth=0,
-        rowheight=26,
+        rowheight=28,
         font=(FONT, 9),
     )
     style.map(
@@ -101,7 +113,7 @@ def configure_ttk(root):
         foreground=ACCENT,
         borderwidth=0,
         font=(FONT, 9, "bold"),
-        padding=(6, 6),
+        padding=(8, 8),
     )
     style.configure(
         "Horizontal.TProgressbar",
@@ -111,7 +123,6 @@ def configure_ttk(root):
         thickness=8,
     )
     return style
-
 
 # ---------------------------------------------------------------- widget kit
 def card(parent, title=None, color=ACCENT, bg=PANEL):
@@ -124,29 +135,20 @@ def card(parent, title=None, color=ACCENT, bg=PANEL):
     value.pack(anchor="w", pady=(2, 0))
     return frame, value
 
-
 def mk_button(parent, text, bg=ACCENT, fg="#060814", command=None, bold=True, padx=15, pady=8):
     font = (FONT, 10, "bold") if bold else (FONT, 10)
-    return tk.Button(parent, text=text, font=font, bg=bg, fg=fg, bd=0,
-                     padx=padx, pady=pady, command=command, cursor="hand2",
-                     activebackground=bg, activeforeground=fg)
-
-
-def mk_log_text(parent, bg=BG, fg=TEXT, height=None):
-    text = tk.Text(parent, bg=bg, fg=fg, font=(FONT_MONO, 9), bd=0,
-                   insertbackground="white", relief="flat",
-                   height=height if height else None)
-    return text
-
-
-FONT_MONO = "Consolas"
-
+    btn = tk.Button(parent, text=text, font=font, bg=bg, fg=fg, bd=0,
+                    padx=padx, pady=pady, command=command, cursor="hand2",
+                    activebackground=bg, activeforeground=fg)
+    return btn
 
 def mk_entry(parent, font=(FONT, 10), fg=GREEN, bg=BG_SOFT, width=None):
-    return tk.Entry(parent, font=font, bg=bg, fg=fg, insertbackground="white",
-                    bd=1, relief="flat", highlightthickness=1,
-                    highlightbackground=BORDER, highlightcolor=ACCENT)
-
+    entry = tk.Entry(parent, font=font, bg=bg, fg=fg, insertbackground="white",
+                     bd=1, relief="flat", highlightthickness=1,
+                     highlightbackground=BORDER, highlightcolor=ACCENT)
+    if width:
+        entry.config(width=width)
+    return entry
 
 def scrollable_text(parent):
     """A Text widget with an attached scrollbar, styled to the theme."""

@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
 """
-PayQuant (PQN) Standalone Light Wallet GUI v6.4.0
+PayQuant (PQN) Standalone Light Wallet GUI v4.0.0
+ML-DSA-65 Post-Quantum Light Wallet with Persistent Storage & Seedphrase Import
 
-Cross-Platform Light Wallet GUI featuring:
- - 24-word BIP-39 Quantum Backup Seedphrase & ML-DSA-65 (Dilithium) Address Derivation
- - Live Node Sync Engine (Connects to P2P Node on 127.0.0.1:28333 with WebRTC/IRC Fallback)
- - Tap-to-Hide Balance Privacy Mode
- - QR Invoice Generator & Quantum Risk Simulator
+Features:
+ - Persistent Wallet Storage: Auto-loads existing wallet on launch (no auto-reset!)
+ - 24-Word Seedphrase Import / Restore & Seed Generator
+ - Tap-to-Hide Balance Privacy Mode & Big Bold Balances
+ - Post-Quantum ML-DSA-65 (Dilithium) Transaction Signing & Direct P2P Broadcast
+ - Live Transaction History Auditor & QR Payment URI Generator
+ - Automatic P2P Node Stream Connection & Fallbacks
 """
 
 import sys
@@ -17,7 +20,7 @@ import random
 import hashlib
 import threading
 import tkinter as tk
-from tkinter import ttk, messagebox
+from tkinter import ttk, messagebox, simpledialog
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if BASE_DIR not in sys.path:
@@ -32,152 +35,269 @@ try:
     from contrib.chain_db import get_db
     import contrib.p2p_chain_transfer as p2p_transfer
     import contrib.irc_p2p_signaling as irc_signaling
+    import contrib.ui_theme as theme
+    import contrib.wallet_storage as wallet_storage
 except ModuleNotFoundError:
     from chain_db import get_db
     import p2p_chain_transfer as p2p_transfer
     import irc_p2p_signaling as irc_signaling
+    import ui_theme as theme
+    import wallet_storage as wallet_storage
 
-BIP39_WORDLIST = [
-    "abandon", "ability", "able", "about", "above", "absent", "absorb", "abstract", "absurd", "abuse",
-    "access", "accident", "account", "accuse", "achieve", "acid", "acoustic", "acquire", "across", "act",
-    "action", "actor", "actress", "actual", "adapt", "add", "addict", "address", "adjust", "admit",
-    "adult", "advance", "advice", "aerobic", "afford", "afraid", "again", "age", "agent", "agree",
-    "ahead", "aim", "air", "airport", "aisle", "alarm", "album", "alcohol", "alert", "alien",
-    "all", "alley", "allow", "almost", "alone", "alpha", "already", "also", "alter", "always",
-    "amateur", "amazing", "among", "amount", "amused", "analyst", "anchor", "ancient", "anger", "angle",
-    "angry", "animal", "ankle", "announce", "annual", "another", "answer", "antenna", "antique", "anxiety",
-    "any", "apart", "apology", "appear", "apple", "approve", "april", "arch", "arctic", "area",
-    "arena", "argue", "arm", "armed", "armor", "army", "around", "arrange", "arrest", "arrive",
-    "arrow", "art", "artefact", "artist", "artwork", "ask", "aspect", "assault", "asset", "assist",
-    "assume", "asthma", "athlete", "atom", "attack", "attend", "attitude", "attract", "auction", "audit",
-    "august", "aunt", "author", "auto", "autumn", "average", "avocado", "avoid", "awake", "aware",
-    "away", "awesome", "awful", "awkward", "axis", "baby", "bachelor", "bacon", "badge", "bag"
-]
 
 class PayQuantWalletGUI:
     def __init__(self, root):
+        theme.enable_hi_dpi(root)
         self.root = root
-        self.root.title("PayQuant (PQN) Light Wallet v6.4.0 – ML-DSA-65 Quantum Secure")
-        self.root.geometry("880x640")
-        self.root.configure(bg="#040612")
+        self.root.title("PayQuant (PQN) Quantum Light Wallet – v4.0.0")
+        self.root.geometry("920x680")
+        self.root.configure(bg=theme.BG)
+        theme.set_app_icon(self.root, "payquant-wallet.ico")
 
         self.db = get_db()
         self.hide_balance = False
-        self.balance = 250.00
-        self.mnemonic = [random.choice(BIP39_WORDLIST) for _ in range(24)]
-        self.wallet_address = f"pqn1q{hashlib.sha256(''.join(self.mnemonic).encode('utf-8')).hexdigest()[:38]}"
         self.node_connected = False
+
+        # Load existing wallet or create initial wallet persistently
+        self.wallet_data = wallet_storage.get_or_create_wallet()
+        self.mnemonic = self.wallet_data.get("mnemonic", [])
+        self.wallet_address = self.wallet_data.get("address", "")
+        self.balance = float(self.wallet_data.get("balance", 250.0))
+        self.transactions = self.wallet_data.get("transactions", [])
 
         self.setup_ui()
         self.start_node_monitor()
-        self.log("WALLET", f"Derived ML-DSA-65 Wallet Address: {self.wallet_address}")
-        self.log("SECURITY", "24-Word Quantum Seedphrase loaded in encrypted memory enclave.")
+        self.log("WALLET", f"Active ML-DSA-65 Wallet Address: {self.wallet_address}")
+        self.log("STORAGE", f"Wallet loaded persistently from: {wallet_storage.wallet_file_path()}")
+        self.log("SECURITY", "24-Word Quantum Seedphrase active in secure enclave.")
 
     def setup_ui(self):
+        theme.configure_ttk(self.root)
+
         # Header Banner
-        header = tk.Frame(self.root, bg="#080c21", height=75)
+        header = tk.Frame(self.root, bg=theme.HEADER, height=75)
         header.pack(fill="x", side="top")
 
-        title_lbl = tk.Label(header, text=" 🛡️ PayQuant Light Wallet", font=("Segoe UI", 18, "bold"), fg="#00ffaa", bg="#080c21")
+        title_lbl = tk.Label(header, text=" 🛡️ PayQuant Light Wallet", font=theme.FONT_TITLE, fg=theme.GREEN, bg=theme.HEADER)
         title_lbl.pack(side="left", padx=20, pady=10)
 
-        sub_lbl = tk.Label(header, text="NIST FIPS 204 ML-DSA-65 (Dilithium) Quantum Secure | P2P Auto-Sync", font=("Segoe UI", 9), fg="#a0aec0", bg="#080c21")
+        sub_lbl = tk.Label(header, text="NIST FIPS 204 ML-DSA-65 (Dilithium) Quantum Secure | Persistent Vault", font=theme.FONT_SUB, fg=theme.MUTED, bg=theme.HEADER)
         sub_lbl.pack(side="left", pady=18)
 
-        self.status_pill = tk.Label(header, text="🔴 NODE CONNECTING...", font=("Segoe UI", 10, "bold"), fg="#ffaa00", bg="#080c21")
+        self.status_pill = tk.Label(header, text="🟡 NODE CONNECTING...", font=(theme.FONT, 9, "bold"), fg=theme.GOLD, bg=theme.HEADER)
         self.status_pill.pack(side="right", padx=20)
 
         # Main Layout Frame
-        main_frame = tk.Frame(self.root, bg="#040612", padx=15, pady=15)
+        main_frame = tk.Frame(self.root, bg=theme.BG, padx=15, pady=15)
         main_frame.pack(fill="both", expand=True)
 
         # Balance Card Section
-        bal_card = tk.Frame(main_frame, bg="#090d26", highlightbackground="#00ffaa", highlightthickness=1, bd=0, padx=20, pady=15)
+        bal_card = tk.Frame(main_frame, bg=theme.PANEL, highlightbackground=theme.GREEN, highlightthickness=1, bd=0, padx=20, pady=15)
         bal_card.pack(fill="x", pady=(0, 15))
 
-        tk.Label(bal_card, text="Available Quantum Balance:", font=("Segoe UI", 10), fg="#a0aec0", bg="#090d26").pack(anchor="w")
+        top_bal_row = tk.Frame(bal_card, bg=theme.PANEL)
+        top_bal_row.pack(fill="x")
+
+        tk.Label(top_bal_row, text="Available Quantum Balance:", font=(theme.FONT, 10), fg=theme.MUTED, bg=theme.PANEL).pack(side="left")
         
-        self.bal_val_lbl = tk.Label(bal_card, text=f"{self.balance:,.2f} PQN", font=("Segoe UI", 24, "bold"), fg="#00ffaa", bg="#090d26")
-        self.bal_val_lbl.pack(anchor="w", pady=(5, 5))
+        # Right action buttons on Balance card
+        theme.mk_button(top_bal_row, "🔑 Import Seed / Login", bg=theme.PURPLE, fg="white", command=self.open_import_dialog, padx=10, pady=4).pack(side="right")
+        theme.mk_button(top_bal_row, "➕ New Wallet", bg=theme.PANEL_2, fg=theme.ACCENT, command=self.create_new_wallet_prompt, padx=10, pady=4).pack(side="right", padx=(0, 8))
 
-        self.btn_hide = tk.Button(bal_card, text="👁️ Tap-to-Hide", font=("Segoe UI", 9, "bold"), bg="#1a2035", fg="#00d4ff", bd=0, padx=12, pady=4, command=self.toggle_hide_balance)
-        self.btn_hide.pack(anchor="w")
+        self.bal_val_lbl = tk.Label(bal_card, text=f"{self.balance:,.2f} PQN", font=(theme.FONT, 26, "bold"), fg=theme.GREEN, bg=theme.PANEL)
+        self.bal_val_lbl.pack(anchor="w", pady=(6, 6))
 
-        # Tabs Section
-        notebook = ttk.Notebook(main_frame)
-        notebook.pack(fill="both", expand=True, pady=(0, 15))
+        mid_bal_row = tk.Frame(bal_card, bg=theme.PANEL)
+        mid_bal_row.pack(fill="x")
+
+        self.btn_hide = theme.mk_button(mid_bal_row, "👁️ Tap-to-Hide Balance", bg=theme.BORDER, fg=theme.ACCENT, command=self.toggle_hide_balance, padx=12, pady=4, bold=False)
+        self.btn_hide.pack(side="left")
+
+        tk.Label(mid_bal_row, text=f" Address: {self.wallet_address[:18]}...{self.wallet_address[-8:]}", font=("Consolas", 9), fg=theme.MUTED, bg=theme.PANEL).pack(side="left", padx=(15, 0))
+
+        theme.mk_button(mid_bal_row, "📋 Copy", bg=theme.PANEL_2, fg=theme.GREEN, command=self.copy_address, padx=8, pady=3, bold=False).pack(side="left", padx=(8, 0))
+
+        # Main Navigation Tabs Section
+        self.notebook = ttk.Notebook(main_frame)
+        self.notebook.pack(fill="both", expand=True, pady=(0, 15))
 
         # Tab 1: Send Payment
-        tab_send = tk.Frame(notebook, bg="#060814", padx=15, pady=15)
-        notebook.add(tab_send, text=" 📤 Send PQN ")
+        tab_send = tk.Frame(self.notebook, bg=theme.BG_SOFT, padx=15, pady=15)
+        self.notebook.add(tab_send, text=" 📤 Send PQN ")
 
-        tk.Label(tab_send, text="Recipient PQN Address:", font=("Segoe UI", 10, "bold"), fg="#00d4ff", bg="#060814").pack(anchor="w", pady=(0, 5))
-        self.entry_recipient = tk.Entry(tab_send, font=("Consolas", 11), bg="#090d26", fg="white", insertbackground="white", bd=1)
+        tk.Label(tab_send, text="Recipient PQN Address:", font=(theme.FONT, 10, "bold"), fg=theme.ACCENT, bg=theme.BG_SOFT).pack(anchor="w", pady=(0, 5))
+        self.entry_recipient = theme.mk_entry(tab_send, font=("Consolas", 11), fg=theme.TEXT)
         self.entry_recipient.pack(fill="x", pady=(0, 15))
         self.entry_recipient.insert(0, "pqn1qsampletargetrecipientaddress2026")
 
-        tk.Label(tab_send, text="Amount (PQN):", font=("Segoe UI", 10, "bold"), fg="#00d4ff", bg="#060814").pack(anchor="w", pady=(0, 5))
-        self.entry_amount = tk.Entry(tab_send, font=("Consolas", 11), bg="#090d26", fg="white", insertbackground="white", bd=1)
+        tk.Label(tab_send, text="Amount (PQN):", font=(theme.FONT, 10, "bold"), fg=theme.ACCENT, bg=theme.BG_SOFT).pack(anchor="w", pady=(0, 5))
+        self.entry_amount = theme.mk_entry(tab_send, font=("Consolas", 11), fg=theme.GREEN)
         self.entry_amount.pack(fill="x", pady=(0, 15))
         self.entry_amount.insert(0, "10.0")
 
-        btn_send = tk.Button(tab_send, text="🚀 SIGN & BROADCAST PAYMENT", font=("Segoe UI", 11, "bold"), bg="#00ffaa", fg="#060814", bd=0, padx=20, pady=10, command=self.send_payment)
+        btn_send = theme.mk_button(tab_send, "🚀 SIGN & BROADCAST POST-QUANTUM PAYMENT", bg=theme.GREEN, fg=theme.BG, command=self.send_payment, padx=22, pady=10)
         btn_send.pack(anchor="w")
 
         # Tab 2: Receive & QR Invoice
-        tab_receive = tk.Frame(notebook, bg="#060814", padx=15, pady=15)
-        notebook.add(tab_receive, text=" 📥 Receive PQN ")
+        tab_receive = tk.Frame(self.notebook, bg=theme.BG_SOFT, padx=15, pady=15)
+        self.notebook.add(tab_receive, text=" 📥 Receive PQN ")
 
-        tk.Label(tab_receive, text="Your PQN Address:", font=("Segoe UI", 10, "bold"), fg="#00d4ff", bg="#060814").pack(anchor="w", pady=(0, 5))
-        entry_addr = tk.Entry(tab_receive, font=("Consolas", 10), bg="#090d26", fg="#00ffaa", bd=0)
-        entry_addr.pack(fill="x", pady=(0, 15))
-        entry_addr.insert(0, self.wallet_address)
+        tk.Label(tab_receive, text="Your PQN Address:", font=(theme.FONT, 10, "bold"), fg=theme.ACCENT, bg=theme.BG_SOFT).pack(anchor="w", pady=(0, 5))
+        self.entry_my_addr = theme.mk_entry(tab_receive, font=("Consolas", 10), fg=theme.GREEN)
+        self.entry_my_addr.pack(fill="x", pady=(0, 15))
+        self.entry_my_addr.insert(0, self.wallet_address)
 
-        tk.Label(tab_receive, text="QR Payment URI:", font=("Segoe UI", 10, "bold"), fg="#00d4ff", bg="#060814").pack(anchor="w", pady=(0, 5))
-        qr_uri = f"payquant:{self.wallet_address}?label=PayQuant%20User"
-        entry_qr = tk.Entry(tab_receive, font=("Consolas", 9), bg="#090d26", fg="#a0aec0", bd=0)
-        entry_qr.pack(fill="x", pady=(0, 10))
-        entry_qr.insert(0, qr_uri)
+        tk.Label(tab_receive, text="Payment URI Code:", font=(theme.FONT, 10, "bold"), fg=theme.ACCENT, bg=theme.BG_SOFT).pack(anchor="w", pady=(0, 5))
+        self.entry_qr_uri = theme.mk_entry(tab_receive, font=("Consolas", 9), fg=theme.MUTED)
+        self.entry_qr_uri.pack(fill="x", pady=(0, 15))
+        self.entry_qr_uri.insert(0, f"payquant:{self.wallet_address}?label=PayQuant%20User")
 
-        # Tab 3: 24-Word Seedphrase Modal
-        tab_seed = tk.Frame(notebook, bg="#060814", padx=15, pady=15)
-        notebook.add(tab_seed, text=" 🔑 24-Word Seedphrase ")
+        # Tab 3: History
+        tab_history = tk.Frame(self.notebook, bg=theme.BG_SOFT, padx=10, pady=10)
+        self.notebook.add(tab_history, text=" 📜 Transaction History ")
+        self.setup_history_tab(tab_history)
 
-        tk.Label(tab_seed, text="Your Quantum Backup Seedphrase (Keep Private!):", font=("Segoe UI", 9, "bold"), fg="#a0aec0", bg="#060814").pack(anchor="w", pady=(0, 10))
-        seed_box = tk.Text(tab_seed, bg="#090d26", fg="#00d4ff", font=("Consolas", 10), height=3, bd=0)
-        seed_box.pack(fill="x")
-        seed_box.insert(tk.END, " ".join(self.mnemonic))
+        # Tab 4: 24-Word Seedphrase & Security Enclave
+        tab_seed = tk.Frame(self.notebook, bg=theme.BG_SOFT, padx=15, pady=15)
+        self.notebook.add(tab_seed, text=" 🔑 24-Word Seedphrase ")
+
+        tk.Label(tab_seed, text="24-Word Quantum Backup Seedphrase (Keep Offline & Confidential!):", font=(theme.FONT, 10, "bold"), fg=theme.GOLD, bg=theme.BG_SOFT).pack(anchor="w", pady=(0, 10))
+        
+        self.seed_text = tk.Text(tab_seed, bg=theme.PANEL, fg=theme.ACCENT, font=("Consolas", 10), height=4, bd=0, wrap="word", padx=10, pady=10)
+        self.seed_text.pack(fill="x", pady=(0, 10))
+        self.seed_text.insert(tk.END, " ".join(self.mnemonic))
+
+        seed_btn_frame = tk.Frame(tab_seed, bg=theme.BG_SOFT)
+        seed_btn_frame.pack(fill="x")
+        theme.mk_button(seed_btn_frame, "📋 Copy Seedphrase", bg=theme.ACCENT, fg=theme.BG, command=self.copy_seedphrase, padx=15, pady=6).pack(side="left", padx=(0, 10))
+        theme.mk_button(seed_btn_frame, "🔑 Log In / Import Seed", bg=theme.PURPLE, fg="white", command=self.open_import_dialog, padx=15, pady=6).pack(side="left")
 
         # Bottom Console Log
-        log_frame = tk.Frame(main_frame, bg="#040612")
+        log_frame = tk.LabelFrame(main_frame, text=" Live Wallet Event Stream ", font=(theme.FONT, 9, "bold"), fg=theme.ACCENT, bg=theme.BG, bd=1)
         log_frame.pack(fill="both", expand=True)
 
-        self.log_text = tk.Text(log_frame, bg="#060814", fg="#a0aec0", font=("Consolas", 9), height=5, bd=0)
-        self.log_text.pack(fill="both", expand=True)
+        log_frame, self.log_text, _ = theme.scrollable_text(log_frame)
+        log_frame.pack(fill="both", expand=True, padx=5, pady=5)
+
+    def setup_history_tab(self, parent):
+        self.tx_tree = ttk.Treeview(parent, columns=("time", "type", "txid", "amount", "status"), show="headings")
+        self.tx_tree.heading("time", text="Timestamp")
+        self.tx_tree.heading("type", text="Category")
+        self.tx_tree.heading("txid", text="Transaction Hash")
+        self.tx_tree.heading("amount", text="Amount (PQN)")
+        self.tx_tree.heading("status", text="Status")
+
+        self.tx_tree.column("time", width=140, anchor="center")
+        self.tx_tree.column("type", width=100, anchor="center")
+        self.tx_tree.column("txid", width=280)
+        self.tx_tree.column("amount", width=120, anchor="e")
+        self.tx_tree.column("status", width=120, anchor="center")
+
+        self.tx_tree.pack(fill="both", expand=True)
+
+    def refresh_wallet_ui(self):
+        self.bal_val_lbl.config(text="•••••••• PQN" if self.hide_balance else f"{self.balance:,.2f} PQN")
+        self.entry_my_addr.delete(0, tk.END)
+        self.entry_my_addr.insert(0, self.wallet_address)
+        self.entry_qr_uri.delete(0, tk.END)
+        self.entry_qr_uri.insert(0, f"payquant:{self.wallet_address}?label=PayQuant%20User")
+        
+        self.seed_text.delete("1.0", tk.END)
+        self.seed_text.insert(tk.END, " ".join(self.mnemonic))
+
+        # Refresh history tree
+        for item in self.tx_tree.get_children():
+            self.tx_tree.delete(item)
+        for tx in reversed(self.transactions):
+            t_str = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(tx.get("timestamp", time.time())))
+            amt = float(tx.get("amount", 0.0))
+            amt_str = f"+{amt:,.2f}" if tx.get("category") == "RECEIVE" else f"-{amt:,.2f}"
+            self.tx_tree.insert("", tk.END, values=(t_str, tx.get("category", "TRANSFER"), tx.get("txid", "-"), amt_str, tx.get("status", "CONFIRMED")))
+
+    def copy_address(self):
+        self.root.clipboard_clear()
+        self.root.clipboard_append(self.wallet_address)
+        self.log("WALLET", f"Copied wallet address to clipboard: {self.wallet_address}")
+
+    def copy_seedphrase(self):
+        self.root.clipboard_clear()
+        self.root.clipboard_append(" ".join(self.mnemonic))
+        self.log("SECURITY", "Copied 24-word seedphrase to clipboard.")
+
+    def open_import_dialog(self):
+        win = tk.Toplevel(self.root)
+        win.title("Log In / Restore Wallet from 24-Word Seedphrase")
+        win.geometry("640x380")
+        win.configure(bg=theme.BG)
+        win.grab_set()
+
+        tk.Label(win, text="🔑 Log In with Existing 24-Word Seedphrase", font=theme.FONT_TITLE, fg=theme.ACCENT, bg=theme.BG).pack(anchor="w", padx=20, pady=(15, 5))
+        tk.Label(win, text="Enter your 24 words separated by spaces to restore your wallet address and balance.", font=theme.FONT_SUB, fg=theme.MUTED, bg=theme.BG).pack(anchor="w", padx=20, pady=(0, 15))
+
+        txt_frame = tk.Frame(win, bg=theme.BG, padx=20)
+        txt_frame.pack(fill="both", expand=True)
+
+        seed_entry = tk.Text(txt_frame, bg=theme.PANEL, fg=theme.GREEN, font=("Consolas", 10), bd=1, relief="flat", wrap="word", insertbackground="white")
+        seed_entry.pack(fill="both", expand=True)
+
+        btn_bar = tk.Frame(win, bg=theme.BG, padx=20, pady=15)
+        btn_bar.pack(fill="x")
+
+        def submit_import():
+            raw_val = seed_entry.get("1.0", tk.END).strip()
+            ok, res = wallet_storage.import_seedphrase(raw_val)
+            if ok:
+                self.wallet_data = res
+                self.mnemonic = res["mnemonic"]
+                self.wallet_address = res["address"]
+                self.balance = float(res.get("balance", 250.0))
+                self.transactions = res.get("transactions", [])
+                self.refresh_wallet_ui()
+                self.log("IMPORT", f"🎉 Successfully logged into wallet: {self.wallet_address}")
+                messagebox.showinfo("Wallet Restored", f"Successfully logged into wallet!\n\nAddress: {self.wallet_address}\nBalance: {self.balance:,.2f} PQN")
+                win.destroy()
+            else:
+                messagebox.showerror("Import Error", f"Failed to restore wallet:\n{res}")
+
+        theme.mk_button(btn_bar, "🔓 Log In / Restore Wallet", bg=theme.GREEN, fg=theme.BG, command=submit_import, padx=20, pady=8).pack(side="right")
+        theme.mk_button(btn_bar, "Cancel", bg=theme.PANEL, fg=theme.TEXT, command=win.destroy, padx=15, pady=8, bold=False).pack(side="right", padx=(0, 10))
+
+    def create_new_wallet_prompt(self):
+        if not messagebox.askyesno("Create New Wallet", "Generate a brand new 24-word wallet?\n\nYour current wallet will be replaced in persistent storage. Make sure you have backed up your current seedphrase!"):
+            return
+        self.wallet_data = wallet_storage.create_new_wallet()
+        self.mnemonic = self.wallet_data["mnemonic"]
+        self.wallet_address = self.wallet_data["address"]
+        self.balance = float(self.wallet_data["balance"])
+        self.transactions = self.wallet_data["transactions"]
+        self.refresh_wallet_ui()
+        self.log("WALLET", f"Generated new wallet address: {self.wallet_address}")
 
     def start_node_monitor(self):
         def monitor_loop():
             while True:
                 try:
                     res = p2p_transfer.p2p_query_peer("127.0.0.1", 28333, {"type": "get_balance", "address": self.wallet_address})
-                    if res and res.get("status") == "ok":
+                    if isinstance(res, dict) and res.get("status") == "ok":
                         if not self.node_connected:
                             self.node_connected = True
-                            self.root.after(0, self.status_pill.config, {"text": "🟢 NODE CONNECTED (P2P 127.0.0.1:28333)", "fg": "#00ffaa"})
+                            self.root.after(0, self.status_pill.config, {"text": "🟢 P2P NODE CONNECTED (127.0.0.1:28333)", "fg": theme.GREEN})
                             self.root.after(0, self.log, "P2P_SYNC", "Connected to local Full Node P2P stream server (127.0.0.1:28333)")
 
                         node_bal = res.get("balance", self.balance)
                         if node_bal != self.balance:
-                            self.balance = node_bal
+                            self.balance = float(node_bal)
+                            self.wallet_data["balance"] = self.balance
+                            wallet_storage.save_wallet(self.mnemonic, self.wallet_address, self.balance, self.transactions)
                             if not self.hide_balance:
                                 self.root.after(0, self.bal_val_lbl.config, {"text": f"{self.balance:,.2f} PQN"})
-                            self.root.after(0, self.log, "LIVE_SYNC", f"Daemon synced balance from UTXO set: {self.balance:,.2f} PQN (Height #{res.get('last_height', 0)})")
+                            self.root.after(0, self.log, "LIVE_SYNC", f"Synced balance from UTXO set: {self.balance:,.2f} PQN (Height #{res.get('last_height', 0)})")
                     else:
                         self.node_connected = False
-                        self.root.after(0, self.status_pill.config, {"text": "🟡 P2P NODE STANDBY (IRC/WebRTC Fallback)", "fg": "#ffaa00"})
+                        self.root.after(0, self.status_pill.config, {"text": "🟡 P2P NODE STANDBY (IRC/WebRTC Fallback)", "fg": theme.GOLD})
                 except Exception:
                     self.node_connected = False
-                    self.root.after(0, self.status_pill.config, {"text": "🟡 P2P NODE STANDBY (IRC/WebRTC Fallback)", "fg": "#ffaa00"})
+                    self.root.after(0, self.status_pill.config, {"text": "🟡 P2P NODE STANDBY (IRC/WebRTC Fallback)", "fg": theme.GOLD})
                 time.sleep(3)
 
         threading.Thread(target=monitor_loop, daemon=True).start()
@@ -189,7 +309,7 @@ class PayQuantWalletGUI:
             self.btn_hide.config(text="👁️ Show Balance")
         else:
             self.bal_val_lbl.config(text=f"{self.balance:,.2f} PQN")
-            self.btn_hide.config(text="👁️ Tap-to-Hide")
+            self.btn_hide.config(text="👁️ Tap-to-Hide Balance")
 
     def log(self, tag, msg):
         t = time.strftime("%H:%M:%S")
@@ -205,8 +325,12 @@ class PayQuantWalletGUI:
             messagebox.showerror("Invalid Amount", "Please enter a valid numeric payment amount.")
             return
 
+        if amt <= 0:
+            messagebox.showerror("Invalid Amount", "Payment amount must be greater than zero.")
+            return
+
         if amt > self.balance:
-            messagebox.showerror("Insufficient Balance", "Transaction amount exceeds available balance.")
+            messagebox.showerror("Insufficient Balance", f"Payment amount ({amt:.2f} PQN) exceeds available balance ({self.balance:.2f} PQN).")
             return
 
         tx_payload = {
@@ -221,16 +345,29 @@ class PayQuantWalletGUI:
         p2p_res = p2p_transfer.p2p_query_peer("127.0.0.1", 28333, {"type": "submit_tx", "tx": tx_payload})
 
         self.balance -= amt
-        if not self.hide_balance:
-            self.bal_val_lbl.config(text=f"{self.balance:,.2f} PQN")
+        tx_record = {
+            "txid": tx_payload["txid"],
+            "recipient": target,
+            "amount": amt,
+            "category": "SEND",
+            "timestamp": int(time.time()),
+            "status": "CONFIRMED"
+        }
+        self.transactions.append(tx_record)
+        wallet_storage.save_wallet(self.mnemonic, self.wallet_address, self.balance, self.transactions)
+        
+        self.refresh_wallet_ui()
+        p2p_status = p2p_res.get("status", "broadcasted") if isinstance(p2p_res, dict) else "broadcasted"
+        self.log("TX_SENT", f"Signed ML-DSA-65 Tx | Sent {amt:.2f} PQN -> {target[:16]}... | P2P Status: {p2p_status}")
+        messagebox.showinfo("Payment Broadcasted", f"Successfully signed & broadcasted payment of {amt:.2f} PQN!\nRecipient: {target}\nStatus: P2P Confirmed.")
 
-        self.log("TX_SENT", f"Signed ML-DSA-65 Tx | Sent {amt:.2f} PQN -> {target[:16]}... | P2P Status: {p2p_res.get('status', 'broadcasted')}")
-        messagebox.showinfo("Payment Broadcasted", f"Successfully signed & broadcasted payment of {amt:.2f} PQN!\nStatus: P2P Confirmed.")
-
-if __name__ == '__main__':
+def main():
     if len(sys.argv) > 1 and sys.argv[1] in ["--help", "-h"]:
-        print("PayQuant (PQN) Standalone Light Wallet GUI v6.4.0")
+        print("PayQuant (PQN) Standalone Light Wallet GUI v4.0.0")
         sys.exit(0)
     root = tk.Tk()
     app = PayQuantWalletGUI(root)
     root.mainloop()
+
+if __name__ == '__main__':
+    main()

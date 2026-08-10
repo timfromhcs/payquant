@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-PayQuant (PQN) Standalone GUI Miner Application v3.0.0
+PayQuant (PQN) Standalone GUI Miner Application v4.0.0
 One-Click RinHash GPU/CPU Miner with Wallet Address Input, Hashrate Analytics,
-Direct P2P Solo Mining (No Central Pools), and Real-Time Payout Tracking.
+Direct P2P Solo Mining (No Central Pools), and Real-Time Persistent Settings.
 """
 
 import sys
@@ -27,24 +27,27 @@ if getattr(sys, 'frozen', False):
 try:
     import contrib.p2p_chain_transfer as p2p_transfer
     import contrib.ui_theme as theme
+    import contrib.wallet_storage as wallet_storage
 except ModuleNotFoundError:
     import p2p_chain_transfer as p2p_transfer
     import ui_theme as theme
+    import wallet_storage as wallet_storage
 
-# FS-02-01 / FS-02-02: persistent miner settings (payout address, threads, intensity)
 sys.path.insert(0, os.path.join(BASE_DIR, "miner", "backend"))
 try:
     import config_manager as miner_cfg
 except Exception:
     miner_cfg = None
 
+
 class PayQuantMinerGUI:
     def __init__(self, root):
         theme.enable_hi_dpi(root)
         self.root = root
-        self.root.title("PayQuant (PQN) RinHash GPU/CPU Miner – v4.0.0")
-        self.root.geometry("840x600")
+        self.root.title("PayQuant (PQN) RinHash Solo Miner – v4.0.0")
+        self.root.geometry("880x640")
         self.root.configure(bg=theme.BG)
+        theme.set_app_icon(self.root, "payquant-miner.ico")
 
         self.is_mining = False
         self.threads_count = 4
@@ -54,9 +57,14 @@ class PayQuantMinerGUI:
         self.node_online = False
         self.node_height = 0
 
-        # FS-02-02: auto-load the saved payout address & settings on every launch
+        # Load saved miner config & default payout address from persistent wallet
         self.saved_cfg = miner_cfg.load_config() if miner_cfg else {}
         self.payout_address = str(self.saved_cfg.get("payout_address") or "").strip()
+        if not self.payout_address:
+            w = wallet_storage.load_wallet()
+            if w and w.get("address"):
+                self.payout_address = w["address"]
+
         if self.saved_cfg.get("threads"):
             self.threads_count = int(self.saved_cfg["threads"])
 
@@ -65,7 +73,7 @@ class PayQuantMinerGUI:
         if self.payout_address and self.addr_entry:
             self.addr_entry.delete(0, tk.END)
             self.addr_entry.insert(0, self.payout_address)
-            self.log("STARTUP", f"Loaded saved payout address: {self.payout_address[:16]}...")
+            self.log("STARTUP", f"Loaded payout address: {self.payout_address[:16]}...")
 
         self.log("STARTUP", "PayQuant RinHash Miner GUI v4.0.0 initializing...")
         self.log("HARDWARE", "CPU/GPU mining thread pool initialized (RinHash ASIC-Resistant PoW).")
@@ -74,11 +82,10 @@ class PayQuantMinerGUI:
         theme.configure_ttk(self.root)
 
         # Header
-        header = tk.Frame(self.root, bg=theme.HEADER, height=65)
+        header = tk.Frame(self.root, bg=theme.HEADER, height=75)
         header.pack(fill="x", side="top")
 
-        tk.Label(header, text="⚡ PayQuant Solo Miner", font=theme.FONT_TITLE, fg=theme.GREEN, bg=theme.HEADER).pack(side="left", padx=20, pady=10)
-
+        tk.Label(header, text="⚡ PayQuant Solo Miner", font=theme.FONT_TITLE, fg=theme.GOLD, bg=theme.HEADER).pack(side="left", padx=20, pady=10)
         tk.Label(header, text="RinHash ASIC-Resistant PoW | Solo P2P Payouts", font=theme.FONT_SUB, fg=theme.MUTED, bg=theme.HEADER).pack(side="left", pady=18)
 
         self.status_pill = tk.Label(header, text="🔴 MINER IDLE", font=(theme.FONT, 10, "bold"), fg=theme.MUTED, bg=theme.HEADER)
@@ -92,12 +99,12 @@ class PayQuantMinerGUI:
         addr_frame = tk.LabelFrame(main_frame, text=" Miner PQN Payout Address ", font=(theme.FONT, 10, "bold"), fg=theme.ACCENT, bg=theme.BG, bd=1, padx=10, pady=10)
         addr_frame.pack(fill="x", pady=(0, 15))
 
-        self.addr_entry = theme.mk_entry(addr_frame, font=("Consolas", 11), width=64)
+        self.addr_entry = theme.mk_entry(addr_frame, font=("Consolas", 11), width=60)
         self.addr_entry.insert(0, "pqn1qdefaultminerpayoutaddress2026")
         self.addr_entry.pack(side="left", fill="x", expand=True, padx=(0, 10))
 
         theme.mk_button(addr_frame, "📋 Paste", bg=theme.PANEL, fg=theme.ACCENT, command=self.paste_address, padx=12, pady=5).pack(side="right")
-        theme.mk_button(addr_frame, "↺ Reset", bg=theme.PANEL, fg=theme.RED, command=self.reset_seed_phrase, padx=12, pady=5).pack(side="right", padx=(0, 8))
+        theme.mk_button(addr_frame, "🔑 From Wallet", bg=theme.PANEL_2, fg=theme.GREEN, command=self.use_saved_wallet_addr, padx=10, pady=5).pack(side="right", padx=(0, 8))
 
         # Stats Cards
         stats_frame = tk.Frame(main_frame, bg=theme.BG)
@@ -109,15 +116,15 @@ class PayQuantMinerGUI:
         self.card_node = self.create_card(stats_frame, "Node Sync", "🔴 OFFLINE", theme.RED)
 
         # Thread Config & Big Toggle Button
-        ctrl_frame = tk.Frame(main_frame, bg=theme.BG)
+        ctrl_frame = tk.Frame(main_frame, bg=theme.PANEL, padx=15, pady=12)
         ctrl_frame.pack(fill="x", pady=(0, 15))
 
-        tk.Label(ctrl_frame, text="Mining Threads:", font=(theme.FONT, 10), fg=theme.TEXT, bg=theme.BG).pack(side="left", padx=(0, 10))
-        self.thread_slider = tk.Scale(ctrl_frame, from_=1, to=16, orient="horizontal", bg=theme.BG, fg=theme.ACCENT, highlightthickness=0, length=180)
-        self.thread_slider.set(4)
+        tk.Label(ctrl_frame, text="Mining Threads:", font=(theme.FONT, 10, "bold"), fg=theme.TEXT, bg=theme.PANEL).pack(side="left", padx=(0, 10))
+        self.thread_slider = tk.Scale(ctrl_frame, from_=1, to=16, orient="horizontal", bg=theme.PANEL, fg=theme.ACCENT, highlightthickness=0, length=200)
+        self.thread_slider.set(self.threads_count)
         self.thread_slider.pack(side="left", padx=(0, 20))
 
-        self.btn_toggle = tk.Button(ctrl_frame, text="▶ START MINING", font=(theme.FONT, 12, "bold"), bg=theme.GREEN, fg=theme.BG, bd=0, padx=25, pady=8, command=self.toggle_mining, cursor="hand2", activebackground=theme.GREEN, activeforeground=theme.BG)
+        self.btn_toggle = tk.Button(ctrl_frame, text="▶ START MINING", font=(theme.FONT, 11, "bold"), bg=theme.GREEN, fg=theme.BG, bd=0, padx=25, pady=8, command=self.toggle_mining, cursor="hand2")
         self.btn_toggle.pack(side="left")
 
         # Visual Log
@@ -140,34 +147,42 @@ class PayQuantMinerGUI:
 
     def paste_address(self):
         try:
-          text = self.root.clipboard_get()
-          if text:
-              self.addr_entry.delete(0, tk.END)
-              self.addr_entry.insert(0, text.strip())
-              self.log("WALLET", f"Pasted payout address: {text.strip()}")
+            text = self.root.clipboard_get()
+            if text:
+                self.addr_entry.delete(0, tk.END)
+                self.addr_entry.insert(0, text.strip())
+                self.log("WALLET", f"Pasted payout address: {text.strip()}")
         except Exception:
-          pass
+            pass
+
+    def use_saved_wallet_addr(self):
+        w = wallet_storage.load_wallet()
+        if w and w.get("address"):
+            self.addr_entry.delete(0, tk.END)
+            self.addr_entry.insert(0, w["address"])
+            self.log("WALLET", f"Loaded address from saved wallet: {w['address']}")
+        else:
+            messagebox.showinfo("No Saved Wallet", "No saved wallet found. Open Light Wallet to create or import one.")
 
     def toggle_mining(self):
         if self.is_mining:
             self.is_mining = False
-            self.status_pill.config(text="🔴 MINER IDLE", fg="#a0aec0")
-            self.btn_toggle.config(text="▶ START MINING", bg="#00ffaa", fg="#060814")
+            self.status_pill.config(text="🔴 MINER IDLE", fg=theme.MUTED)
+            self.btn_toggle.config(text="▶ START MINING", bg=theme.GREEN, fg=theme.BG)
             self.card_hashrate.config(text="0 H/s")
             self.log("MINER", "RinHash Mining Engine stopped.")
         else:
-            payout_addr = self.addr_entry.get().trim() if hasattr(self.addr_entry.get(), 'trim') else self.addr_entry.get().strip()
+            payout_addr = self.addr_entry.get().strip()
             if not payout_addr:
                 messagebox.showwarning("Address Required", "Please enter a valid PQN Wallet payout address.")
                 return
 
             self.is_mining = True
             self.threads_count = self.thread_slider.get()
-            self.status_pill.config(text="🟢 MINING ACTIVE", fg="#00ffaa")
-            self.btn_toggle.config(text="⏹ STOP MINING", bg="#ff0055", fg="white")
-            self.log("MINER", f"Started RinHash PoW Mining on {self.threads_count} threads -> Payout: {payout_addr}")
+            self.status_pill.config(text="🟢 MINING ACTIVE", fg=theme.GREEN)
+            self.btn_toggle.config(text="⏹ STOP MINING", bg=theme.RED, fg="white")
+            self.log("MINER", f"Started RinHash PoW Mining on {self.threads_count} threads -> Payout: {payout_addr[:16]}...")
 
-            # FS-02-01: persist the payout address & settings to disk
             try:
                 if miner_cfg:
                     current = miner_cfg.load_config()
@@ -175,41 +190,20 @@ class PayQuantMinerGUI:
                     current["threads"] = self.threads_count
                     current["intensity"] = self.thread_slider.get()
                     miner_cfg.save_config(current)
-                    self.log("CONFIG", "Saved payout address & mining settings to miner_config.json")
+                    self.log("CONFIG", "Saved payout address & settings to miner_config.json")
             except Exception as e:
                 self.log("WARN", f"Could not save config: {e}")
 
             threading.Thread(target=self.mining_loop, daemon=True).start()
 
-    def reset_seed_phrase(self):
-        if not messagebox.askyesno("Reset Seed Phrase", "Clear the saved payout address / seed phrase and mining stats?\n\nThe payout entry will be reset to default."):
-            return
-        try:
-            if miner_cfg:
-                current = miner_cfg.load_config()
-                current["payout_address"] = ""
-                miner_cfg.save_config(current)
-        except Exception as e:
-            self.log("WARN", f"Could not reset config: {e}")
-        self.addr_entry.delete(0, tk.END)
-        self.addr_entry.insert(0, "")
-        self.payout_address = ""
-        self.total_blocks_mined = 0
-        self.total_payout = 0.0
-        self.hashrate_hps = 0.0
-        self.update_mined_stats(0, "0.00 PQN")
-        self.card_hashrate.config(text="0 H/s")
-        self.log("RESET", "Payout address (seed) & mining stats cleared.")
-
     def update_node_status(self):
         status = "🟢 SYNCED" if self.node_online else "🔴 OFFLINE"
         detail = f"{status} · H#{self.node_height}" if self.node_online else status
-        self.card_node.config(text=detail, fg="#00ffaa" if self.node_online else "#ff0055")
+        self.card_node.config(text=detail, fg=theme.GREEN if self.node_online else theme.RED)
 
     def mining_loop(self):
         while self.is_mining:
             payout_addr = self.addr_entry.get().strip()
-            # Fetch Mining Job from P2P node
             job_res = p2p_transfer.p2p_query_peer("127.0.0.1", 28333, {
                 "type": "get_mining_job",
                 "miner_address": payout_addr
@@ -228,7 +222,6 @@ class PayQuantMinerGUI:
             target_height = job_res.get("height", self.node_height + 1)
             prev_hash = job_res.get("prev_hash", "000005ced0a90e5e4f39d7188fa1818fee45fef6e32018d0f5f4bb5c6626d818")
 
-            # Simulate RinHash GPU/CPU execution
             hashes_calculated = 0
             start_t = time.time()
 
@@ -236,23 +229,12 @@ class PayQuantMinerGUI:
                 if not self.is_mining:
                     break
                 hashes_calculated += 1
-                
-                # Check candidate hash
                 if nonce % 3000 == 0:
                     elapsed = max(0.001, time.time() - start_t)
                     self.hashrate_hps = (hashes_calculated / elapsed) * self.threads_count * 4.5
                     self.root.after(0, self.update_hashrate, f"{self.hashrate_hps:,.0f} H/s")
-                    try:
-                        if miner_cfg:
-                            current = miner_cfg.load_config()
-                            current["_hashrate"] = round(self.hashrate_hps, 2)
-                            current["_active"] = True
-                            miner_cfg.save_config(current)
-                    except Exception:
-                        pass
 
             if self.is_mining:
-                # Successfully mined block
                 block_hash = f"0000{hashlib.sha256(f'{target_height}_{time.time()}'.encode('utf-8')).hexdigest()[4:]}"
                 mined_block = {
                     "height": target_height,
@@ -282,7 +264,7 @@ class PayQuantMinerGUI:
                     err = submit_res.get("message") if isinstance(submit_res, dict) else "node timeout"
                     self.root.after(0, self.log, "WARN", f"Block submission rejected: {err}")
 
-            time.sleep(3)
+            time.sleep(2.5)
 
     def update_hashrate(self, text):
         self.card_hashrate.config(text=text)
@@ -292,12 +274,12 @@ class PayQuantMinerGUI:
         self.card_payout.config(text=payout)
 
 def main():
+    if len(sys.argv) > 1 and sys.argv[1] in ["--help", "-h"]:
+        print("PayQuant (PQN) Standalone RinHash Solo Miner GUI v4.0.0")
+        sys.exit(0)
     root = tk.Tk()
     app = PayQuantMinerGUI(root)
     root.mainloop()
 
 if __name__ == '__main__':
-    if len(sys.argv) > 1 and sys.argv[1] in ["--help", "-h"]:
-        print("PayQuant (PQN) Standalone RinHash Solo Miner GUI v6.4.0")
-        sys.exit(0)
     main()
