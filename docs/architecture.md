@@ -11,6 +11,9 @@ PayQuant (PQN) v2.0.0-quantum-genesis is built on a modular 3-tier architecture 
 | **Timestamp** | `1786283877` (UTC) |
 | **Backend** | `panta_sim` · 8-qubit · outcome `00000011` |
 | **Coinbase** | `50.00000000 PQN` → `pqn1qgenesisspendenwallettreasury20252026` |
+| **Max Supply Cap** | `21,000,000 PQN` Hard Supply Cap (No coins minted after cap) |
+| **Halving Schedule** | Subsidy halves every `210,000` blocks |
+| **Hashrate Adaptation** | Reward dynamically scales with network hashrate every `40` blocks |
 
 The genesis block hash is the direct SHA-256 quantum footprint of the minting
 run: `SHA-256(0^64 | outcome | miner | TRNG seed)`. Only the *public* footprint

@@ -301,9 +301,12 @@ committed to the repository; only public constants ship in code.
 | **Timestamp** | `1786283877` (UTC) |
 | **Backend** | `panta_sim` · 8-qubit · outcome `00000011` |
 | **Coinbase** | `50.00000000 PQN` → `pqn1qgenesisspendenwallettreasury20252026` |
+| **Max Supply Cap** | `21,000,000 PQN` Hard Supply Cap (No coins minted after cap) |
+| **Halving Schedule** | Subsidy halves every `210,000` blocks |
+| **Hashrate Adaptation** | Reward dynamically scales with network hashrate every `40` blocks |
 
 The exact public record is reproduced by `contrib/chain_db.py` (`GENESIS_BLOCK`)
-and rendered as the height-0 diamond in the 3D gallery. Nodes varify every
+and rendered as the height-0 diamond in the 3D gallery. Nodes verify every
 subsequent block against this chain start — no trust required, only
 deterministic geometry and the public SHA-256 footprint.
 

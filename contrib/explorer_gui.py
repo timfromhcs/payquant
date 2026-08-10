@@ -129,6 +129,8 @@ class PayQuantExplorerGUI:
         self.card_height = self.create_card(stats_frame, "Chain Height", "0", theme.ACCENT)
         self.card_hashrate = self.create_card(stats_frame, "Est. Network Hashrate", "38,500 H/s", theme.GREEN)
         self.card_peers = self.create_card(stats_frame, "Discovered Peers", "0 Nodes", theme.PURPLE)
+        self.card_supply = self.create_card(stats_frame, "Circulating / Max Cap", "0 / 21M PQN", theme.GOLD)
+        self.card_reward = self.create_card(stats_frame, "Current Reward", "50.0 PQN", theme.RED)
 
         # Result Display Area for Wallet Search
         self.search_result_frame = tk.LabelFrame(self.tab_overview, text=" Address Lookup & UTXO Audit ", font=(theme.FONT, 10, "bold"), fg=theme.ACCENT, bg=theme.BG, bd=1, padx=10, pady=10)
@@ -239,6 +241,14 @@ class PayQuantExplorerGUI:
     def update_explorer_ui(self, height, peer_count, peers_list, blocks):
         self.card_height.config(text=str(height))
         self.card_peers.config(text=f"{peer_count} Nodes")
+
+        try:
+            cur_reward = self.db.get_current_block_reward(height)
+            cur_supply = self.db.get_total_circulating_supply()
+            self.card_supply.config(text=f"{cur_supply:,.0f} / 21M PQN")
+            self.card_reward.config(text=f"{cur_reward:.2f} PQN")
+        except Exception:
+            pass
 
         # Update Blocks Tree
         for item in self.blocks_tree.get_children():

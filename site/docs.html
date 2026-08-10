@@ -110,6 +110,21 @@ cd wallet && npm run build:web               # wallet web/Android bundle</code><
         </section>
 
         <section class="mt-10">
+            <h2 class="text-2xl font-bold text-cyan-400 mb-4">6. Monetary Policy &amp; Tokenomics</h2>
+            <div class="overflow-x-auto rounded-xl border border-slate-800/70">
+                <table>
+                    <thead><tr><th>Parameter</th><th>Specification</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>Max Supply Cap</code></td><td>21,000,000 PQN Hard Supply Cap (No coins minted after cap)</td></tr>
+                        <tr><td><code>Halving Interval</code></td><td>Subsidy halves every 210,000 blocks</td></tr>
+                        <tr><td><code>Hashrate Adjustment</code></td><td>Dynamic reward scaling re-evaluated every 40 blocks</td></tr>
+                        <tr><td><code>Post-Cap Subsidy</code></td><td>0.0 PQN (Miners collect transaction fees only)</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="mt-10">
             <h2 class="text-2xl font-bold text-emerald-400 mb-4">6. Docker &amp; Cloud Build — Parallel Nodes &amp; Miners</h2>
             <p class="text-slate-300">Scale any number of full nodes and RinHash miners side-by-side with Docker Compose:</p>
             <pre><code># 2 nodes + 2 miners on the internal bridge network

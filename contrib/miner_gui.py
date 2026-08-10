@@ -256,10 +256,11 @@ class PayQuantMinerGUI:
                 self.root.after(0, self.update_node_status)
 
                 if submit_ok:
+                    job_reward = float(job_res.get("reward", 50.0)) if isinstance(job_res, dict) else 50.0
                     self.total_blocks_mined += 1
-                    self.total_payout += 50.0
+                    self.total_payout += job_reward
                     self.root.after(0, self.update_mined_stats, self.total_blocks_mined, f"{self.total_payout:,.2f} PQN")
-                    self.root.after(0, self.log, "BLOCK MINED", f"🎉 Mined Block #{target_height} ({block_hash[:16]}...) -> +50 PQN Payout!")
+                    self.root.after(0, self.log, "BLOCK MINED", f"🎉 Mined Block #{target_height} ({block_hash[:16]}...) -> +{job_reward:.2f} PQN Payout!")
                 else:
                     err = submit_res.get("message") if isinstance(submit_res, dict) else "node timeout"
                     self.root.after(0, self.log, "WARN", f"Block submission rejected: {err}")

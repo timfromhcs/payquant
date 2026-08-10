@@ -1,5 +1,6 @@
 # Build subdirectories
 build/
+build_dist/
 dist/*.exe
 cmake-build-debug/
 cmake-build-release/

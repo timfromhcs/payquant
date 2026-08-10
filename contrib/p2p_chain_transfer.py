@@ -195,11 +195,12 @@ class P2PProtocolHandler(socketserver.BaseRequestHandler):
                 miner_address = msg.get("miner_address", "pqn1qdefaultminerpayoutaddress2026")
                 best = db.getBestBlock()
                 next_height = db.getLastHeight() + 1
+                reward_amt = db.get_current_block_reward(next_height)
                 
                 coinbase_tx = {
                     "txid": hashlib.sha256(f"coinbase_{next_height}_{miner_address}".encode('utf-8')).hexdigest(),
                     "type": "POW_MINING_REWARD",
-                    "amount": "50.00000000 PQN",
+                    "amount": f"{reward_amt:.8f} PQN",
                     "recipient": miner_address,
                     "signature": "ML-DSA-65-COINBASE-PROOF"
                 }
@@ -211,6 +212,7 @@ class P2PProtocolHandler(socketserver.BaseRequestHandler):
                     "type": "send_mining_job",
                     "status": "ok",
                     "height": next_height,
+                    "reward": reward_amt,
                     "prev_hash": best["hash"],
                     "miner_address": miner_address,
                     "target": "00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",

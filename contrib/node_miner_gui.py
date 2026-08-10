@@ -275,16 +275,17 @@ class PayQuantNodeMinerGUI:
                     self.root.after(0, self.card_hashrate.config, {"text": f"{self.hashrate_hps:,.0f} H/s"})
 
             if self.is_mining:
+                reward_amt = self.db.get_current_block_reward(target_h, self.hashrate_hps)
                 self.total_blocks_mined += 1
-                self.total_payout += 50.0
+                self.total_payout += reward_amt
                 block_hash = f"0000{hashlib.sha256(f'{target_h}_{time.time()}'.encode('utf-8')).hexdigest()[4:]}"
                 
-                self.db.addBlock(block_hash, {"height": target_h, "miner": payout_addr, "reward": 50.0, "timestamp": int(time.time())})
+                self.db.addBlock(block_hash, {"height": target_h, "miner": payout_addr, "reward": reward_amt, "timestamp": int(time.time())})
                 
                 self.root.after(0, self.card_blocks.config, {"text": str(target_h)})
                 self.root.after(0, self.card_mined.config, {"text": f"{self.total_blocks_mined} Blocks"})
                 self.root.after(0, self.card_rewards.config, {"text": f"{self.total_payout:,.2f} PQN"})
-                self.root.after(0, self.log_miner, "BLOCK_FOUND", f"Mined Block #{target_h}! Hash: {block_hash[:16]}... Reward: 50.00 PQN -> {payout_addr[:16]}...")
+                self.root.after(0, self.log_miner, "BLOCK_FOUND", f"Mined Block #{target_h}! Hash: {block_hash[:16]}... Reward: {reward_amt:.2f} PQN -> {payout_addr[:16]}...")
                 time.sleep(2)
 
 def main():

@@ -194,6 +194,7 @@ class PayQuantNodeGUI:
         self.log("STARTUP", "PayQuant Full Node GUI v4.0.0 initializing...")
         self.log("STORAGE", f"RocksDB Persistent Engine loaded at: {self.db.db_file}")
         self.log("SECURITY", "NIST FIPS 204 ML-DSA-65 signature validator online.")
+        self.log("CONSENSUS", "21,000,000 PQN Max Cap | 210,000 Block Halvings | 40-Block Hashrate-Adaptive Rewards")
 
         p2p_port = self.cfg.get("p2p_port", 28333)
         p2p_transfer.start_p2p_server(p2p_port)

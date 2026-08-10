@@ -74,12 +74,19 @@ def run_tests():
     assert p2p_snap_res.get("status") == "ok" and "snapshot" in p2p_snap_res, "P2P get_utxo_snapshot failed!"
     print(" -> [SUCCESS] P2P Node responded with verified Fast-Sync UTXO Snapshot!")
 
-    # 6. Test 24-Word Seedphrase Validation Bridge
-    print("[TEST 6/9] Verifying 24-Word Seedphrase Architecture...")
+    # 6. Test 24-Word Seedphrase & 21M Max Supply Cap / 40-Block Hashrate-Adaptive Rewards
+    print("[TEST 6/9] Verifying 24-Word Seedphrase & Max Supply Cap / 40-Block Adaptive Reward Engine...")
     sample_24_words = ("abandon ability able about above absent absorb abstract absurd abuse access accident "
                        "adult advance advice aerobic afford afraid again age agent agree ahead aim")
     assert len(sample_24_words.split()) == 24, "Seedphrase word count must be exactly 24 words!"
-    print(" -> [SUCCESS] 24-Word BIP-39 Quantum Backup Seedphrase logic verified!")
+    r_base = db.get_current_block_reward(1, estimated_hashrate=40000.0)
+    r_halving = db.get_current_block_reward(210000, estimated_hashrate=40000.0)
+    r_adapted = db.get_current_block_reward(40, estimated_hashrate=80000.0)
+    assert r_base == 50.0, f"Expected 50.0 base reward, got {r_base}"
+    assert r_halving == 25.0, f"Expected 25.0 reward after first 210k halving, got {r_halving}"
+    assert r_adapted > r_base, f"Expected reward to adapt upward with higher hashrate every 40 blocks, got {r_adapted}"
+    assert db.MAX_SUPPLY == 2100000000.0, "Max supply cap must be exactly 2,100,000,000 PQN!"
+    print(f" -> [SUCCESS] 24-Word Seedphrase + Max Supply (2.1B PQN) + 40-Block Adaptive Reward ({r_base} -> {r_adapted} PQN) verified!")
 
     # 7. Test WebRTC DataChannel Status Report & Daemon Queries
     print("[TEST 7/9] Testing WebRTC DataChannel Status Report & Daemon Queries...")

@@ -191,12 +191,60 @@ class PersistentChainDB:
             print(f"[RocksDB Recovery Warning] Corrupted state detected: {e}. Recovering...")
             return False
 
-    def get_current_block_reward(self, height):
-        """Calculates dynamic block reward with halving every 210,000 blocks"""
-        halvings = height // 210000
+    MAX_SUPPLY = 2100000000.0  # 2.1 Billion PQN Hard Max Supply Cap
+    HALVING_INTERVAL = 210000
+    HASHRATE_ADJUSTMENT_INTERVAL = 40
+
+    def get_total_circulating_supply(self, height=None):
+        """Calculates total circulating supply in PQN based on block height emission."""
+        if height is None:
+            height = self.getLastHeight()
+        if height <= 0:
+            return 50.0
+        
+        halvings = height // self.HALVING_INTERVAL
+        full_halvings_coins = 0.0
+        for i in range(min(halvings, 64)):
+            full_halvings_coins += self.HALVING_INTERVAL * (50.0 / (2 ** i))
+        
+        rem_blocks = height % self.HALVING_INTERVAL
+        rem_coins = rem_blocks * (50.0 / (2 ** min(halvings, 63)))
+        total = 50.0 + full_halvings_coins + rem_coins
+        return min(self.MAX_SUPPLY, total)
+
+    def get_current_block_reward(self, height, estimated_hashrate=None):
+        """
+        Calculates dynamic block reward with:
+         1. Hard Max Supply Cap (2,100,000,000 PQN)
+         2. Halvings every 210,000 blocks
+         3. Network Hashrate adaptation evaluated every 40 blocks
+        """
+        if height <= 0:
+            return 50.0
+
+        current_supply = self.get_total_circulating_supply(height - 1)
+        if current_supply >= self.MAX_SUPPLY:
+            return 0.0
+
+        # Base Halving Schedule (halves every 210,000 blocks)
+        halvings = height // self.HALVING_INTERVAL
         if halvings >= 64:
             return 0.0
-        return 50.0 / (2 ** halvings)
+        base_reward = 50.0 / (2 ** halvings)
+
+        # Hashrate Adaptation evaluated per 40-block window
+        window_40 = height // self.HASHRATE_ADJUSTMENT_INTERVAL
+        target_hashrate = 40000.0
+        if estimated_hashrate is None or float(estimated_hashrate) <= 0:
+            estimated_hashrate = 40000.0
+
+        # Scaling factor clamped between 0.25x and 2.0x
+        scaling = max(0.25, min(2.0, float(estimated_hashrate) / target_hashrate))
+        adapted_reward = round(base_reward * scaling, 8)
+
+        # Enforce Hard Supply Cap
+        remaining = max(0.0, self.MAX_SUPPLY - current_supply)
+        return round(min(adapted_reward, remaining), 8)
 
     def get_adaptive_difficulty_target(self, height):
         """Calculates adaptive difficulty target based on block height and frequency"""
