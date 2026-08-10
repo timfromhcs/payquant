@@ -4,8 +4,10 @@ import os
 token = os.environ.get('GITHUB_TOKEN') or os.environ.get('GH_TOKEN', '')
 release_id = '367283041'
 assets = [
-    ('payquant-1.0.0-win64-setup.exe', 'release_dist/payquant-1.0.0-win64-setup.exe', 'application/octet-stream'),
-    ('payquant-1.0.0-win64.zip', 'release_dist/payquant-1.0.0-win64.zip', 'application/zip')
+    ('payquant-v4.0.0-windows.zip', 'release_dist/payquant-v4.0.0-windows.zip', 'application/zip'),
+    ('payquant-v4.0.0-macos.zip', 'release_dist/payquant-v4.0.0-macos.zip', 'application/zip'),
+    ('payquant-v4.0.0-linux.zip', 'release_dist/payquant-v4.0.0-linux.zip', 'application/zip'),
+    ('payquant-v4.0.0-android.zip', 'release_dist/payquant-v4.0.0-android.zip', 'application/zip')
 ]
 
 if token:
